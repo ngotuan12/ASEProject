@@ -18,3 +18,13 @@ class UserLogin(Document):
 	meta = {
 		'ordering': ['-published_date']
 	}
+class MentorPost(Document):
+	title = StringField()
+	published_date = DateTimeField(default=datetime.now)
+	user_id = ReferenceField(User)
+	imagelink = StringField()
+	Content = StringField()
+	meta = {
+			'ordering': ['-published_date']
+ }
+	

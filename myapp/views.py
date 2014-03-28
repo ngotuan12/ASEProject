@@ -7,21 +7,23 @@ from django.shortcuts import render
 from django.shortcuts import render_to_response
 from mongoengine.django.auth import User
 import mongoengine
-from myapp.models import UserLogin
+from myapp.models import UserLogin, MentorPost
 
 
 # ...
 #from myapp.models import BlogPost
 def index(request):
-	
+	#collection.setObjectClass(MentorPost.class);
 	#blog = BlogPost(title="abc")
 	#blog.published_date = datetime(2014,1,6,0,0,0)
 	#blog.save()
 	#for blog in BlogPost.objects:
 		#print(blog.title)
 	#return HttpResponse(BlogPost.objects);
-	
-	context = {}
+	posts = MentorPost.objects
+	for post in posts:
+		print(post.user_id.username)
+	context = {'posts':posts,}
 	return render(request, 'myapp/index.html', context)
 def profile(request):
 	context = {}
@@ -30,7 +32,10 @@ def people(request):
 	context = {}
 	return render(request, 'myapp/people-directory.html', context)
 def blogSingle(request):
-	context = {}
+	post_id = request.GET['post_id']
+	post = MentorPost.objects.get(id=post_id)
+	
+	context = {'content':post.Content,}
 	return render(request, 'myapp/blog-single.html', context)
 def signin(request):
 	username = ""
