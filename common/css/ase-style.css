@@ -1,0 +1,11 @@
+@CHARSET "ISO-8859-1";
+@media screen and (max-width: 767px)
+{
+	.signinpanel .signin-info{
+	   display: none;
+	}
+
+	.signuppanel .signup-info {
+	   display: none;
+	}
+}

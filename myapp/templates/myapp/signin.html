@@ -10,6 +10,7 @@
 <title>Ex-artisan Admin System</title>
 
 <link href="css/style.default.css" rel="stylesheet">
+<link href="css/ase-style.css" rel="stylesheet">
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -32,15 +33,15 @@
 		<div class="signinpanel">
 
 			<div class="row">
-
+				<div class="logopanel">
+					<h1>
+						<span></span> Adult social education <span></span>
+					</h1>
+				</div>
 				<div class="col-md-7">
 
 					<div class="signin-info">
-						<div class="logopanel">
-							<h1>
-								<span>[</span> ASE <span>]</span>
-							</h1>
-						</div>
+						
 						<!-- logopanel -->
 
 						<div class="mb20"></div>
@@ -49,9 +50,11 @@
 							<strong>Welcome to Adult social education system!</strong>
 						</h5>
 						<ul>
+							<li><i class="fa fa-arrow-circle-o-right mr5"></i> Connect friends</li>
+							<li><i class="fa fa-arrow-circle-o-right mr5"></i> Share ideas</li>
 						</ul>
 						<div class="mb20"></div>
-						<strong>Not a member? <a href="signup">Sign Up</a></strong>
+						
 					</div>
 					<!-- signin0-info -->
 
@@ -59,7 +62,6 @@
 				<!-- col-sm-7 -->
 
 				<div class="col-md-5">
-
 					<form method="POST">
 						{% csrf_token %}
 						<h4 class="nomargin">Sign In</h4>
@@ -67,7 +69,9 @@
 
 						<input type="text" name="txtUserName" class="form-control uname" placeholder="Username" value="{{username}}"/> 
 						<input type="password" name="txtPassWord" class="form-control pword" placeholder="Password" value="{{password}}"/>
-							<a href="#"><small>Forgot Your Password?</small></a> 
+							<a href="#"><small>Forgot Your Password?</small></a>
+							<br>
+							Not a member? <strong><a href="signup">Sign Up</a></strong> 
 								{% if error_message %}
 									<label for="" class="error">{{error_message}}</label>
 								{% endif %} 
@@ -78,7 +82,7 @@
 
 			</div>
 			<!-- row -->
-
+			
 			<div class="signup-footer">
 				<div class="pull-left">&copy; 2014. All Rights Reserved.
 					</div>

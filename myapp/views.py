@@ -24,7 +24,7 @@ def index(request):
 	for post in posts:
 		print(post.user_id.username)
 	context = {'posts':posts,}
-	return render(request, 'myapp/index.html', context)
+	return render(request, 'myapp/general-forms.html', context)
 def profile(request):
 	context = {}
 	return render(request, 'myapp/profile.html', context)
@@ -76,10 +76,9 @@ def signup(request):
 	lastname = "";
 	username = "";
 	password = "";
-	passwordConfirm = "";
 	email = "";
 	if request.method == 'GET':
-		return render(request, 'myapp/signup.html', {})
+		return render(request, 'myapp/signup.html', {'rangerDay':range(1,32),'rangerYear':range(2014,1905,-1),})
 	elif request.method == 'POST':
 		try:
 			#parameter
@@ -87,20 +86,17 @@ def signup(request):
 			lastname = request.POST['txtLastName']
 			username = request.POST['txtUserName']
 			password = request.POST['txtPassWord']
-			passwordConfirm = request.POST['txtPassWordConfirm']
 			email= request.POST['txtEmail']
 			if str(firstname).strip() == "":
-				return getSignupError(request,'First name can not be empty!',firstname,lastname,username,password,passwordConfirm,email)
+				return getSignupError(request,'First name can not be empty!',firstname,lastname,username,password,email)
 			elif str(lastname).strip() == "":
-				return getSignupError(request,'Last name can not be empty!',firstname,lastname,username,password,passwordConfirm,email)
+				return getSignupError(request,'Last name can not be empty!',firstname,lastname,username,password,email)
 			elif str(username).strip() == "":
-				return getSignupError(request,'User name can not be empty!',firstname,lastname,username,password,passwordConfirm,email)
+				return getSignupError(request,'User name can not be empty!',firstname,lastname,username,password,email)
 			elif str(password).strip() == "":
-				return getSignupError(request,'Pass word can not be empty!',firstname,lastname,username,password,passwordConfirm,email)
-			elif password != passwordConfirm:
-				return getSignupError(request,'Pass word does not match!',firstname,lastname,username,password,passwordConfirm,email)
+				return getSignupError(request,'Pass word can not be empty!',firstname,lastname,username,password,email)
 			elif str(email).strip() == "":
-				return getSignupError(request,'Email can not be empty!',firstname,lastname,username,password,passwordConfirm,email)
+				return getSignupError(request,'Email can not be empty!',firstname,lastname,username,email)
 			#insert new user
 			user = User()
 			user.username = username
@@ -114,20 +110,21 @@ def signup(request):
 			login(request, user)
 			return HttpResponseRedirect('/home')
 		except mongoengine.errors.ValidationError as ex:
-			return getSignupError(request,str(ex.errors['email']),firstname,lastname,username,password,passwordConfirm,email)
+			return getSignupError(request,str(ex.errors['email']),firstname,lastname,username,password,email)
 		except mongoengine.errors.NotUniqueError as e:
-			return getSignupError(request,'User has already exists!',firstname,lastname,username,password,passwordConfirm,email)
+			return getSignupError(request,'User has already exists!',firstname,lastname,username,password,email)
 		except Exception as e:
-			return getSignupError(request,str(e),firstname,lastname,username,password,passwordConfirm,email)
-def getSignupError(request,e,firstname,lastname,username,password,passwordConfirm,email):
+			return getSignupError(request,str(e),firstname,lastname,username,password,email)
+def getSignupError(request,e,firstname,lastname,username,password,email):
 	c = {
 			'error_message':e,
 			'firstname':firstname,
 			'lastname':lastname,
 			'username':username,
 			'password':password,
-			'passwordConfirm':passwordConfirm,
 			'email':email,
+			'rangerDay':range(1,31),
+			'rangerYear':range(2014,1905,-1),
 		}
 	c.update(csrf(request))
 	return render_to_response("myapp/signup.html", c)
