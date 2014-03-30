@@ -45,7 +45,8 @@ def mentorpost(request):
 		Amazonlink = request.POST['txtAmazonlink']
 		Content = request.POST['txtContent']
 		IsLecture=request.POST['slPostType']
-		user_id = request.session['_auth_user_id']
+		user_id = User.objects.get(id=request.session['_auth_user_id'])
+		print(user_id)
 		mp = MentorPost()
 		mp.title=Title
 		mp.imagelink=Imagelink
@@ -53,12 +54,9 @@ def mentorpost(request):
 		mp.content=Content
 		mp.user_id=user_id
 		mp.is_lecture=IsLecture
+		mp.status="1"
 		mp.save()
-		post = MentorPost.objects.get(id=post_id)
-		comments = CommentPost.objects(post_id=post_id).all()
-		c = {'post':post,'comments':comments,}
-		c.update(csrf(request))
-		return render_to_response("myapp/blog-single.html", c)
+		return HttpResponseRedirect('/home')
 def blogSingle(request):
 	if request.method == 'GET':
 		vpost_id = request.GET['post_id']
