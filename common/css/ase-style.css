@@ -9,3 +9,9 @@
 	   display: none;
 	}
 }
+.leftpanel{
+		display: none;
+}
+.mainpanel{
+	margin: 0px;
+}

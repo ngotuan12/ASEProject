@@ -1,8 +1,15 @@
+import os
+
+from django.conf import settings
 from django.conf.urls import patterns, include, url
 
 from myapp import views
 
-from django.conf import settings
+
+dirx = str(os.path.dirname(__file__))
+print(os.path.abspath(os.path.dirname(__file__)))
+print(os.pardir+'/common')
+print(os.path.abspath(os.path.join(os.path.dirname(__file__),os.pardir))+"/common")
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
@@ -10,15 +17,16 @@ urlpatterns = patterns('',
                        url(r'^$', views.signin),
                        url(r'^home$', views.index),
                        url(r'^index$', views.index),
-#                        url(r'^blog-single/(?P<post_id>\d+)$', views.blogSingle, name='detail'),
                         url(r'^blog-single$', views.blogSingle, name='blog-single'),
                        url(r'^signin$', views.signin, name='signin'),
                        url(r'^profile$', views.profile, name='profile'),
                        url(r'^signup$', views.signup, name='signup'),
                        url(r'^people-directory$', views.people),
+                       url(r'^create-profile$', views.createProfile),
+                       url(r'^update-profile$', views.updateProfile),
                        url(regex  = r'^%s(?P<path>.*)$' % settings.STATIC_URL[1:], 
     view   = 'django.views.static.serve', 
-    kwargs = {'document_root': 'D:/Dev/SourceCode/ASEProject/common',
+    kwargs = {'document_root': os.path.abspath(os.path.join(os.path.dirname(__file__),os.pardir))+"/common",
               'show_indexes' : True})
     # Examples:
     # url(r'^$', 'AseProjec.views.home', name='home'),
