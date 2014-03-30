@@ -279,16 +279,17 @@
 
 
 
-	<script src="js/jquery-1.10.2.min.js"></script>
-	<script src="js/jquery-migrate-1.2.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/modernizr.min.js"></script>
-	<script src="js/jquery.sparkline.min.js"></script>
-	<script src="js/toggles.min.js"></script>
-	<script src="js/retina.min.js"></script>
-	<script src="js/jquery.cookies.js"></script>
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/jquery.cookies.js"></script>
 
-	<script src="js/custom.js"></script>
-
+{% block scripts %}
+<script src="js/custom.js"></script>
+{% endblock %}
 </body>
 </html>

@@ -161,6 +161,12 @@ def signup(request):
 			return getSignupError(request,'User has already exists!',firstname,lastname,username,password,email)
 		except Exception as e:
 			return getSignupError(request,str(e),firstname,lastname,username,password,email)
+def createProfile(request):
+	context = {}
+	return render(request, 'myapp/create-profile.html', context)
+def updateProfile(request):
+	context = {}
+	return render(request, 'myapp/create-profile-update.html', context)
 def getSignupError(request,e,firstname,lastname,username,password,email):
 	c = {
 			'error_message':e,
