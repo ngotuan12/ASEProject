@@ -311,7 +311,7 @@
 							<div class="btn-group">
 								<button type="button" class="btn btn-default dropdown-toggle"
 									data-toggle="dropdown">
-									<img src="images/photos/loggeduser.png" alt=""> John Doe
+									<img src="images/photos/loggeduser.png" alt=""> {{user}}
 									<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu dropdown-menu-usermenu pull-right">
@@ -333,20 +333,6 @@
 			</div>
 			<!-- headerbar -->
 
-			<div class="pageheader">
-				<h2>
-					<i class="fa fa-file-text"></i> Home <span>Read our latest
-						news...</span>
-				</h2>
-				<div class="breadcrumb-wrapper">
-					<span class="label">You are here:</span>
-					<ol class="breadcrumb">
-						<li class="active">Home</li>
-						<li class="active">: {{username}}</li>
-					</ol>
-				</div>
-			</div>
-
 			<div class="contentpanel">
 
 				<div id="bloglist" class="row"
@@ -355,19 +341,19 @@
 					<div class="col-xs-6 col-sm-4 col-md-3"
 						style="position: absolute; left: 0px; top: 0px;">
 						<div class="blog-item">
-							<a href="blog-single" class="blog-img"><img
-								src="images/photos/blog1.jpg" class="img-responsive" alt=""></a>
-							<div class="blog-details">
-								<h4 class="blog-title">
-									<a href="#">{{ post.title }}</a>
+							<a href="blog-single?post_id={{ post.id }}" class="blog-img">
+							<img src="{{ post.imagelink}}" class="img-responsive" alt=""></a>
+							<div class="blog-details">								
+								<h4 class="blog-title">									
+									<a href = "blog-single?post_id={{ post.id }}" >{{ post.title }}</a>
 								</h4>
 								<ul class="blog-meta">
 									<li>By: <a href="profile?user_id={{ post.user_id.id }}">{{ post.user_id.username }}</a></li>
-									<li>Jan 03, 2014</li>
+									<li>{{ post.published_date }}</li>
 									<li><a href="#">2 Comments</a></li>
 								</ul>
-								<div class="blog-summary">
-									<p>{{ post.Content }}</p>
+								<div class="blog-summary" style="text-align: justify;">
+									<p>{{ post.content }}</p>
 									<a href = "blog-single?post_id={{ post.id }}" ><button class="btn btn-sm btn-white">Read More</button></a>
 								</div>
 							</div>

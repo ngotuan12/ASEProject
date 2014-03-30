@@ -21,9 +21,14 @@ class UserLogin(Document):
 class MentorPost(Document):
 	title = StringField()
 	published_date = DateTimeField(default=datetime.now)
+	from_date = DateTimeField(default=datetime.now)
+	to_date = DateTimeField(default=datetime.now)
 	user_id = ReferenceField(User)
 	imagelink = StringField()
+	amazonlink= StringField()
 	content = StringField()
+	is_lecture=StringField(default=0)
+	status=StringField(default=1)
 	meta = {
 			'ordering': ['-published_date']
  }
@@ -35,32 +40,35 @@ class CommentPost(Document):
 	meta = {
 			'ordering': ['-published_date']
  }
-class UserType(Document):	
-	type_name= StringField()
+class UserType(Document):
+	user_type= StringField()
 	create_date = DateTimeField(default=datetime.now)
-	status = int(2)
+	status = int()
 	meta = {
 			'ordering': ['-create_date']
  }
-class workfield(Document):	
-	workfield= StringField()
+class JobTitle(Document):
+	code= StringField()
+	name= StringField()
 	create_date = DateTimeField(default=datetime.now)
-	status = int(2)
-	meta = {
-			'ordering': ['-create_date']
- }
+	status = int()
+class WorkFeild(Document):
+	code= StringField(max_length=5)
+	name = StringField()
+	status = int()
 class UserProfile(Document):
-	user_id = ReferenceField(User)
-	imagelink = StringField()
+	user_id = ReferenceField(User)	
 	user_type = ReferenceField(UserType)
 	job_title = StringField()
+	imagelink = StringField(default="images/photos/user.png")
 	company = StringField()
-	work_field = ReferenceField(workfield)
+	work_field = ReferenceField(WorkFeild)
 	edu = StringField()
 	skill = StringField()
 	create_date = DateTimeField(default=datetime.now)
-	status = int(2)
+	status = int()
+	about = StringField()
 	meta = {
 			'ordering': ['-published_date']
- }
+			}
 	

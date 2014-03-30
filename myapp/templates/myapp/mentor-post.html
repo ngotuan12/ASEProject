@@ -10,6 +10,7 @@
 <title>Ex-artisan Admin System</title>
 
 <link href="css/style.default.css" rel="stylesheet">
+<link rel="stylesheet" href="css/bootstrap-timepicker.min.css" />
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -121,8 +122,8 @@
 
 			<div class="leftpanelinner">
 
-				
-				
+
+
 				<ul class="nav nav-pills nav-stacked nav-bracket">
 					<li class=""><a href="index"><i class="fa fa-home"></i> <span>Home</span></a></li>
 
@@ -220,13 +221,13 @@
 
 		<div class="mainpanel">
 
-			<div class="headerbar" >
+			<div class="headerbar">
 
 
 				<a class="menutoggle"><i class="fa fa-bars"></i></a>
 				<div class="header-right">
 					<ul class="headermenu">
-						
+
 						<li>
 							<div class="btn-group">
 								<button class="btn btn-default dropdown-toggle tp-icon"
@@ -238,11 +239,15 @@
 									<ul class="dropdown-list user-list">
 										<li class="new">
 											<div class="thumb">
-												<button class="btn btn-white"> <i class="fa fa-dollar"></i> New Post</button>
+												<button class="btn btn-white">
+													<i class="fa fa-dollar"></i> New Post
+												</button>
 											</div>
 											<div class="desc">
 												<h5>
-													<button class="btn btn-white"> <i class="fa fa-dollar"></i> New Post</button>
+													<button class="btn btn-white">
+														<i class="fa fa-dollar"></i> New Post
+													</button>
 												</h5>
 											</div>
 										</li>
@@ -427,88 +432,41 @@
 
 			</div>
 			<!-- headerbar -->
-			<div style="margin-left:2%;margin-right: 2%;margin-top: 1% "><span class="badge badge-success">+ NEW POST</span></div>
-			<div class="contentpanel">
-
-				<div>
-					<div>
-
-						<div class="panel panel-default panel-blog">
-							<div class="panel-body" >
-
-								<ul class="blog-meta" >
-								<li><a href="index"><i class="fa fa-home" style="font-size: 22px;"></i></a></li>
-								<li><h3 class="blogsingle-title">{{ post.title }}</h3></li>
-								</ul>
-
-								<ul class="blog-meta">
-									<li>By: <a href="profile?user_id={{ post.user_id.id }}">{{ post.user_id.username }}</a></li>
-									<li>{{ post.published_date }}</li>
-								</ul>
-
-								<br>
-								<div style="text-align: justify; margin: 20px 0px;">
-									<div style="float: left; margin: 0px 10px 3px 0px;">
-										<img src="{{ post.imagelink}}">
-									</div>
-									<span>{{ post.content }}</span>
-								</div>
+			<div class="contentpanel" style="margin-left: 10%;margin-right: 10%">
+				<!-- panel -->
+				<div class="col-md-10">
+				<form method="post">
+					{% csrf_token %} <input type="hidden" name="hd_post_id"
+						value="{{ post.id }}">
+						<label class="control-label">Select your post type:</label>
+						<div class="row mb10">
+							<div class="col-sm-3" style="width: 40%; float: left;">
+								<select class="form-control chosen-select" name="slPostType">
+									<option value="0" selected>As Lecture</option>
+									<option value="1">As Post</option>
+								</select>
 							</div>
-							<!-- panel-body -->
 						</div>
-						<!-- panel -->
-
-						<div class="mb30"></div>
-						<button class="btn btn-success mr5"><i class="fa fa-user"></i> Follow</button>
-						<button class="btn btn-white"> <a href="{{ post.amazonlink }}"><i class="fa fa-dollar"></i> Buy book</a></button>
-						<div class="mb30"></div>
-						<h5 class="subtitle">{{ Comments.lenght }} Comments</h5>
-						<div class="mb30"></div>
-						<ul class="media-list comment-list">
-						{% for cmt in comments %}
-						{% if cmt.user_id.username == "cuongnm" %}
-						<li class="media" style="background-color: #ffffff;color:#1D2939">
-								<div style="text-align: left; margin: 10px 0px;">
-									<div style="float: left; margin: 0px 0px 3px 10px; margin-left: 2%;margin-right: 2%;">
-										<a href="profile?user_id={{ cmt.user_id }}"><img src="images/photos/shimizu_small.jpg"></a>
-									</div>
-									<h4> <a href="profile?user_id={{ cmt.user_id }}">{{cmt.user_id.username}}</a> - Since:{{cmt.create_date}}</h4>
-									<div style="margin-right: 15%;margin-left:10%; text-align: justify;"><span>{{cmt.content}}</span></div>
-								</div>
-							</li>
-						{% else %}
-							<li class="media" style="background-color: #119380; color:#ffffff">
-								<div style="text-align: right; margin: 10px 0px; ">
-									<div style="float: right; margin: 0px 0px 3px 10px; margin-left: 2%;margin-right: 2%;">
-										<a href="profile?user_id={{ cmt.user_id }}"><img src="images/photos/cuongnm_small.jpg"></a>
-									</div>
-									<h4> <a href="profile?user_id={{ cmt.user_id }}">{{cmt.user_id.username}}</a> - Since:{{cmt.create_date}}</h4>
-									<div style="margin-left: 15%;margin-left:10%; text-align: justify;"><span>{{cmt.content}}</span></div>
-								</div>
-							</li> 
-							{% endif %}
-						{% endfor %}
-						</ul>
-
-						<div class="mb30"></div>
-						<h5 class="subtitle mb5">Leave A Comment</h5>
-						<div class="mb20"></div>
-
-						<form method="post">
-							{% csrf_token %}
-							<input type="hidden" name="hd_post_id" value="{{ post.id }}">
-							<div class="row row-pad-5"></div>
-							<!-- row -->
-							<textarea name="txtComment" placeholder="Message" rows="3" class="form-control"></textarea>
-							<div class="mb10"></div>
-							<button class="btn btn-primary">Add Comment</button>
-						</form>
-
-					</div>
-					<!-- col-sm-8 -->
+						<div >
+							<input name="txtTitle" type="text" class="form-control"
+								placeholder="Title" value="{{Title}}" />
+						</div>
+						<div >
+							<input name="txtImagelink" type="text" class="form-control"
+								placeholder="ImageURL (ex:http://amazon.com/picture.jpg)" value="{{Imagelink}}" />
+						</div>
+						<div >
+							<input name="txtAmazonlink" type="text" class="form-control"
+								placeholder="AmazonURL" value="{{Amazonlink}}" />
+						</div>
+						<textarea name="txtContent" placeholder="Content" rows="3"
+						class="form-control"></textarea>
+					<div class="mb10"></div>
+					<button class="btn btn-primary">Save</button>
+					<button class="btn btn-primary">Cancel</button>
+				</form>
+				<!-- col-sm-8 -->
 				</div>
-				<!-- col-sm-4 -->
-
 			</div>
 			<!-- row -->
 
@@ -530,7 +488,7 @@
 	<script src="js/toggles.min.js"></script>
 	<script src="js/retina.min.js"></script>
 	<script src="js/jquery.cookies.js"></script>
-
+	<script src="js/bootstrap-timepicker.min.js"></script>
 	<script src="js/masonry.pkgd.min.js"></script>
 
 	<script src="js/custom.js"></script>
@@ -554,6 +512,13 @@
             msnry.destroy();
     });
 
+	// Date Picker
+	jQuery('#datepicker').datepicker();
+	jQuery('#datepicker-inline').datepicker();
+	jQuery('#datepicker-multiple').datepicker({
+	numberOfMonths: 3,
+	showButtonPanel: true
+	});
   });
   
 </script>

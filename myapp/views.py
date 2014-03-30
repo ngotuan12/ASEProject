@@ -1,13 +1,14 @@
 #from django.shortcuts import render
 
 from django.contrib.auth import login,logout
-from django.core.context_processors import csrf
+from django.core.context_processors import csrf, request
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.shortcuts import render_to_response
-from mongoengine.django.auth import User
 import mongoengine
-from myapp.models import UserLogin, MentorPost
+from mongoengine.django.auth import User
+
+from myapp.models import UserLogin, MentorPost, CommentPost
 
 
 # ...
@@ -21,22 +22,67 @@ def index(request):
 		#print(blog.title)
 	#return HttpResponse(BlogPost.objects);
 	posts = MentorPost.objects
+	user = User.objects
 	for post in posts:
-		print(post.user_id.username)
-	context = {'posts':posts,}
-	return render(request, 'myapp/general-forms.html', context)
+		print(post.content)
+	context = {'posts':posts,'user':user}
+	return render(request, 'myapp/index.html', context)
 def profile(request):
 	context = {}
 	return render(request, 'myapp/profile.html', context)
 def people(request):
 	context = {}
 	return render(request, 'myapp/people-directory.html', context)
+def mentorpost(request):
+	if request.method == 'GET':
+		print("method is get")
+		context={}
+		return render(request, 'myapp/mentor-post.html', context)
+	elif request.method == 'POST':
+		print("method is get")
+		Title = request.POST['txtTitle']
+		Imagelink = request.POST['txtImagelink']
+		Amazonlink = request.POST['txtAmazonlink']
+		Content = request.POST['txtContent']
+		IsLecture=request.POST['slPostType']
+		user_id = request.session['_auth_user_id']
+		mp = MentorPost()
+		mp.title=Title
+		mp.imagelink=Imagelink
+		mp.amazonlink=Amazonlink
+		mp.content=Content
+		mp.user_id=user_id
+		mp.is_lecture=IsLecture
+		mp.save()
+		post = MentorPost.objects.get(id=post_id)
+		comments = CommentPost.objects(post_id=post_id).all()
+		c = {'post':post,'comments':comments,}
+		c.update(csrf(request))
+		return render_to_response("myapp/blog-single.html", c)
 def blogSingle(request):
-	post_id = request.GET['post_id']
-	post = MentorPost.objects.get(id=post_id)
-	
-	context = {'content':post.Content,}
-	return render(request, 'myapp/blog-single.html', context)
+	if request.method == 'GET':
+		vpost_id = request.GET['post_id']
+		post = MentorPost.objects.get(id=vpost_id)
+		print(vpost_id)
+		
+		comments = CommentPost.objects(post_id=vpost_id).all()
+		
+		context = {'post':post,'comments':comments,}
+		return render(request, 'myapp/blog-single.html', context)
+	elif request.method == 'POST':
+		comment = request.POST['txtComment']
+		post_id = request.POST['hd_post_id']
+		user_id = request.session['_auth_user_id']
+		cmt = CommentPost()
+		cmt.content=comment
+		cmt.user_id=User.objects.get(id=user_id)
+		cmt.post_id=MentorPost.objects.get(id=post_id)
+		cmt.save()# 		user_id = request.session
+		post = MentorPost.objects.get(id=post_id)
+		comments = CommentPost.objects(post_id=post_id).all()
+		c = {'post':post,'comments':comments,}
+		c.update(csrf(request))
+		return render_to_response("myapp/blog-single.html", c)
 def signin(request):
 	username = ""
 	password = ""
