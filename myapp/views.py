@@ -1,6 +1,6 @@
 #from django.shortcuts import render
 
-from django.contrib.auth import login,logout
+from django.contrib.auth import login, logout
 from django.core.context_processors import csrf, request
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
@@ -8,7 +8,7 @@ from django.shortcuts import render_to_response
 import mongoengine
 from mongoengine.django.auth import User
 
-from myapp.models import UserLogin, MentorPost, CommentPost
+from myapp.models import UserLogin, MentorPost, CommentPost, JobTitle, WorkFeild
 
 
 # ...
