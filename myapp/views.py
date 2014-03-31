@@ -1,6 +1,7 @@
 #from django.shortcuts import render
 
 from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf, request
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
@@ -25,18 +26,12 @@ def index(request):
 	for post in posts:
 		print(post.imagelink)
 		
-	user = User.objects
-	context = {'posts':posts,'user':user}
-	return render(request, 'myapp/index.html', context)
+	context = {'user':request.user,'posts':posts,}
+	return render_to_response('myapp/index.html', context)
+@login_required(login_url='/signin')
 def profile(request):
-	user_id = ""
-	try:
-		user_id=request.GET['user_id']
-	except Exception:
-		user_id=request.session['_auth_user_id']
-	user=User.objects(id=user_id).first()
-	profile = UserProfile.objects(user_id=user)
-	context = {'user':user,'profile':profile,}
+	profile = UserProfile.objects(user_id=request.user)
+	context = {'profile':profile,}
 	return render(request, 'myapp/profile.html', context)
 def people(request):
 	context = {}
@@ -204,6 +199,9 @@ def getSignupError(request,e,firstname,lastname,username,password,email):
 		}
 	c.update(csrf(request))
 	return render_to_response("myapp/signup.html", c)
+def signout(request):
+	logout(request)
+	return HttpResponseRedirect('/signin')
 def accountSetting(request):
 	
 	context = {'userprofile':user_profile}
