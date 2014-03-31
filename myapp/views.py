@@ -153,7 +153,7 @@ def signup(request):
 			user.backend = 'mongoengine.django.auth.MongoEngineBackend'
 			logout(request)
 			login(request, user)
-			return HttpResponseRedirect('/home')
+			return HttpResponseRedirect('/create-profile')
 		except mongoengine.errors.ValidationError as ex:
 			return getSignupError(request,str(ex.errors['email']),firstname,lastname,username,password,email)
 		except mongoengine.errors.NotUniqueError as e:
@@ -164,8 +164,20 @@ def createProfile(request):
 	context = {}
 	return render(request, 'myapp/create-profile.html', context)
 def updateProfile(request):
-	context = {}
-	return render(request, 'myapp/create-profile-update.html', context)
+	if request.method == 'GET':
+		job_titles = JobTitle.objects
+		work_fields = WorkFeild.objects
+		context = {'job_titles':job_titles,'work_fields':work_fields,'acccount_type':request.GET['acccount_type'],}
+		return render(request, 'myapp/create-profile-update.html', context)
+	elif request.method == 'POST':
+		try:
+			acccount_type = request.POST['acccount_type']
+			print(request.POST['slJobTitle'])
+			print(request.POST['slWorkField'])
+			print(acccount_type)
+			return HttpResponseRedirect('/home')
+		except Exception as e:
+			print(e)
 def getSignupError(request,e,firstname,lastname,username,password,email):
 	c = {
 			'error_message':e,
