@@ -43,15 +43,30 @@
 						<form style="border: none;" method="post">
 							<div class="panel-body" >
 								{% csrf_token %}
+								{% if error_message %}
+									<div class="row mb10">
+										<label for="" class="error">{{error_message}}</label>
+									</div>
+								{% endif %} 
+								<input type="hidden" value="{{ acccount_type }}" name="acccount_type">
 								<div class="row mb10">
 									<div class="col-sm-6">
-										<label class="control-label">Job title</label> 
-										<select class="form-control chosen-select" data-placeholder="Choose a Job" >
+										<label class="control-label">Job title</label>
+										<select name="slJobTitle" class="form-control chosen-select" data-placeholder="Choose a Job" >
+										<option value="0" selected>Choose a Job</option>
+										{% for job in job_titles %}
+											<option value="{{ job.id }}">{{ job.name }}</option>
+										{% endfor %} 
 										</select>
+										
 									</div>
 									<div class="col-sm-6">
-										<label class="control-label">IT</label> 
-										<select class="form-control chosen-select" data-placeholder="Choose a IT">
+										<label class="control-label">Work field</label> 
+										<select name="slWorkField" class="form-control chosen-select" data-placeholder="Choose a work field">
+										<option value="0" selected>Choose a work field</option>
+										{% for work_field in work_fields %}
+											<option value="{{ work_field.id }}">{{ work_field.type_name }}</option>
+										{% endfor %}
 										</select>
 									</div>
 								</div>
