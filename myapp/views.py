@@ -22,9 +22,10 @@ def index(request):
 		#print(blog.title)
 	#return HttpResponse(BlogPost.objects);
 	posts = MentorPost.objects
-	user = User.objects
 	for post in posts:
-		print(post.content)
+		print(post.imagelink)
+		
+	user = User.objects
 	context = {'posts':posts,'user':user}
 	return render(request, 'myapp/index.html', context)
 def profile(request):
