@@ -8,7 +8,7 @@ from django.shortcuts import render_to_response
 import mongoengine
 from mongoengine.django.auth import User
 
-from myapp.models import UserLogin, MentorPost, CommentPost, JobTitle, WorkFeild
+from myapp.models import UserLogin, MentorPost, CommentPost, JobTitle, WorkFeild, UserProfile
 
 
 # ...
@@ -29,7 +29,14 @@ def index(request):
 	context = {'posts':posts,'user':user}
 	return render(request, 'myapp/index.html', context)
 def profile(request):
-	context = {}
+	user_id = ""
+	try:
+		user_id=request.GET['user_id']
+	except Exception:
+		user_id=request.session['_auth_user_id']
+	user=User.objects(id=user_id).first()
+	profile = UserProfile.objects(user_id=user)
+	context = {'user':user,'profile':profile,}
 	return render(request, 'myapp/profile.html', context)
 def people(request):
 	context = {}
@@ -46,6 +53,9 @@ def mentorpost(request):
 		Amazonlink = request.POST['txtAmazonlink']
 		Content = request.POST['txtContent']
 		IsLecture=request.POST['slPostType']
+		FromDate = request.POST['dtpfromdate']
+		ToDate = request.POST['dtptodate']
+		Place= request.POST['txtPlace']
 		user_id = User.objects.get(id=request.session['_auth_user_id'])
 		print(user_id)
 		mp = MentorPost()
@@ -56,6 +66,9 @@ def mentorpost(request):
 		mp.user_id=user_id
 		mp.is_lecture=IsLecture
 		mp.status="1"
+		mp.from_date=FromDate
+		mp.to_date=ToDate
+		mp.place=Place
 		mp.save()
 		return HttpResponseRedirect('/home')
 def blogSingle(request):

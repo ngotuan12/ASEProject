@@ -54,7 +54,7 @@ class JobTitle(Document):
 	status = int()
 class WorkFeild(Document):
 	code= StringField(max_length=5)
-	name = StringField()
+	type_name = StringField()
 	status = int()
 class UserProfile(Document):
 	user_id = ReferenceField(User)	

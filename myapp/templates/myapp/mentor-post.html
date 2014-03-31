@@ -1,5 +1,15 @@
 {% extends "myapp/base.html" %}
+
+{% block styles %}
+<link href="css/jquery.datepick.css" rel="stylesheet">
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.plugin.js"></script>
+<script src="js/jquery.datepick.js"></script>
+{% endblock %}
+
 {% block header %}
+
 <div class="pageheader">
 	<h2>
 		<i class="fa fa-home"></i> <a href="index">Home</a>
@@ -7,49 +17,96 @@
 </div>
 {% endblock %} 
 {% block content %}
-<div class="contentpanel" style="margin-left: auto;margin-right: auto;">
-				<!-- panel -->
-				<div class="col-md-10">
-				<form method="post">
-					{% csrf_token %} <input type="hidden" name="hd_post_id"
-						value="{{ post.id }}">
-						<label class="control-label">Select your post type:</label>
-						<div class="row mb10">
-							<div class="col-sm-3" style="width: 40%; float: left;">
-								<select class="form-control chosen-select" name="slPostType">
-									<option value="0" selected>As Lecture</option>
-									<option value="1">As Post</option>
-								</select>
-							</div>
-						</div>
-						<div >
-							<input name="txtTitle" type="text" class="form-control"
-								placeholder="Title" value="{{Title}}" />
-						</div>
-						<div >
-							<input name="txtImagelink" type="text" class="form-control"
-								placeholder="ImageURL" value="{{Imagelink}}" />
-						</div>
-						<div >
-							<input name="txtAmazonlink" type="text" class="form-control"
-								placeholder="AmazonURL" value="{{Amazonlink}}" />
-						</div>
-						<textarea name="txtContent" placeholder="Content" rows="3"
-						class="form-control"></textarea>
-					<div class="mb10"></div>
-					<button class="btn btn-primary">Save</button>
-					<button class="btn btn-primary">Cancel</button>
-				</form>
-				<!-- col-sm-8 -->
+<div class="contentpanel" style="margin-left: auto; margin-right: auto;">
+	<!-- panel -->
+	<div class="col-md-10">
+		<form method="post" name="form">
+			{% csrf_token %} <input type="hidden" name="hd_post_id"
+				value="{{ post.id }}"> <label class="control-label">Select
+				your post type:</label>
+			<div class="row mb10">
+				<div class="col-sm-3">
+					<select id= "slPostType" class="form-control chosen-select" name="slPostType" onchange="doSomething(this.selectedIndex);" style="">
+						<option value="0" selected>As Post</option>
+						<option value="1" >As Lecture</option>
+						<option value="2">As Event</option>
+					</select>
 				</div>
 			</div>
-			<!-- row -->
+			<div class="row mb10">
+				<div class="col-sm-6">
+					<p>From Date<input name="dtpfromdate" type="text" class="form-control chosen-select" placeholder="dd/mm/yyyy"/></p>
+				</div>
+				<div class="col-sm-6">
+					<p>To Date<input name="dtptodate" type="text" class="form-control" placeholder="dd/mm/yyyy" /></p>
+				</div>
+			</div>
 
-		</div>
-		<!-- contentpanel -->
-{% endblock %}
+			<div>
+				<p>Take Place<input name="txtPlace" type="text" class="form-control"
+					placeholder="Take place"/></p>
+			</div>
 
-{% block scripts %}
-<script src="js/masonry.pkgd.min.js"></script>
+			<div>
+				<input name="txtTitle" type="text" class="form-control"
+					placeholder="Title" value="{{Title}}" />
+			</div>
+			<div>
+				<input name="txtImagelink" type="text" class="form-control"
+					placeholder="ImageURL" value="{{Imagelink}}" />
+			</div>
+			<div>
+				<input name="txtAmazonlink" type="text" class="form-control"
+					placeholder="AmazonURL" value="{{Amazonlink}}" />
+			</div>
+			<textarea name="txtContent" placeholder="Content" rows="3"
+				class="form-control"></textarea>
+			<div class="mb10"></div>
+			<button class="btn btn-primary">Save</button>
+			<button class="btn btn-primary">Cancel</button>
+		</form>
+		<!-- col-sm-8 -->
+	</div>
+</div>
+<!-- row -->
+
+</div>
+<!-- contentpanel -->
+{% endblock %} {% block scripts %}
 <script src="js/custom.js"></script>
+<script type="text/javascript">
+	window.onload = function() {
+			document.form.dtpfromdate.disabled=true;
+			document.form.dtptodate.disabled=true;
+			document.form.txtPlace.disabled=true;
+	}
+	function doSomething(id){
+		if (id==0){
+			document.form.dtpfromdate.disabled=true;
+			document.form.dtptodate.disabled=true;
+			document.form.txtPlace.disabled=true;
+			
+		}
+		else{
+			document.form.dtpfromdate.disabled=false;
+			document.form.dtptodate.disabled=false;
+			document.form.txtPlace.disabled=false;
+		}
+		
+	};
+	function toggleVisibility(controlId)
+		{
+			alert('b lo');
+			alert(controlId);
+			var control = document.getElementById(controlId);
+			alert(control.style.visibility);
+			if(control.style.visibility == "visible" || control.style.visibility == "")
+				control.style.visibility = "hidden";
+			else 
+				control.style.visibility = "visible";
+		}
+	function onChangePostType(){
+		document.getElementsByName("slPostType").selectorText;	
+	}
+</script>
 {% endblock %}
