@@ -192,5 +192,6 @@ def getSignupError(request,e,firstname,lastname,username,password,email):
 	c.update(csrf(request))
 	return render_to_response("myapp/signup.html", c)
 def accountSetting(request):
-	context = {}
+	
+	context = {'userprofile':user_profile}
 	return render(request, 'myapp/account-setting.html', context)
