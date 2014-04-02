@@ -1,4 +1,6 @@
 # Django settings for AseProjec project.
+import os
+
 import mongoengine
 
 
@@ -9,6 +11,12 @@ AUTHENTICATION_BACKENDS = (
 SESSION_ENGINE = 'mongoengine.django.sessions'
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+TEMPLATE_DIRS = (
+#                  os.path.join(os.path.dirname(__file__),'templates'),
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+)
 #CSRF_COOKIE_SECURE = True
 TEMPLATE_CONTEXT_PROCESSORS =(
 	"django.contrib.auth.context_processors.auth",
@@ -19,6 +27,7 @@ TEMPLATE_CONTEXT_PROCESSORS =(
 	"django.core.context_processors.tz",
 	"django.contrib.messages.context_processors.messages",
 	'django.core.context_processors.csrf',
+    'myapp.context_processors.user',
 )
 
 ADMINS = (
@@ -130,11 +139,7 @@ ROOT_URLCONF = 'AseProjec.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'AseProjec.wsgi.application'
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
+
 
 INSTALLED_APPS = (
     'django.contrib.auth',

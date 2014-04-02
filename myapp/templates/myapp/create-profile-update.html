@@ -40,19 +40,17 @@
 							<h3 class="panel-title" style="color: #fff">Create Profile</h3>
 							<small>Fill information</small>
 						</div>
-						<form style="border: none;" method="post">
+						<form style="border: none;" method="post" onsubmit="return validateForm()">
 							<div class="panel-body" >
 								{% csrf_token %}
-								{% if error_message %}
 									<div class="row mb10">
-										<label for="" class="error">{{error_message}}</label>
+										<label for="" class="error" id="lblError">{{error_message}}</label>
 									</div>
-								{% endif %} 
 								<input type="hidden" value="{{ acccount_type }}" name="acccount_type">
 								<div class="row mb10">
 									<div class="col-sm-6">
 										<label class="control-label">Job title</label>
-										<select name="slJobTitle" class="form-control chosen-select" data-placeholder="Choose a Job" >
+										<select id="slJobTitle"name="slJobTitle" class="form-control chosen-select" data-placeholder="Choose a Job" >
 										<option value="0" selected>Choose a Job</option>
 										{% for job in job_titles %}
 											<option value="{{ job.id }}">{{ job.name }}</option>
@@ -62,7 +60,7 @@
 									</div>
 									<div class="col-sm-6">
 										<label class="control-label">Work field</label> 
-										<select name="slWorkField" class="form-control chosen-select" data-placeholder="Choose a work field">
+										<select id="slWorkField"name="slWorkField" class="form-control chosen-select" data-placeholder="Choose a work field">
 										<option value="0" selected>Choose a work field</option>
 										{% for work_field in work_fields %}
 											<option value="{{ work_field.id }}">{{ work_field.type_name }}</option>
@@ -72,11 +70,11 @@
 								</div>
 								<div class="mb10">
 									<label class="control-label">Company</label> 
-									<input class="form-control" type="text" placeholder="Company"/>
+									<input id="txtCompany" name = "txtCompany"class="form-control" type="text" placeholder="Company"/>
 								</div>
 								<div class="mb10">
 									<label class="control-label">About</label> 
-									<textarea class="form-control" placeholder="Company"></textarea>
+									<textarea id="txtAbout" name = "txtAbout" class="form-control" placeholder="About"></textarea>
 								</div>
 								<div class="row mb10">
 									<div class="col-sm-6">
@@ -122,6 +120,30 @@
         });
         
     });
+    function validateForm()
+    {
+    if(document.querySelector('#slJobTitle').selectedIndex==0)
+    {
+    	document.querySelector('#lblError').innerHTML = "You must choose Job title";
+    	return false;
+    }
+    if(document.querySelector('#slWorkField').selectedIndex==0)
+    {
+    	document.querySelector('#lblError').innerHTML = "You must choose Work field";
+    	return false;
+    }
+    if(document.querySelector('#txtCompany').value.trim()=="")
+    {
+    	document.querySelector('#lblError').innerHTML = "Company can not be empty!";
+    	return false;
+    }
+    if(document.querySelector('#txtAbout').value.trim()=="")
+    {
+    	document.querySelector('#lblError').innerHTML = "About can not be empty!";
+    	return false;
+    }
+    return true;
+    }
 </script>
 
 </body>

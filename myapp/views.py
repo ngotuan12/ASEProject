@@ -2,7 +2,7 @@
 
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
-from django.core.context_processors import csrf, request
+from django.core.context_processors import csrf
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.shortcuts import render_to_response
@@ -14,6 +14,7 @@ from myapp.models import UserLogin, MentorPost, CommentPost, JobTitle, WorkFeild
 
 # ...
 #from myapp.models import BlogPost
+@login_required(login_url='/signin')
 def index(request):
 	#collection.setObjectClass(MentorPost.class);
 	#blog = BlogPost(title="abc")
@@ -30,12 +31,21 @@ def index(request):
 	return render_to_response('myapp/index.html', context)
 @login_required(login_url='/signin')
 def profile(request):
-	profile = UserProfile.objects(user_id=request.user)
-	context = {'profile':profile,}
-	return render(request, 'myapp/profile.html', context)
+	try:
+		user_id = request.GET['user_id']
+		profile = UserProfile.objects.get(user_id=User.objects.get(id=user_id))
+		context = {'profile':profile,}
+		return render(request, 'myapp/profile.html', context)
+	except Exception:
+		profile = UserProfile()
+		profile.user_id = User.objects.get(id=user_id)
+		context = {'profile':profile,}
+		return render(request, 'myapp/profile.html', context)
+@login_required(login_url='/signin')
 def people(request):
 	context = {}
 	return render(request, 'myapp/people-directory.html', context)
+@login_required(login_url='/signin')
 def mentorpost(request):
 	if request.method == 'GET':
 		print("method is get")
@@ -66,6 +76,7 @@ def mentorpost(request):
 		mp.place=Place
 		mp.save()
 		return HttpResponseRedirect('/home')
+@login_required(login_url='/signin')
 def blogSingle(request):
 	if request.method == 'GET':
 		vpost_id = request.GET['post_id']
@@ -104,7 +115,6 @@ def signin(request):
 			transaction.user = user
 			transaction.save()
 			if user.check_password(password):
-				
 				logout(request)
 				user.backend = 'mongoengine.django.auth.MongoEngineBackend'
 				login(request, user)
@@ -161,6 +171,10 @@ def signup(request):
 			user.backend = 'mongoengine.django.auth.MongoEngineBackend'
 			logout(request)
 			login(request, user)
+			#create new profile
+			_profile = UserProfile()
+			_profile.user_id = request.user
+			_profile.save()
 			return HttpResponseRedirect('/create-profile')
 		except mongoengine.errors.ValidationError as ex:
 			return getSignupError(request,str(ex.errors['email']),firstname,lastname,username,password,email)
@@ -168,9 +182,11 @@ def signup(request):
 			return getSignupError(request,'User has already exists!',firstname,lastname,username,password,email)
 		except Exception as e:
 			return getSignupError(request,str(e),firstname,lastname,username,password,email)
+@login_required(login_url='/signin')
 def createProfile(request):
 	context = {}
 	return render(request, 'myapp/create-profile.html', context)
+@login_required(login_url='/signin')
 def updateProfile(request):
 	if request.method == 'GET':
 		job_titles = JobTitle.objects
@@ -180,12 +196,26 @@ def updateProfile(request):
 	elif request.method == 'POST':
 		try:
 			acccount_type = request.POST['acccount_type']
-			print(request.POST['slJobTitle'])
-			print(request.POST['slWorkField'])
-			print(acccount_type)
+			jobTitle = request.POST['slJobTitle']
+			workField = request.POST['slWorkField']
+			company = request.POST['txtCompany']
+			about = request.POST['txtAbout']
+			_profile = UserProfile.objects.get(user_id=request.user)
+			_profile.job_title = JobTitle.objects.get(id=jobTitle)
+			_profile.work_field = WorkFeild.objects.get(id=workField)
+			_profile.user_type = acccount_type
+			_profile.user_id = request.user
+			_profile.company = company
+			_profile.about = about
+			_profile.save()
 			return HttpResponseRedirect('/home')
 		except Exception as e:
 			print(e)
+			c = {
+				'error_message':e,'job_titles':JobTitle.objects,'work_fields':WorkFeild.objects,'acccount_type':request.GET['acccount_type'],
+				}
+			c.update(csrf(request))
+			return render_to_response("myapp/create-profile-update.html", c)
 def getSignupError(request,e,firstname,lastname,username,password,email):
 	c = {
 			'error_message':e,
@@ -202,7 +232,7 @@ def getSignupError(request,e,firstname,lastname,username,password,email):
 def signout(request):
 	logout(request)
 	return HttpResponseRedirect('/signin')
+@login_required(login_url='/signin')
 def accountSetting(request):
-	
-	context = {'userprofile':user_profile}
+	context={}
 	return render(request, 'myapp/account-setting.html', context)

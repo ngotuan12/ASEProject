@@ -58,9 +58,9 @@ class WorkFeild(Document):
 	status = int()
 class UserProfile(Document):
 	user_id = ReferenceField(User)	
-	user_type = ReferenceField(UserType)
-	job_title = StringField()
-	imagelink = StringField(default="images/photos/user.png")
+	user_type = StringField()
+	job_title = ReferenceField(JobTitle)
+	images = StringField(default="images/photos/user.png")
 	company = StringField()
 	work_field = ReferenceField(WorkFeild)
 	edu = StringField()

@@ -2,7 +2,7 @@
 {% block header %}
 <div class="pageheader">
 	<h2>
-		<i class="fa fa-file-text"></i> <a href="index.html"> Home </a> <span><a
+		<i class="fa fa-file-text"></i> <a href="index"> Home </a> <span><a
 			href="mentorpost"> Add New Post </a></span>
 	</h2>
 </div>
@@ -23,7 +23,7 @@
 								</ul>
 
 								<ul class="blog-meta">
-									<li>By: <a href="profile?user_id={{ post.user_id.id }}">{{ post.user_id.username }}</a></li>
+									<li>By: <a href="profile?user_id={{ post.user_id.id }}">{{ post.user_id }}</a></li>
 									<li>{{ post.published_date }}</li>
 								</ul>
 
@@ -51,9 +51,9 @@
 						<li class="media" style="background-color: #ffffff;color:#1D2939">
 								<div style="text-align: left; margin: 10px 0px;">
 									<div style="float: left; margin: 0px 0px 3px 10px; margin-left: 2%;margin-right: 2%;">
-										<a href="profile?user_id={{ cmt.user_id }}"><img src="images/photos/shimizu_small.jpg"></a>
+										<a href="profile?user_id={{ cmt.user_id.id }}"><img src="images/photos/shimizu_small.jpg"></a>
 									</div>
-									<h4> <a href="profile?user_id={{ cmt.user_id }}">{{cmt.user_id.username}}</a> - Since:{{cmt.create_date}}</h4>
+									<h4> <a href="profile?user_id={{ cmt.user_id.id }}">{{cmt.user_id.username}}</a> - Since:{{cmt.create_date}}</h4>
 									<div style="margin-right: 15%;margin-left:10%; text-align: justify;"><span>{{cmt.content}}</span></div>
 								</div>
 							</li>

@@ -14,7 +14,7 @@ print(os.path.abspath(os.path.join(os.path.dirname(__file__),os.pardir))+"/commo
 # from django.contrib import admin
 # admin.autodiscover()
 urlpatterns = patterns('',
-                       url(r'^$', views.signin),
+                       url(r'^$', views.index),
                        url(r'^home$', views.index),
                        url(r'^index$', views.index),
                        url(r'^account-setting$', views.accountSetting),
@@ -23,6 +23,7 @@ urlpatterns = patterns('',
                        url(r'^signin$', views.signin, name='signin'),
                        url(r'^profile$', views.profile, name='profile'),
                        url(r'^signup$', views.signup, name='signup'),
+                       url(r'^signout$', views.signout, name='signout'),
                        url(r'^people-directory$', views.people),
                        url(r'^create-profile$', views.createProfile),
                        url(r'^update-profile$', views.updateProfile),

@@ -15,12 +15,17 @@
 	
 	<div class="row">
 		<div class="col-sm-3">
-			<img src="images/photos/profile-1.png"
-					class="thumbnail img-responsive" alt=""> 
+			{% if profile and profile.images %}
+			<img src="{{ profile.images }}"
+					class="thumbnail img-responsive" alt=""style="width: 100%">
+			{% else  %}
+			<img src="images/photos/anonymous.jpg"
+					class="thumbnail img-responsive" alt=""style="width: 100%"> 
+			{% endif  %}
 			<div class="mb30"></div>
 			<div>
 			<div class="profile-header">
-				<h2 class="profile-name">{{ user.first_name|add:" "|add:user.last_name }}</h2>
+				<h2 class="profile-name">{{ profile.user_id.first_name|add:" "|add:profile.user_id.last_name }}</h2>
 				<div class="profile-location">
 					<i class="fa fa-map-marker"></i> San Francisco, California, USA
 				</div>
@@ -40,9 +45,7 @@
 			</div>
 			
 			<p class="mb30">
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-				eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-				ad minim veniam, quis nostrud exercitat... <a href="#">Show More</a>
+				{{ profile.about }} 
 			</p>
 
 			<h5 class="subtitle">Connect</h5>
