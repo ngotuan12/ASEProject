@@ -1,32 +1,27 @@
 import os
 
 from django.conf import settings
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, url
 
-from myapp import views
+from myapp.views import Home, AccountSetting, PostDetail, SignIn, MentorPost, \
+	Profile, SignUp, SignOut
 
-
-dirx = str(os.path.dirname(__file__))
-print(os.path.abspath(os.path.dirname(__file__)))
-print(os.pardir+'/common')
-print(os.path.abspath(os.path.join(os.path.dirname(__file__),os.pardir))+"/common")
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 urlpatterns = patterns('',
-                       url(r'^$', views.index),
-                       url(r'^home$', views.index),
-                       url(r'^index$', views.index),
-                       url(r'^account-setting$', views.accountSetting),
-                        url(r'^blog-single$', views.blogSingle, name='blog-single'),
-                        url(r'^mentorpost$', views.mentorpost),
-                       url(r'^signin$', views.signin, name='signin'),
-                       url(r'^profile$', views.profile, name='profile'),
-                       url(r'^signup$', views.signup, name='signup'),
-                       url(r'^signout$', views.signout, name='signout'),
-                       url(r'^people-directory$', views.people),
-                       url(r'^create-profile$', views.createProfile),
-                       url(r'^update-profile$', views.updateProfile),
+                       url(r'^$', Home.index),
+                       url(r'^home$', Home.index),
+                       url(r'^index$', Home.index),
+                       url(r'^account-setting$', AccountSetting.index),
+                        url(r'^blog-single$', PostDetail.index, name='blog-single'),
+                        url(r'^mentorpost$', MentorPost.index),
+                       url(r'^signin$', SignIn.index, name='signin'),
+                       url(r'^profile$', Profile.index, name='profile'),
+                       url(r'^signup$', SignUp.index, name='signup'),
+                       url(r'^signout$', SignOut.index, name='signout'),
+                       url(r'^create-profile$', Profile.createProfile),
+                       url(r'^update-profile$', Profile.updateProfile),
                        url(regex  = r'^%s(?P<path>.*)$' % settings.STATIC_URL[1:], 
     view   = 'django.views.static.serve', 
     kwargs = {'document_root': os.path.abspath(os.path.join(os.path.dirname(__file__),os.pardir))+"/common",
