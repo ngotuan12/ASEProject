@@ -7,7 +7,8 @@ from datetime import datetime
 
 from mongoengine.django.auth import User
 from mongoengine.document import Document
-from mongoengine.fields import ReferenceField, StringField, DateTimeField
+from mongoengine.fields import ReferenceField, StringField, DateTimeField,\
+	ListField
 
 from myapp.models.JobTitle import JobTitle
 from myapp.models.WorkField import WorkFeild
@@ -20,8 +21,8 @@ class UserProfile(Document):
 	images = StringField(default="images/photos/user.png")
 	company = StringField()
 	work_field = ReferenceField(WorkFeild)
-	edu = StringField()
-	skill = StringField()
+	edu = ListField(StringField())
+	skill =ListField(StringField())
 	create_date = DateTimeField(default=datetime.now)
 	status = int()
 	about = StringField()
