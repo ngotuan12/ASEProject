@@ -1,0 +1,18 @@
+'''
+Created on Apr 3, 2014
+
+@author: TuanNA
+'''
+from datetime import datetime
+
+from mongoengine.document import Document
+from mongoengine.fields import StringField, DateTimeField
+
+
+class UserType(Document):
+	user_type= StringField()
+	create_date = DateTimeField(default=datetime.now)
+	status = int()
+	meta = {
+			'ordering': ['-create_date']
+ }
