@@ -64,8 +64,9 @@
 				<div class="visible-xs hidden-sm hidden-md hidden-lg">
 					<a class="menutoggle"><i class="fa fa-bars"></i></a>
 				</div>
-				<form class="searchform" action="#" method="post">
-					<input type="text" class="form-control" name="keyword"
+				<form class="searchform" action="people-directory" method="post">
+					{% csrf_token %}
+					<input type="text" class="form-control" name="keyword" value="{{keyword}}"
 						placeholder="Search here..." />
 					
 				</form>
