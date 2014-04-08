@@ -4,7 +4,8 @@ from django.conf import settings
 from django.conf.urls import patterns, url
 
 from myapp.views import Home, AccountSetting, PostDetail, SignIn, MentorPost, \
-	Profile, SignUp, SignOut
+	Profile, SignUp, SignOut, PeopleDirectory
+
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -22,7 +23,7 @@ urlpatterns = patterns('',
                        url(r'^signout$', SignOut.index, name='signout'),
                        url(r'^create-profile$', Profile.createProfile),
                        url(r'^update-profile$', Profile.updateProfile),
-#                        url(r'^people-directory$',PeopleDirectory.index),
+                       url(r'^people-directory$',PeopleDirectory.index),
                        url(regex  = r'^%s(?P<path>.*)$' % settings.STATIC_URL[1:], 
     view   = 'django.views.static.serve', 
     kwargs = {'document_root': os.path.abspath(os.path.join(os.path.dirname(__file__),os.pardir))+"/common",

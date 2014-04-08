@@ -19,7 +19,7 @@
 			<img src="{{ profile.images }}"
 					class="thumbnail img-responsive" alt=""style="width: 100%">
 			{% else  %}
-			<img src="images/photos/anonymous.jpg"
+			<img src="images/photos/user.png"
 					class="thumbnail img-responsive" alt=""style="width: 100%"> 
 			{% endif  %}
 			<div class="mb30"></div>
@@ -27,13 +27,25 @@
 			<div class="profile-header">
 				<h2 class="profile-name">{{ profile.user_id.first_name|add:" "|add:profile.user_id.last_name }}</h2>
 				<div class="profile-location">
-					<i class="fa fa-map-marker"></i> San Francisco, California, USA
+					<i class="fa fa-map-marker"></i> {{profile.work_field.type_name}}
 				</div>
 				<div class="profile-position">
-					<i class="fa fa-briefcase"></i> Software Engineer at <a href="#">SomeCompany,
-						Inc.</a>
+					<i class="fa fa-briefcase"></i>
+					<a href="#">{{profile.job_title.name}}</a> at 
+					<a href="http://www.ex-artisan.com" target="_blank">{{profile.company}}</a>
 				</div>
-
+				<div class="profile-position">
+					<i class="fa fa-briefcase"></i>Skill : 
+					{% for skill in profile.skill %}
+							{{skill|add:","}}
+					{% endfor %}
+				</div>
+				<div class="profile-position">
+					<i class="fa fa-briefcase"></i>Education : 
+					{% for edu in profile.edu %}
+							{{edu|add:","}}
+					{% endfor %}
+				</div>
 				<div class="mb20"></div>
 
 				<button class="btn btn-white">
