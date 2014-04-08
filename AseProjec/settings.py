@@ -2,13 +2,13 @@
 
 import mongoengine
 
-
-mongoengine.connect('my_db')
+# mongoengine.register_connection(alias, name, host, port, is_slave, read_preference, slaves, username, password)
+mongoengine.connect('my_db',host="oceanic.mongohq.com",port=10043,username="admin",password="113322")
 AUTHENTICATION_BACKENDS = (
     'mongoengine.django.auth.MongoEngineBackend',
 )
 SESSION_ENGINE = 'mongoengine.django.sessions'
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 TEMPLATE_DIRS = (
 #                  os.path.join(os.path.dirname(__file__),'templates'),
@@ -47,7 +47,8 @@ AUTHENTICATION_BACKENDS = (
 TEST_RUNNER = 'yourproject.tests.NoSQLTestRunner'
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name

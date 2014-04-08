@@ -6,6 +6,7 @@ from django.conf.urls import patterns, url
 from myapp.views import Home, AccountSetting, PostDetail, SignIn, MentorPost, \
 	Profile, SignUp, SignOut, PeopleDirectory
 
+
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
