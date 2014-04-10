@@ -10,7 +10,9 @@ from mongoengine.fields import StringField, DateTimeField
 
 
 class UserType(Document):
-	user_type= StringField()
+	code= StringField(max_length=1)
+	user_type= StringField(max_length=15)
+	name= StringField(max_length=15)
 	create_date = DateTimeField(default=datetime.now)
 	status = int()
 	meta = {

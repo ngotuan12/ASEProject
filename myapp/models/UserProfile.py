@@ -12,12 +12,13 @@ from mongoengine.fields import ReferenceField, StringField, DateTimeField,\
 
 from myapp.models.JobTitle import JobTitle
 from myapp.models.Social import Social
+from myapp.models.UserType import UserType
 from myapp.models.WorkField import WorkFeild
 
 
 class UserProfile(Document):
 	user_id = ReferenceField(User)
-	user_type = StringField()
+	user_type = ReferenceField(UserType)
 	job_title = ReferenceField(JobTitle)
 	images = StringField()
 	company = StringField()

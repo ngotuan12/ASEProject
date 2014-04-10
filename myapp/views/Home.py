@@ -22,5 +22,5 @@ def index(request):
 	for post in posts:
 		print(post.imagelink)
 		
-	context = {'posts':posts,}
+	context = {'posts':posts,'user_type':request.session['user_type'],'user_id':request.user,}
 	return render(request,'myapp/index.html', context)

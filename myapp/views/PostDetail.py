@@ -18,12 +18,12 @@ def index(request):
 	if request.method == 'GET':
 		vpost_id = request.GET['post_id']
 		post = MentorPost.objects.get(id=vpost_id)
-		print(vpost_id)
-		
 		comments = CommentPost.objects(post_id=vpost_id).all()
-		
-		context = {'post':post,'comments':comments,}
-		return render(request, 'myapp/blog-single.html', context)
+		context = {	'post':post,'comments':comments,
+					'user_type':request.session['user_type'],
+					'user_id':request.user,
+					}
+		return render(request, 'myapp/post-detail.html', context)
 	elif request.method == 'POST':
 		comment = request.POST['txtComment']
 		post_id = request.POST['hd_post_id']
@@ -35,7 +35,7 @@ def index(request):
 		cmt.save()# 		user_id = request.session
 		post = MentorPost.objects.get(id=post_id)
 		comments = CommentPost.objects(post_id=post_id).all()
-		c = {'post':post,'comments':comments,}
+		c = {'post':post,'comments':comments,'user_type':request.session['user_type']}
 		c.update(csrf(request))
 		c.update(context_processors.user(request))
 		return render_to_response("myapp/blog-single.html", c)

@@ -1,8 +1,17 @@
 {% extends "myapp/base.html" %}
 {% block header %}
-<div class="pageheader">
+<div class="">
 	<h2>
-		<i class="fa fa-home"></i> <a href="index">Home</a>
+        <ul class="nav nav-tabs nav-dark">
+        <li class="active"><a href="index" data-toggle="tab"><strong>Home</strong></a></li>
+        <li class=""><a href="#profile2" data-toggle="tab"><strong>News</strong></a></li>
+        <li class=""><a href="#about2" data-toggle="tab"><strong>Lectures</strong></a></li>
+        <li class=""><a href="#about2" data-toggle="tab"><strong>Events</strong></a></li>
+		
+        <!-- {% if user_type == "M" %}
+        <li class="" style="text-align: right;"><a href="mentorpost" data-toggle="tab"><p style="text-align: right;"><strong>New Post </p></strong></a></li>
+        {% endif %} -->
+        </ul>
 	</h2>
 </div>
 {% endblock %} 
@@ -12,20 +21,37 @@
 		{% for post in posts %}
 		<div class="col-xs-6 col-sm-4 col-md-3">
 			<div class="blog-item">
-				<a href="blog-single?post_id={{ post.id }}" class="blog-img">
+				<a href="post-detail?post_id={{ post.id }}" class="blog-img">
+				{% if post.imagelink != "" %}
 				<img src="{{ post.imagelink}}" class="img-responsive" style="margin-left: auto;margin-right: auto;padding-top: 1%"></a>
+				{% endif %}
 				<div class="blog-details">								
 					<h4 class="blog-title">									
-						<a href = "blog-single?post_id={{ post.id }}" >{{ post.title }}</a>
+						<a href = "post-detail?post_id={{ post.id }}" >{{ post.title }}</a>
 					</h4>
 					<ul class="blog-meta">
 						<li>By: <a href="profile?user_id={{ post.user_id.id }}">{{ post.user_id.username }}</a></li>
-						<li>{{ post.published_date }}</li>
-						<li><a href="#">2 Comments</a></li>
+						<li>{{ post.published_date|date:'Y-M-d' }}</li>
+						{% if post.user_id == user_id %}
+						<li><a href = "mentor-post?post_id={{ post.id }}&edit=true" > edit </a></li>
+						{% endif %}
 					</ul>
+					{% if post.post_type == "1" or post.post_type == "2" %}
+					<ul class="blog-meta" style="text-align:center;">
+						<li>From: {{ post.from_date|date:'Y-M-d' }}</li>
+						<li>To: {{ post.to_date|date:'Y-M-d' }}</li>
+						
+					</ul>
+					<li>Place: {{ post.place }}</li>
+					{% endif %}
 					<div class="blog-summary" style="text-align: justify;">
-						<p>{{ post.content }}</p>
-						<a href = "blog-single?post_id={{ post.id }}" ><button class="btn btn-sm btn-white">Read More</button></a>
+						<p>{{ post.content| truncatechars:100  }}</p>
+						<a href = "post-detail?post_id={{ post.id }}" ><button class="btn btn-sm btn-white">Read More</button></a>
+						{% if post.post_type == "1" or post.post_type == "2" %}
+							{% if post.user_id != user_id %}
+							<a href = "#" ><button class="btn btn-sm btn-white" style="text-align: right; margin-left: 60px;">Joint Class</button></a>
+							{% endif %}
+						{% endif %}
 					</div>
 				</div>
 			</div>

@@ -15,7 +15,7 @@ from myapp.models.MentorPost import MentorPost
 def index(request):
 	if request.method == 'GET':
 		print("method is get")
-		context={}
+		context = {}
 		return render(request, 'myapp/mentor-post.html', context)
 	elif request.method == 'POST':
 		print("method is get")
@@ -23,22 +23,24 @@ def index(request):
 		Imagelink = request.POST['txtImagelink']
 		Amazonlink = request.POST['txtAmazonlink']
 		Content = request.POST['txtContent']
-		IsLecture=request.POST['slPostType']
-		FromDate = request.POST['dtpfromdate']
-		ToDate = request.POST['dtptodate']
-		Place= request.POST['txtPlace']
+		PostType = request.POST['slPostType']
+		if PostType != '0':
+			FromDate = request.POST['dtpfromdate']
+			ToDate = request.POST['dtptodate']
+			Place = request.POST['txtPlace']
 		user_id = User.objects.get(id=request.session['_auth_user_id'])
 		print(user_id)
 		mp = MentorPost()
-		mp.title=Title
-		mp.imagelink=Imagelink
-		mp.amazonlink=Amazonlink
-		mp.content=Content
-		mp.user_id=user_id
-		mp.is_lecture=IsLecture
-		mp.status="1"
-		mp.from_date=FromDate
-		mp.to_date=ToDate
-		mp.place=Place
+		mp.title = Title
+		mp.imagelink = Imagelink
+		mp.amazonlink = Amazonlink
+		mp.content = Content
+		mp.user_id = user_id
+		mp.post_type = PostType
+		mp.status = "1"
+		if PostType != '0':
+			mp.from_date = FromDate
+			mp.to_date = ToDate
+			mp.place = Place
 		mp.save()
 		return HttpResponseRedirect('/home')

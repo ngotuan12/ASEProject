@@ -53,6 +53,7 @@ def updateProfile(request):
 			_profile.company = company
 			_profile.about = about
 			_profile.save()
+			request.session['user_type'] = acccount_type
 			return HttpResponseRedirect('/home')
 		except Exception as e:
 			print(e)
