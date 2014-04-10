@@ -7,16 +7,10 @@ from django.core.context_processors import csrf
 from django.shortcuts import render, render_to_response
 from mongoengine.django.auth import User
 
-from myapp.models import UserProfile, Social
+from myapp.models import UserProfile
 from myapp.util import context_processors
 
 def index(request):
-	social=Social()
-	social.name="facebook"
-	social.status="1"
-	social.type="1"
-	social.icon=""
-	social.save()
 	lisUserProfile = UserProfile.objects
 # 	print('begin')
 # 	for user in lisUserProfile:

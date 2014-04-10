@@ -61,14 +61,16 @@
 			</p>
 
 			<h5 class="subtitle">Connect</h5>
+			{% if ListSocialProfile %}
+			{% for socialProfile in ListSocialProfile %}
 			<ul class="profile-social-list">
-				<li><i class="fa fa-twitter"></i> <a href="#">twitter.com/eileensideways</a></li>
-				<li><i class="fa fa-facebook"></i> <a href="#">facebook.com/eileen</a></li>
-				<li><i class="fa fa-youtube"></i> <a href="#">youtube.com/eileen22</a></li>
-				<li><i class="fa fa-linkedin"></i> <a href="#">linkedin.com/4ever-eileen</a></li>
-				<li><i class="fa fa-pinterest"></i> <a href="#">pinterest.com/eileen</a></li>
-				<li><i class="fa fa-instagram"></i> <a href="#">instagram.com/eiside</a></li>
+				<li>
+					<i class="fa fa-twitter"></i> <a href="{{ socialProfile.link }}" target="_blank">{{ socialProfile.link }}</a>
+				</li>
 			</ul>
+			{% endfor %}
+			{% else%}
+			{% endif %}
 		</div>
 		<!-- col-sm-3 -->
 		<div class="col-sm-9">

@@ -9,6 +9,7 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from mongoengine.django.auth import User
 
+from myapp.models import SocialProfile
 from myapp.models.JobTitle import JobTitle
 from myapp.models.UserProfile import UserProfile
 from myapp.models.WorkField import WorkFeild
@@ -19,12 +20,15 @@ from myapp.util import context_processors
 def index(request):
 	try:
 		user_id = request.GET['user_id']
+		ListSocialProfiles=SocialProfile.objects(user_id=User.objects.get(id=user_id))
 		profile = UserProfile.objects.get(user_id=User.objects.get(id=user_id))
-		context = {'profile':profile,}
+		ListProfiles=UserProfile.objects
+		context = {'profile':profile,'ListSocialProfile':ListSocialProfiles,"ListProfiles":ListProfiles}
 		return render(request, 'myapp/profile.html', context)
 	except Exception:
 		profile = UserProfile()
-		profile.user_id = User.objects.get(id=user_id)
+		profile.user_id = User.objects.get(id="user_id")
+		profile = UserProfile.objects.get(user_id=User.objects.get(id=user_id))
 		context = {'profile':profile,}
 		return render(request, 'myapp/profile.html', context)
 @login_required(login_url='/signin')
