@@ -8,7 +8,7 @@ AUTHENTICATION_BACKENDS = (
     'mongoengine.django.auth.MongoEngineBackend',
 )
 SESSION_ENGINE = 'mongoengine.django.sessions'
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 TEMPLATE_DIRS = (
 #                  os.path.join(os.path.dirname(__file__),'templates'),
