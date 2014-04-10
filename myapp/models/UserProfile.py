@@ -11,11 +11,6 @@ from mongoengine.fields import ReferenceField, StringField, DateTimeField,\
 	ListField
 
 from myapp.models.JobTitle import JobTitle
-<<<<<<< HEAD
-from myapp.models.Social import Social
-from myapp.models.UserType import UserType
-=======
->>>>>>> e19e1e9f224d4d13bb23cb04ecc22af30293c438
 from myapp.models.WorkField import WorkFeild
 from myapp.models.UserType import UserType
 
