@@ -8,12 +8,16 @@ from datetime import datetime
 from mongoengine.django.auth import User
 from mongoengine.document import Document
 from mongoengine.fields import ReferenceField, StringField, DateTimeField,\
-	ListField, EmbeddedDocumentField
+	ListField
 
 from myapp.models.JobTitle import JobTitle
+<<<<<<< HEAD
 from myapp.models.Social import Social
 from myapp.models.UserType import UserType
+=======
+>>>>>>> e19e1e9f224d4d13bb23cb04ecc22af30293c438
 from myapp.models.WorkField import WorkFeild
+from myapp.models.UserType import UserType
 
 
 class UserProfile(Document):
@@ -25,7 +29,6 @@ class UserProfile(Document):
 	work_field = ReferenceField(WorkFeild)
 	edu = ListField(StringField())
 	skill =ListField(StringField())
-	socials = ListField(EmbeddedDocumentField(Social))
 	create_date = DateTimeField(default=datetime.now)
 	status = int()
 	about = StringField()

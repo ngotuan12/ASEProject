@@ -1,0 +1,160 @@
+{% extends "myapp/base.html" %} {% block styles %}
+<link rel="stylesheet" href="css/chat-style.css" />
+{% endblock %} {% block header %}
+<div class="pageheader">
+	<h2>
+		<i class="fa fa-home"></i> <a href="index">Home</a>
+	</h2>
+</div>
+{% endblock %} {% block content %}
+<div class="contentpanel">
+
+	<div class="row">
+		<div class="col-sm-3" style="padding: 0; margin: 0;">
+			<div>
+				<h5 class="subtitle">Friends</h5>
+				<ul class="nav nav-profile ul-user">
+					{% for profile in profiles %}
+					<li class="li-user"><a href="#"><img alt=""
+						{% if profile.images %}
+							src="/{{profile.images}}" 
+						{% else %}
+							src="images/photos/user.png" 
+						{% endif %}
+							 style="width: 36px; height: 36px">
+							{{profile.user_id.last_name|add:" "|add:profile.user_id.first_name}}</a></li>
+					{% endfor %}
+				</ul>
+
+				<div class="mb30"></div>
+			</div>
+		</div>
+		<!-- col-sm-3 -->
+		<div class="col-sm-9" style="padding: 0;margin: 0">
+
+			<div class="panel panel-default panel-timeline" id = "output">
+				<div class="panel-heading">
+					<div class="media">
+						<a href="#" class="pull-left"> <img alt=""
+							src="images/photos/user2.png" class="media-object">
+						</a>
+						<div class="media-body">
+							<h4 class="text-primary">
+								Nusja Nawancali <small style="float: right">January 9, 2014 at 7:30am</small>
+							</h4>
+							<div class="text-muted">January 9, 2014 at 7:30am</div>
+						</div>
+					</div>
+					<!-- media -->
+				</div>
+				<div class="panel-heading">
+					<div class="media">
+						<a href="#" class="pull-left"> <img alt=""
+							src="images/photos/user2.png" class="media-object">
+						</a>
+						<div class="media-body">
+							<h4 class="text-primary">
+								Nusja Nawancali <small style="float: right">January 9, 2014 at 7:30am</small>
+							</h4>
+							<div class="text-muted">January 9, 2014 at 7:30am</div>
+						</div>
+					</div>
+					<!-- media -->
+				</div>
+				<div class="panel-heading">
+					<div class="media">
+						<a href="#" class="pull-left"> <img alt=""
+							src="images/photos/user2.png" class="media-object">
+						</a>
+						<div class="media-body">
+							<h4 class="text-primary">
+								Nusja Nawancali <small style="float: right">January 9, 2014 at 7:30am</small>
+							</h4>
+							<div class="text-muted">January 9, 2014 at 7:30am</div>
+						</div>
+					</div>
+					<!-- media -->
+				</div>
+				<div class="panel-heading">
+					<div class="media">
+						<a href="#" class="pull-left"> <img alt=""
+							src="images/photos/user2.png" class="media-object">
+						</a>
+						<div class="media-body">
+							<h4 class="text-primary">
+								Nusja Nawancali <small>shared photo</small>
+							</h4>
+							<small class="text-muted">January 9, 2014 at 7:30am</small>
+						</div>
+					</div>
+					<!-- media -->
+				</div>
+				<!-- panel-heading -->
+				<div class="panel-footer">
+					<div class="media">
+						<div class="media-body">
+							<input type="text" class="form-control"
+								placeholder="Write a chat">
+						</div>
+					</div>
+					<!-- media -->
+				</div>
+			</div>
+
+		</div>
+		<!-- col-sm-9 -->
+	</div>
+	<!-- row -->
+
+</div>
+{% endblock %}
+{% block scripts %}
+<script language="javascript" type="text/javascript">  
+var wsUri = "ws://thawing-mountain-3752.herokuapp.com"; 
+var output;  
+function init() 
+{ 	
+	output = document.getElementById("output"); 
+	testWebSocket(); 
+}
+function testWebSocket() 
+{ 
+	websocket = new WebSocket(wsUri); 
+	websocket.onopen = function(evt) { onOpen(evt) }; 
+	websocket.onclose = function(evt) { onClose(evt) }; 
+	websocket.onmessage = function(evt) { onMessage(evt) }; 
+	websocket.onerror = function(evt) { onError(evt) }; }  
+	function onOpen(evt) 
+	{ 
+		//alert('connected');
+		//writeToScreen("CONNECTED"); 
+		//doSend("WebSocket rocks"); 
+	}  
+	function onClose(evt) 
+	{ 
+		//writeToScreen("DISCONNECTED"); 
+	}
+	function onMessage(evt) 
+	{ 
+		writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>'); 
+		websocket.close(); 
+	}  
+	function onError(evt) 
+	{ 
+		writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data); 
+	}  
+	function doSend(message) 
+	{ 
+		writeToScreen("SENT: " + message);  
+		websocket.send(message); 
+	}  
+	function writeToScreen(message) 
+	{ 
+		var pre = document.createElement("p"); 
+		pre.style.wordWrap = "break-word"; 
+		pre.innerHTML = message; output.appendChild(pre); 
+	}  
+	window.addEventListener("load", init, false);  
+</script>
+<script src="js/custom.js"></script>
+{% endblock %}
