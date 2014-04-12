@@ -23,7 +23,7 @@
 					</ul>
 
 					<ul class="blog-meta">
-						<li>By: <a href="profile?user_id={{ post.user_id.id }}">{{post.user_id.id }}</a></li>
+						<li>By: <a href="profile?user_id={{ post.user_id.id }}">{{post.user_id }}</a></li>
 						<li>{{ post.published_date|date:'Y-M-d'}}</li>
 						{% if post.user_id == user_id %}
 						<li><a href = "mentor-post?post_id={{ post.id }}&edit=true" > edit </a></li>

@@ -1,5 +1,5 @@
 command: 
-mongo 127.0.0.1/my_db c:/script/userprofile.js
+mongo 127.0.0.1/my_db D:\Dev\SourceCode\ASEProject\script
 db.userprofile.find().forEach(printjson)
 
 Step to run Script File (.js):

@@ -21,6 +21,7 @@ def index(request):
 		print("method is get")
 		Title = request.POST['txtTitle']
 		Imagelink = request.POST['txtImagelink']
+		Videolink = request.POST['txtVideolink']
 		Amazonlink = request.POST['txtAmazonlink']
 		Content = request.POST['txtContent']
 		PostType = request.POST['slPostType']
@@ -32,6 +33,7 @@ def index(request):
 		print(user_id)
 		mp = MentorPost()
 		mp.title = Title
+		mp.videolink = Videolink
 		mp.imagelink = Imagelink
 		mp.amazonlink = Amazonlink
 		mp.content = Content
