@@ -14,6 +14,7 @@ from myapp.models.JobTitle import JobTitle
 from myapp.models.UserProfile import UserProfile
 from myapp.models.WorkField import WorkFeild
 from myapp.util import context_processors
+from myapp.models.UserType import UserType
 
 
 @login_required(login_url='/signin')
@@ -52,7 +53,7 @@ def updateProfile(request):
 			_profile = UserProfile.objects.get(user_id=request.user)
 			_profile.job_title = JobTitle.objects.get(id=jobTitle)
 			_profile.work_field = WorkFeild.objects.get(id=workField)
-			_profile.user_type = acccount_type
+			_profile.user_type = UserType.objects.get(code=acccount_type)
 			_profile.user_id = request.user
 			_profile.company = company
 			_profile.about = about
