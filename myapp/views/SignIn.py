@@ -10,6 +10,7 @@ from django.shortcuts import render, render_to_response
 from mongoengine.django.auth import User
 
 from myapp.models.UserLogin import UserLogin
+from myapp.models.UserProfile import UserProfile
 from myapp.util import context_processors
 
 
@@ -30,6 +31,9 @@ def index(request):
 				logout(request)
 				user.backend = 'mongoengine.django.auth.MongoEngineBackend'
 				login(request, user)
+				profile = UserProfile.objects.get(user_id=user)
+				request.session['user_type'] = profile.user_type.name
+				request.session['user_images'] = profile.images
 				return HttpResponseRedirect('/home')
 			else:
 				c = {

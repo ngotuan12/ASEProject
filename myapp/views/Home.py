@@ -11,16 +11,11 @@ from myapp.models import MentorPost
 
 @login_required(login_url='/signin')
 def index(request):
-	#collection.setObjectClass(MentorPost.class);
-	#blog = BlogPost(title="abc")
-	#blog.published_date = datetime(2014,1,6,0,0,0)
-	#blog.save()
-	#for blog in BlogPost.objects:
-		#print(blog.title)
-	#return HttpResponse(BlogPost.objects);
 	posts = MentorPost.objects
-	for post in posts:
-		print(post.imagelink)
-		
-	context = {'posts':posts,'user_type':request.session['user_type'],'user_id':request.user,}
+	user_type = ""
+	try:
+		user_type = request.session['user_type']
+	except Exception:
+		user_type = ""
+	context = {'posts':posts,'user_type':user_type,'user_id':request.user,}
 	return render(request,'myapp/index.html', context)
