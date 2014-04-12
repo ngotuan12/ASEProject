@@ -62,8 +62,6 @@
 			<div class="mb30"></div>
 			<ul class="media-list comment-list">
 				{% for cmt in comments %}
-				<h5 >U: {{user.id}}</h5>
-				<h5 >Cmt: {{cmt.user_id.id}}</h5>
 				{% if cmt.user_id.id != user.id %}
 				<li class="media" style="background-color: #ffffff; color: #1D2939">
 					<div style="text-align: left; margin: 10px 0px;">
