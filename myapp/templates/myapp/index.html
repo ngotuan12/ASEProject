@@ -121,13 +121,13 @@
 					{% if post.post_type == "1" %}
 					<div class="col-xs-6 col-sm-4 col-md-3">
 						<div class="blog-item">
-							<a href="post-detail?post_id={{ post.id }}" class="blog-img">
+							<a href="lecture-detail?post_id={{ post.id }}" class="blog-img">
 							{% if post.imagelink != "" %}
 							<img src="{{ post.imagelink}}" class="img-responsive" style="margin-left: auto;margin-right: auto;padding-top: 1%"></a>
 							{% endif %}
 							<div class="blog-details">								
 								<h4 class="blog-title">									
-									<a href = "post-detail?post_id={{ post.id }}" >{{ post.title }}</a>
+									<a href = "lecture-detail?post_id={{ post.id }}" >{{ post.title }}</a>
 								</h4>
 								<ul class="blog-meta">
 									<li>By: <a href="profile?user_id={{ post.user_id.id }}">{{ post.user_id.username }}</a></li>
