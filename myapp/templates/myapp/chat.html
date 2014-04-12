@@ -105,6 +105,7 @@ function onOpen(evt)
 }  
 function onClose(evt) 
 { 
+	initWebSocket();
 	//alert('disconnected');
 	//writeToScreen("DISCONNECTED"); 
 }
@@ -150,7 +151,7 @@ function writeToScreen(message)
 	div.className = "media";
 	div.innerHTML = "<div class='media-body'>"+
 					"<h4 class='text-primary'>"+
-					message.from_user + "<small style=\"float: right\">January 9, 2014 at 7:30am</small>"+
+					message.from_user + "<small style=\"float: right\"></small>"+
 					"</h4>"+
 					"<div class=\"text-muted\">"+message.content+"</div>"+
 					"</div>"; 
