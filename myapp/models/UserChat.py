@@ -8,11 +8,11 @@ from mongoengine.document import Document
 from mongoengine.fields import StringField, DateTimeField, ReferenceField
 
 
-class BlogPost(Document):
-	title = StringField()
+class UserChat(Document):
+	message = StringField()
 	published_date = DateTimeField()
-	user_id = ReferenceField(User)
-
+	from_user = ReferenceField(User)
+	to_user = ReferenceField(User)
 	meta = {
 		'ordering': ['-published_date']
 	}
