@@ -176,8 +176,8 @@ INSTALLED_APPS = (
 AUTH_USER_MODEL = 'mongo_auth.MongoUser'
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
-LOGIN_REDIRECT_URL = '/'
-LOGIN_ERROR_URL = '/asdasdasd/'
+LOGIN_REDIRECT_URL = '/home'
+LOGIN_ERROR_URL = '/'
 SOCIAL_AUTH_STORAGE = 'social.apps.django_app.me.models.DjangoStorage'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '86706008722-gtsfej37d74nhhvjlkblfllbj3j5qmiv.apps.googleusercontent.com'

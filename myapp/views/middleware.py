@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 class SocialAuthExceptionMiddleware(SocialAuthExceptionMiddleware):
     def process_exception(self, request, exception):
         if hasattr(social_exceptions, 'AuthCanceled'):
+            print(social_exceptions)
             return HttpResponseRedirect('/error-authenticate')
         else:
             raise exception

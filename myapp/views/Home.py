@@ -6,8 +6,10 @@ Created on Apr 3, 2014
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from myapp.models import MentorPost
+from myapp.models import MentorPost ,UserProfile
+from mongoengine.django.auth import User
 
+from django.http import HttpResponseRedirect
 
 @login_required(login_url='/signin')
 def index(request):
