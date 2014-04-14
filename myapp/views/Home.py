@@ -11,6 +11,21 @@ from myapp.models import MentorPost
 
 @login_required(login_url='/signin')
 def index(request):
+	try:
+		user_id=request.session['_auth_user_id']
+		print(user_id)
+		use=User.objects.get(id=user_id).id
+		print(use)
+		profiles = UserProfile.objects(user_id=User.objects.get(id=user_id)).first()
+		if(profiles==None):
+			_profile = UserProfile()
+			_profile.user_id = request.user
+			_profile.save()
+			return HttpResponseRedirect('/create-profile')
+		
+	except Exception as e:
+		print(e)
+	
 	posts = MentorPost.objects
 	user_type = ""
 	try:

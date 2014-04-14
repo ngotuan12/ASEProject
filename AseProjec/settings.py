@@ -6,6 +6,12 @@ import mongoengine
 mongoengine.connect('my_db',host="oceanic.mongohq.com",port=10043,username="admin",password="113322")
 AUTHENTICATION_BACKENDS = (
     'mongoengine.django.auth.MongoEngineBackend',
+    'social.backends.open_id.OpenIdAuth',
+    'social.backends.google.GoogleOpenId',
+    'social.backends.google.GoogleOAuth2',
+    'social.backends.google.GoogleOAuth',
+    'social.backends.twitter.TwitterOAuth',
+    'social.backends.facebook.FacebookOAuth2',
 )
 SESSION_ENGINE = 'mongoengine.django.sessions'
 DEBUG = True
@@ -18,15 +24,18 @@ TEMPLATE_DIRS = (
 )
 #CSRF_COOKIE_SECURE = True
 TEMPLATE_CONTEXT_PROCESSORS =(
-	"django.contrib.auth.context_processors.auth",
-	"django.core.context_processors.debug",
-	"django.core.context_processors.i18n",
-	"django.core.context_processors.media",
-	"django.core.context_processors.static",
-	"django.core.context_processors.tz",
-	"django.contrib.messages.context_processors.messages",
-	'django.core.context_processors.csrf',
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+    'django.core.context_processors.csrf',
     'myapp.util.context_processors.user',
+    'social_auth.context_processors.social_auth_by_type_backends',
+    'social.apps.django_app.context_processors.backends',
+    'social.apps.django_app.context_processors.login_redirect',
 )
 
 ADMINS = (
@@ -43,6 +52,12 @@ DATABASES = {
 SESSION_ENGINE = 'mongoengine.django.sessions'
 AUTHENTICATION_BACKENDS = (
     'mongoengine.django.auth.MongoEngineBackend',
+    'social.backends.open_id.OpenIdAuth',
+    'social.backends.google.GoogleOpenId',
+    'social.backends.google.GoogleOAuth2',
+    'social.backends.google.GoogleOAuth',
+    'social.backends.twitter.TwitterOAuth',
+    'social.backends.facebook.FacebookOAuth2',
 )
 TEST_RUNNER = 'yourproject.tests.NoSQLTestRunner'
 # Hosts/domain names that are valid for this site; required if DEBUG is False
@@ -94,12 +109,12 @@ STATIC_URL = '/'
 #STATIC_IMAGE_URL = '/common/images'
 # Additional locations of static files
 STATICFILES_DIRS = (
-				'D:/Projects/ASE/AseProjec/common',
-				#("css", "D:/Projects/ASE/AseProjec/common/css"),
-				#("fonts", "D:/Projects/ASE/AseProjec/common/fonts"),
-				#("holder.js", "D:/Projects/ASE/AseProjec/common/holder.js"),
-				#("images", "D:/Projects/ASE/AseProjec/common/images"),
-				#("js", "D:/Projects/ASE/AseProjec/common/js"),
+                'D:\Project\ASE\Checkout2\ASEProject\common',
+                #("css", "D:/Projects/ASE/AseProjec/common/css"),
+                #("fonts", "D:/Projects/ASE/AseProjec/common/fonts"),
+                #("holder.js", "D:/Projects/ASE/AseProjec/common/holder.js"),
+                #("images", "D:/Projects/ASE/AseProjec/common/images"),
+                #("js", "D:/Projects/ASE/AseProjec/common/js"),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -129,6 +144,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'social_auth.middleware.SocialAuthExceptionMiddleware',
+    'myapp.views.middleware.SocialAuthExceptionMiddleware',
     #'django.middleware.csrf.CsrfViewMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -150,6 +167,7 @@ INSTALLED_APPS = (
     'mongoengine.django.mongo_auth',
     #'django.contrib.staticfiles',
     'myapp',
+    'social.apps.django_app.me',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -157,6 +175,18 @@ INSTALLED_APPS = (
 )
 AUTH_USER_MODEL = 'mongo_auth.MongoUser'
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
+
+LOGIN_REDIRECT_URL = '/'
+LOGIN_ERROR_URL = '/asdasdasd/'
+SOCIAL_AUTH_STORAGE = 'social.apps.django_app.me.models.DjangoStorage'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '86706008722-gtsfej37d74nhhvjlkblfllbj3j5qmiv.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'hUzpunyIJmBC2e_Xi7Vx2mzP'
+
+SOCIAL_AUTH_TWITTER_KEY = 'EE3yel9URqDYyZl18eHscAYyO'
+SOCIAL_AUTH_TWITTER_SECRET = 'kvvwhIYvrOpEmaqNN8Eh0gRn3LG6dprP93rCEaCq7ZcrSnwrXI'
+
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

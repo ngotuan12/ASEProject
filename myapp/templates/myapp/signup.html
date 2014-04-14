@@ -9,6 +9,7 @@
 
 <title>Adult Social Education</title>
 
+<link href="css/bootstrap-social.css" rel="stylesheet">
 <link href="css/style.default.css" rel="stylesheet">
 <link href="css/ase-style.css" rel="stylesheet">
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -158,6 +159,22 @@
 						<br />
 
 						<button class="btn btn-success btn-block">Sign Up</button>
+						<br />
+						<div align="center">
+							<a href= "{% url 'social:begin' "twitter" %}" class="btn btn-social-icon btn-twitter">
+	    						<i class="fa fa-twitter"></i>
+	  						</a>
+	  						<a class="btn btn-social-icon btn-facebook">
+	    						<i class="fa fa-facebook"></i>
+	  						</a>
+	  						<a href= "{% url 'social:begin' "google-oauth2" %}" class="btn btn-social-icon btn-google-plus">
+	    						<i class="fa fa-google-plus"></i>
+	  						</a>
+	  						<a class="btn btn-social-icon btn-linkedin">
+	    						<i class="fa fa-linkedin"></i>
+	  						</a>
+	  					</div>
+	  					
 					</form>
 				</div>
 				<!-- col-sm-6 -->
