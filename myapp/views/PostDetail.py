@@ -18,7 +18,8 @@ def index(request):
 	if request.method == 'GET':
 		vpost_id = request.GET['post_id']
 		post = MentorPost.objects.get(id=vpost_id)
-		comments = CommentPost.objects(post_id=vpost_id).all()
+# 		comments = CommentPost.objects(post_id=vpost_id).all()
+		comments = post.comments
 		context = {	'post':post,'comments':comments,
 					'user_type':request.session['user_type'],
 					'user_id':request.user,
@@ -34,7 +35,10 @@ def index(request):
 		cmt.post_id=MentorPost.objects.get(id=post_id)
 		cmt.save()# 		user_id = request.session
 		post = MentorPost.objects.get(id=post_id)
-		comments = CommentPost.objects(post_id=post_id).all()
+		post.comments.append(cmt);
+		post.save()
+# 		comments = CommentPost.objects(post_id=post_id).all()
+		comments = post.comments
 		c = {'post':post,'comments':comments,'user_type':request.session['user_type']}
 		c.update(csrf(request))
 		c.update(context_processors.user(request))

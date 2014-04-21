@@ -7,7 +7,9 @@ from datetime import datetime
 
 from mongoengine.django.auth import User
 from mongoengine.document import Document
-from mongoengine.fields import StringField, DateTimeField, ReferenceField
+from mongoengine.fields import StringField, DateTimeField, ReferenceField, ListField
+
+from myapp.models.CommentPost import CommentPost
 
 
 class MentorPost(Document):
@@ -21,8 +23,9 @@ class MentorPost(Document):
 	imagelink = StringField()
 	amazonlink= StringField()
 	content = StringField()
-	post_type=StringField(default=0)
-	status=StringField(default=1)
+	post_type=StringField(default="0")
+	status=StringField(default="1")
+	comments=ListField(ReferenceField(CommentPost))
 	meta = {
 			'ordering': ['-published_date']
  }

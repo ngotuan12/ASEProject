@@ -8,7 +8,8 @@
 	</h2>
 </div>
 
-{% endblock %} {% block content %}
+{% endblock %}
+{% block content %}
 
 <div class="contentpanel">
 
@@ -25,7 +26,7 @@
 					</ul>
 
 					<ul class="blog-meta">
-						<li>By: <a href="profile?user_id={{ post.user_id.id }}">{{post.user_id.id }}</a></li>
+						<li>By: <a href="profile?user_id={{ post.user_id.id }}">{{post.user_id.username }}</a></li>
 						<li>{{ post.published_date|date:'Y-M-d'}}</li>
 						{% if post.user_id == user_id %}
 						<li><a href = "mentor-post?post_id={{ post.id }}&edit=true" > edit </a></li>
@@ -64,42 +65,38 @@
 			<div class="mb30"></div>
 			<ul class="media-list comment-list">
 				{% for cmt in comments %}
-				{% if cmt.user_id.id != user.id %}
-				<li class="media" style="background-color: #ffffff; color: #1D2939">
-					<div style="text-align: left; margin: 10px 0px;">
-						<div
-							style="float: left; margin: 0px 0px 3px 10px; margin-left: 2%; margin-right: 2%;">
-							<a href="profile?user_id={{ cmt.user_id.id }}"><img
-								src="images/photos/shimizu_small.jpg"></a>
-						</div>
-						<h4>
-							<a href="profile?user_id={{ cmt.user_id.id }}">{{cmt.user_id.username}}</a>
-							- Since:{{cmt.create_date}}
-						</h4>
-						<div
-							style="margin-right: 15%; margin-left: 10%; text-align: justify;">
-							<span>{{cmt.content}}</span>
-						</div>
-					</div>
-				</li> 
-				{% else %}
-				<li class="media" style="background-color: #119380; color: #ffffff">
-					<div style="text-align: right; margin: 10px 0px;">
-						<div
-							style="float: right; margin: 0px 0px 3px 10px; margin-left: 2%; margin-right: 2%;">
-							<a href="profile?user_id={{ cmt.user_id }}"><img
-								src="images/photos/cuongnm_small.jpg"></a>
-						</div>
+				{% if cmt.user_id.id == post.user_id.id %}
+				<div class="alert alert-success"
+					style="margin-left: 5%; margin-right: 30%;">
+					<div class="media" style="padding-bottom: 0px;">
+						<a href="#" class="pull-left"> <img alt=""
+							src="images/photos/user3.png" class="media-object"
+							style="width: 32px;"></a>
 						<h4>
 							<a href="profile?user_id={{ cmt.user_id }}">{{cmt.user_id.username}}</a>
 							- Since:{{cmt.create_date|date:'Y-M-d'}}
 						</h4>
-						<div
-							style="margin-left: 15%; margin-left: 10%; text-align: justify;">
+						<div class="media-body">
 							<span>{{cmt.content}}</span>
 						</div>
 					</div>
-				</li> 
+				</div>
+				{% else %}
+				<div class="alert alert-danger"
+					style="margin-left: 30%; margin-right: 5%;">
+					<div class="media" style="padding-bottom: 0px;">
+						<a href="#" class="pull-right"> <img alt=""
+							src="images/photos/user3.png" class="media-object"
+							style="width: 32px;"></a>
+						<h4>
+							<a href="profile?user_id={{ cmt.user_id }}">{{cmt.user_id.username}}</a>
+							- {{cmt.create_date|date:'Y-M-d'}}
+						</h4>
+						<div class="media-body ">
+							<span>{{cmt.content}}</span>
+						</div>
+					</div>
+				</div>
 				{% endif %} 
 				{% endfor %}
 			</ul>
@@ -109,8 +106,8 @@
 			<div class="mb20"></div>
 
 			<form method="post">
-				{% csrf_token %} <input type="hidden" name="hd_post_id"
-					value="{{ post.id }}">
+				{% csrf_token %} 
+				<input type="hidden" name="hd_post_id" value="{{ post.id }}">
 				<div class="row row-pad-5"></div>
 				<!-- row -->
 				<textarea name="txtComment" placeholder="Message" rows="3"
