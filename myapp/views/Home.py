@@ -12,18 +12,19 @@ from myapp.models.CommentPost import CommentPost
 from myapp.models.MentorPost import MentorPost
 from myapp.util import context_processors
 
-@login_required(login_url='/signin')
+# @login_required(login_url='/signin')
 def index(request):
 	if request.method == 'GET':
-		posts = MentorPost.objects
-		user_type = ""
-		try:
-			user_type = request.session['user_type']
-		except Exception:
-			user_type = ""
-			
-		context = {'posts':posts,'user_type':user_type,'user_id':request.user,}
-		return render(request,'myapp/index.html', context)
+# 		posts = MentorPost.objects
+# 		user_type = ""
+# 		try:
+# 			user_type = request.session['user_type']
+# 		except Exception:
+# 			user_type = ""
+# 			
+# 		context = {'posts':posts,'user_type':user_type,'user_id':request.user,}
+# 		return render(request,'myapp/index.html', context)
+		return render(request, 'myapp/home.html', {})
 	elif request.method == 'POST':
 		comment = request.POST['txtComment']
 		post_id = request.POST['hd_post_id']

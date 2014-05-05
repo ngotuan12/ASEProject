@@ -36,17 +36,18 @@
 
 				<div class="visible-xs hidden-sm hidden-md hidden-lg">
 					<div class="media userlogged">
-						<img alt="" src="images/photos/loggeduser.png"
+						<img alt="" src="images/photos/user.png"
 							class="media-object">
 						<div class="media-body">
-							<h4>John Doe</h4>
-							<span>"Life is so..."</span>
+							<h4>{{user.last_name|add:" "|add:user.first_name}}</h4>
+							<span></span>
 						</div>
 					</div>
 
 					<h5 class="sidebartitle actitle">Account</h5>
 					<ul class="nav nav-pills nav-stacked nav-bracket mb30">
 						<li><a href="profile?user_id={{ user.id }}"><i class="fa fa-user"></i> <span>Profile</span></a></li>
+						<li><a href="chat"><i class="fa fa-user"></i> <span>Friends</span></a></li>
 						<li><a href="/account-setting"><i class="fa fa-cog"></i> <span>Account
 									Settings</span></a></li>
 						<li><a href="#"><i class="fa fa-question-circle"></i> <span>Help</span></a></li>
@@ -240,12 +241,14 @@
 							<div class="btn-group">
 								<button type="button" class="btn btn-default dropdown-toggle"
 									data-toggle="dropdown">
-									<img src="images/photos/loggeduser.png" alt="" /> {{ user.username }} <span
+									<img src="images/photos/user.png" alt="" /> {{ user.username }} <span
 										class="caret"></span>
 								</button>
 								<ul class="dropdown-menu dropdown-menu-usermenu pull-right">
 									<li><a href="profile?user_id={{ user.id }}"><i
 											class="glyphicon glyphicon-user"></i> My Profile</a></li>
+									<li><a href="chat"><i
+											class="glyphicon glyphicon-user"></i> Friends</a></li>
 									<li><a href="/account-setting"><i class="glyphicon glyphicon-cog"></i>
 											Account Settings</a></li>
 									<li><a href="#"><i
