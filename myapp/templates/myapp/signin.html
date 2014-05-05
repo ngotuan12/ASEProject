@@ -79,19 +79,16 @@
 						<button class="btn btn-success btn-block">Sign In</button>
 						
 						<div align="center">
-							<a class="btn btn-social-icon btn-twitter">
+							<a href= "{% url 'social:begin' "twitter" %}" class="btn btn-social-icon btn-twitter">
 	    						<i class="fa fa-twitter"></i>
 	  						</a>
-	  						<a class="btn btn-social-icon btn-facebook">
+	  						<a href= "{% url 'social:begin' "facebook" %}" class="btn btn-social-icon btn-facebook">
 	    						<i class="fa fa-facebook"></i>
 	  						</a>
-	  						<a class="btn btn-social-icon btn-google-plus">
+	  						<a href= "{% url 'social:begin' "google-oauth2" %}" class="btn btn-social-icon btn-google-plus">
 	    						<i class="fa fa-google-plus"></i>
 	  						</a>
-	  						<a class="btn btn-social-icon btn-linkedin">
-	    						<i class="fa fa-linkedin"></i>
-	  						</a>
-						</div>
+	  					</div>
 					</form>
 				</div>
 				<!-- col-sm-5 -->

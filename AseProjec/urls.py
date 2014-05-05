@@ -1,16 +1,18 @@
 import os
 
 from django.conf import settings
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url , include
 
 from myapp.views import Home, AccountSetting, PostDetail, SignIn, MentorPost, \
-	Profile, SignUp, SignOut, PeopleDirectory, Chat, PersonalHome
+	Profile, SignUp, SignOut, PeopleDirectory, Chat, PersonalHome , AuthenFail
 
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 urlpatterns = patterns('',
+						url(r'^error-authenticate$', AuthenFail.index),
+						url('', include('social.apps.django_app.urls', namespace='social')),
                        url(r'^$', Home.index),
                        url(r'^home$', Home.index),
                        url(r'^index$', Home.index),
