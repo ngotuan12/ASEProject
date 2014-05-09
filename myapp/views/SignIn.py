@@ -34,7 +34,7 @@ def index(request):
 				profile = UserProfile.objects.get(user_id=user)
 				request.session['user_type'] = profile.user_type.name
 				request.session['user_images'] = profile.images
-				return HttpResponseRedirect('/home')
+				return HttpResponseRedirect('/personalhome')
 			else:
 				c = {
 						'error_message':"User name or password does not correct",
