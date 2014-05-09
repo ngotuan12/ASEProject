@@ -1,9 +1,10 @@
-{% extends "myapp/base.html" %} 
+{% extends "myapp/base.html" %}
 {% block header %} 
+<link rel="stylesheet" href="css/dropzone.css" />
 {% endblock header%} 
 {%block content %}
 
-<div class="btn-group" style="width: 100%;text-align: center; margin-bottom: 0px;margin-left: 10%;margin-top: 1%">
+<div id="mainMenuBar" class="btn-group" style="width: 100%;text-align: center; margin-bottom: 0px;margin-left: 10%;margin-top: 1%">
 	<button type="button" class="btn btn-primary" onclick="window.location.href='/personalhome'" style="width: 20%;">Home</button>
 	<button type="button" class="btn btn-default" onclick="window.location.href='/mentorview'"  style="width: 20%;">As Mentor</button>
 	<button type="button" class="btn btn-default" onclick="window.location.href='/studentview'" style="width: 20%;">As Student</button>
@@ -14,11 +15,11 @@
 {% endblock content%} 
 {% block scripts %}
 <script src="js/masonry.pkgd.min.js"></script>
-
+<script src="js/toggles.min.js"></script>
+<script src="js/dropzone.min.js"></script>
 <script src="js/custom.js"></script>
 <script>
   jQuery(window).load(function(){
-  	alert('psnHome');
     var container = document.querySelector('#bloglist');
     var msnry = new Masonry( container, {
       // options
@@ -52,6 +53,7 @@
 		if(jQuery(this).width() <= 480 )
 			msnry.destroy();
 	});
+	
 	});	
 </script>
 {% endblock scripts%}
