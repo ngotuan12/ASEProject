@@ -137,22 +137,16 @@
 <!-- document.getElementById("formcreatepost").submit(); -->
 <script type="text/javascript">
 	function createpost(){
-		alert('creating post...');
-		alert(document.forms["formcreateesay"].post_id.value);
 		document.getElementById("formcreateesay").submit();
 	};
 	function createesay(postid){
-		alert(postid);
 		document.forms["formcreateesay"].post_id.value = postid;
-		alert(postid + 'ok');
 	};
 	
 	function commentpost(){
 		alert('comment post...');
 	};
 	function createlecture(){
-		alert('creating formcreatelecture...');
-		
 		document.getElementById("formcreatelecture").submit();
 	};
 	
