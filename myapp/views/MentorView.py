@@ -24,7 +24,7 @@ def index(request):
 			user_type = ""
 			
 		context = {'posts':posts,'user_type':user_type,'user_id':request.user,}
-		return render(request,'myapp/personalhome.html', context)
+		return render(request,'myapp/mentorview.html', context)
 	elif request.method == 'POST':
 		posttype = request.POST['posttype']
 		#post type = 2 mean lecture;

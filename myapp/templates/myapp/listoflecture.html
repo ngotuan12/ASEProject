@@ -1,0 +1,81 @@
+{% include 'myapp/createesay.html' %}
+{% include 'myapp/startlecture.html' %}
+{% include 'myapp/endlecture.html' %}
+<div class="contentpanel">
+	<div class="people-list">
+		<div class="row">
+			{% for post in posts %}
+			{% if post.user_id.id == user.id%}
+			<div class="col-md-6">
+				<div class="people-item">
+					<div class="media">
+						<div class="progress">
+								<div id="{{post.id}}" class="progress-bar progress-bar-success" role="progressbar"
+									aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
+									style="width: 80%">
+									<span class="sr-only">80% Complete</span>
+								</div>
+							</div>
+						<div class="media-body">
+							<div class="timeline-btns pull-left">
+							<h4 class="person-name">{{post.title}}</h4>
+							</div>
+							<div class="btn-group pull-right">
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#startlecture">Start</button>
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#endlecture">End</button>
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createesay">Esay</button>
+							</div>
+							<ul class="social-list">
+							{% include 'myapp/sumarize.html' %}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- col-md-6 -->
+			{% endif %}{% endfor %}
+
+		</div>
+		<!-- row -->
+	</div>
+	<!-- people-list -->
+
+</div>
+
+<div class="dropdown-menu">
+	<h5 class="title">You Have 1 New Message</h5>
+	<ul class="dropdown-list gen-list">
+		<li class="new"><a href="#"> <span class="thumb"><img
+					src="images/photos/user1.png" alt=""></span> <span class="desc">
+					<span class="name">Draniem Daamul <span
+						class="badge badge-success">new</span></span> <span class="msg">Lorem
+						ipsum dolor sit amet...</span>
+			</span>
+		</a></li>
+		<li><a href="#"> <span class="thumb"><img
+					src="images/photos/user2.png" alt=""></span> <span class="desc">
+					<span class="name">Nusja Nawancali</span> <span class="msg">Lorem
+						ipsum dolor sit amet...</span>
+			</span>
+		</a></li>
+		<li><a href="#"> <span class="thumb"><img
+					src="images/photos/user3.png" alt=""></span> <span class="desc">
+					<span class="name">Weno Carasbong</span> <span class="msg">Lorem
+						ipsum dolor sit amet...</span>
+			</span>
+		</a></li>
+		<li><a href="#"> <span class="thumb"><img
+					src="images/photos/user4.png" alt=""></span> <span class="desc">
+					<span class="name">Zaham Sindilmaca</span> <span class="msg">Lorem
+						ipsum dolor sit amet...</span>
+			</span>
+		</a></li>
+		<li><a href="#"> <span class="thumb"><img
+					src="images/photos/user5.png" alt=""></span> <span class="desc">
+					<span class="name">Veno Leongal</span> <span class="msg">Lorem
+						ipsum dolor sit amet...</span>
+			</span>
+		</a></li>
+		<li class="new"><a href="#">Read All Messages</a></li>
+	</ul>
+</div>
