@@ -1,8 +1,9 @@
+<div class="contentpanel" style="padding-left: 12%;">
 {% include 'myapp/createesay.html' %}
 {% include 'myapp/addphoto.html' %}
 {% include 'myapp/addvideo.html' %}
 {% include 'myapp/addlink.html' %}
-<div class="contentpanel" style="padding-left: 12%;">
+
 	<div id="timeline-list" class="row" style="max-width: 950px;">
 		{% include 'myapp/createpost.html' %}
 		<!-- Start lecture content from here -->
@@ -59,20 +60,21 @@
 				</div>
 				<!-- panel-body -->
 				<!-- for comments from here -->
-				{% for cmt in post.comments %}
-					{% for esay in post.esay %}
-						<div class="panel panel-warning">
-							<div class="panel-heading">
-								<div class="panel-btns">
-									<a href="#" class="panel-close">×</a> <a href="#"
-										class="minimize">−</a>
-								</div>
-								<!-- panel-btns -->
-								<h3 class="panel-title">Esay Title : {{esay.title}}</h3>
+				{% for esay in post.esay %}
+					<div class="panel panel-warning">
+						<div class="panel-heading">
+							<div class="panel-btns">
+								<a href="#" class="panel-close">×</a> <a href="#"
+									class="minimize">−</a>
 							</div>
-							<div class="panel-body">{{esay.content}}</div>
+							<!-- panel-btns -->
+							<h3 class="panel-title">Esay Title : {{esay.title}}</h3>
 						</div>
-					{% endfor%}
+						<div class="panel-body">{{esay.content}}</div>
+					</div>
+				{% endfor%}
+
+				{% for cmt in post.comments %}
 				{% if cmt.user_id.id == post.user_id.id %}
 				<div class="alert alert-success"
 					style="margin-left: 5%; margin-right: 30%;">

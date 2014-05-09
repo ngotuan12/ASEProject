@@ -4,6 +4,7 @@ Created on Apr 3, 2014
 '''
 from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from mongoengine.django.auth import User
 
@@ -61,7 +62,7 @@ def index(request):
 				user_type = ""
 				
 			context = {'posts':posts,'user_type':user_type,'user_id':request.user,}
-			return render(request,'myapp/personalhome.html', context)
+			return HttpResponseRedirect('/personalhome')
 		elif posttype == '1':
 			comment = request.POST['txtComment']
 			post_id = request.POST['hd_post_id']
@@ -82,6 +83,7 @@ def index(request):
 			context = {'post':post,'user_type':user_type,'user_id':request.user,}
 			context.update(csrf(request))
 			context.update(context_processors.user(request))
+			return HttpResponseRedirect('/personalhome')
 		elif posttype == '3':
 			title = request.POST['txtTitle']
 			content = request.POST['txtContent']
@@ -108,4 +110,4 @@ def index(request):
 			context = {'post':post,'user_type':user_type,'user_id':request.user,}
 			context.update(csrf(request))
 			context.update(context_processors.user(request))
-		return render_to_response("myapp/personalhome.html", context)
+		return HttpResponseRedirect('/personalhome')
