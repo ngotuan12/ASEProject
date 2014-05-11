@@ -8,7 +8,7 @@
 		{% include 'myapp/createpost.html' %}
 		<!-- Start lecture content from here -->
 		{% for post in posts %} 
-		{% if post.user_id.id == user.id%}
+		
 		<div class="col-sm-6">
 			<div class="panel panel-default panel-timeline">
 				<div class="panel-heading">
@@ -131,7 +131,7 @@
 			<!-- panel -->
 		</div>
 		<!-- col-sm-6 -->
-		{% endif %} {% endfor %}
+		{% endfor %}
 	</div>
 </div>
 <!-- document.getElementById("formcreatepost").submit(); -->
