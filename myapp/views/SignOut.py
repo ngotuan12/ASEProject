@@ -9,4 +9,4 @@ from django.http.response import HttpResponseRedirect
 
 def index(request):
 	logout(request)
-	return HttpResponseRedirect('/signin')
+	return HttpResponseRedirect('/')

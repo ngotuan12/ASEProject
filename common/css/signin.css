@@ -1,5 +1,5 @@
 .menu-top {
-	height: 22px;
+	height: 52px;
 	font: inherit;
 	vertical-align: baseline;
 	white-space: normal;
@@ -8,13 +8,18 @@
 	-moz-box-shadow: 0 1px 4px #ccc;
 	box-shadow: 0 1px 4px #ccc;
 	z-index: 200;
-	background: #e4e7ea;
+	background: #fff;
 	border-bottom: 1px solid #CDCDCD;
 	position: absolute;
 	top: 0;
 	width: 100%;
 }
-
+.menu-top .logo img {
+	width: 50px;
+	background: #fff;
+	float: left;
+	margin: 0 0 0 10px;
+}
 .menu-top p {
 	color: #636e7b;
 	font-size: 100%;
@@ -35,23 +40,19 @@
 	font-weight: inherit;
 	font: inherit;
 	color: #fff;
+	top: 10px;
 }
 
 .menu-top .signin-panel 
-a:link {
-	color: #636e7b;
-	text-decoration: underline;
-	white-space: normal;
-	text-align: left;
-	background: transparent;
-	margin-left: 12px;
-}
+ a:link {
+ float: left;
+ margin-right: 5px;
+} 
 
-.menu-top .signin-panel 
-a {
-	color: #636e7b;
-	text-decoration: underline;
-}
+.menu-top .signin-panel a{
+	float: left;
+	margin-right: 5px;
+} 
 
 .pipe {
 	color: #789797;
@@ -131,6 +132,19 @@ a {
 	position: absolute;
 	top:15px;
 	left:24%;
+}
+.social{
+	margin: 10px;
+}
+.social a{
+	width: 180px;
+	height: 60px;
+}
+.headerbar{
+	margin-top: 50px;
+}
+.headerbar img{
+	width: 100%
 }
 @media screen and (max-width: 860px) {
 	.img-avatar {

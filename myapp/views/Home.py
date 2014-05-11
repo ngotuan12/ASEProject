@@ -14,8 +14,8 @@ from myapp.util import context_processors
 
 # @login_required(login_url='/signin')
 def index(request):
-	if request.user is None:
-		return render(request, 'myapp/home.html', {})
+	if (request.user.is_authenticated()==False) or(request.user is None):
+		return render(request, 'myapp/home1.html', {})
 	elif request.method == 'GET':
 		posts = MentorPost.objects
 		user_type = ""
