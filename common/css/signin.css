@@ -14,12 +14,14 @@
 	top: 0;
 	width: 100%;
 }
+
 .menu-top .logo img {
 	width: 50px;
 	background: #fff;
 	float: left;
 	margin: 0 0 0 10px;
 }
+
 .menu-top p {
 	color: #636e7b;
 	font-size: 100%;
@@ -45,14 +47,14 @@
 
 .menu-top .signin-panel 
  a:link {
- float: left;
- margin-right: 5px;
-} 
-
-.menu-top .signin-panel a{
 	float: left;
 	margin-right: 5px;
-} 
+}
+
+.menu-top .signin-panel a {
+	float: left;
+	margin-right: 5px;
+}
 
 .pipe {
 	color: #789797;
@@ -128,31 +130,45 @@
 	position: inherit;
 	padding-top: 3%;
 }
-.infor{
+
+.infor {
 	position: absolute;
-	top:15px;
-	left:24%;
+	top: 15px;
+	left: 24%;
 }
-.social{
+
+.social {
 	margin: 10px;
 }
-.social a{
+
+.social a {
 	width: 180px;
 	height: 60px;
 }
-.headerbar{
+
+.headerbar {
 	margin-top: 50px;
 }
-.headerbar img{
+
+.headerbar .signin {
+	position: absolute;
+	top: 35%;
+	left: 64%;
+	background: #fff;
+	width: 333px;
+}
+
+.headerbar img {
 	width: 100%
 }
+
 @media screen and (max-width: 860px) {
 	.img-avatar {
-	width:auto;
-	top: 5%;
-	height: 90%;
-	left: 15px;
-	position: inherit;
-	padding-top: 10%;
-}
+		width: auto;
+		top: 5%;
+		height: 90%;
+		left: 15px;
+		position: inherit;
+		padding-top: 10%;
+	}
 }

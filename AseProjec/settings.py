@@ -1,6 +1,9 @@
 # Django settings for AseProjec project.
 
+import os
+
 import mongoengine
+
 
 # mongoengine.register_connection(alias, name, host, port, is_slave, read_preference, slaves, username, password)
 mongoengine.connect('my_db',host="oceanic.mongohq.com",port=10043,username="admin",password="113322")
@@ -87,12 +90,12 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),os.pardir))+"/upload/"
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
-MEDIA_URL = ''
+MEDIA_URL = '/upload/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
