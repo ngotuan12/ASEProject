@@ -43,20 +43,7 @@
 							<button class="btn btn-sm btn-white pull-right" data-toggle="modal" data-target="#createesay" onclick="createesay('{{post.id}}');"> Esay </button>
 						</div>
 					</div>
-
-					<div class="timeline-btns">
-						<div class="pull-left">
-							<a href="#" class="tooltips" data-toggle="tooltip" title="Like"><i
-								class="glyphicon glyphicon-heart"></i></a> <a href="#"
-								class="tooltips" data-toggle="tooltip" title="Add Comment"><i
-								class="glyphicon glyphicon-comment"></i></a> <a href="#"
-								class="tooltips" data-toggle="tooltip" title="Share"><i
-								class="glyphicon glyphicon-share"></i></a>
-						</div>
-						<div class="pull-right">
-							<small class="text-muted">1 people like this</small>
-						</div>
-					</div>
+					{% include 'myapp/socialmodule.html' %}
 				</div>
 				<!-- panel-body -->
 				<!-- for comments from here -->
@@ -140,6 +127,10 @@
 		document.getElementById("formcreateesay").submit();
 	};
 	function createesay(postid){
+		document.forms["formcreateesay"].post_id.value = postid;
+	};
+	
+	function socialmodule(postid){
 		document.forms["formcreateesay"].post_id.value = postid;
 	};
 	
