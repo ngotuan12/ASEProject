@@ -12,6 +12,7 @@ from myapp.models.CommentPost import CommentPost
 from myapp.models.Esay import Esay
 from myapp.models.MentorPost import MentorPost
 from myapp.util import context_processors
+from myapp.models import RatingPost
 
 
 @login_required(login_url='/signin')
@@ -110,4 +111,48 @@ def index(request):
 			context = {'post':post,'user_type':user_type,'user_id':request.user,}
 			context.update(csrf(request))
 			context.update(context_processors.user(request))
+		elif posttype == '4':
+			comment = request.POST['txaComment']
+			post_id = request.POST['post_id']
+			user_id = request.session['_auth_user_id']
+
+			cmt = CommentPost()
+			cmt.content=comment
+			cmt.user_id=User.objects.get(id=user_id)
+			cmt.post_id=MentorPost.objects.get(id=post_id)
+			cmt.save()# 		user_id = request.session
+			post = MentorPost.objects.get(id=post_id)
+			post.comments.append(cmt);
+			post.save()
+			user_type = ""
+			try:
+				user_type = request.session['user_type']
+			except Exception:
+				user_type = ""
+			context = {'post':post,'user_type':user_type,'user_id':request.user,}
+			context.update(csrf(request))
+			context.update(context_processors.user(request))
+			return HttpResponseRedirect('/personalhome')
+		elif posttype == '5':
+			rate = request.POST['txtrate']
+			post_id = request.POST['post_id']
+			user_id = request.session['_auth_user_id']
+
+			rate = RatingPost()
+			rate.starnumber=rate
+			rate.user_id=User.objects.get(id=user_id)
+			rate.post_id=MentorPost.objects.get(id=post_id)
+			rate.save()# 		user_id = request.session
+			post = MentorPost.objects.get(id=post_id)
+			post.rating.append(rate);
+			post.save()
+			user_type = ""
+			try:
+				user_type = request.session['user_type']
+			except Exception:
+				user_type = ""
+			context = {'post':post,'user_type':user_type,'user_id':request.user,}
+			context.update(csrf(request))
+			context.update(context_processors.user(request))
+			return HttpResponseRedirect('/personalhome')
 		return HttpResponseRedirect('/personalhome')

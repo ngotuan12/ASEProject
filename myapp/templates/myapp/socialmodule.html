@@ -15,25 +15,28 @@
 	</div>
 
 
-
-	<span class="rating">
-        <input type="radio" class="rating-input"
-            id="rating-input-{{ post.id }}-5" name="rating-input-{{ post.id }}">
-        <label for="rating-input-{{ post.id }}-5" class="rating-star"></label>
-        <input type="radio" class="rating-input"
-            id="rating-input-{{ post.id }}-4" name="rating-input-{{ post.id }}">
-        <label for="rating-input-{{ post.id }}-4" class="rating-star"></label>
-        <input type="radio" class="rating-input"
-            id="rating-input-{{ post.id }}-3" name="rating-input-{{ post.id }}">
-        <label for="rating-input-{{ post.id }}-3" class="rating-star"></label>
-        <input type="radio" class="rating-input"
-            id="rating-input-{{ post.id }}-2" name="rating-input-{{ post.id }}">
-        <label for="rating-input-{{ post.id }}-2" class="rating-star"></label>
-        <input type="radio" class="rating-input"
-            id="rating-input-{{ post.id }}-1" name="rating-input-{{ post.id }}">
-        <label for="rating-input-{{ post.id }}-1" class="rating-star"></label>
-    </span>
-
+	<form name="frmrating" id="frmrating" class="frmrating" method="post">
+		<input type="hidden" id="post_id" name="post_id" value="">
+		<input type="hidden" name="posttype" value="5"> <!-- post type = 5; rate -->
+		<input type="hidden" id="txtrate" name="txtrate">
+		<span class="rating"> <input onclick="teststar('{{ post.id }}');" type="radio"
+			class="rating-input" id="rating-input-{{ post.id }}-5"
+			name="rating" value="5"> <label
+			for="rating-input-{{ post.id }}-5" class="rating-star"></label> <input
+			onclick="teststar();" type="radio" class="rating-input"
+			id="rating-input-{{ post.id }}-4" name="rating" value="4">
+			<label for="rating-input-{{ post.id }}-4" class="rating-star"></label>
+			<input onclick="teststar();" type="radio" class="rating-input"
+			id="rating-input-{{ post.id }}-3" name="rating" value="3">
+			<label for="rating-input-{{ post.id }}-3" class="rating-star"></label>
+			<input onclick="teststar();" type="radio" class="rating-input"
+			id="rating-input-{{ post.id }}-2" name="rating" value="2">
+			<label for="rating-input-{{ post.id }}-2" class="rating-star"></label>
+			<input onclick="teststar();" type="radio" class="rating-input"
+			id="rating-input-{{ post.id }}-1" name="rating" value="1">
+			<label for="rating-input-{{ post.id }}-1" class="rating-star"></label>
+		</span>
+	</form>
 
 
 	<div class="pull-right">
@@ -42,28 +45,29 @@
 </div>
 
 <style>
-  .rating {
-    overflow: hidden;
-    display: inline-block;
-    font-size: 0;
+.rating {
+	overflow: hidden;
+	display: inline-block;
+	font-size: 0;
 }
+
 .rating-input {
-    float: right;
-    width: 0;
-    opacity: 0;
+	float: right;
+	width: 0;
+	opacity: 0;
 }
-.rating:hover .rating-star:hover,
-.rating:hover .rating-star:hover ~ .rating-star,
-.rating-input:checked ~ .rating-star {
-    background-position: 0 0;
+
+.rating:hover .rating-star:hover,.rating:hover .rating-star:hover ~
+	.rating-star,.rating-input:checked ~ .rating-star {
+	background-position: 0 0;
 }
-.rating-star,
-.rating:hover .rating-star {
-    float: right;
-    display: block;
-    width: 16px;
-    height: 16px;
-    background: url('http://kubyshkin.ru/samples/star-rating/star.png') 0 -16px;
+
+.rating-star,.rating:hover .rating-star {
+	float: right;
+	display: block;
+	width: 16px;
+	height: 16px;
+	background: url('http://kubyshkin.ru/samples/star-rating/star.png') 0
+		-16px;
 }
-  
 </style>
