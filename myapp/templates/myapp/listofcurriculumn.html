@@ -1,10 +1,22 @@
 <div class="contentpanel">
 	<div class="people-list">
 		<div class="row">
-		{% for cl in cl %}
+			{% for cl in cl %}
 			<div class="col-md-6">
 				<div class="people-item">
-					<div class="media">
+					<div class="col-sm">
+						<div class="row">
+							<div class="btn-group pull-right">
+								<button type="button" class="btn btn-primary"
+									data-toggle="modal" data-target="#createesay">Join</button>
+							</div>
+							<h4 class="person-name">{{ cl.name }}</h4>
+							<ul class="blog-meta">
+								<li>Course Start: {{ cl.from_date }}</li>
+								<li>Duration: {{ cl.duration }} - {{ cl.duration_type }}</li>
+							</ul>
+						</div>
+
 						<div class="progress">
 							<div id="53744a43bf063e0e14972e57"
 								class="progress-bar progress-bar-success" role="progressbar"
@@ -14,42 +26,48 @@
 							</div>
 						</div>
 						<div class="media-body">
-							<div class="timeline-btns pull-left">
-								<h4 class="person-name">{{ cl.curriculumnName }}</h4>
-							</div>
-							<div class="btn-group pull-right">
-								<button type="button" class="btn btn-primary"
-									data-toggle="modal" data-target="#createesay">Join</button>
-							</div>
 							<ul class="social-list">
 								<div class="panel-body">
-									<div class="table-responsive">
+								{% if cl.material|length > 0  %}
+								<div class="table-responsive">
+									<table class="table table-bordered mb30">
+										<tr>
+										<th>Name</th>
+										<th>Description</th>
+										<th>Unit name</th>
+										</tr>
+										<tbody>
 										{% for mt in cl.material %}
-										<table class="table table-email">
-											<tbody>
-												<tr class="unread">
-													<td><a href="#" class="trash"><i
-															class="glyphicon glyphicon-ok"></i></a></td>
-													<td>
-														<div class="media">
-															<div class="media-body">
-																<span class="media-meta pull-right">Unit: {{ mt.unit.unitName }} </span>
-																<h4 class="text-primary">{{ mt.materialtype.materialname }}</h4>
-																<small class="text-muted"></small>
-																<p class="email-summary">
-																	{{ cl.materialname|truncatechars:100 }}
-																</p>
-															</div>
-														</div>
-													</td>
-												</tr>
-
-											</tbody>
-										</table>
+										<tr>
+											<td>{{ mt.name|truncatechars:100 }}</td>
+											<td>{{ mt.description|truncatechars:100 }}</td>
+											<td>{{ mt.unit.name }}</td>
+										</tbody>
 										{% endfor %}
-									</div>
+									</table>
+								</div>
+								{% endif %}
 
-
+								{% if cl.action|length > 0  %}
+								<div class="table-responsive">
+									<table class="table table-bordered mb30">
+										<tr>
+										<th>Action to do</th>
+										<th>Description</th>
+										<th>Unit name</th>
+										</tr>
+										<tbody>
+										{% for ac in cl.action %}
+										<tr>
+											<td>{{ ac.name|truncatechars:100 }}</td>
+											<td>{{ ac.description|truncatechars:100 }}</td>
+											<td>abc</td>
+										</tbody>
+										{% endfor %}
+									</table>
+								</div>
+								{% endif %}
+								
 									<div class="tinystat mr20">
 										<div id="sparkline" class="chart mt5">
 											<img alt="" src="images/chart10.jpg"
@@ -89,45 +107,6 @@
 									</div>
 									<!-- tinystat -->
 
-									<div class="tinystat mr20">
-										<div id="sparkline" class="chart mt5">
-											<img alt="" src="images/chart10.jpg"
-												class="thumbnail media-object"
-												style="width: 60px; height: 60px;">
-										</div>
-										<div class="datainfo">
-											<span class="text-muted">Total Sales</span>
-											<h4>$630,201</h4>
-										</div>
-									</div>
-									<!-- tinystat -->
-
-									<div class="tinystat mr20">
-										<div id="sparkline2" class="chart mt5">
-											<img alt="" src="images/chart12.jpg"
-												class="thumbnail media-object"
-												style="width: 60px; height: 60px;">
-										</div>
-										<div class="datainfo">
-											<span class="text-muted">Avg Sales</span>
-											<h4>$106,850</h4>
-										</div>
-									</div>
-									<!-- tinystat -->
-
-									<div class="tinystat mr20">
-										<div id="sparkline3" class="chart mt5">
-											<img alt="" src="images/chart11.jpg"
-												class="thumbnail media-object"
-												style="width: 60px; height: 60px;">
-										</div>
-										<div class="datainfo">
-											<span class="text-muted">Avg Order</span>
-											<h4>2,001,090</h4>
-										</div>
-									</div>
-									<!-- tinystat -->
-
 								</div>
 
 							</ul>
@@ -138,7 +117,7 @@
 			<!-- End block -->
 			{% endfor %}
 			<!-- End for -->
-			</div>
+		</div>
 		<!-- row -->
 	</div>
 	<!-- people-list -->

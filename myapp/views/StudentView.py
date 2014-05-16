@@ -19,12 +19,11 @@ from myapp.models.Mentor import Mentor
 @login_required(login_url='/signin')
 def index(request):
 	if request.method == 'GET':
-		mentor_id = '5375ce146c02298c9af00e00'
-		mentor = Mentor.objects.get(id=mentor_id)
-		cl = Curriculumn.objects(mentor=mentor)
+		#mentor_id = '5375ce146c02298c9af00e00'
+		#mentor = Mentor.objects.get(id=mentor_id)
+#		cl = Curriculumn.objects(mentor=mentor)
+		cl = Curriculumn.objects
 		context = {'cl':cl,}
-		for c in cl:
-			print(c.curriculumn_name)
 		return render(request,'myapp/studentview.html', context)
 	elif request.method == 'POST':
 		context.update(context_processors.user(request))
