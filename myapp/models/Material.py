@@ -12,7 +12,6 @@ from myapp.models.Unit import Unit
 
 class Material(Document):
 	published_date = DateTimeField(default=datetime.now)
-	curriculumsname = ReferenceField(Curriculumn)
 	unit = ReferenceField(Unit)
 	materialtype = ReferenceField(MaterialType)
 	materialname = StringField()

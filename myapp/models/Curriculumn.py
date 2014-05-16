@@ -4,8 +4,10 @@ from mongoengine.document import Document
 from mongoengine.fields import StringField, DateTimeField, ReferenceField, IntField, \
 	ListField
 
+from myapp.models.Action import Action
 from myapp.models.Category import Category
 from myapp.models.Comment import Comment
+from myapp.models.Material import Material
 from myapp.models.Mentor import Mentor
 from myapp.models.Unit import Unit
 
@@ -22,6 +24,8 @@ class Curriculumn(Document):
 	mentor = ReferenceField(Mentor)
 	units = ListField(ReferenceField(Unit))
 	comments = ListField(ReferenceField(Comment))
+	material = ListField(ReferenceField(Material))
+	action = ListField(ReferenceField(Action))
 	meta = {
 				'ordering': ['-mentor'],
 				'ordering': ['-comments'],

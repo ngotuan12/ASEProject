@@ -10,7 +10,6 @@ from myapp.models.Curriculumn import Curriculumn
 
 class Action(Document):
 	published_date = DateTimeField(default=datetime.now)
-	curriculums = ReferenceField(Curriculumn)
 	actionName = StringField()
 	actionDescription = StringField()
 	comment = ListField(ReferenceField(Comment))
