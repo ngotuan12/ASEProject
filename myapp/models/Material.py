@@ -16,6 +16,7 @@ class Material(Document):
 	materialname = StringField()
 	materialURL = StringField()
 	materialcode = StringField()
+	materialdescription = StringField()
 	comment = ListField(ReferenceField(Comment))
 	meta = {
 			'ordering': ['-published_date']
