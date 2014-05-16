@@ -14,7 +14,7 @@ from myapp.models.Unit import Unit
 
 class Curriculumn(Document):
 	published_date = DateTimeField(default=datetime.now)
-	curriculumn_name = StringField()
+	name = StringField()
 	duration = IntField()
 	duration_type = StringField()
 	category= ReferenceField(Category)
