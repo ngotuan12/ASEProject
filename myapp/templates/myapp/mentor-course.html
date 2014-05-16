@@ -36,10 +36,12 @@
 					</ul>
 				</div>
 			</div>
+			{% ifequal mentor.id user.id%}
 			<button class="btn btn-primary" data-toggle="modal"
 				data-target="#add-new-course">
 				<i class="fa fa-envelope-o"></i>Add new
 			</button>
+			{% endifequal %}
 		</div>
 	</div>
 	<div class="row">
@@ -150,9 +152,9 @@
 												<select name="material_type" class="form-control"
 													required="">
 													<option value="">Choose type</option>
-													<option>Book</option>
-													<option>Video</option>
-													<option>Document</option>
+													<option value="Book">Book</option>
+													<option value="Video">Video</option>
+													<option value="Document">Document</option>
 												</select>
 											</div>
 										</div>
