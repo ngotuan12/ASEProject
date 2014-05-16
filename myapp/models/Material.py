@@ -5,7 +5,6 @@ from mongoengine.fields import StringField, DateTimeField, ReferenceField, \
 	ListField
 
 from myapp.models.Comment import Comment
-from myapp.models.Curriculumn import Curriculumn
 from myapp.models.MaterialType import MaterialType
 from myapp.models.Unit import Unit
 

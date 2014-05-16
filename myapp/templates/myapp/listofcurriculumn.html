@@ -28,6 +28,8 @@
 							<ul class="social-list">
 								<div class="panel-body">
 									<div class="table-responsive">
+										{% for mt in cl.material %}
+										<p> alo </p>
 										<table class="table table-email">
 											<tbody>
 												<tr class="unread">
@@ -37,17 +39,12 @@
 															class="glyphicon glyphicon-trash"></i></a></td>
 													<td>
 														<div class="media">
-															<a href="#" class="pull-left"
-																style="width: 45px; height: 45px;"> <img alt=""
-																src="images/photos/b1.jpg"
-																style="width: 35px; height: 35px;">
-															</a>
 															<div class="media-body">
-																<span class="media-meta pull-right">Course Lenght: {{ cl.duration }} - {{ cl.duration_type }} </span>
-																<h4 class="text-primary">{{ cl.published_date|date:'Y-M-d' }}</h4>
+																<span class="media-meta pull-right">Unit: {{ mt.unit }} </span>
+																<h4 class="text-primary">{{ mt.materialtype }}</h4>
 																<small class="text-muted"></small>
 																<p class="email-summary">
-																	{{ cl.curriculumn_name|truncatechars:100 }}
+																	{{ cl.materialname|truncatechars:100 }}
 																</p>
 															</div>
 														</div>
@@ -109,6 +106,7 @@
 
 											</tbody>
 										</table>
+										{% endfor %}
 									</div>
 
 
