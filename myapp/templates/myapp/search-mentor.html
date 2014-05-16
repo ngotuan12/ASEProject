@@ -1,21 +1,30 @@
-{% extends "myapp/base.html" %} {% block header %}
-<div class="pageheader">
-	<h2>
-		<i class="fa fa-home"></i> <a href="index">Home</a>
-	</h2>
+{% extends "myapp/base.html" %} {% block content %}
+<div class="row">
+	<div class="col-sm-12">
+		<div class="people-item">
+			<div class="media">
+				<div class="text-muted">
+					<form class="col-sm-6" action="search-mentor" method="post" style="margin-left: 25%;">
+						{% csrf_token %}
+						{% if search %}
+							<input type="text" class="form-control" name="search" value="{{search}}" placeholder="Search first name,last name,username ..." autocomplete="off" style="background: #fff url(../images/icon-search.png) no-repeat 95% center;">
+						{% else %}
+							<input type="text" class="form-control" name="search" value="" placeholder="Search first name,last name,username ..." autocomplete="off" style="background: #fff url(../images/icon-search.png) no-repeat 95% center;">
+						{% endif %}
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-{% endblock %} 
-{% block content %}
-<div class="contentpanel">
-	<div class="mb30"></div>
+<div class="row">
 	<div class="people-list">
-		<div class="row">
-		{% if lisUserProfile %}
-			{% for profile in lisUserProfile %}
-			<div class="col-md-6">
+	{% if lisUserProfile %}
+		{% for profile in lisUserProfile %}
+			<div class="col-sm-6">
 				<div class="people-item">
 					<div class="media">
-						<a href="#" class="pull-left"> <img alt=""
+						<a href="/profile?user_id={{profile.user_id.id }}" class="pull-left"> <img alt=""
 							{% if profile.images %}
 								src="/{{profile.images}}" class="thumbnail media-object">
 							{% else %}
@@ -23,12 +32,11 @@
 							{% endif %}
 						</a>
 						<div class="media-body">
-						{% if profile.user_id.last_name and profile.user_id.first_name %}
-						<h4 class="person-name peoplename">{{profile.user_id.last_name|add:" "|add:profile.user_id.first_name}}</h4>
-						{% else %}
-						<h4 class="person-name peoplename">{{profile.user_id.username}}</h4>
-						{% endif %}
-							
+							{% if profile.user_id.last_name and profile.user_id.first_name %}
+								<a href="/profile?user_id={{profile.user_id.id }}"><h4 class="person-name peoplename">{{profile.user_id.last_name|add:" "|add:profile.user_id.first_name}}</h4></a>
+							{% else %}
+								<a href="/profile?user_id={{profile.user_id.id }}"><h4 class="person-name peoplename">{{profile.user_id.username}}</h4></a>
+							{% endif %}
 							<div class="text-muted">
 								<i class="fa fa-map-marker"></i> {{profile.work_field.type_name}}
 							</div>
@@ -69,47 +77,13 @@
 					</div>
 				</div>
 			</div>
-			<!-- col-md-6 -->
-			{% endfor %}
-			{% else %}
-			<div class="col-md-6">
-				<h1>No data</h1>
-			</div>
-			<!-- col-md-6 -->
-			{% endif %}
+		{% endfor %}
+	{% else %}
+		<div class="col-md-6">
 			
 		</div>
-		<!-- row -->
+		<!-- col-md-6 -->
+	{% endif %}
 	</div>
-	<!-- people-list -->
-
 </div>
-<!-- contentpanel -->
-
-{% endblock %} {% block scripts %}
-<script src="js/masonry.pkgd.min.js"></script>
-
-<script src="js/custom.js"></script>
-<script>
-  jQuery(window).load(function(){
-  
-    var container = document.querySelector('#bloglist');
-    var msnry = new Masonry( container, {
-      // options
-      columnWidth: '.col-xs-6',
-      itemSelector: '.col-xs-6'
-    });
-    
-    // check on load
-    if(jQuery(window).width() <= 480 )
-        msnry.destroy();
-
-    // check on resize
-    jQuery(window).resize(function(){
-        if(jQuery(this).width() <= 480 )
-            msnry.destroy();
-    });
-
-  });
-</script>
 {% endblock %}
