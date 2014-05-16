@@ -25,19 +25,16 @@
 								<div class="panel-body">
 									<div class="table-responsive">
 										{% for mt in cl.material %}
-										<p> alo </p>
 										<table class="table table-email">
 											<tbody>
 												<tr class="unread">
 													<td><a href="#" class="trash"><i
 															class="glyphicon glyphicon-ok"></i></a></td>
-													<td><a href="#" class="trash"><i
-															class="glyphicon glyphicon-trash"></i></a></td>
 													<td>
 														<div class="media">
 															<div class="media-body">
-																<span class="media-meta pull-right">Unit: {{ mt.unit }} </span>
-																<h4 class="text-primary">{{ mt.materialtype.materialName }}</h4>
+																<span class="media-meta pull-right">Unit: {{ mt.unit.unitName }} </span>
+																<h4 class="text-primary">{{ mt.materialtype.materialname }}</h4>
 																<small class="text-muted"></small>
 																<p class="email-summary">
 																	{{ cl.materialname|truncatechars:100 }}

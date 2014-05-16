@@ -5,7 +5,7 @@ from mongoengine.fields import StringField, DateTimeField
 
 class MaterialType(Document):
 	published_date = DateTimeField(default=datetime.now)
-	materialName = StringField()
+	name = StringField()
 	meta = {
 			'ordering': ['-published_date']
  }

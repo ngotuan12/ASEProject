@@ -7,6 +7,7 @@ from django.core.context_processors import csrf
 from django.shortcuts import render, render_to_response
 from mongoengine.django.auth import User
 
+from myapp.models.Material import Material
 from myapp.models.CommentPost import CommentPost
 from myapp.models.Curriculumn import Curriculumn
 from myapp.models.Esay import Esay
@@ -22,6 +23,8 @@ def index(request):
 		mentor = Mentor.objects.get(id=mentor_id)
 		cl = Curriculumn.objects(mentor=mentor)
 		context = {'cl':cl,}
+		for c in cl:
+			print(c.curriculumn_name)
 		return render(request,'myapp/studentview.html', context)
 	elif request.method == 'POST':
 		context.update(context_processors.user(request))
