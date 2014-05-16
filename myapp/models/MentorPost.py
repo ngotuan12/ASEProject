@@ -28,7 +28,7 @@ class MentorPost(Document):
 	post_type=StringField(default="0")
 	status=StringField(default="1")
 	comments=ListField(ReferenceField(CommentPost))
-	rating=ListField(ReferenceField(RatingPost))
+	rating=ListField(ReferenceField(RatingPost))	
 	esay=ListField(ReferenceField(Esay))
 	meta = {
 			'ordering': ['-published_date']
