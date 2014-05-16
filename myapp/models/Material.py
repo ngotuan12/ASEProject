@@ -12,11 +12,11 @@ from myapp.models.Unit import Unit
 class Material(Document):
 	published_date = DateTimeField(default=datetime.now)
 	unit = ReferenceField(Unit)
-	materialtype = ReferenceField(MaterialType)
-	materialname = StringField()
-	materialURL = StringField()
-	materialcode = StringField()
-	materialdescription = StringField()
+	type = ReferenceField(MaterialType)
+	name = StringField()
+	url = StringField()
+	code = StringField()
+	description = StringField()
 	comment = ListField(ReferenceField(Comment))
 	meta = {
 			'ordering': ['-published_date']

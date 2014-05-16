@@ -7,8 +7,8 @@ from mongoengine.fields import StringField, ReferenceField, ListField, \
 from myapp.models.Comment import Comment
 class Action(Document):
 	published_date = DateTimeField(default=datetime.now)
-	actionName = StringField()
-	actionDescription = StringField()
+	name = StringField()
+	description = StringField()
 	comment = ListField(ReferenceField(Comment))
 	meta = {
 		'ordering': ['-published_date']
