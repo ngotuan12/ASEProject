@@ -19,11 +19,7 @@
 							</div>
 							<div class="btn-group pull-right">
 								<button type="button" class="btn btn-primary"
-									data-toggle="modal" data-target="#startlecture">Start</button>
-								<button type="button" class="btn btn-primary"
-									data-toggle="modal" data-target="#endlecture">End</button>
-								<button type="button" class="btn btn-primary"
-									data-toggle="modal" data-target="#createesay">Esay</button>
+									data-toggle="modal" data-target="#createesay">Join</button>
 							</div>
 							<ul class="social-list">
 								<div class="panel-body">
@@ -41,7 +37,7 @@
 														<div class="media">
 															<div class="media-body">
 																<span class="media-meta pull-right">Unit: {{ mt.unit }} </span>
-																<h4 class="text-primary">{{ mt.materialtype }}</h4>
+																<h4 class="text-primary">{{ mt.materialtype.materialName }}</h4>
 																<small class="text-muted"></small>
 																<p class="email-summary">
 																	{{ cl.materialname|truncatechars:100 }}
@@ -50,59 +46,6 @@
 														</div>
 													</td>
 												</tr>
-												<tr>
-													<td><a href="#" class="trash"><i
-															class="glyphicon glyphicon-ok"></i></a></td>
-													<td><a href="#" class="trash"><i
-															class="glyphicon glyphicon-trash"></i></a></td>
-													<td>
-														<div class="media">
-															<a href="#" class="pull-left"
-																style="width: 45px; height: 45px;"> <img alt=""
-																src="images/photos/b2.jpg"
-																style="width: 35px; height: 35px;">
-															</a>
-															<div class="media-body">
-																<span class="media-meta pull-right">Jan 12 at
-																	5:30am</span>
-																<h4 class="text-primary">Venro Leonga</h4>
-																<small class="text-muted"></small>
-																<p class="email-summary">
-																	<strong>Mobile Banking Transaction</strong> Ut enim ad
-																	minim veniam, quis nostrud exercitation...
-																</p>
-															</div>
-														</div>
-													</td>
-												</tr>
-
-												<tr>
-													<td><a href="#" class="trash"><i
-															class="glyphicon glyphicon-ok"></i></a></td>
-													<td><a href="#" class="trash"><i
-															class="glyphicon glyphicon-trash"></i></a></td>
-													<td>
-														<div class="media">
-															<a href="#" class="pull-left"
-																style="width: 45px; height: 45px;"> <img alt=""
-																src="images/photos/b3.jpg"
-																style="width: 35px; height: 35px;">
-															</a>
-															<div class="media-body">
-																<span class="media-meta pull-right">Jan 12 at
-																	5:30am</span>
-																<h4 class="text-primary">Yanda Cerona</h4>
-																<small class="text-muted"></small>
-																<p class="email-summary">
-																	<strong>Last Chance For Insurance</strong> Ut enim ad
-																	minim veniam, quis nostrud exercitation...
-																</p>
-															</div>
-														</div>
-													</td>
-												</tr>
-
-
 
 											</tbody>
 										</table>

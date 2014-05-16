@@ -12,12 +12,15 @@ from myapp.models.Curriculumn import Curriculumn
 from myapp.models.Esay import Esay
 from myapp.models.MentorPost import MentorPost
 from myapp.util import context_processors
+from myapp.models.Mentor import Mentor
 
 
 @login_required(login_url='/signin')
 def index(request):
 	if request.method == 'GET':
-		cl = Curriculumn.objects
+		mentor_id = '5375ce146c02298c9af00e00'
+		mentor = Mentor.objects.get(id=mentor_id)
+		cl = Curriculumn.objects(mentor=mentor)
 		context = {'cl':cl,}
 		return render(request,'myapp/studentview.html', context)
 	elif request.method == 'POST':
