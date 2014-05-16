@@ -12,7 +12,7 @@ from myapp.models.Unit import Unit
 
 class Curriculumn(Document):
 	published_date = DateTimeField(default=datetime.now)
-	curriculumnname = StringField()
+	curriculumn_name = StringField()
 	duration = IntField()
 	duration_type = StringField()
 	category= ReferenceField(Category)
