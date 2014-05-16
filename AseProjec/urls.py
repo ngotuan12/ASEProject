@@ -5,7 +5,7 @@ from django.conf.urls import patterns, url , include
 
 from myapp.views import Home, AccountSetting, PostDetail, SignIn, MentorPost, \
 	Profile, SignUp, SignOut, PeopleDirectory, Chat, PersonalHome , AuthenFail, \
-	MentorView, Documents
+	MentorView, Documents, StudentHome, MentorCourse, Test
 
 
 # Uncomment the next two lines to enable the admin:
@@ -26,7 +26,6 @@ urlpatterns = patterns('',
                         url(r'^mentorpost$', MentorPost.index),
                         url(r'^mentorview$', Home.index,name='mentorview'),
                         url(r'^studentview$', Home.index,name='studentview'),
-                        url(r'^personalhome$', PersonalHome.index,name='personalhome'),
                        url(r'^signin$', SignIn.index, name='signin'),
                        url(r'^profile$', Profile.index, name='profile'),
                        url(r'^signup$', SignUp.index, name='signup'),
@@ -38,6 +37,9 @@ urlpatterns = patterns('',
                        url(r'^post-detail$', PostDetail.index, name='post-detail'),
                        url(r'^lecture-detail$', PostDetail.index, name='lecture-detail'),
                        url(r'^documents$', Documents.index),
+                       url(r'^test$', Test.index),
+                       url(r'^student-home$', StudentHome.index, name='student-home'),
+                       url(r'^mentor-course$', MentorCourse.index, name='mentor-course'),
                        url(regex  = r'^%s(?P<path>.*)$' % settings.STATIC_URL[1:], 
     view   = 'django.views.static.serve', 
     kwargs = {'document_root': os.path.abspath(os.path.join(os.path.dirname(__file__),os.pardir))+"/common",

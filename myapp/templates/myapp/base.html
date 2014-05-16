@@ -61,14 +61,14 @@
 
 		<div class="mainpanel">
 			{% block toolbar %}
-			<div class="headerbar">
+			<div class="headerbar" style="position: fixed;top: 0;left: 0;width: 100%;z-index: 10001;">
 				<div class="visible-xs hidden-sm hidden-md hidden-lg">
 					<a class="menutoggle"><i class="fa fa-bars"></i></a>
 				</div>
 				<form class="searchform" action="people-directory" method="post">
 					{% csrf_token %}
 					<input type="text" class="form-control" name="keyword" value="{{keyword}}"
-						placeholder="Search here..." />
+						placeholder="Search for books, curriculum.." />
 					
 				</form>
 				
@@ -269,7 +269,7 @@
 			{% endblock %}
 			<!-- headerbar -->
 			{% block header %}
-			<div class="pageheader">
+			<div class="pageheader" style="margin-top: 50px">
 				<h2>
 					<i class="fa fa-home"></i> Blank <span>Subtitle goes here...</span>
 				</h2>

@@ -5,12 +5,14 @@ Created on Apr 3, 2014
 '''
 from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from mongoengine.django.auth import User
 
 from myapp.models.CommentPost import CommentPost
 from myapp.models.MentorPost import MentorPost
 from myapp.util import context_processors
+
 
 # @login_required(login_url='/signin')
 def index(request):
@@ -24,8 +26,10 @@ def index(request):
 		except Exception:
 			user_type = ""
 			
+			
 		context = {'posts':posts,'user_type':user_type,'user_id':request.user,}
 		return render(request,'myapp/index.html', context)
+# 		return HttpResponseRedirect('/personalhome')
 #		return render(request, 'myapp/home.html', {})
 	elif request.method == 'POST':
 		comment = request.POST['txtComment']
