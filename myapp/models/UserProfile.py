@@ -11,7 +11,7 @@ from mongoengine.fields import ReferenceField, StringField, DateTimeField,\
 	ListField
 
 from myapp.models.JobTitle import JobTitle
-from myapp.models.WorkField import WorkFeild
+from myapp.models.WorkField import WorkField
 from myapp.models.UserType import UserType
 
 
@@ -21,7 +21,7 @@ class UserProfile(Document):
 	job_title = ReferenceField(JobTitle)
 	images = StringField()
 	company = StringField()
-	work_field = ReferenceField(WorkFeild)
+	work_field = ReferenceField(WorkField)
 	edu = ListField(StringField())
 	skill =ListField(StringField())
 	create_date = DateTimeField(default=datetime.now)

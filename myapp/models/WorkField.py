@@ -7,7 +7,7 @@ from mongoengine.document import Document
 from mongoengine.fields import StringField
 
 
-class WorkFeild(Document):
+class WorkField(Document):
 	code= StringField(max_length=5)
 	type_name = StringField()
 	status = int()

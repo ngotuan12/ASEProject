@@ -12,9 +12,9 @@ from mongoengine.django.auth import User
 from myapp.models import SocialProfile
 from myapp.models.JobTitle import JobTitle
 from myapp.models.UserProfile import UserProfile
-from myapp.models.WorkField import WorkFeild
-from myapp.util import context_processors
 from myapp.models.UserType import UserType
+from myapp.models.WorkField import WorkField
+from myapp.util import context_processors
 
 
 @login_required(login_url='/signin')
@@ -40,7 +40,7 @@ def createProfile(request):
 def updateProfile(request):
 	if request.method == 'GET':
 		job_titles = JobTitle.objects
-		work_fields = WorkFeild.objects
+		work_fields = WorkField.objects
 		context = {'job_titles':job_titles,'work_fields':work_fields,'acccount_type':request.GET['acccount_type'],}
 		return render(request, 'myapp/create-profile-update.html', context)
 	elif request.method == 'POST':
@@ -52,7 +52,7 @@ def updateProfile(request):
 			about = request.POST['txtAbout']
 			_profile = UserProfile.objects.get(user_id=request.user)
 			_profile.job_title = JobTitle.objects.get(id=jobTitle)
-			_profile.work_field = WorkFeild.objects.get(id=workField)
+			_profile.work_field = WorkField.objects.get(id=workField)
 			_profile.user_type = UserType.objects.get(code=acccount_type)
 			_profile.user_id = request.user
 			_profile.company = company
@@ -63,7 +63,7 @@ def updateProfile(request):
 		except Exception as e:
 			print(e)
 			c = {
-				'error_message':e,'job_titles':JobTitle.objects,'work_fields':WorkFeild.objects,'acccount_type':request.GET['acccount_type'],
+				'error_message':e,'job_titles':JobTitle.objects,'work_fields':WorkField.objects,'acccount_type':request.GET['acccount_type'],
 				}
 			c.update(csrf(request))
 			c.update(context_processors.user(request))
