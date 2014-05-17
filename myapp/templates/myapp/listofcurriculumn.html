@@ -1,148 +1,104 @@
-<div class="contentpanel">
-	<div class="people-list">
-		<div class="row">
-			{% for cl in cl %}
-			<div class="col-md-6">
-				<div class="people-item">
-					<div class="col-sm">
-						<div class="row">
-							<div class="btn-group pull-right">
-								<button type="button" class="btn btn-primary"
-									data-toggle="modal" data-target="#createesay">Join</button>
-							</div>
-							<h4 class="person-name">{{ cl.name }}</h4>
-							<ul class="blog-meta">
-								<li>Course Start: {{ cl.from_date }}</li>
-								<li>Duration: {{ cl.duration }} - {{ cl.duration_type }}</li>
-							</ul>
-						</div>
-
-						<div id="slider-success"
-							class="slider-success mb20 ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
-							aria-disabled="false">
-							<div
-								class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"
-								style="width: 60%;"></div>
-							<a class="ui-slider-handle ui-state-default ui-corner-all"
-								href="#" style="left: 60%;"></a>
-						</div>
-						<div class="media-body">
-							<ul class="social-list">
-								<div >
-								{% if cl.material|length > 0  %}
-								<div class="table-responsive">
-									<table class="table table-bordered mb30">
-										<tr>
-										<th style="width: 40%;text-align: center; background-color: #1CAF9A; color: #fff">Name</th>
-										<th style="width: 60%; text-align: center; background-color: #1CAF9A; color: #fff">Description</th>
-										</tr>
-										<tbody>
-										{% for mt in cl.material %}
-										<tr>
-											<td>{{ mt.name|truncatechars:100 }}</td>
-											<td>{{ mt.description|truncatechars:100 }}</td>
-										</tbody>
-										{% endfor %}
-									</table>
-								</div>
-								{% endif %}
-
-								{% if cl.action|length > 0  %}
-								<div class="table-responsive">
-									<table class="table table-bordered mb30">
-										<tr>
-										<th style="width: 40%; text-align: center; background-color: #1CAF9A; color: #fff">Action to do</th>
-										<th style="width: 60%; text-align: center; background-color: #1CAF9A; color: #fff">Description</th>
-										</tr>
-										<tbody>
-										{% for ac in cl.action %}
-										<tr>
-											<td>{{ ac.name|truncatechars:100 }}</td>
-											<td>{{ ac.description|truncatechars:100 }}</td>
-										</tbody>
-										{% endfor %}
-									</table>
-								</div>
-								{% endif %}
-								
-									<div class="table-responsive" style="text-align: center;">
-									<div class="tinystat mr20">
-										<div id="sparkline2" class="chart mt5">
-											<img alt="" src="images/chart09.jpg"
-												class="thumbnail media-object"
-												style="width: 60px; height: 60px;">
-										</div>
-										<div class="datainfo">
-											<span class="text-muted">Taken</span>
-											<h4>16,850</h4>
-										</div>
-									</div>
-									<!-- tinystat -->
-
-									<div class="tinystat mr20">
-										<div id="sparkline3" class="chart mt5">
-											<img alt="" src="images/chart07.jpg"
-												class="thumbnail media-object"
-												style="width: 60px; height: 60px;">
-										</div>
-										<div class="datainfo">
-											<span class="text-muted">Like</span>
-											<h4>23,001,090</h4>
-										</div>
-									</div>
-									<!-- tinystat -->
-									</div>
-								</div>
-
-							</ul>
-						</div>
+<div id="bloglist" class="row">
+	{% for cl in cl %}
+	<!-- Start block -->
+	<div class="col-xs-6 col-sm-6 col-md-6">
+		<div class="people-item">
+			<div class="col-sm">
+				<div class="row">
+					<div class="btn-group pull-right">
+						<button type="button" class="btn btn-primary"
+							data-toggle="modal" data-target="#createesay">Join</button>
 					</div>
+					<h4 class="person-name">{{ cl.name }}</h4>
+					<ul class="blog-meta">
+						<li>Course Start: {{ cl.from_date }}</li>
+						<li>Duration: {{ cl.duration }} - {{ cl.duration_type }}</li>
+					</ul>
+				</div>
+				<div id="slider-success"
+					class="slider-success mb20 ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
+					aria-disabled="false">
+					<div
+						class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"
+						style="width: 60%;"></div>
+					<a class="ui-slider-handle ui-state-default ui-corner-all"
+						href="#" style="left: 60%;"></a>
+				</div>
+				<div class="media-body">
+					<ul class="social-list">
+						<div >
+						{% if cl.material|length > 0  %}
+						<div class="table-responsive">
+							<table class="table table-bordered mb30">
+								<tr>
+								<th style="width: 40%;text-align: center; background-color: #1CAF9A; color: #fff">Name</th>
+								<th style="width: 60%; text-align: center; background-color: #1CAF9A; color: #fff">Description</th>
+								</tr>
+								<tbody>
+								{% for mt in cl.material %}
+								<tr>
+									<td>{{ mt.name|truncatechars:100 }}</td>
+									<td>{{ mt.description|truncatechars:100 }}</td>
+								</tbody>
+								{% endfor %}
+							</table>
+						</div>
+						{% endif %}
+
+						{% if cl.action|length > 0  %}
+						<div class="table-responsive">
+							<table class="table table-bordered mb30">
+								<tr>
+								<th style="width: 40%; text-align: center; background-color: #1CAF9A; color: #fff">Action to do</th>
+								<th style="width: 60%; text-align: center; background-color: #1CAF9A; color: #fff">Description</th>
+								</tr>
+								<tbody>
+								{% for ac in cl.action %}
+								<tr>
+									<td>{{ ac.name|truncatechars:100 }}</td>
+									<td>{{ ac.description|truncatechars:100 }}</td>
+								</tbody>
+								{% endfor %}
+							</table>
+						</div>
+						{% endif %}
+						
+							<div class="table-responsive" style="text-align: center;">
+							<div class="tinystat mr20">
+								<div id="sparkline2" class="chart mt5">
+									<img alt="" src="images/chart09.jpg"
+										class="thumbnail media-object"
+										style="width: 60px; height: 60px;">
+								</div>
+								<div class="datainfo">
+									<span class="text-muted">Taken</span>
+									<h4>16,850</h4>
+								</div>
+							</div>
+							<!-- tinystat -->
+
+							<div class="tinystat mr20">
+								<div id="sparkline3" class="chart mt5">
+									<img alt="" src="images/chart07.jpg"
+										class="thumbnail media-object"
+										style="width: 60px; height: 60px;">
+								</div>
+								<div class="datainfo">
+									<span class="text-muted">Like</span>
+									<h4>23,001,090</h4>
+								</div>
+							</div>
+							<!-- tinystat -->
+							</div>
+						</div>
+
+					</ul>
 				</div>
 			</div>
-			<!-- End block -->
-			{% endfor %}
-			<!-- End for -->
 		</div>
-		<!-- row -->
-	</div>
-	<!-- people-list -->
-
+	</div> <!-- end of col-sm-6 -->
+	<!-- End block -->
+	{% endfor %}
+	<!-- End for -->
 </div>
-
-<div class="dropdown-menu">
-	<h5 class="title">You Have 1 New Message</h5>
-	<ul class="dropdown-list gen-list">
-		<li class="new"><a href="#"> <span class="thumb"><img
-					src="images/photos/user1.png" alt=""></span> <span class="desc">
-					<span class="name">Draniem Daamul <span
-						class="badge badge-success">new</span></span> <span class="msg">Lorem
-						ipsum dolor sit amet...</span>
-			</span>
-		</a></li>
-		<li><a href="#"> <span class="thumb"><img
-					src="images/photos/user2.png" alt=""></span> <span class="desc">
-					<span class="name">Nusja Nawancali</span> <span class="msg">Lorem
-						ipsum dolor sit amet...</span>
-			</span>
-		</a></li>
-		<li><a href="#"> <span class="thumb"><img
-					src="images/photos/user3.png" alt=""></span> <span class="desc">
-					<span class="name">Weno Carasbong</span> <span class="msg">Lorem
-						ipsum dolor sit amet...</span>
-			</span>
-		</a></li>
-		<li><a href="#"> <span class="thumb"><img
-					src="images/photos/user4.png" alt=""></span> <span class="desc">
-					<span class="name">Zaham Sindilmaca</span> <span class="msg">Lorem
-						ipsum dolor sit amet...</span>
-			</span>
-		</a></li>
-		<li><a href="#"> <span class="thumb"><img
-					src="images/photos/user5.png" alt=""></span> <span class="desc">
-					<span class="name">Veno Leongal</span> <span class="msg">Lorem
-						ipsum dolor sit amet...</span>
-			</span>
-		</a></li>
-		<li class="new"><a href="#">Read All Messages</a></li>
-	</ul>
-</div>
+<!-- row -->
