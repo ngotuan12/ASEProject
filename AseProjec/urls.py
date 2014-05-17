@@ -5,7 +5,8 @@ from django.conf.urls import patterns, url , include
 
 from myapp.views import Home, AccountSetting, PostDetail, SignIn, MentorPost, \
 	Profile, SignUp, SignOut, PeopleDirectory, Chat, PersonalHome , AuthenFail, \
-	MentorView, Documents, StudentHome, MentorCourse, Test,SearchMentor,BecomeMentor
+	MentorView, Documents, StudentHome, MentorCourse, Test,SearchMentor,BecomeMentor,\
+	StudentView
 
 
 # Uncomment the next two lines to enable the admin:
@@ -21,11 +22,9 @@ urlpatterns = patterns('',
                         url(r'^blog-single$', PostDetail.index, name='blog-single'),
                         url(r'^mentorpost$', MentorPost.index),
 						url(r'^mentorview$', MentorView.index,name='mentorview'),
-						url(r'^studentview$', Home.index,name='studentview'),
+						url(r'^studentview$', StudentView.index,name='studentview'),
 						url(r'^personalhome$', PersonalHome.index,name='personalhome'),
                         url(r'^mentorpost$', MentorPost.index),
-                        url(r'^mentorview$', Home.index,name='mentorview'),
-                        url(r'^studentview$', Home.index,name='studentview'),
                        url(r'^signin$', SignIn.index, name='signin'),
                        url(r'^profile$', Profile.index, name='profile'),
                        url(r'^signup$', SignUp.index, name='signup'),
