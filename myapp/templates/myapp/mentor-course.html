@@ -51,175 +51,10 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="add-new-course" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Create Course</h4>
-			</div>
-
-			<div class="panel panel-default">
-				<div class="panel-body panel-body-nopadding">
-
-					<!-- BASIC WIZARD -->
-					<div id="courseWizard" class="basic-wizard">
-
-						<ul class="nav nav-pills nav-justified nav-disabled-click">
-							<li class="active"><a href="#vtab1" data-toggle="tab"><span>Step
-										1:</span> Create course</a></li>
-							<li><a href="#vtab2" data-toggle="tab"><span>Step
-										2:</span> Add material </a></li>
-							<li><a href="#vtab3" data-toggle="tab"><span>Step
-										3:</span> Action to do</a></li>
-						</ul>
-
-						<form class="form" id="firstForm" novalidate="novalidate" method="post" action="">
-							{% csrf_token %} 
-							<div class="tab-content">
-								<div class="progress progress-striped active">
-									<div class="progress-bar" role="progressbar" aria-valuenow="45"
-										aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-								<div class="tab-pane active" id="vtab1">
-									<div class="form-group">
-										<div class="col-sm">
-											<input type="text" name="course_name" class="form-control"
-												required="" placeholder="Course name">
-										</div>
-									</div>
-
-									<div class="form-group">
-										<div class="col-sm-6">
-											<input type="text" name="duration" class="form-control"
-												required="" placeholder="Duration">
-
-										</div>
-										<div class="col-sm-6">
-											<select class="form-control" name="duration_type"required="">
-												<option value="Week">Week</option>
-												<option value="Month">Month</option>
-												<option value="Year">Year</option>
-											</select>
-										</div>
-									</div>
-
-									<div class="form-group">
-										<div class="col-sm-6">
-											<div class="input-group">
-												<input type="text" name="start_date" class="form-control"
-													required="" placeholder="Start date" id="startdate">
-												<span class="input-group-addon"><i
-													class="fa fa-calendar"></i></span>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											<div class="input-group">
-												<input type="text" name="end_date" class="form-control"
-													required="" placeholder="End date" id="enddate"> <span
-													class="input-group-addon"><i class="fa fa-calendar"></i></span>
-											</div>
-										</div>
-									</div>
-
-								</div>
-								<div class="tab-pane" id="vtab2">
-									<!-- <div id="panel-left" class="col-sm-3">
-										<div class="rdio rdio-primary">
-											<input type="radio" id="male" value="m" name="radio">
-											<label for="male">Male</label>
-										</div>
-										<div class="rdio rdio-primary">
-											<input type="radio" value="f" id="female" name="radio">
-											<label for="female">Female</label>
-										</div>
-
-										<div class="rdio rdio-primary">
-											<input type="radio" value="f1" id="female1" name="radio">
-											<label for="female1">Female</label>
-										</div>
-
-									</div> -->
-										<div class="form-group">
-											<div class="col-sm-6">
-												<input type="text" name="material_title"
-													class="form-control" required=""
-													placeholder="Material title">
-											</div>
-											<div class="col-sm-6">
-												<select name="material_type" class="form-control"
-													required="">
-													<option value="">Choose type</option>
-													<option value="Book">Book</option>
-													<option value="Video">Video</option>
-													<option value="Document">Document</option>
-												</select>
-											</div>
-										</div>
-
-
-										<div class="form-group">
-											<div class="col-sm-6">
-												<input type="text" name="material_url" class="form-control"
-													required="" placeholder="Material url">
-											</div>
-											<div class="col-sm-6">
-												<input type="text" name="material_code" class="form-control"
-													required="" placeholder="Material code">
-											</div>
-										</div>
-
-										<div class="form-group">
-											<div class="col-sm">
-												<textarea name="material_description" class="form-control"
-													required="" placeholder="description"> </textarea>
-											</div>
-										</div>
-
-									</div>
-
-								<div class="tab-pane" id="vtab3">
-									<div class="form-group">
-											<div class="col-sm">
-												<input type="text" name="action_name" class="form-control"
-													required="" placeholder="Action name">
-											</div>
-										</div>
-									<div class="form-group">
-											<div class="col-sm">
-												<textarea name="action_description" class="form-control"
-													required="" placeholder="Action description"> </textarea>
-											</div>
-										</div>
-								</div>
-
-
-							</div>
-							<!-- tab-content -->
-						</form>
-
-						<ul class="pager wizard">
-							<li class="previous disabled"><a href="javascript:void(0)">Previous</a></li>
-							<li class="next"><a href="javascript:void(0)">Next</a></li>
-							<li class="next finish" style="display:none;"><a href="javascript:;">Finish</a></li>
-						</ul>
-
-					</div>
-					<!-- #validationWizard -->
-
-				</div>
-				<!-- panel-body -->
-			</div>
-
-		</div>
-		<!-- modal-content -->
-	</div>
-	<!-- modal-dialog -->
-</div>
+{% include "myapp/add-curriculumn.html"%}
 <!-- modal -->
-{% endblock content%} {% block scripts %}
+{% endblock content%} 
+{% block scripts %}
 <script src="js/jquery-ui-1.10.3.min.js"></script>
 
 <script src="js/bootstrap-wizard.min.js"></script>
@@ -279,10 +114,7 @@ jQuery(document).ready(function(){
 		});
 		
     }
-    
   });
 });
-
 </script>
-
 {% endblock scripts%}

@@ -19,3 +19,7 @@
 .peoplename{
 	font-family: tahoma,arial !important;
 }
+.img{
+	vertical-align: middle;
+	margin-right: 2px;
+}

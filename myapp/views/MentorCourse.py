@@ -23,13 +23,6 @@ def index(request):
 		context = {'mentor':user}
 		return render(request,'myapp/mentor-course.html', context)
 	elif request.method == 'POST':
-		profile = UserProfile.objects.get(user_id=request.user)
-		profile.is_mentor = True
-		profile.save()
-		mentor = Mentor()
-		mentor.user = request.user
-		mentor.save()
-		mentor = Mentor.objects.get(user=request.user)
 		#curriculum
 		course_name = request.POST['course_name']
 		duration = request.POST['duration']
