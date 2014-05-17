@@ -1,0 +1,182 @@
+{% if user.id|truncatechars:100 == user_id %}
+{% include "myapp/add-curriculumn.html"%}
+{% endif %}
+<div class="row">
+
+	<div class="col-sm-6 col-md-3">
+		<div class="panel panel-success panel-stat">
+			<div class="panel-heading">
+				{% if user.id|truncatechars:100 != user_id %}
+				<div class="stat">
+					<div class="row">
+						<div class="col-xs-4">
+							<img src="images/photos/user4.png" alt="" style="width:56px;">
+						</div>
+						<div class="col-xs-8">
+							<small class="stat-label">Visits Today</small>
+							<h1>{{ user.username }}</h1>
+						</div>
+					</div>
+					<!-- row -->
+
+					<div class="mb15"></div>
+
+					<div class="row" style="text-align: center;">
+						<div class="col-xs-6" >
+							<small class="stat-label">Active Course</small>
+							<h4>10</h4>
+						</div>
+
+						<div class="col-xs-6">
+							<small class="stat-label">Closed Course</small>
+							<h4>15</h4>
+						</div>
+					</div>
+					<!-- row -->
+				</div>
+				<!-- stat -->
+				{% else %}
+				<div class="stat">
+					<div class="row">
+						<div class="col-xs-4">
+							<img src="images/photos/user4.png" alt="" style="width:56px;">
+						</div>
+						<div class="col-xs-8">
+							<small class="stat-label">Create new curriculumn?</small>
+							<h1>{{ user.username }}</h1>
+						</div>
+					</div>
+					<div class="mb15"></div>
+					<div class="row" style="text-align: center; margin-left: 0px; margin-right: 0px;">
+						<button class="btn btn-default btn-block" data-toggle="modal" data-target="#add-new-course">Create new curriculumn</button>
+					</div>
+				</div>
+				{% endif %}
+			</div>
+			<!-- panel-heading -->
+		</div>
+		<!-- panel -->
+	</div>
+	<!-- col-sm-6 -->
+
+	<div class="col-sm-6 col-md-3">
+		<div class="panel panel-danger panel-stat">
+			<div class="panel-heading">
+
+				<div class="stat">
+					<div class="row">
+						<div class="col-xs-4">
+							<img src="images/is-document.png" alt="">
+						</div>
+						<div class="col-xs-8">
+							<small class="stat-label">Number of Curriculumn</small>
+							<h1>54.40%</h1>
+						</div>
+					</div>
+					<!-- row -->
+
+					<div class="mb15"></div>
+
+					<div class="row" style="text-align: center;">
+						<div class="col-xs-6">
+							<small class="stat-label">Taken</small>
+							<h4>700+</h4>
+						</div>
+
+						<div class="col-xs-6">
+							<small class="stat-label">Liked</small>
+							<h4>760+%</h4>
+						</div>
+					</div>
+
+				</div>
+				<!-- stat -->
+
+			</div>
+			<!-- panel-heading -->
+		</div>
+		<!-- panel -->
+	</div>
+	<!-- col-sm-6 -->
+
+	<div class="col-sm-6 col-md-3">
+		<div class="panel panel-primary panel-stat">
+			<div class="panel-heading">
+
+				<div class="stat">
+					<div class="row">
+						<div class="col-xs-4">
+							<img src="images/is-document.png" alt="">
+						</div>
+						<div class="col-xs-8">
+							<small class="stat-label">Number of Material</small>
+							<h1>300k+</h1>
+						</div>
+					</div>
+					<!-- row -->
+
+					<div class="mb15"></div>
+
+					<div class="row" style="text-align: center;">
+						<div class="col-xs-6">
+							<small class="stat-label">Taken</small>
+							<h4>700+</h4>
+						</div>
+
+						<div class="col-xs-6">
+							<small class="stat-label">Liked</small>
+							<h4>760+%</h4>
+						</div>
+					</div>
+
+				</div>
+				<!-- stat -->
+
+			</div>
+			<!-- panel-heading -->
+		</div>
+		<!-- panel -->
+	</div>
+	<!-- col-sm-6 -->
+
+	<div class="col-sm-6 col-md-3">
+		<div class="panel panel-dark panel-stat">
+			<div class="panel-heading">
+
+				<div class="stat">
+					<div class="row">
+						<div class="col-xs-4">
+							<img src="images/is-document.png" alt="">
+						</div>
+						<div class="col-xs-8">
+							<small class="stat-label">Number of Action todo</small>
+							<h1>$655</h1>
+						</div>
+					</div>
+					<!-- row -->
+
+					<div class="mb15"></div>
+
+					<div class="row" style="text-align: center;">
+						<div class="col-xs-6">
+							<small class="stat-label">Last Week</small>
+							<h4>$32,322</h4>
+						</div>
+
+						<div class="col-xs-6">
+							<small class="stat-label">Last Month</small>
+							<h4>$503,000</h4>
+						</div>
+					</div>
+					<!-- row -->
+
+				</div>
+				<!-- stat -->
+
+			</div>
+			<!-- panel-heading -->
+		</div>
+		<!-- panel -->
+	</div>
+	<!-- col-sm-6 -->
+</div>

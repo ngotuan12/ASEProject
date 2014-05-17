@@ -1,0 +1,82 @@
+<!-- Modal -->
+<div class="modal fade" id="joincourse" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Setup plan to join this course</h4>
+			</div>
+
+			<!-- Start block -->
+			<form method="post" name="formcreateesay" id="formcreateesay">
+				{% csrf_token %} <input type="hidden" id="course_id"
+					name="course_id" value=""> <input type="hidden"
+					name="posttype" value="3">
+				<!-- post type = 3; add easy -->
+
+				<div class="col-md">
+					<div class="panel panel-default">
+						<form>
+							<div class="panel-body">
+
+								<div class="row" style="padding: 0px; margin-top: 1%;">
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label class="control-label">Plan start date</label>
+											<div class="input-group">
+												<input type="text" class="form-control"
+													placeholder="Plan start date" id="planstart"> <span
+													class="input-group-addon"><i class="fa fa-calendar"></i></span>
+											</div>
+										</div>
+									</div>
+									<!-- col-sm-6 -->
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label class="control-label">Plan end date</label>
+											<div class="input-group">
+												<input type="text" class="form-control"
+													placeholder="Plan start date" id="planend"> <span
+													class="input-group-addon"><i class="fa fa-calendar"></i></span>
+											</div>
+										</div>
+									</div>
+									<!-- col-sm-6 -->
+								</div>
+								<div class="row" style="padding: 0px;  margin-top: 1%;">
+								<div class="col-sm-6">
+									<select id="fruits" class="form-control" required="">
+										<option value="">Select your impression ..</option>
+										<option value="1">So so</option>
+										<option value="2">Quite well</option>
+										<option value="3">Good</option>
+										<option value="4">Very good</option>
+										<option value="5">Impressive</option>
+									</select>
+								</div>
+								</div>
+								<!-- row -->
+								<div class="row" style="padding: 0px;  margin-top: 1%; margin-left: 1%; width: 97%;">
+									<textarea rows="5" class="form-control" name="comment"
+										title="Please type a description at least 6 characters long!"
+										placeholder="Type your description" required=""></textarea>
+								</div>
+							</div>
+					</div>
+					<!-- panel -->
+				</div>
+			</form>
+			<!-- End of block -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary"
+					onclick="createpost();">Save</button>
+			</div>
+		</div>
+		<!-- modal-content -->
+	</div>
+	<!-- modal-dialog -->
+</div>
+<!-- modal -->

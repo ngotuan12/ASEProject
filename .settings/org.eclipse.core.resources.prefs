@@ -1,3 +1,8 @@
 eclipse.preferences.version=1
+encoding//myapp/templates/myapp/endlecture.html=UTF-8
 encoding//myapp/templates/myapp/index.html=UTF-8
+encoding//myapp/templates/myapp/joincourse.html=UTF-8
+encoding//myapp/templates/myapp/lecture.html=UTF-8
+encoding//myapp/templates/myapp/listofcurriculumn.html=UTF-8
 encoding//myapp/templates/myapp/signin.html=UTF-8
+encoding//myapp/templates/myapp/startlecture.html=UTF-8
