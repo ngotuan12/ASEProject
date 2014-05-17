@@ -1,20 +1,27 @@
+{% include 'myapp/joincourse.html' %}
 <div id="bloglist" class="row">
 	{% for cl in cl %}
 	<!-- Start block -->
 	<div class="col-xs-6 col-sm-6 col-md-6">
 		<div class="people-item">
 			<div class="col-sm">
+				
 				<div class="row">
+					{% if user.id|truncatechars:100 != user_id %}
 					<div class="btn-group pull-right">
 						<button type="button" class="btn btn-primary"
-							data-toggle="modal" data-target="#createesay">Join</button>
+							data-toggle="modal" data-target="#joincourse">Join</button>
 					</div>
+					{% else %}
+					<p></p>
+					{% endif %}
 					<h4 class="person-name">{{ cl.name }}</h4>
 					<ul class="blog-meta">
 						<li>Course Start: {{ cl.from_date }}</li>
 						<li>Duration: {{ cl.duration }} - {{ cl.duration_type }}</li>
 					</ul>
 				</div>
+				
 				<div id="slider-success"
 					class="slider-success mb20 ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
 					aria-disabled="false">
@@ -28,6 +35,12 @@
 					<ul class="social-list">
 						<div >
 						{% if cl.material|length > 0  %}
+							{% if user.id|truncatechars:100 == user_id %}
+							<div class="btn-group  pull-left">
+								<button type="button" class="btn btn-sm btn-white"
+									data-toggle="modal" data-target="#joincourse">Add Material</button>
+							</div>
+							{% endif%}
 						<div class="table-responsive">
 							<table class="table table-bordered mb30">
 								<tr>
@@ -46,6 +59,13 @@
 						{% endif %}
 
 						{% if cl.action|length > 0  %}
+							{% if user.id|truncatechars:100 == user_id %}
+							<div class="btn-group  pull-left">
+								<button type="button" class="btn btn-sm btn-white"
+									data-toggle="modal" data-target="#joincourse">Add Action</button>
+							</div>
+							{% endif%}
+
 						<div class="table-responsive">
 							<table class="table table-bordered mb30">
 								<tr>
