@@ -17,31 +17,30 @@
 							</ul>
 						</div>
 
-						<div class="progress">
-							<div id="53744a43bf063e0e14972e57"
-								class="progress-bar progress-bar-success" role="progressbar"
-								aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
-								style="width: 80%">
-								<span class="sr-only">80% Complete</span>
-							</div>
+						<div id="slider-success"
+							class="slider-success mb20 ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
+							aria-disabled="false">
+							<div
+								class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"
+								style="width: 60%;"></div>
+							<a class="ui-slider-handle ui-state-default ui-corner-all"
+								href="#" style="left: 60%;"></a>
 						</div>
 						<div class="media-body">
 							<ul class="social-list">
-								<div class="panel-body">
+								<div >
 								{% if cl.material|length > 0  %}
 								<div class="table-responsive">
 									<table class="table table-bordered mb30">
 										<tr>
-										<th style="width: 40%;">Name</th>
-										<th style="width: 40%;">Description</th>
-										<th>Unit name</th>
+										<th style="width: 40%;text-align: center; background-color: #1CAF9A; color: #fff">Name</th>
+										<th style="width: 60%; text-align: center; background-color: #1CAF9A; color: #fff">Description</th>
 										</tr>
 										<tbody>
 										{% for mt in cl.material %}
 										<tr>
 											<td>{{ mt.name|truncatechars:100 }}</td>
 											<td>{{ mt.description|truncatechars:100 }}</td>
-											<td>{{ mt.unit.name }}</td>
 										</tbody>
 										{% endfor %}
 									</table>
@@ -52,35 +51,21 @@
 								<div class="table-responsive">
 									<table class="table table-bordered mb30">
 										<tr>
-										<th style="width: 40%;">Action to do</th>
-										<th style="width: 40%;">Description</th>
-										<th>Unit name</th>
+										<th style="width: 40%; text-align: center; background-color: #1CAF9A; color: #fff">Action to do</th>
+										<th style="width: 60%; text-align: center; background-color: #1CAF9A; color: #fff">Description</th>
 										</tr>
 										<tbody>
 										{% for ac in cl.action %}
 										<tr>
 											<td>{{ ac.name|truncatechars:100 }}</td>
 											<td>{{ ac.description|truncatechars:100 }}</td>
-											<td>abc</td>
 										</tbody>
 										{% endfor %}
 									</table>
 								</div>
 								{% endif %}
 								
-									<div class="tinystat mr20">
-										<div id="sparkline" class="chart mt5">
-											<img alt="" src="images/chart10.jpg"
-												class="thumbnail media-object"
-												style="width: 60px; height: 60px;">
-										</div>
-										<div class="datainfo">
-											<span class="text-muted">Total Sales</span>
-											<h4>$201</h4>
-										</div>
-									</div>
-									<!-- tinystat -->
-
+									<div class="table-responsive" style="text-align: center;">
 									<div class="tinystat mr20">
 										<div id="sparkline2" class="chart mt5">
 											<img alt="" src="images/chart09.jpg"
@@ -88,8 +73,8 @@
 												style="width: 60px; height: 60px;">
 										</div>
 										<div class="datainfo">
-											<span class="text-muted">Avg Sales</span>
-											<h4>$16,850</h4>
+											<span class="text-muted">Taken</span>
+											<h4>16,850</h4>
 										</div>
 									</div>
 									<!-- tinystat -->
@@ -101,12 +86,12 @@
 												style="width: 60px; height: 60px;">
 										</div>
 										<div class="datainfo">
-											<span class="text-muted">Avg Order</span>
+											<span class="text-muted">Like</span>
 											<h4>23,001,090</h4>
 										</div>
 									</div>
 									<!-- tinystat -->
-
+									</div>
 								</div>
 
 							</ul>
