@@ -34,6 +34,7 @@ def index(request):
 				profile = UserProfile.objects.get(user_id=user)
 				request.session['user_type'] = profile.user_type.name
 				request.session['user_images'] = profile.images
+				request.session['is_mentor'] = profile.is_mentor
 				return HttpResponseRedirect('/personalhome')
 			else:
 				c = {
