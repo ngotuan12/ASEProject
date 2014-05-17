@@ -56,34 +56,96 @@
 										{{edu|add:","}}
 								{% endfor %}
 							</div>
-							<ul class="social-list">
-								<li><a href="#" class="tooltips" data-toggle="tooltip"
-									data-placement="top" title="" data-original-title="Email"><i
-										class="fa fa-envelope-o"></i></a></li>
-								<li><a href="#" class="tooltips" data-toggle="tooltip"
-									data-placement="top" title="" data-original-title="Facebook"><i
-										class="fa fa-facebook"></i></a></li>
-								<li><a href="#" class="tooltips" data-toggle="tooltip"
-									data-placement="top" title="" data-original-title="Twitter"><i
-										class="fa fa-twitter"></i></a></li>
-								<li><a href="#" class="tooltips" data-toggle="tooltip"
-									data-placement="top" title="" data-original-title="LinkedIn"><i
-										class="fa fa-linkedin"></i></a></li>
-								<li><a href="#" class="tooltips" data-toggle="tooltip"
-									data-placement="top" title="" data-original-title="Skype"><i
-										class="fa fa-skype"></i></a></li>
-							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		{% endfor %}
-	{% else %}
-		<div class="col-md-6">
-			
-		</div>
-		<!-- col-md-6 -->
-	{% endif %}
+		{% else %}
+			<div class="col-md-6">
+			</div>
+			<!-- col-md-6 -->
+		{% endif %}
+	</div>
+</div>
+<div class="row">
+	<div class="people-list">
+		<!-- Cucutium  -->
+		{% if listCurriculumn %}
+			{% for curriculumn in listCurriculumn %}
+				<div class="col-md-6">
+					<div class="people-item">
+						<div class="media">
+							<div class="media-body">
+								<div class="text-muted">
+									<a href="/profile?user_id={{curriculumn.mentor.user.id}}"><h4 class="person-name peoplename">{{curriculumn.name}}</h4></a>
+								</div>
+								<div class="text-muted">
+									<i class="fa fa-briefcase"></i>Mentor:<a href="#"><span>{{curriculumn.mentor.user.username}}</span></a>
+								</div>
+								<div class="text-muted">
+									<i class="fa fa-briefcase"></i>Units:
+										{% for unit in curriculumn.units %}
+											{{unit.name|add:","}}
+										{% endfor %}
+								</div>
+								<div class="text-muted">
+									<i class="fa fa-briefcase"></i>materials:
+										{% for material in curriculumn.material %}
+											{{material.name|add:","}}
+										{% endfor %}
+								</div>
+								<div class="text-muted">
+									<i class="fa fa-briefcase"></i>Actions:
+										{% for action in curriculumn.action %}
+											{{action.name|add:","}}
+										{% endfor %}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- col-md-6 -->
+			{% endfor %}
+		{% else %}
+			<div class="col-md-6">
+			</div>
+			<!-- col-md-6 -->
+		{% endif %}
+		<!-- End Cucutium -->
+		
+	</div>
+</div>
+<div class="row">
+	<div class="people-list">
+<!-- listMaterial  -->
+		{% if listMaterial %}
+			{% for material in listMaterial %}
+				<div class="col-md-6">
+					<div class="people-item">
+						<div class="media">
+							<div class="media-body">
+								<div class="text-muted">
+									<a href="{{material.url}}"><h4 class="person-name peoplename">{{material.name}}</h4></a>
+								</div>
+								<div class="text-muted">
+								<i class="fa fa-briefcase"></i>Material type: {{material.type.name}}
+								</div>
+								<div class="text-muted">
+								<i class="fa fa-briefcase"></i>Material description: {{material.description}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- col-md-6 -->
+			{% endfor %}
+		{% else %}
+			<div class="col-md-6">
+			</div>
+			<!-- col-md-6 -->
+		{% endif %}
+		<!-- End listMaterial -->
 	</div>
 </div>
 {% endblock %}
