@@ -1,6 +1,6 @@
 {% extends "myapp/base.html" %} {%block content %}
-<div class="row" style="height:400px;margin-left:10%;overflow-y:scroll;">
-	<div class="col-md-11">
+<div class="row" id="ex3" style="height:450px;width:1000px;margin-left:12%;overflow-y:scroll;background-color:lightgray;">
+	<div class="col-md-11" style="height: 460px;margin-top: 20px;margin-left: 30px;">
 		<p>
 			<a href="/t/community_guidelines">Nguyên tắc cộng đồng</a>
 		</p>
@@ -436,12 +436,13 @@
 		<h4>Dated: June 9, 2010</h4>
 	</div>
 </div>
-<div class="row" style="margin-top: 30px;">
-	<div class="col-md-11">
-		<form class="" action="search-mentor" method="post">
+<div class="row" style="margin-top: 30px;width:1000px;margin-left: 12%">
+	<div class="col-md-11" style="float: right;">
+		<form class="" action="become-mentor" method="post">
+			{% csrf_token %}
 			<button class="btn btn-primary" style="float: right;">Agree</button>
 		</form>
-		<button type="reset" class="btn btn-default" style="float: right;margin-right: 5px;">Cancel</button>
+		<button type="reset" class="btn btn-default" style="float: right;margin-right: 8px;">Cancel</button>
 	</div>
 </div>
 {% endblock content%}

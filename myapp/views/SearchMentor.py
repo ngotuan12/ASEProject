@@ -8,8 +8,9 @@ from django.shortcuts import render, render_to_response
 from mongoengine.django.auth import User
 from mongoengine.queryset.visitor import Q
 
-from myapp.models import UserProfile
+from myapp.models import UserProfile, Curriculumn, Material
 from myapp.util import context_processors
+
 
 def index(request):
 	lisUserProfile = {}
@@ -25,8 +26,16 @@ def index(request):
 			keyword = request.POST['search']
 			users = User.objects(Q(first_name__icontains=keyword) | Q(last_name__icontains=keyword))
 			#search data
-			lisUserProfile = UserProfile.objects(user_id__in=users,is_mentor=True)
-			c = {'lisUserProfile':lisUserProfile,'search':keyword}
+# 			lisUserProfile = UserProfile.objects(user_id__in=users,is_mentor=True)
+			lisUserProfile = UserProfile.objects(user_id__in=users)
+			
+			listCurriculumn =Curriculumn.objects(name__icontains=keyword)
+# 			listCurriculumn =Curriculumn.objects
+			
+			listMaterial =Material.objects(Q(name__icontains=keyword) | Q(description__icontains=keyword))
+# 			listMaterial =Material.objects
+			
+			c = {'lisUserProfile':lisUserProfile,'listCurriculumn':listCurriculumn,'listMaterial':listMaterial,'search':keyword}
 			#get data from mongodb
 # 			for profile in lisUserProfile:
 # 				print(profile.work_field)

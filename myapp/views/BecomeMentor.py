@@ -16,10 +16,11 @@ def index(request):
 		return render(request, 'myapp/become-mentor.html', c)
 	elif request.method == 'POST':
 		profile = UserProfile.objects.get(user_id=request.user)
+		print(request.user)
 		profile.is_mentor = True
-		profile.save()
+# 		profile.save()
 		mentor = Mentor()
 		mentor.user = request.user
-		mentor.save()
+# 		mentor.save()
 		return HttpResponseRedirect("/home")
 # 	return render(request, 'myapp/become-mentor.html', c)
