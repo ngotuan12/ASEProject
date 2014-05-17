@@ -29,16 +29,10 @@ def index(request):
 # 			lisUserProfile = UserProfile.objects(user_id__in=users,is_mentor=True)
 			lisUserProfile = UserProfile.objects(user_id__in=users)
 			
+			listAllCurriculumn = Curriculumn.objects()
 			listCurriculumn =Curriculumn.objects(name__icontains=keyword)
-# 			listCurriculumn =Curriculumn.objects
-			
-			listMaterial =Material.objects(Q(name__icontains=keyword) | Q(description__icontains=keyword))
-# 			listMaterial =Material.objects
-			
-			c = {'lisUserProfile':lisUserProfile,'listCurriculumn':listCurriculumn,'listMaterial':listMaterial,'search':keyword}
+			c = {'lisUserProfile':lisUserProfile,'listCurriculumn':listCurriculumn,'listAllCurriculumn':listAllCurriculumn,'search':keyword}
 			#get data from mongodb
-# 			for profile in lisUserProfile:
-# 				print(profile.work_field)
 			c.update(csrf(request))
 			c.update(context_processors.user(request))
 			return render_to_response("myapp/search-mentor.html", c)

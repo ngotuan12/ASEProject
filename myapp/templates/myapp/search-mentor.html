@@ -19,27 +19,47 @@
 </div>
 <div class="row">
 	<div class="people-list">
-	{% if lisUserProfile %}
+	{% if lisUserProfile and listAllCurriculumn %}
 		{% for profile in lisUserProfile %}
 			<div class="col-sm-6">
 				<div class="people-item">
 					<div class="media">
-						<a href="/profile?user_id={{profile.user_id.id }}" class="pull-left"> <img alt=""
-							{% if profile.images %}
-								src="/{{profile.images}}" class="thumbnail media-object">
+						<div class="pull-left">
+							<a href="/profile?user_id={{profile.user_id.id }}" >
+							{% if profile.is_mentor %}
+								<img style="margin-bottom: 10px ;" alt=""
+									{% if profile.images %}
+										src="/{{profile.images}}" class="thumbnail media-object">
+									{% else %}
+										src="images/photos/user.png" class="thumbnail media-object">
+									{% endif %}
+								</a>
+								<a href="#"><button class="btn btn-orange" style="width: 110px;">Curriculum</button></a>
 							{% else %}
-								src="images/photos/user.png" class="thumbnail media-object">
+								<img style="margin-bottom: 45px ;" alt=""
+									{% if profile.images %}
+										src="/{{profile.images}}" class="thumbnail media-object">
+									{% else %}
+										src="images/photos/user.png" class="thumbnail media-object">
+									{% endif %}
+								</a>
 							{% endif %}
-						</a>
+						</div>
 						<div class="media-body">
 							{% if profile.user_id.last_name and profile.user_id.first_name %}
 								<a href="/profile?user_id={{profile.user_id.id }}"><h4 class="person-name peoplename">{{profile.user_id.last_name|add:" "|add:profile.user_id.first_name}}</h4></a>
 							{% else %}
 								<a href="/profile?user_id={{profile.user_id.id }}"><h4 class="person-name peoplename">{{profile.user_id.username}}</h4></a>
 							{% endif %}
-							<div class="text-muted">
-								<i class="fa fa-map-marker"></i> {{profile.work_field.type_name}}
-							</div>
+							{% if profile.is_mentor %}
+								<div class="text-muted">
+									<i class="fa fa-briefcase"></i>Mentor
+								</div>
+							{% else %}
+								<div class="text-muted">
+									<i class="fa fa-briefcase"></i>Student
+								</div>
+							{% endif %}
 							<div class="text-muted">
 								<i class="fa fa-briefcase"></i> <a href="#">{{profile.job_title.name}}</a> at <a
 									href="http://www.ex-artisan.com" target="_blank">{{profile.company}}</a>
@@ -56,7 +76,9 @@
 										{{edu|add:","}}
 								{% endfor %}
 							</div>
+							
 						</div>
+								
 					</div>
 				</div>
 			</div>
@@ -114,38 +136,6 @@
 		{% endif %}
 		<!-- End Cucutium -->
 		
-	</div>
-</div>
-<div class="row">
-	<div class="people-list">
-<!-- listMaterial  -->
-		{% if listMaterial %}
-			{% for material in listMaterial %}
-				<div class="col-md-6">
-					<div class="people-item">
-						<div class="media">
-							<div class="media-body">
-								<div class="text-muted">
-									<a href="{{material.url}}"><h4 class="person-name peoplename">{{material.name}}</h4></a>
-								</div>
-								<div class="text-muted">
-								<i class="fa fa-briefcase"></i>Material type: {{material.type.name}}
-								</div>
-								<div class="text-muted">
-								<i class="fa fa-briefcase"></i>Material description: {{material.description}}
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- col-md-6 -->
-			{% endfor %}
-		{% else %}
-			<div class="col-md-6">
-			</div>
-			<!-- col-md-6 -->
-		{% endif %}
-		<!-- End listMaterial -->
 	</div>
 </div>
 {% endblock %}
