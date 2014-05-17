@@ -13,6 +13,7 @@ from myapp.models.Action import Action
 from myapp.models.Curriculumn import Curriculumn
 from myapp.models.Mentor import Mentor
 from mongoengine.django.auth import User
+from bson.objectid import ObjectId
 
 
 @login_required(login_url='/signin')
@@ -20,6 +21,10 @@ def index(request):
 	if request.method == 'GET':
 		user_id = request.GET['user_id']
 		user = User.objects.get(id=user_id)
+		user= User()
+		obj =  ObjectId("")
+		
+		
 		context = {'mentor':user}
 		return render(request,'myapp/mentor-course.html', context)
 	elif request.method == 'POST':
