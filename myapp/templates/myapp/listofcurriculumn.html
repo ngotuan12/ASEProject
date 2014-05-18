@@ -15,9 +15,9 @@
 					{% else %}
 					<p></p>
 					{% endif %}
-					<h4 class="person-name">{{ cl.name }}</h4>
+					<a href="post-detail?post_id={{ cl.id }}"><h4 class="person-name">{{ cl.name }}</h4></a>
 					<ul class="blog-meta">
-						<li>Course Start: {{ cl.from_date }}</li>
+						<li>Course Start: {{ cl.from_date|date:'Y-M-d' }}</li>
 						<li>Duration: {{ cl.duration }} - {{ cl.duration_type }}</li>
 					</ul>
 				</div>
