@@ -13,7 +13,6 @@ from myapp.models.Action import Action
 from myapp.models.Curriculumn import Curriculumn
 from myapp.models.Mentor import Mentor
 from mongoengine.django.auth import User
-from bson.objectid import ObjectId
 
 
 @login_required(login_url='/signin')
@@ -21,13 +20,16 @@ def index(request):
 	if request.method == 'GET':
 		user_id = request.GET['user_id']
 		user = User.objects.get(id=user_id)
-		user= User()
-		obj =  ObjectId("")
-		
-		
 		context = {'mentor':user}
 		return render(request,'myapp/mentor-course.html', context)
 	elif request.method == 'POST':
+# 		profile = UserProfile.objects.get(user_id=request.user)
+# 		profile.is_mentor = True
+# 		profile.save()
+# 		mentor = Mentor()
+# 		mentor.user = request.user
+# 		mentor.save()
+		mentor = Mentor.objects.get(user=request.user)
 		#curriculum
 		course_name = request.POST['course_name']
 		duration = request.POST['duration']
@@ -66,5 +68,45 @@ def index(request):
 		action.save()
 		curriculumn.action.append(action)
 		curriculumn.save()
-		return HttpResponseRedirect('mentor-course');
+		return HttpResponseRedirect('/');
+@login_required(login_url='/signin')
+def add_action(request):
+	if request.method == 'POST':
+		#curriculum
+		curriculum_id = request.POST['curriculum_id']
+		curriculum = Curriculum.objects.get(id=curriculum_id)
+		#action
+		action_name = request.POST['action_name']
+		action_description = request.POST['action_description']
+		action = Action()
+		action.name = action_name
+		action.description = action_description
+		action.save()
+		#curriculum
+		curriculum.action.append(action)
+		curriculum.save()
+		return HttpResponseRedirect('/');
+@login_required(login_url='/signin')
+def add_material(request):
+	if request.method == 'POST':
+		#curriculum
+		curriculum_id = request.POST['curriculum_id']
+		curriculum = Curriculum.objects.get(id=curriculum_id)
+		#material
+		material_title = request.POST['material_title']
+		material_type = request.POST['material_type']
+		material_url = request.POST['material_url']
+		material_code = request.POST['material_code']
+		material_description = request.POST['material_description']
+		material = Material()
+		material.name = material_title
+		material.type = MaterialType.objects.get(name=material_type)
+		material.url = material_url
+		material.code = material_code
+		material.description = material_description
+		material.save()
+		#curriculum
+		curriculum.material.append(material)
+		curriculum.save()
+		return HttpResponseRedirect('/');
 		

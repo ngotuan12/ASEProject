@@ -23,6 +23,11 @@ def index(request):
 		user_type = ""
 		try:
 			user_type = request.session['user_type']
+			is_mentor = request.session['is_mentor']
+			if is_mentor:
+				return HttpResponseRedirect('/studentview?user_id='+str(request.user.id))	
+			else:
+				return HttpResponseRedirect('/search-mentor')
 		except Exception:
 			user_type = ""
 			

@@ -34,7 +34,7 @@
 										src="images/photos/user.png" class="thumbnail media-object">
 									{% endif %}
 								</a>
-								<a href="#"><button class="btn btn-orange" style="width: 110px;">Curriculum</button></a>
+								<a href="/studentview?user_id={{profile.user_id.id}}"><button class="btn btn-orange" style="width: 110px;">Curriculum</button></a>
 							{% else %}
 								<img style="margin-bottom: 45px ;" alt=""
 									{% if profile.images %}

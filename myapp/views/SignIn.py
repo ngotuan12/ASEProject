@@ -35,7 +35,11 @@ def index(request):
 				request.session['user_type'] = profile.user_type.name
 				request.session['user_images'] = profile.images
 				request.session['is_mentor'] = profile.is_mentor
-				return HttpResponseRedirect('/personalhome')
+				if profile.is_mentor:
+					print(user.id)
+					return HttpResponseRedirect('/studentview?user_id='+str(user.id))	
+				else:
+					return HttpResponseRedirect('/search-mentor')
 			else:
 				c = {
 						'error_message':"User name or password does not correct",
