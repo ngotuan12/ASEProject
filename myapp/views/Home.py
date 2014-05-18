@@ -13,25 +13,29 @@ from myapp.models.MentorPost import MentorPost
 from myapp.util import context_processors
 
 
+# @login_required(login_url='/signin')
 def index(request):
 	if (request.user.is_authenticated()==False) or(request.user is None):
 		return render(request, 'myapp/home1.html', {})
 	elif request.method == 'GET':
-		posts = MentorPost.objects
-		user_type = ""
-		try:
-			user_type = request.session['user_type']
-			is_mentor = request.session['is_mentor']
-			if is_mentor:
-				return HttpResponseRedirect('/studentview?user_id='+str(request.user.id))	
-			else:
-				return HttpResponseRedirect('/search-mentor')
-		except Exception:
-			user_type = ""
-			
-			
-		context = {'posts':posts,'user_type':user_type,'user_id':request.user,}
-		return render(request,'myapp/index.html', context)
+# 		posts = MentorPost.objects
+# 		user_type = ""
+# 		try:
+# 			user_type = request.session['user_type']
+# 			is_mentor = request.session['is_mentor']
+# 			if is_mentor:
+# 				return HttpResponseRedirect('/studentview?user_id='+str(request.user.id))	
+# 			else:
+# 				return HttpResponseRedirect('/search-mentor')
+# 		except Exception:
+# 			user_type = ""
+		is_mentor = request.session['is_mentor']
+		if is_mentor:
+			return HttpResponseRedirect('/studentview?user_id='+str(request.user.id))	
+		else:
+			return HttpResponseRedirect('/search-mentor')	
+# 		context = {'posts':posts,'user_type':user_type,'user_id':request.user,}
+# 		return render(request,'myapp/index.html', context)
 # 		return HttpResponseRedirect('/personalhome')
 #		return render(request, 'myapp/home.html', {})
 	elif request.method == 'POST':

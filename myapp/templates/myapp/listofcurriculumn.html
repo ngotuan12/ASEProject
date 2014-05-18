@@ -1,12 +1,11 @@
 {% include 'myapp/commentOnAction.html' %}
 {% include 'myapp/commentOnCourse.html' %}
-
+{% if user.id|truncatechars:100 == user_id %}
+	{% include 'myapp/add-material.html' %}
+	{% include 'myapp/add-action.html' %}
+{% endif %}
 <div id="bloglist" class="row">
 	{% for cl in cl %}
-	{% if user.id|truncatechars:100 == user_id %}
-		{% include 'myapp/add-material.html' %}
-		{% include 'myapp/add-action.html' %}
-	{% endif %}
 	<!-- Start block -->
 	<div class="col-xs-6 col-sm-6 col-md-6">
 		<div class="people-item">
@@ -53,7 +52,7 @@
 							{% if user.id|truncatechars:100 == user_id %}
 							<div class="btn-group  pull-left">
 								<button type="button" class="btn btn-sm btn-white"
-									data-toggle="modal" data-target="#add-material" onclick="addMaterial('{{cl.id}}');">Add Material</button>
+									data-toggle="modal" data-target="#add-material" onclick="onShowFormMaterial('{{cl.id}}');">Add Material</button>
 							</div>
 							{% endif%}
 						<div class="table-responsive">
@@ -88,7 +87,7 @@
 							{% if user.id|truncatechars:100 == user_id %}
 								<div class="btn-group  pull-left">
 									<button type="button" class="btn btn-sm btn-white"
-										data-toggle="modal" data-target="#add-action">Add Action</button>
+										data-toggle="modal" data-target="#add-action" onclick="onShowFormAction('{{cl.id}}');">Add Action</button>
 								</div>
 							{% endif%}
 						<div class="table-responsive">

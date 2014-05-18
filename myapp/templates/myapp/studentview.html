@@ -49,7 +49,8 @@
 
 <script src="js/bootstrap-wizard.min.js"></script>
 <script src="js/jquery.validate.min.js"></script>
-
+<script src="js/jquery.maskedinput.min.js"></script>
+<script src="js/jquery.numeric.js"></script>
 <script src="js/custom.js"></script>
 
 <script>
@@ -78,8 +79,11 @@
   jQuery('#basicWizard').bootstrapWizard();
   // Date Picker
   jQuery('#startdate').datepicker({});
+  jQuery("#startdate").mask("99/99/9999");
   // Date Picker
   jQuery('#enddate').datepicker();
+  jQuery("#enddate").mask("99/99/9999");
+  $("#duration").numeric();
   // Progress Wizard
   $('#courseWizard').bootstrapWizard({
     'nextSelector': '.next',
@@ -149,9 +153,13 @@
 		}
 		jQuery('#actionForm').submit();
 	};
-	function addMaterial(courseid) {
-		alert(courseid);
-		document.forms["add-material"].curriculumn_id.value = courseid;
+	function onShowFormMaterial(curriculumId) 
+	{
+		$("#materialForm").find("#curriculum_id").val(curriculumId);
+	};
+	function onShowFormAction(curriculumId) 
+	{
+		$("#actionForm").find("#curriculum_id").val(curriculumId);
 	};
 
 

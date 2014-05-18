@@ -27,7 +27,7 @@
 									<select name="material_type" class="form-control"
 										required="">
 										<option value="">Choose type</option>
-										<option value="Book" selected="selected">Book</option>
+										<option value="Book" selected>Book</option>
 										<option value="Video">Video</option>
 										<option value="Document">Document</option>
 									</select>
@@ -41,7 +41,7 @@
 								</div>
 								<div class="col-sm-6">
 									<input type="text" name="material_code" class="form-control"
-										required="" placeholder="Material code">
+										 placeholder="Material code">
 								</div>
 							</div>
 
@@ -51,7 +51,7 @@
 										required="" placeholder="description"> </textarea>
 								</div>
 							</div>
-							<input type="hidden" name="curriculum_id" value="{{ cl.id }}">
+							<input type="hidden" id="curriculum_id" name="curriculum_id" value="{{ cl.id }}">
 						</div>
 					</div>
 					<div class="modal-footer">
