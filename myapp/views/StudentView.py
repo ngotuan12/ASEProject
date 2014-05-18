@@ -21,7 +21,10 @@ def index(request):
 		user = User.objects.get(id=user_id)
 		mentor = Mentor.objects.get(user=user)
 		cl = Curriculumn.objects(mentor=mentor)
+		has_curriculum = False
+		if len(cl):
+			has_curriculum = True
 # 		print(user.id)
 # 		cl = Curriculumn.objects()
-		context = {'user_id':user_id,'cl':cl,'author':user}
+		context = {'user_id':user_id,'cl':cl,'author':user,'has_curriculum':has_curriculum}
 		return render(request,'myapp/studentview.html', context)
