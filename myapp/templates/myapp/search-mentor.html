@@ -17,7 +17,7 @@
 		</div>
 	</div>
 </div>
-<div class="row">
+<div class="row" style="min-height: 450px;">
 	<div class="people-list">
 	{% if lisUserProfile and listAllCurriculumn %}
 		{% for profile in lisUserProfile %}
@@ -100,10 +100,10 @@
 						<div class="media">
 							<div class="media-body">
 								<div class="text-muted">
-									<a href="/profile?user_id={{curriculumn.mentor.user.id}}"><h4 class="person-name peoplename">{{curriculumn.name}}</h4></a>
+									<a href="/course-detail?course_id={{curriculumn.id}}"><h4 class="person-name peoplename">{{curriculumn.name}}</h4></a>
 								</div>
 								<div class="text-muted">
-									<i class="fa fa-briefcase"></i>Mentor:<a href="#"><span>{{curriculumn.mentor.user.username}}</span></a>
+									<i class="fa fa-briefcase"></i>Mentor:<a href="/profile?user_id={{curriculumn.mentor.user.id}}"><span>{{curriculumn.mentor.user.username}}</span></a>
 								</div>
 								<div class="text-muted">
 									<i class="fa fa-briefcase"></i>Units:
