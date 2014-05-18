@@ -35,7 +35,7 @@ def index(request):
 				request.session['user_images'] = profile.images
 				request.session['is_mentor'] = profile.is_mentor
 				if profile.is_mentor:
-					return HttpResponseRedirect('/studentview?user_id='+str(user.id))	
+					return HttpResponseRedirect('/mentor-course?user_id='+str(user.id))	
 				else:
 					return HttpResponseRedirect('/search-mentor')
 			else:

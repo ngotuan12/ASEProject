@@ -24,14 +24,14 @@ def index(request):
 # 			user_type = request.session['user_type']
 # 			is_mentor = request.session['is_mentor']
 # 			if is_mentor:
-# 				return HttpResponseRedirect('/studentview?user_id='+str(request.user.id))	
+# 				return HttpResponseRedirect('/mentor-course?user_id='+str(request.user.id))	
 # 			else:
 # 				return HttpResponseRedirect('/search-mentor')
 # 		except Exception:
 # 			user_type = ""
 		is_mentor = request.session['is_mentor']
 		if is_mentor:
-			return HttpResponseRedirect('/studentview?user_id='+str(request.user.id))	
+			return HttpResponseRedirect('/mentor-course?user_id='+str(request.user.id))	
 		else:
 			return HttpResponseRedirect('/search-mentor')	
 # 		context = {'posts':posts,'user_type':user_type,'user_id':request.user,}

@@ -21,5 +21,5 @@ def index(request):
 		mentor = Mentor()
 		mentor.user = request.user
 		mentor.save()
-		return HttpResponseRedirect('/studentview?user_id='+str(request.user.id))
+		return HttpResponseRedirect('/mentor-course?user_id='+str(request.user.id))
 # 	return render(request, 'myapp/become-mentor.html', c)
