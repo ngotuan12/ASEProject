@@ -55,7 +55,7 @@ def index(request):
 			_profile = UserProfile()
 			_profile.user_id = request.user
 			_profile.save()
-			return HttpResponseRedirect('/create-profile')
+			return HttpResponseRedirect('/home')
 		except mongoengine.errors.ValidationError as ex:
 			return getSignupError(request,str(ex.errors['email']),firstname,lastname,username,password,email)
 		except mongoengine.errors.NotUniqueError as e:
