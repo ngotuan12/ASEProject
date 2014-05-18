@@ -4,7 +4,7 @@
 			<div class="media">
 				<div class="media-body" style="text-align: justify;">
 					<h4>
-						<a href="post-detail?post_id=53709adbf04310000229c3f8">{{mt.name}}</a>
+						<a href="post-detail?post_id={{mt.id}}">{{mt.name}}</a>
 					</h4>
 					<p>{{ mt.description }}</p>
 				</div>
@@ -25,45 +25,49 @@
 			</div>
 		</div>
 		<!-- panel-body -->
-		<div class="panel-body">
-			<div class="alert alert-danger"
-				style="margin-left: 30%; margin-right: 5%;padding: 3px;">
-				<div class="media" style="padding-bottom: 0px;">
-					<a href="#" class="pull-right"> <img alt=""
-						src="images/photos/user3.png" class="media-object"
-						style="width: 32px; height: 32px;"></a>
-					<h4>
-						<a href="profile?user_id={{ cmt.user_id }}">kjsfkdf</a> -
-						33/3/3/3/
-					</h4>
-					<div class="media-body ">
-						<span>fskdjhfskdhfkjds</span>
+				<!-- for comments from here -->
+				{% for cmt in mt.comment %}
+				{% if cmt.user.id == user.id %}
+				<div class="alert alert-success"
+					style="margin-left: 5%; margin-right: 30%;">
+					<div class="media" style="padding-bottom: 0px;">
+						<a href="#" class="pull-left"> <img alt=""
+							src="images/photos/user3.png" class="media-object"
+							style="width: 32px;height: 32px;"></a>
+						<h4>
+							<a href="profile?user_id={{ cmt.user_id }}">{{cmt.user_id.username}}</a>
+							- Since:{{cmt.create_date|date:'Y-M-d'}}
+						</h4>
+						<div class="media-body">
+							<span>{{cmt.content}}</span>
+						</div>
 					</div>
 				</div>
-			</div>
-
-			<div class="alert alert-success"
-				style="margin-left: 5%; margin-right: 30%;padding: 3px;">
-				<div class="media" style="padding-bottom: 0px;">
-					<a href="#" class="pull-left"> <img alt=""
-						src="images/photos/user3.png" class="media-object"
-						style="width: 32px; height: 32px;"></a>
-					<h4>
-						<a href="profile?user_id={{ cmt.user_id }}">akdjkjfsdkf</a> -
-						Since: akfjhdkjfa
-					</h4>
-					<div class="media-body">
-						<span>sdlfsdkjfjksdf</span>
+				{% else %}
+				<div class="alert alert-danger"
+					style="margin-left: 30%; margin-right: 5%;">
+					<div class="media" style="padding-bottom: 0px;">
+						<a href="#" class="pull-right"> <img alt=""
+							src="images/photos/user3.png" class="media-object"
+							style="width: 32px;height: 32px;"></a>
+						<h4>
+							<a href="profile?user_id={{ cmt.user_id }}">{{cmt.user_id.username}}</a>
+							- {{cmt.create_date|date:'Y-M-d'}}
+						</h4>
+						<div class="media-body ">
+							<span>{{cmt.content}}</span>
+						</div>
 					</div>
 				</div>
-			</div>
-
-		</div>
-		<!-- end for comment -->
-		<form method="post" name="form">
-			{% csrf_token %} <input type="hidden" name="hd_post_id"
-				value="{{ post.id }}"> <input type="hidden" name="posttype"
-				value="1">
+				{% endif %} 
+				
+				{% endfor %}
+				<!-- end for comment -->
+		<form method="post" name="formCmtMaterial">
+			{% csrf_token %} 
+			<input type="hidden" name="hd_material_id" value="{{ mt.id }}"> 
+			<input type="hidden" name="hd_course_id" value="{{ course_id }}">
+			<input type="hidden" name="posttype" value="1">
 			<div class="panel-footer">
 				<div class="media">
 					<a href="#" class="pull-left"> <img alt=""
@@ -72,11 +76,17 @@
 					</a>
 					<div class="media-body">
 						<input id="txtComment" type="text" name="txtComment"
-							class="form-control" placeholder="Write a comment"
-							onkeydown="if (event.keyCode == 13) commentpost();" />
+							class="form-control" placeholder="Leave your comment for current material"
+							onkeydown="if (event.keyCode == 13) commentMaterial('{{course_id}}','{{mt.id}}');" />
 					</div>
 				</div>
 			</div>
 		</form>
 	</div>
 </div>
+<script>
+function commentMaterial(hd_course_id,hd_material_id) {
+	document.forms["formCmtMaterial"].hd_course_id.value = hd_course_id
+	document.forms["formCmtMaterial"].hd_material_id.value = hd_material_id;
+};
+</script>

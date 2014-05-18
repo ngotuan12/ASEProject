@@ -8,8 +8,10 @@ from django.core.context_processors import csrf
 from django.shortcuts import render, render_to_response
 from mongoengine.django.auth import User
 
+from myapp.models import Comment
 from myapp.models.CommentPost import CommentPost
 from myapp.models.Curriculumn import Curriculumn
+from myapp.models.Material import Material
 from myapp.models.MentorPost import MentorPost
 from myapp.util import context_processors
 
@@ -19,27 +21,34 @@ def index(request):
 	if request.method == 'GET':
 		vCourse_id = request.GET['course_id']
 		cl = Curriculumn.objects.get(id=vCourse_id)
-# 		comments = CommentPost.objects(post_id=vpost_id).all()
-		comments = cl.comments
-		context = {	'cl':cl,'comments':comments,
+		#comments = CommentPost.objects(post_id=vpost_id).all()
+		#comments = cl.comments
+		context = {	'cl':cl,
 					'user_id':request.user,
+					'course_id':vCourse_id
 					}
 		return render(request, 'myapp/course-detail.html', context)
 	elif request.method == 'POST':
 		comment = request.POST['txtComment']
-		post_id = request.POST['hd_post_id']
+		course_id = request.POST['hd_course_id']
+		material_id = request.POST['hd_material_id']
 		user_id = request.session['_auth_user_id']
-		cmt = CommentPost()
+		ur = request.user
+		cmt = Comment()
+		cmt.user = request.user
 		cmt.content=comment
-		cmt.user_id=User.objects.get(id=user_id)
-		cmt.post_id=MentorPost.objects.get(id=post_id)
 		cmt.save()# 		user_id = request.session
-		post = MentorPost.objects.get(id=post_id)
-		post.comments.append(cmt);
-		post.save()
+		cl = Curriculumn.objects.get(id=course_id)
+		mt = Material.objects.get(id=material_id)
+		mt.comment.append(cmt);
+		mt.save()
+		cl.save()
 # 		comments = CommentPost.objects(post_id=post_id).all()
-		comments = post.comments
-		c = {'post':post,'comments':comments,'user_type':request.session['user_type']}
-		c.update(csrf(request))
-		c.update(context_processors.user(request))
-		return render_to_response("myapp/blog-single.html", c)
+		cl = Curriculumn.objects.get(id=course_id)
+		context = {	'cl':cl,
+					'user_id':request.user,
+					'course_id':course_id
+					}
+		context.update(csrf(request))
+		context.update(context_processors.user(request))
+		return render_to_response("myapp/course-detail.html", context)
