@@ -14,6 +14,7 @@ from myapp.models.Curriculumn import Curriculumn
 from myapp.models.Material import Material
 from myapp.models.MentorPost import MentorPost
 from myapp.util import context_processors
+from myapp.models.CurriculumnStudyProgress import CurriculumnStudyProgress
 
 
 @login_required(login_url='/signin')
@@ -21,9 +22,13 @@ def index(request):
 	if request.method == 'GET':
 		vCourse_id = request.GET['course_id']
 		cl = Curriculumn.objects.get(id=vCourse_id)
+		progress = CurriculumnStudyProgress.objects(curriculumn=cl,user=request.user)
+		is_joined = False
+		if len(progress)>0:
+			is_joined = True
 		#comments = CommentPost.objects(post_id=vpost_id).all()
 		#comments = cl.comments
-		context = {	'cl':cl,
+		context = {	'cl':cl,'is_joined':is_joined,
 					'user_id':request.user,
 					'course_id':vCourse_id
 					}

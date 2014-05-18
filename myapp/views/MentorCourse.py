@@ -8,7 +8,8 @@ from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 
-from myapp.models import Material, MaterialType, UserProfile
+from myapp.models import Material, MaterialType, UserProfile,\
+	CurriculumnStudyProgress, Impression
 from myapp.models.Action import Action
 from myapp.models.Curriculumn import Curriculumn
 from myapp.models.Mentor import Mentor
@@ -109,4 +110,23 @@ def add_material(request):
 		curriculum.material.append(material)
 		curriculum.save()
 		return HttpResponseRedirect('/');
+@login_required(login_url='/signin')
+def join_course(request):
+	if request.method == 'POST':
+		curriculum_id = request.POST['curriculum_id']
+		curriculum = Curriculumn.objects.get(id=curriculum_id)
+		planstart = request.POST['planstart']
+		planend = request.POST['planend']
+		impression = request.POST['impression']
+		description = request.POST['description']
 		
+		stp = CurriculumnStudyProgress()
+		stp.curriculumn = curriculum 
+		stp.PlanStartDate = datetime.strptime(planstart,'%m/%d/%Y')
+		stp.PlanEndDate = datetime.strptime(planend,'%m/%d/%Y')
+		stp.impression = Impression.objects.get(showpiority=impression)
+		stp.description = description
+		stp.user = request.user
+		stp.save()
+
+		return HttpResponseRedirect('/course-detail?course_id=' + curriculum_id);

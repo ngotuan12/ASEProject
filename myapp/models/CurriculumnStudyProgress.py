@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from mongoengine.django.auth import User
 from mongoengine.document import Document
 from mongoengine.fields import DateTimeField, ReferenceField, \
 	StringField
@@ -14,6 +15,7 @@ class CurriculumnStudyProgress(Document):
 	published_date = DateTimeField(default=datetime.now)	
 	curriculumn = ReferenceField(Curriculumn)
 	student = ReferenceField(Student)
+	user = ReferenceField(User)
 	impression = ReferenceField(Impression)	
 	progressType = ReferenceField(ProgressType)	
 	description = StringField()	

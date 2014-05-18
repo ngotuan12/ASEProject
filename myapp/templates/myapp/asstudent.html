@@ -1,7 +1,7 @@
 {% if user.id|truncatechars:100 == user_id %}
-{% include "myapp/add-curriculumn.html"%}
+	{% include "myapp/add-curriculumn.html"%}
 {% else %}
-{% include "myapp/joincourse.html"%}
+	{% include "myapp/joincourse.html"%}
 {% endif %}
 <div class="row">
 
@@ -23,18 +23,15 @@
 
 					<div class="mb15"></div>
 					{% if cl.mentor.user.id == user.id %}
-					<div class="row" style="text-align: center;">
-						<div class="col-xs-6" >
-							<small class="stat-label">Active Course</small>
-							<h4>10</h4>
+						{% include "myapp/add-material.html"%}
+						<div class="row" style="text-align: center; margin-left: 0px; margin-right: 0px;">
+							<button class="btn btn-default btn-block" data-toggle="modal" data-target="#add-material">Add new material </button>
 						</div>
-
-						<div class="col-xs-6">
-							<small class="stat-label">Closed Course</small>
-							<h4>15</h4>
-						</div>
-					</div>
 					<!-- row -->
+					{% elif is_joined %}
+					<div class="row" style="text-align: center; margin-left: 0px; margin-right: 0px;">
+						Welcome {{ user.id}} back to course! 
+					</div>
 					{% else %}
 					<div class="row" style="text-align: center; margin-left: 0px; margin-right: 0px;">
 						<button class="btn btn-default btn-block" data-toggle="modal" data-target="#joincourse">Joint this course </button>
