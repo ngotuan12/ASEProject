@@ -1,141 +1,144 @@
-{% extends "myapp/base.html" %} {% block content %}
-<div class="row">
-	<div class="col-sm-12">
-		<div class="people-item">
-			<div class="media">
-				<div class="text-muted">
-					<form class="col-sm-6" action="search-mentor" method="post" style="margin-left: 25%;">
-						{% csrf_token %}
-						{% if search %}
-							<input type="text" class="form-control" name="search" value="{{search}}" placeholder="Search first name,last name,username ..." autocomplete="off" style="background: #fff url(../images/icon-search.png) no-repeat 95% center;">
-						{% else %}
-							<input type="text" class="form-control" name="search" value="" placeholder="Search first name,last name,username ..." autocomplete="off" style="background: #fff url(../images/icon-search.png) no-repeat 95% center;">
-						{% endif %}
-					</form>
+{% extends "myapp/base.html" %} 
+{% block content %}
+<div class=col-sm style="min-height: 600px">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="people-item">
+				<div class="media">
+					<div class="text-muted">
+						<form class="col-sm-6" action="search-mentor" method="post" style="margin-left: 25%;">
+							{% csrf_token %}
+							{% if search %}
+								<input type="text" class="form-control" name="search" value="{{search}}" placeholder="Search first name,last name,username ..." autocomplete="off" style="background: #fff url(../images/icon-search.png) no-repeat 95% center;">
+							{% else %}
+								<input type="text" class="form-control" name="search" value="" placeholder="Search first name,last name,username ..." autocomplete="off" style="background: #fff url(../images/icon-search.png) no-repeat 95% center;">
+							{% endif %}
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<div class="row" style="min-height: 450px;">
-	<div class="people-list">
-	{% if lisUserProfile and listAllCurriculumn %}
-		{% for profile in lisUserProfile %}
-			<div class="col-sm-6">
-				<div class="people-item">
-					<div class="media">
-						<div class="pull-left">
-							<a href="/profile?user_id={{profile.user_id.id }}" >
-							{% if profile.is_mentor %}
-								<img style="margin-bottom: 10px ;" alt=""
-									{% if profile.images %}
-										src="/{{profile.images}}" class="thumbnail media-object">
-									{% else %}
-										src="images/photos/user.png" class="thumbnail media-object">
-									{% endif %}
-								</a>
-								<a href="/mentor-course?user_id={{profile.user_id.id}}"><button class="btn btn-orange" style="width: 110px;">Curriculum</button></a>
-							{% else %}
-								<img style="margin-bottom: 45px ;" alt=""
-									{% if profile.images %}
-										src="/{{profile.images}}" class="thumbnail media-object">
-									{% else %}
-										src="images/photos/user.png" class="thumbnail media-object">
-									{% endif %}
-								</a>
-							{% endif %}
-						</div>
-						<div class="media-body">
-							{% if profile.user_id.last_name and profile.user_id.first_name %}
-								<a href="/profile?user_id={{profile.user_id.id }}"><h4 class="person-name peoplename">{{profile.user_id.last_name|add:" "|add:profile.user_id.first_name}}</h4></a>
-							{% else %}
-								<a href="/profile?user_id={{profile.user_id.id }}"><h4 class="person-name peoplename">{{profile.user_id.username}}</h4></a>
-							{% endif %}
-							{% if profile.is_mentor %}
-								<div class="text-muted">
-									<i class="fa fa-briefcase"></i>Mentor
-								</div>
-							{% else %}
-								<div class="text-muted">
-									<i class="fa fa-briefcase"></i>Student
-								</div>
-							{% endif %}
-							<div class="text-muted">
-								<i class="fa fa-briefcase"></i> <a href="#">{{profile.job_title.name}}</a> at <a
-									href="http://www.ex-artisan.com" target="_blank">{{profile.company}}</a>
-							</div>
-							<div class="text-muted">
-								<i class="fa fa-briefcase"></i>Skill : 
-								{% for skill in profile.skill %}
-										{{skill|add:","}}
-								{% endfor %}
-							</div>
-							<div class="text-muted">
-								<i class="fa fa-briefcase"></i>Education : 
-								{% for edu in profile.edu %}
-										{{edu|add:","}}
-								{% endfor %}
-							</div>
-							
-						</div>
-								
-					</div>
-				</div>
-			</div>
-		{% endfor %}
-		{% else %}
-			<div class="col-md-6">
-			</div>
-			<!-- col-md-6 -->
-		{% endif %}
-	</div>
-</div>
-<div class="row">
-	<div class="people-list">
-		<!-- Cucutium  -->
-		{% if listCurriculumn %}
-			{% for curriculumn in listCurriculumn %}
-				<div class="col-md-6">
+	<div class="row">
+		<div class="people-list">
+		{% if lisUserProfile and listAllCurriculumn %}
+			{% for profile in lisUserProfile %}
+				<div class="col-sm-6">
 					<div class="people-item">
 						<div class="media">
+							<div class="pull-left">
+								<a href="/profile?user_id={{profile.user_id.id }}" >
+								{% if profile.is_mentor %}
+									<img style="margin-bottom: 10px ;" alt=""
+										{% if profile.images %}
+											src="/{{profile.images}}" class="thumbnail media-object">
+										{% else %}
+											src="images/photos/user.png" class="thumbnail media-object">
+										{% endif %}
+									</a>
+									<a href="/mentor-course?user_id={{profile.user_id.id}}"><button class="btn btn-orange" style="width: 110px;">Curriculum</button></a>
+								{% else %}
+									<img style="margin-bottom: 45px ;" alt=""
+										{% if profile.images %}
+											src="/{{profile.images}}" class="thumbnail media-object">
+										{% else %}
+											src="images/photos/user.png" class="thumbnail media-object">
+										{% endif %}
+									</a>
+								{% endif %}
+							</div>
 							<div class="media-body">
+								{% if profile.user_id.last_name and profile.user_id.first_name %}
+									<a href="/profile?user_id={{profile.user_id.id }}"><h4 class="person-name peoplename">{{profile.user_id.last_name|add:" "|add:profile.user_id.first_name}}</h4></a>
+								{% else %}
+									<a href="/profile?user_id={{profile.user_id.id }}"><h4 class="person-name peoplename">{{profile.user_id.username}}</h4></a>
+								{% endif %}
+								{% if profile.is_mentor %}
+									<div class="text-muted">
+										<i class="fa fa-briefcase"></i>Mentor
+									</div>
+								{% else %}
+									<div class="text-muted">
+										<i class="fa fa-briefcase"></i>Student
+									</div>
+								{% endif %}
 								<div class="text-muted">
-									<a href="/course-detail?course_id={{curriculumn.id}}"><h4 class="person-name peoplename">{{curriculumn.name}}</h4></a>
+									<i class="fa fa-briefcase"></i> <a href="#">{{profile.job_title.name}}</a> at <a
+										href="http://www.ex-artisan.com" target="_blank">{{profile.company}}</a>
 								</div>
 								<div class="text-muted">
-									<i class="fa fa-briefcase"></i>Mentor:<a href="/profile?user_id={{curriculumn.mentor.user.id}}"><span>{{curriculumn.mentor.user.username}}</span></a>
+									<i class="fa fa-briefcase"></i>Skill : 
+									{% for skill in profile.skill %}
+											{{skill|add:","}}
+									{% endfor %}
 								</div>
 								<div class="text-muted">
-									<i class="fa fa-briefcase"></i>Units:
-										{% for unit in curriculumn.units %}
-											{{unit.name|add:","}}
-										{% endfor %}
+									<i class="fa fa-briefcase"></i>Education : 
+									{% for edu in profile.edu %}
+											{{edu|add:","}}
+									{% endfor %}
 								</div>
-								<div class="text-muted">
-									<i class="fa fa-briefcase"></i>materials:
-										{% for material in curriculumn.material %}
-											{{material.name|add:","}}
-										{% endfor %}
-								</div>
-								<div class="text-muted">
-									<i class="fa fa-briefcase"></i>Actions:
-										{% for action in curriculumn.action %}
-											{{action.name|add:","}}
-										{% endfor %}
+								
+							</div>
+									
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+			{% else %}
+				<div class="col-md-6">
+				</div>
+				<!-- col-md-6 -->
+			{% endif %}
+		</div>
+	</div>
+	<div class="row">
+		<div class="people-list">
+			<!-- Cucutium  -->
+			{% if listCurriculumn %}
+				{% for curriculumn in listCurriculumn %}
+					<div class="col-md-6">
+						<div class="people-item">
+							<div class="media">
+								<div class="media-body">
+									<div class="text-muted">
+										<a href="/course-detail?course_id={{curriculumn.id}}"><h4 class="person-name peoplename">{{curriculumn.name}}</h4></a>
+									</div>
+									<div class="text-muted">
+										<i class="fa fa-briefcase"></i>Mentor:<a href="/profile?user_id={{curriculumn.mentor.user.id}}"><span>{{curriculumn.mentor.user.username}}</span></a>
+									</div>
+									<div class="text-muted">
+										<i class="fa fa-briefcase"></i>Units:
+											{% for unit in curriculumn.units %}
+												{{unit.name|add:","}}
+											{% endfor %}
+									</div>
+									<div class="text-muted">
+										<i class="fa fa-briefcase"></i>materials:
+											{% for material in curriculumn.material %}
+												{{material.name|add:","}}
+											{% endfor %}
+									</div>
+									<div class="text-muted">
+										<i class="fa fa-briefcase"></i>Actions:
+											{% for action in curriculumn.action %}
+												{{action.name|add:","}}
+											{% endfor %}
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+					<!-- col-md-6 -->
+				{% endfor %}
+			{% else %}
+				<div class="col-md-6">
 				</div>
 				<!-- col-md-6 -->
-			{% endfor %}
-		{% else %}
-			<div class="col-md-6">
-			</div>
-			<!-- col-md-6 -->
-		{% endif %}
-		<!-- End Cucutium -->
-		
+			{% endif %}
+			<!-- End Cucutium -->
+			
+		</div>
 	</div>
 </div>
 {% endblock %}
