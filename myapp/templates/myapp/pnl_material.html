@@ -27,7 +27,7 @@
 		<!-- panel-body -->
 				<!-- for comments from here -->
 				{% for cmt in mt.comment %}
-				{% if cmt.user.id == user.id %}
+				{% if cmt.user.id == cl.mentor.user.id %}
 				<div class="alert alert-success"
 					style="margin-left: 5%; margin-right: 30%;">
 					<div class="media" style="padding-bottom: 0px;">
@@ -35,7 +35,7 @@
 							src="images/photos/user3.png" class="media-object"
 							style="width: 32px;height: 32px;"></a>
 						<h4>
-							<a href="profile?user_id={{ cmt.user_id }}">{{cmt.user_id.username}}</a>
+							<a href="profile?user_id={{ cmt.user_id }}">{{cmt.user.username}}</a>
 							- Since:{{cmt.create_date|date:'Y-M-d'}}
 						</h4>
 						<div class="media-body">
@@ -51,7 +51,7 @@
 							src="images/photos/user3.png" class="media-object"
 							style="width: 32px;height: 32px;"></a>
 						<h4>
-							<a href="profile?user_id={{ cmt.user_id }}">{{cmt.user_id.username}}</a>
+							<a href="profile?user_id={{ cmt.user_id }}">{{cmt.user.username}}</a>
 							- {{cmt.create_date|date:'Y-M-d'}}
 						</h4>
 						<div class="media-body ">

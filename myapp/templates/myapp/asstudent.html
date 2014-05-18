@@ -1,5 +1,7 @@
 {% if user.id|truncatechars:100 == user_id %}
 {% include "myapp/add-curriculumn.html"%}
+{% else %}
+{% include "myapp/joincourse.html"%}
 {% endif %}
 <div class="row">
 
@@ -13,14 +15,14 @@
 							<img src="images/photos/user4.png" alt="" style="width:56px;">
 						</div>
 						<div class="col-xs-8">
-							<small class="stat-label">Visits Today</small>
-							<h1>{{ user.username }}</h1>
+							<small class="stat-label">Mentor:</small>
+							<h3>{{ cl.mentor.user.username }}</h3>
 						</div>
 					</div>
 					<!-- row -->
 
 					<div class="mb15"></div>
-
+					{% if cl.mentor.user.id == user.id %}
 					<div class="row" style="text-align: center;">
 						<div class="col-xs-6" >
 							<small class="stat-label">Active Course</small>
@@ -33,6 +35,11 @@
 						</div>
 					</div>
 					<!-- row -->
+					{% else %}
+					<div class="row" style="text-align: center; margin-left: 0px; margin-right: 0px;">
+						<button class="btn btn-default btn-block" data-toggle="modal" data-target="#joincourse">Joint this course </button>
+					</div>
+					{% endif %}
 				</div>
 				<!-- stat -->
 				{% else %}

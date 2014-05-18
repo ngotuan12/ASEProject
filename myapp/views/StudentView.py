@@ -23,5 +23,5 @@ def index(request):
 		cl = Curriculumn.objects(mentor=mentor)
 # 		print(user.id)
 # 		cl = Curriculumn.objects()
-		context = {'user_id':user_id,'cl':cl,}
+		context = {'user_id':user_id,'cl':cl,'author':user}
 		return render(request,'myapp/studentview.html', context)
