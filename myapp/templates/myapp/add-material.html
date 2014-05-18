@@ -11,6 +11,9 @@
 
 			<div class="panel panel-default">
 				<form class="form" id="materialForm" novalidate="novalidate" method="post" action="/add-material">
+				<input type="hidden" id="course_id" name="course_id" value="{{cl.id}}">
+				<input type="hidden" name="posttype" value="3"> <!-- post type = 3; add easy -->
+				
 					{% csrf_token %} 
 					<div class="panel-body">
 						<div class="tab-pane"style="min-height: 0">
@@ -24,7 +27,7 @@
 									<select name="material_type" class="form-control"
 										required="">
 										<option value="">Choose type</option>
-										<option value="Book">Book</option>
+										<option value="Book" selected="selected">Book</option>
 										<option value="Video">Video</option>
 										<option value="Document">Document</option>
 									</select>

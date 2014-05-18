@@ -1,0 +1,82 @@
+<div class="col-xs-6 col-sm-6 col-md-6">
+	<div class="people-item">
+		<div>
+			<div class="media">
+				<div class="media-body" style="text-align: justify;">
+					<h4>
+						<a href="post-detail?post_id=53709adbf04310000229c3f8">{{mt.name}}</a>
+					</h4>
+					<p>{{ mt.description }}</p>
+				</div>
+			</div>
+			<div class="timeline-btns">
+				<div class="pull-left">
+					<a href="#" data-toggle="modal" data-target="#rating"
+						class="tooltips" title="" data-original-title="Like"><i
+						class="glyphicon glyphicon-heart"></i></a> <a href="#"
+						class="tooltips" data-toggle="modal"
+						data-target="#commentOnLecture" title=""
+						data-original-title="Add Comment"><i
+						class="glyphicon glyphicon-comment"></i></a>
+				</div>
+				<div class="pull-right">
+					<small class="text-muted">1 people like this</small>
+				</div>
+			</div>
+		</div>
+		<!-- panel-body -->
+		<div class="panel-body">
+			<div class="alert alert-danger"
+				style="margin-left: 30%; margin-right: 5%;padding: 3px;">
+				<div class="media" style="padding-bottom: 0px;">
+					<a href="#" class="pull-right"> <img alt=""
+						src="images/photos/user3.png" class="media-object"
+						style="width: 32px; height: 32px;"></a>
+					<h4>
+						<a href="profile?user_id={{ cmt.user_id }}">kjsfkdf</a> -
+						33/3/3/3/
+					</h4>
+					<div class="media-body ">
+						<span>fskdjhfskdhfkjds</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="alert alert-success"
+				style="margin-left: 5%; margin-right: 30%;padding: 3px;">
+				<div class="media" style="padding-bottom: 0px;">
+					<a href="#" class="pull-left"> <img alt=""
+						src="images/photos/user3.png" class="media-object"
+						style="width: 32px; height: 32px;"></a>
+					<h4>
+						<a href="profile?user_id={{ cmt.user_id }}">akdjkjfsdkf</a> -
+						Since: akfjhdkjfa
+					</h4>
+					<div class="media-body">
+						<span>sdlfsdkjfjksdf</span>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- end for comment -->
+		<form method="post" name="form">
+			{% csrf_token %} <input type="hidden" name="hd_post_id"
+				value="{{ post.id }}"> <input type="hidden" name="posttype"
+				value="1">
+			<div class="panel-footer">
+				<div class="media">
+					<a href="#" class="pull-left"> <img alt=""
+						src="images/photos/user3.png" class="media-object"
+						style="width: 32px; height: 32px;">
+					</a>
+					<div class="media-body">
+						<input id="txtComment" type="text" name="txtComment"
+							class="form-control" placeholder="Write a comment"
+							onkeydown="if (event.keyCode == 13) commentpost();" />
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

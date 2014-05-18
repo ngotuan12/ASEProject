@@ -1,0 +1,47 @@
+<div class="contentpanel" style="margin-top: 3%;">
+	{% include 'myapp/createesay.html'%} {% include 'myapp/addphoto.html'%}
+	{% include 'myapp/addvideo.html' %} {% include 'myapp/addlink.html' %}
+	
+	{% include "myapp/asstudent.html"%}
+	<div id="bloglist" class="row">
+		{% for mt in cl.material%}
+			{% include "myapp/pnl_material.html"%}
+		{% endfor %}
+	</div>
+</div>
+<script type="text/javascript">
+	function createpost() {
+		document.getElementById("formcreateesay").submit();
+	};
+
+	function saveComment() {
+		document.getElementById("formcommentonlecture").submit();
+	};
+
+	function createesay(postid) {
+		document.forms["formcreateesay"].post_id.value = postid;
+	};
+
+	function socialmodule(postid) {
+		document.forms["formcreateesay"].post_id.value = postid;
+	};
+
+	function commentpost() {
+		alert('comment post...');
+	};
+	
+	function createlecture() {
+		document.getElementById("formcreatelecture").submit();
+	};
+	
+	function teststar(postid) {
+		for (i = 0; i < document.getElementsByName('rating').length; i++) {
+			if (document.getElementsByName('rating')[i].checked == true) {
+				var ratingValue = document.getElementsByName('rating')[i].value;
+				break;
+			}
+		}
+		document.getElementsByName('txtrate').value = ratingValue;
+		document.getElementById("frmrating").submit();
+	};
+</script>

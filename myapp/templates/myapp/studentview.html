@@ -149,5 +149,11 @@
 		}
 		jQuery('#actionForm').submit();
 	};
+	function addMaterial(courseid) {
+		alert(courseid);
+		document.forms["add-material"].curriculumn_id.value = courseid;
+	};
+
+
 </script>
 {% endblock scripts%}
