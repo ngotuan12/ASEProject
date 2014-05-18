@@ -127,8 +127,27 @@
     }
   });
 
-
-  }); 
-  
+	
+  });
+	function onMaterialFormSubmit()
+	{
+		var $valid = jQuery('#materialForm').valid();
+		if(!$valid) 
+		{
+			$validator.focusInvalid();
+			return false;
+		}
+		jQuery('#materialForm').submit();
+	};
+	function onActionFormSubmit()
+	{
+		var $valid = jQuery('#actionForm').valid();
+		if(!$valid) 
+		{
+			$validator.focusInvalid();
+			return false;
+		}
+		jQuery('#actionForm').submit();
+	};
 </script>
 {% endblock scripts%}

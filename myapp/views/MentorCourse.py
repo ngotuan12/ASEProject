@@ -74,7 +74,7 @@ def add_action(request):
 	if request.method == 'POST':
 		#curriculum
 		curriculum_id = request.POST['curriculum_id']
-		curriculum = Curriculum.objects.get(id=curriculum_id)
+		curriculum = Curriculumn.objects.get(id=curriculum_id)
 		#action
 		action_name = request.POST['action_name']
 		action_description = request.POST['action_description']
@@ -91,7 +91,7 @@ def add_material(request):
 	if request.method == 'POST':
 		#curriculum
 		curriculum_id = request.POST['curriculum_id']
-		curriculum = Curriculum.objects.get(id=curriculum_id)
+		curriculum = Curriculumn.objects.get(id=curriculum_id)
 		#material
 		material_title = request.POST['material_title']
 		material_type = request.POST['material_type']

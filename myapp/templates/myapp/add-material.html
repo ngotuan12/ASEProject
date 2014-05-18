@@ -1,0 +1,68 @@
+<!-- Modal -->
+<div class="modal fade" id="add-material" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Add material</h4>
+			</div>
+
+			<div class="panel panel-default">
+				<form class="form" id="materialForm" novalidate="novalidate" method="post" action="/add-material">
+					{% csrf_token %} 
+					<div class="panel-body">
+						<div class="tab-pane"style="min-height: 0">
+							<div class="form-group">
+								<div class="col-sm-6">
+									<input type="text" name="material_title"
+										class="form-control" required=""
+										placeholder="Material title">
+								</div>
+								<div class="col-sm-6">
+									<select name="material_type" class="form-control"
+										required="">
+										<option value="">Choose type</option>
+										<option value="Book">Book</option>
+										<option value="Video">Video</option>
+										<option value="Document">Document</option>
+									</select>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<div class="col-sm-6">
+									<input type="text" name="material_url" class="form-control"
+										required="" placeholder="Material url">
+								</div>
+								<div class="col-sm-6">
+									<input type="text" name="material_code" class="form-control"
+										required="" placeholder="Material code">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-sm">
+									<textarea name="material_description" class="form-control"
+										required="" placeholder="description"> </textarea>
+								</div>
+							</div>
+							<input type="hidden" name="curriculum_id" value="{{ cl.id }}">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary" onclick="return onMaterialFormSubmit();">Save</button>
+					</div>
+				</form>
+			</div>
+			<!-- End of block -->
+			
+		</div>
+		<!-- modal-content -->
+		
+	</div>
+	<!-- modal-dialog -->
+</div>
+<!-- modal -->

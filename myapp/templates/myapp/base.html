@@ -270,7 +270,7 @@
 				<div class="pageheader-right">
 					<img class="img" src="images/profile-icon16X16.png" alt="" width="16" height="16"><a href="/profile?user_id={{user.id}}">Profile</a>/
 					{% if profile.is_mentor %}
-						<img class="img" src="images/course-icon16X16.png" alt="" width="16" height="16"><a href="/become-mentor">My course</a>
+						<img class="img" src="images/course-icon16X16.png" alt="" width="16" height="16"><a href="/studentview?user_id={{user.id}}">My course</a>
 					{% else %}
 						<a href="/become-mentor">Become as mentor</a>
 					{% endif %}
