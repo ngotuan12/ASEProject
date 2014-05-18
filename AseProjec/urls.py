@@ -6,7 +6,7 @@ from django.conf.urls import patterns, url , include
 from myapp.views import Home, AccountSetting, PostDetail, SignIn, MentorPost, \
 	Profile, SignUp, SignOut, PeopleDirectory, Chat, PersonalHome , AuthenFail, \
 	MentorView, Documents, StudentHome, MentorCourse, Test, SearchMentor, BecomeMentor, \
-	StudentView
+	StudentView, CourseDetail
 
 
 # Uncomment the next two lines to enable the admin:
