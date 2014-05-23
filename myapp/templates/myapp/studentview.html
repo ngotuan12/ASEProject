@@ -12,7 +12,11 @@
 			{% include 'myapp/asstudent.html' %} 
 			{% include 'myapp/listofcurriculumn.html' %}
 		{% else %}
-			{% include 'myapp/createcourse.html' %}
+			{% if ismentor %}
+				{% include 'myapp/createcourse.html' %}
+			{% else %}
+				{% include 'myapp/listofcurriculumn.html' %}
+			{% endif %}
 		{% endif %}
 		</div>
 	</div>

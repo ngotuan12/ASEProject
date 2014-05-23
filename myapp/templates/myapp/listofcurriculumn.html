@@ -4,6 +4,8 @@
 	{% include 'myapp/add-material.html' %}
 	{% include 'myapp/add-action.html' %}
 {% endif %}
+
+{% if has_curriculum %}
 <div id="bloglist" class="row">
 	{% for cl in cl %}
 	<!-- Start block -->
@@ -15,20 +17,9 @@
 					{% if user.id|truncatechars:100 != user_id %}
 					<div class="btn-group pull-right">
 						<button type="button" class="btn btn-primary"
-							data-toggle="modal" data-target="#joincourse">Join</button>
-						<button type="button" class="btn btn-primary"
-							data-toggle="modal" data-target="#joincourse">Like</button>
-						<button type="button" class="btn btn-primary"
-							data-toggle="modal" data-target="#joincourse">Cmt</button>
+<!-- 							data-toggle="modal" data-target="#joincourse">Join</button> -->
 					</div>
-					{% else %}
-					<div class="btn-group pull-right">
-						<button type="button" class="btn btn-primary"
-							data-toggle="modal" data-target="#joincourse">Like</button>
-						<button type="button" class="btn btn-primary"
-							data-toggle="modal" data-target="#joincourse">Cmt</button>
-					</div>
-					{% endif %}
+ 					{% endif %}
 					<a href="course-detail?course_id={{ cl.id }}"><h4 class="person-name">{{ cl.name }}</h4></a>
 					<ul class="blog-meta">
 						<li>Course Start: {{ cl.from_date|date:'Y-M-d' }}</li>
@@ -56,27 +47,17 @@
 							</div>
 							{% endif%}
 						<div class="table-responsive">
-							<table class="table table-bordered mb30">
+							<table class="table table-hover table-bordered mb30">
 								<tr>
 								<th style="width: 40%;text-align: center; background-color: #1CAF9A; color: #fff">Name</th>
-								<th style="width: 40%; text-align: center; background-color: #1CAF9A; color: #fff">Description</th>
-								<th style="width: 20%; text-align: center; background-color: #1CAF9A; color: #fff">Description</th>
+								<th style="width: 60%; text-align: center; background-color: #1CAF9A; color: #fff">Description</th>
 								</tr>
 								<tbody>
 								{% for mt in cl.material %}
-								<tr>
-									<td>{{ mt.name|truncatechars:100 }}</td>
+								<tr onclick="document.location = 'course-detail?course_id={{ cl.id }}';" style="cursor: hand;" > 
+									<td >{{ mt.name|truncatechars:100 }}</td>
 									<td>{{ mt.description|truncatechars:100 }}</td>
-									<td>
- 										<div style="text-align: center;">
-												<a href="#" class="tooltips" title="Like this action.."><i
-													class="glyphicon glyphicon-heart"></i></a> 
-												<a href="#"
-													class="tooltips" data-toggle="modal" data-target="#cmtOnCourse" title=""
-													data-original-title="Add Comment"><i
-													class="glyphicon glyphicon-comment"></i></a>
-										</div>
-									</td>	
+								</tr>
 								</tbody>
 								{% endfor %}
 							</table>
@@ -91,28 +72,16 @@
 								</div>
 							{% endif%}
 						<div class="table-responsive">
-							<table class="table table-bordered mb30">
-								<tr>
+							<table class="table table-hover table-bordered mb30">
+								<tr >
 								<th style="width: 40%; text-align: center; background-color: #1CAF9A; color: #fff">Action to do</th>
-								<th style="width: 40%; text-align: center; background-color: #1CAF9A; color: #fff">Description</th>
-								<th style="width: 20%; text-align: center; background-color: #1CAF9A; color: #fff">Description</th>
+								<th style="width: 60%; text-align: center; background-color: #1CAF9A; color: #fff">Description</th>
 								</tr>
 								<tbody>
 								{% for ac in cl.action %}
-								<tr>
+								<tr onclick="document.location = 'course-detail?course_id={{ cl.id }}';" style="cursor: hand;">
 									<td>{{ ac.name|truncatechars:100 }}</td>
 									<td>{{ ac.description|truncatechars:100 }}</td>
-									<td>
- 										<div style="text-align: center;">
-												<a href="#" class="tooltips" title="Like this action.."><i
-													class="glyphicon glyphicon-heart"></i></a> 
-												<a href="#"
-													class="tooltips" data-toggle="modal" data-target="#cmtOnAction" title=""
-													data-original-title="Add Comment"><i
-													class="glyphicon glyphicon-comment"></i></a>
-										
-										</div>
-									</td>	
 											
 											</tbody>
 								{% endfor %}
@@ -129,7 +98,7 @@
 								</div>
 								<div class="datainfo">
 									<span class="text-muted">Taken</span>
-									<h4>16,850</h4>
+									<h4>{{ cl.statistic.currentTakenNumber}}</h4>
 								</div>
 							</div>
 							<!-- tinystat -->
@@ -142,7 +111,7 @@
 								</div>
 								<div class="datainfo">
 									<span class="text-muted">Like</span>
-									<h4>23,001,090</h4>
+									<h4>{{ cl.statistic.currentLikeNumber}}</h4>
 								</div>
 							</div>
 							<!-- tinystat -->
@@ -159,3 +128,8 @@
 	<!-- End for -->
 </div>
 <!-- row -->
+{% else %} <!-- No curriculumn data  -->
+ <div class="row">
+ <p> No data to show
+ </div>
+{% endif %}

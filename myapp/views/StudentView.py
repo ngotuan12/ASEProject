@@ -22,9 +22,44 @@ def index(request):
 		mentor = Mentor.objects.get(user=user)
 		cl = Curriculumn.objects(mentor=mentor)
 		has_curriculum = False
+		is_mentor = request.session['is_mentor']
 		if len(cl):
 			has_curriculum = True
-# 		print(user.id)
-# 		cl = Curriculumn.objects()
-		context = {'user_id':user_id,'cl':cl,'author':user,'has_curriculum':has_curriculum}
+		clTaken = 0
+		clLike = 0
+		mtTaken = 0
+		mtLike = 0
+		actTaken = 0
+		actLike = 0
+		mtTotal = 0
+		actTotal = 0
+		for c in cl:
+			clTaken += c.statistic.currentTakenNumber
+			clLike += c.statistic.currentLikeNumber
+			for mt in c.material:
+				mtTaken += mt.statistic.currentTakenNumber
+				mtLike += mt.statistic.currentLikeNumber
+				mtTotal += 1
+			for act in c.action:
+				actTaken += act.statistic.currentTakenNumber
+				actLike += act.statistic.currentLikeNumber
+				actTotal +=1
+		print(mtTaken)
+		print(mtLike)
+		print(actTaken)
+		print(actLike)
+		
+		context = {	'user_id':user_id,
+					'cl':cl,
+					'author':mentor.user.username,
+					'is_mentor':is_mentor,
+					'clTaken':clTaken,
+					'clLike':clLike,
+					'mtTaken':mtTaken,
+					'mtLike':mtLike,
+					'actTaken':actTaken,
+					'actLike':actLike,
+					'mtTotal':mtTotal,
+					'actTotal':actTotal,
+					'has_curriculum':has_curriculum,}
 		return render(request,'myapp/studentview.html', context)

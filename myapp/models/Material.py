@@ -6,6 +6,7 @@ from mongoengine.fields import StringField, DateTimeField, ReferenceField, \
 
 from myapp.models.Comment import Comment
 from myapp.models.MaterialType import MaterialType
+from myapp.models.Statistic import Statistic
 from myapp.models.Unit import Unit
 
 
@@ -18,6 +19,7 @@ class Material(Document):
 	code = StringField()
 	description = StringField()
 	comment = ListField(ReferenceField(Comment))
+	statistic = ReferenceField(Statistic)
 	meta = {
 			'ordering': ['-published_date']
  }

@@ -9,6 +9,7 @@ from myapp.models.Category import Category
 from myapp.models.Comment import Comment
 from myapp.models.Material import Material
 from myapp.models.Mentor import Mentor
+from myapp.models.Statistic import Statistic
 from myapp.models.Unit import Unit
 
 
@@ -26,6 +27,7 @@ class Curriculumn(Document):
 	comments = ListField(ReferenceField(Comment))
 	material = ListField(ReferenceField(Material))
 	action = ListField(ReferenceField(Action))
+	statistic = ReferenceField(Statistic)
 	meta = {
 				'ordering': ['-mentor'],
 				'ordering': ['-comments'],

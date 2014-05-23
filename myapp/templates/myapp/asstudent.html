@@ -16,12 +16,11 @@
 						</div>
 						<div class="col-xs-8">
 							<small class="stat-label">Mentor:</small>
-							<h3>{{ cl.mentor.user.username }}</h3>
+							<h3>{{ author }}</h3>
 						</div>
 					</div>
 					<!-- row -->
 
-					<div class="mb15"></div>
 					{% if cl.mentor.user.id == user.id %}
 						{% include "myapp/add-material.html"%}
 						<div class="row" style="text-align: center; margin-left: 0px; margin-right: 0px;">
@@ -33,8 +32,15 @@
 						{{ user.username }} back to course! 
 					</div>
 					{% else %}
-					<div class="row" style="text-align: center; margin-left: 0px; margin-right: 0px;">
-						<button class="btn btn-default btn-block" data-toggle="modal" data-target="#joincourse">Joint this course </button>
+					<div class="row" style="text-align: center;">
+						<div class="col-xs-6">
+							<small class="stat-label">Like</small>
+							<h4> {{clTaken}}</h4>
+						</div>
+						<div class="col-xs-6">
+							<small class="stat-label">Comment</small>
+							<h4>{{clLike}}</h4>
+						</div>
 					</div>
 					{% endif %}
 				</div>
@@ -74,7 +80,7 @@
 						</div>
 						<div class="col-xs-8">
 							<small class="stat-label">Number of Curriculumn</small>
-							<h1>54.40%</h1>
+							<h1>{{cl|length}}</h1>
 						</div>
 					</div>
 					<!-- row -->
@@ -84,12 +90,12 @@
 					<div class="row" style="text-align: center;">
 						<div class="col-xs-6">
 							<small class="stat-label">Taken</small>
-							<h4>700+</h4>
+							<h4> {{clTaken}}</h4>
 						</div>
 
 						<div class="col-xs-6">
 							<small class="stat-label">Liked</small>
-							<h4>760+%</h4>
+							<h4>{{clLike}}</h4>
 						</div>
 					</div>
 
@@ -114,7 +120,7 @@
 						</div>
 						<div class="col-xs-8">
 							<small class="stat-label">Number of Material</small>
-							<h1>300k+</h1>
+							<h1>{{mtTotal}}</h1>
 						</div>
 					</div>
 					<!-- row -->
@@ -124,12 +130,12 @@
 					<div class="row" style="text-align: center;">
 						<div class="col-xs-6">
 							<small class="stat-label">Taken</small>
-							<h4>700+</h4>
+							<h4>{{ mtTaken }}</h4>
 						</div>
 
 						<div class="col-xs-6">
 							<small class="stat-label">Liked</small>
-							<h4>760+%</h4>
+							<h4>{{ mtLike }}</h4>
 						</div>
 					</div>
 
@@ -154,7 +160,7 @@
 						</div>
 						<div class="col-xs-8">
 							<small class="stat-label">Number of Action todo</small>
-							<h1>$655</h1>
+							<h1>{{actTotal}}</h1>
 						</div>
 					</div>
 					<!-- row -->
@@ -164,12 +170,12 @@
 					<div class="row" style="text-align: center;">
 						<div class="col-xs-6">
 							<small class="stat-label">Last Week</small>
-							<h4>$32,322</h4>
+							<h4>{{actTaken}}</h4>
 						</div>
 
 						<div class="col-xs-6">
 							<small class="stat-label">Last Month</small>
-							<h4>$503,000</h4>
+							<h4>{{actLike}}</h4>
 						</div>
 					</div>
 					<!-- row -->
