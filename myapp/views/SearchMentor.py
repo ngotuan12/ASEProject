@@ -8,30 +8,37 @@ from django.shortcuts import render, render_to_response
 from mongoengine.django.auth import User
 from mongoengine.queryset.visitor import Q
 
-from myapp.models import UserProfile, Curriculumn, Material
+from myapp.models import UserProfile, Curriculumn, Category
 from myapp.util import context_processors
-
 
 def index(request):
 	lisUserProfile = {}
+# 	listParentCategory = Category.objects(parentCategory = None)
+	lisCategory =Category.objects()
 # 	print('begin')
-# 	for user in lisUserProfile:
-# 		print(user.company)
+# 	for user in listCategory:
+# 		if user.parentCategory is not None :
+# 			print(user.parentCategory.categoryName)
 # 	print('finish')
-	c = {'lisUserProfile':lisUserProfile,}
+	c = {'lisUserProfile':lisUserProfile,'listCategory':lisCategory}
 	if request.method == 'GET':
 		return render(request, 'myapp/search-mentor.html', c)
 	elif request.method == 'POST':
 		try:
 			keyword = request.POST['search']
-			users = User.objects(Q(first_name__icontains=keyword) | Q(last_name__icontains=keyword))
+			parentCategory = request.POST['parentCategory'];
+			childrenCategory =request.POST['childrenCategory'];
 			#search data
+# 			users = User.objects(Q(first_name__icontains=keyword) | Q(last_name__icontains=keyword))
 # 			lisUserProfile = UserProfile.objects(user_id__in=users,is_mentor=True)
-			lisUserProfile = UserProfile.objects(user_id__in=users)
-			
-			listAllCurriculumn = Curriculumn.objects()
-			listCurriculumn =Curriculumn.objects(name__icontains=keyword)
-			c = {'lisUserProfile':lisUserProfile,'listCurriculumn':listCurriculumn,'listAllCurriculumn':listAllCurriculumn,'search':keyword}
+			lisUserProfile={}
+			listCurriculumn={}
+			lisCategory =Category.objects()
+# 			categoryObject =Category.objects.get(id=childrenCategory)
+			listCurriculumn =Curriculumn.objects(category=childrenCategory ,name__icontains=keyword)
+			print(len(listCurriculumn))
+# 			listCurriculumn =Curriculumn.objects(name__icontains=keyword)
+			c = {'lisUserProfile':lisUserProfile,'listCurriculumn':listCurriculumn,'listCategory':lisCategory,'search':keyword,'parentCategory':parentCategory,'childrenCategory':childrenCategory}
 			#get data from mongodb
 			c.update(csrf(request))
 			c.update(context_processors.user(request))
