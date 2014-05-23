@@ -54,6 +54,7 @@ def index(request):
 			#create new profile
 			_profile = UserProfile()
 			_profile.user_id = request.user
+			_profile.is_mentor = False
 			_profile.save()
 			return HttpResponseRedirect('/home')
 		except mongoengine.errors.ValidationError as ex:
