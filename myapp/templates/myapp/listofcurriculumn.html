@@ -16,8 +16,7 @@
 				<div class="row">
 					{% if user.id|truncatechars:100 != user_id %}
 					<div class="btn-group pull-right">
-						<button type="button" class="btn btn-primary"
-<!-- 							data-toggle="modal" data-target="#joincourse">Join</button> -->
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#joincourse" onclick="onJoinCourse('{{cl.id}}');">Join</button>
 					</div>
  					{% endif %}
 					<a href="course-detail?course_id={{ cl.id }}"><h4 class="person-name">{{ cl.name }}</h4></a>

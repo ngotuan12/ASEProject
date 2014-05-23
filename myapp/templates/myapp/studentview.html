@@ -153,6 +153,20 @@
 		$("#actionForm").find("#curriculum_id").val(curriculumId);
 	};
 
+	function onValidateSubmit()
+	{
+		var $valid = jQuery('#formjoincourse').valid();
+		if(!$valid) 
+		{
+			$validator.focusInvalid();
+			return false;
+		}
+		jQuery('#formjoincourse').submit();
+	};
+	function onJoinCourse(curriculumId) 
+	{
+		$("#formjoincourse").find("#curriculum_id").val(curriculumId);
+	};
 
 </script>
 {% endblock scripts%}

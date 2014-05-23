@@ -12,7 +12,7 @@
 			<!-- Start block -->
 			<form method="post" name="formjoincourse" id="formjoincourse" novalidate="novalidate" action="/join-course">
 				{% csrf_token %} 
-				<input type="hidden" id="course_id" name="curriculum_id" value="{{ cl.id }}"> 
+				<input type="hidden" id="curriculum_id" name="curriculum_id" value="{{ cl.id }}"> 
 				<input type="hidden" name="posttype" value="5">
 				<!-- post type = 3; add easy -->
 
