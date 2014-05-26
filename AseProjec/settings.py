@@ -141,7 +141,7 @@ TEMPLATE_LOADERS = (
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
-AUTO_LOGOUT_DELAY = 3
+AUTO_LOGOUT_DELAY = 5
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
