@@ -131,6 +131,7 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '3=2nhmoxo#ze5+bk6-m887_o6r$ytqd-eja90r%879!^oj+k0n'
 
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -138,19 +139,24 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+
+AUTO_LOGOUT_DELAY = 3
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-#     'myapp.views.middleware.SocialAuthExceptionMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    'myapp.views.middleware.AutoLogout',
+    'django.middleware.csrf.CsrfViewMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 ROOT_URLCONF = 'AseProjec.urls'
+
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'AseProjec.wsgi.application'
@@ -173,7 +179,6 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 )
 AUTH_USER_MODEL = 'mongo_auth.MongoUser'
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
 LOGIN_REDIRECT_URL = '/home'
 LOGIN_ERROR_URL = '/'
