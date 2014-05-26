@@ -17,7 +17,10 @@ class AutoLogout:
         if not request.user.is_authenticated() :
             #Can't log out if not logged in
             return
-        
+        if 'last_touch' not in request.session:
+            auth.logout(request)
+            request.session['last_touch'] = datetime.now()
+            return 
         try:
             if datetime.now() - request.session['last_touch'] > timedelta( 0, settings.AUTO_LOGOUT_DELAY * 60, 0):
                 auth.logout(request)
