@@ -1,3 +1,4 @@
+db.user_profile.remove();
 db.user_profile.insert({
 	user_id : db.user.find()[0]._id,
 	user_type : db.user_type.find({code:"M"})[0]._id,

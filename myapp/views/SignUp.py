@@ -10,6 +10,7 @@ from django.shortcuts import render, render_to_response
 from mongoengine.django.auth import User
 import mongoengine.errors
 
+from myapp.models.Student import Student
 from myapp.models.UserProfile import UserProfile
 from myapp.util import context_processors
 
@@ -48,17 +49,27 @@ def index(request):
 			user.email = email
 			user.set_password(password);
 			user.save()
+			#create new profile
+			#user = User.objects.get(username=username)
+			print(user)
+			print(user.id)
+			
+			_profile = UserProfile()
+			_profile.user_id = user
+			_profile.save()
+			
+			st = Student()
+			st.user = user
+			st.save()
+			
 			user.backend = 'mongoengine.django.auth.MongoEngineBackend'
 			logout(request)
 			login(request, user)
-			#create new profile
-			_profile = UserProfile()
-			_profile.user_id = request.user
-			_profile.is_mentor = False
-			_profile.save()
+			request.session['is_mentor'] = False
+
 			return HttpResponseRedirect('/home')
 		except mongoengine.errors.ValidationError as ex:
-			return getSignupError(request,str(ex.errors['email']),firstname,lastname,username,password,email)
+			return getSignupError(request,str(ex),firstname,lastname,username,password,email)
 		except mongoengine.errors.NotUniqueError as e:
 			return getSignupError(request,'User has already exists!',firstname,lastname,username,password,email)
 		except Exception as e:

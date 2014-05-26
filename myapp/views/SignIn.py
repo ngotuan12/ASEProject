@@ -9,6 +9,8 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from mongoengine.django.auth import User
 
+from myapp.models.Mentor import Mentor
+from myapp.models.Student import Student
 from myapp.models.UserLogin import UserLogin
 from myapp.models.UserProfile import UserProfile
 from myapp.util import context_processors
@@ -17,6 +19,7 @@ from myapp.util import context_processors
 def index(request):
 	username = ""
 	password = ""
+	is_mentor=False
 	if request.method == 'GET':
 		return render(request, 'myapp/signin.html', {})
 	elif request.method == 'POST':
@@ -33,8 +36,13 @@ def index(request):
 				login(request, user)
 				profile = UserProfile.objects.get(user_id=user)
 				request.session['user_images'] = profile.images
-				request.session['is_mentor'] = profile.is_mentor
-				if profile.is_mentor:
+				
+				mentor = Mentor.objects(user=user)
+				if len(mentor) > 0:
+					is_mentor = True
+				request.session['is_mentor'] = is_mentor
+				
+				if is_mentor:
 					return HttpResponseRedirect('/mentor-course?user_id='+str(user.id))	
 				else:
 					return HttpResponseRedirect('/search-mentor')
