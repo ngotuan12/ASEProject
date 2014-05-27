@@ -19,7 +19,7 @@
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#joincourse" onclick="onJoinCourse('{{cl.id}}');">Join</button>
 					</div>
  					{% endif %}
-					<a href="course-detail?course_id={{ cl.id }}"><h4 class="person-name">{{ cl.name }}</h4></a>
+					<a href="course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}"><h4 class="person-name">{{ cl.name }}</h4></a>
 					<ul class="blog-meta">
 						<li>Course Start: {{ cl.from_date|date:'Y-M-d' }}</li>
 						<li>Duration: {{ cl.duration }} - {{ cl.duration_type }}</li>

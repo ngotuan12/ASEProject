@@ -13,9 +13,8 @@ from myapp.models.Student import Student
 
 class CurriculumnStudyProgress(Document):
 	published_date = DateTimeField(default=datetime.now)	
-	curriculumn = ReferenceField(Curriculumn)
-	student = ReferenceField(Student)
-	user = ReferenceField(User)
+	curriculumn = ReferenceField('Curriculumn')
+	student = ReferenceField('Student')
 	impression = ReferenceField(Impression)	
 	progressType = ReferenceField(ProgressType)	
 	description = StringField()	

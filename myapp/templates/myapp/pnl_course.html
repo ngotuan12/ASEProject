@@ -3,8 +3,20 @@
 	{% include 'myapp/addvideo.html' %} {% include 'myapp/addlink.html' %}
 	
 	{% include "myapp/asstudent.html"%}
+	{% if not is_joined %}
+	<form id="frmJoincourse" method="post">
+		{% csrf_token %}
+		<input type="hidden" name="user_id" value="{{ user_id }}"> 
+		<input type="hidden" name="course_id" value="{{ course_id }}">
+		<input type="hidden" name="posttype" value="frmJoincourse">
+		<div class="row" style="margin-left: 0%;margin-bottom: 1%;">
+			<!-- <button type="submit" class="btn btn-primary" onclick=" joincourse('{{ user_id }}','{{ course_id }}');">Join</button> -->
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#joincourse" onclick="onJoinCourse('{{ course_id }}');">Join</button>
+		</div>
+	</form>
+	{% endif %}
 	<div id="bloglist" class="row">
-		{% for mt in cl.material%}
+		{% for mt in cl.material %}
 			{% include "myapp/pnl_material.html"%}
 		{% endfor %}
 	</div>
@@ -12,6 +24,12 @@
 <script type="text/javascript">
 	function createpost() {
 		document.getElementById("formcreateesay").submit();
+	};
+	
+	function joincourse(user_id,course_id) {
+		document.forms["frmJoincourse"].user_id.value = user_id
+		document.forms["frmJoincourse"].course_id.value = course_id;
+		document.getElementById("frmJoincourse").submit();
 	};
 
 	function saveComment() {

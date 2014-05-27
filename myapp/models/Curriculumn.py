@@ -28,6 +28,7 @@ class Curriculumn(Document):
 	material = ListField(ReferenceField(Material))
 	action = ListField(ReferenceField(Action))
 	statistic = ReferenceField(Statistic)
+	joined_user = ListField(ReferenceField('User'))
 	meta = {
 				'ordering': ['-mentor'],
 				'ordering': ['-comments'],

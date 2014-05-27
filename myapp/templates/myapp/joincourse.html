@@ -12,8 +12,8 @@
 			<!-- Start block -->
 			<form method="post" name="formjoincourse" id="formjoincourse" novalidate="novalidate" action="/join-course">
 				{% csrf_token %} 
-				<input type="hidden" id="curriculum_id" name="curriculum_id" value="{{ cl.id }}"> 
-				<input type="hidden" name="posttype" value="5">
+				<input type="hidden" id="curriculum_id" name="curriculum_id" value="{{ cl.id }}">
+				<input type="hidden" name="posttype" value="frmJoincourse">
 				<!-- post type = 3; add easy -->
 
 				<div class="col-md">
@@ -58,7 +58,7 @@
 								</div>
 								</div>
 								<!-- row -->
-								<div class="row" style="padding: 0px;  margin-top: 1%; margin-left: 1%; width: 98%;">
+								<div class="row" style="padding: 0px;  margin-top: 1%; margin-left: 0%; width: 100%;">
 									<textarea rows="5" class="form-control" name="description"
 										title="Please type a description at least 6 characters long!"
 										placeholder="Type your description" ></textarea>

@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from mongoengine.document import Document
-from mongoengine.fields import  DateTimeField, IntField
+from mongoengine.fields import  DateTimeField, IntField, StringField
 
 
 class Statistic(Document):
@@ -9,6 +9,7 @@ class Statistic(Document):
 	currentLikeNumber = IntField()
 	currentTakenNumber = IntField()
 	lastUpdate = DateTimeField()
+	type =StringField()
 	meta = {
 			'ordering': ['-published_date']
  }
