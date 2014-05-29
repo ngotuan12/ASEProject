@@ -15,10 +15,18 @@
 				
 				<div class="row">
 					{% if user.id|truncatechars:100 != user_id %}
-					<div class="btn-group pull-right">
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#joincourse" onclick="onJoinCourse('{{cl.id}}');">Join</button>
-					</div>
- 					{% endif %}
+						{% if cl.joined_user|length > 0 %}
+							{% if username in cl.joined_user %}
+								<div class="btn-group pull-right">
+									<a href="course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}"><button type="button" class="btn btn-primary">Joined</button></a>
+								</div>
+							{% endif %}
+						{% else %}
+							<div class="btn-group pull-right">
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#joincourse" onclick="onJoinCourse('{{cl.id}}');">Join</button>
+							</div>
+						{% endif %}
+	 				{% endif %}
 					<a href="course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}"><h4 class="person-name">{{ cl.name }}</h4></a>
 					<ul class="blog-meta">
 						<li>Course Start: {{ cl.from_date|date:'Y-M-d' }}</li>
@@ -53,7 +61,7 @@
 								</tr>
 								<tbody>
 								{% for mt in cl.material %}
-								<tr onclick="document.location = 'course-detail?course_id={{ cl.id }}';" style="cursor: hand;" > 
+								<tr onclick="document.location = 'course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}';" style="cursor: hand;" > 
 									<td >{{ mt.name|truncatechars:100 }}</td>
 									<td>{{ mt.description|truncatechars:100 }}</td>
 								</tr>

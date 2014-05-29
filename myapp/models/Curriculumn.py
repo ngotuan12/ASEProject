@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from mongoengine.django.auth import User
 from mongoengine.document import Document
 from mongoengine.fields import StringField, DateTimeField, ReferenceField, IntField, \
 	ListField
@@ -28,7 +29,7 @@ class Curriculumn(Document):
 	material = ListField(ReferenceField(Material))
 	action = ListField(ReferenceField(Action))
 	statistic = ReferenceField(Statistic)
-	joined_user = ListField(ReferenceField('User'))
+	joined_user = ListField(ReferenceField(User))
 	meta = {
 				'ordering': ['-mentor'],
 				'ordering': ['-comments'],

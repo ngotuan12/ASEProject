@@ -4,7 +4,7 @@ Created on Apr 3, 2014
 @author: TuanNA
 '''
 from datetime import datetime
-
+from django.http.response import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
 from django.shortcuts import render, render_to_response
@@ -39,22 +39,30 @@ def index(request):
 		actLike = 0
 		mtTotal = 0
 		actTotal = 0
-		for c in cl:
-			clTaken += c.statistic.currentTakenNumber
-			clLike += c.statistic.currentLikeNumber
-			for mt in c.material:
-				mtTaken += mt.statistic.currentTakenNumber
-				mtLike += mt.statistic.currentLikeNumber
-				mtTotal += 1
-			for act in c.action:
-				actTaken += act.statistic.currentTakenNumber
-				actLike += act.statistic.currentLikeNumber
-				actTotal +=1
-		print(mtTaken)
-		print(mtLike)
-		print(actTaken)
-		print(actLike)
-		
+		try :
+			for c in cl:
+				if c.statistic.currentTakenNumber:
+					clTaken += c.statistic.currentTakenNumber
+				if c.statistic.currentLikeNumber:
+					clLike += c.statistic.currentLikeNumber
+				for mt in c.material:
+					if mt.statistic.currentTakenNumber:
+						mtTaken += mt.statistic.currentTakenNumber
+					if mt.statistic.currentLikeNumber:
+						mtLike += mt.statistic.currentLikeNumber
+						mtTotal += 1
+				for act in c.action:
+					if act.statistic.currentTakenNumber:
+						actTaken += act.statistic.currentTakenNumber
+					if act.statistic.currentLikeNumber:
+						actLike += act.statistic.currentLikeNumber
+						actTotal +=1
+			print(mtTaken)
+			print(mtLike)
+			print(actTaken)
+			print(actLike)
+		except Exception as e:
+			print(e)
 		user=User.objects.get(username=str(request.user))
 		print(user.id)
 		student=Student.objects.get(user=user.id)
@@ -68,6 +76,7 @@ def index(request):
 		context = {	'cl':cl[0],'is_joined':is_joined,
 					'user_id':request.user,
 					'course_id':vCourse_id,
+					'author_id':author_id,
 					'author':author.username,
 					'is_mentor':is_mentor,
 					'clTaken':clTaken,
@@ -85,6 +94,7 @@ def index(request):
 		print(request.POST['posttype'])
 		if request.POST['posttype']== "frmJoincourse":
 			curriculum_id = request.POST['curriculum_id']
+			user_id=request.POST['user_id']
 			print(curriculum_id)
 			curriculum = Curriculumn.objects.get(id=curriculum_id)
 			
@@ -95,7 +105,7 @@ def index(request):
 			planend = request.POST['planend']
 			impression = request.POST['impression']
 			description = request.POST['description']
-			
+			# Save CurriculumnStudyProgress
 			csp = CurriculumnStudyProgress()
 			csp.student=student
 			csp.curriculumn = curriculum	
@@ -105,7 +115,11 @@ def index(request):
 			csp.description = description
 			csp.save()
 			#UPDATE Curriculumn
+			print(user.id)
 			curri=Curriculumn()
+			curri = Curriculumn.objects.get(id=curriculum_id)
+			curri.joined_user.append(user);
+			curri.save()
 			#SHOW Record
 			cl = Curriculumn.objects(id=curriculum_id)
 			has_curriculum = False
@@ -121,22 +135,30 @@ def index(request):
 			actLike = 0
 			mtTotal = 0
 			actTotal = 0
-			for c in cl:
-				clTaken += c.statistic.currentTakenNumber
-				clLike += c.statistic.currentLikeNumber
-				for mt in c.material:
-					mtTaken += mt.statistic.currentTakenNumber
-					mtLike += mt.statistic.currentLikeNumber
-					mtTotal += 1
-				for act in c.action:
-					actTaken += act.statistic.currentTakenNumber
-					actLike += act.statistic.currentLikeNumber
-					actTotal +=1
-			print(mtTaken)
-			print(mtLike)
-			print(actTaken)
-			print(actLike)
-			
+			try:
+				for c in cl:
+					if c.statistic.currentTakenNumber:
+						clTaken += c.statistic.currentTakenNumber
+					if c.statistic.currentLikeNumber:
+						clLike += c.statistic.currentLikeNumber
+					for mt in c.material:
+						if mt.statistic.currentTakenNumber:
+							mtTaken += mt.statistic.currentTakenNumber
+						if mt.statistic.currentLikeNumber:
+							mtLike += mt.statistic.currentLikeNumber
+							mtTotal += 1
+					for act in c.action:
+						if act.statistic.currentTakenNumber:
+							actTaken += act.statistic.currentTakenNumber
+						if act.statistic.currentLikeNumber:
+							actLike += act.statistic.currentLikeNumber
+							actTotal +=1
+				print(mtTaken)
+				print(mtLike)
+				print(actTaken)
+				print(actLike)
+			except Exception as e:
+				print(e)
 # 			user=User.objects.get(username=str(request.user))
 # 			print(user.id)
 # 			student=Student.objects.get(user=user.id)
@@ -162,7 +184,8 @@ def index(request):
 						'actTotal':actTotal,
 						'has_curriculum':has_curriculum,
 						}
-			return render(request, 'myapp/course-detail.html', context)
+# 			return render(request, '/course-detail?course_id=' + curriculum_id+'&user_id=' + user_id, context)53833c3430635f163c51a5d5
+			return HttpResponseRedirect('course-detail?course_id='+ curriculum_id +'&user_id='+user_id )
 		else:
 			comment = request.POST['txtComment']
 			course_id = request.POST['hd_course_id']
