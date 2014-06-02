@@ -1,0 +1,29 @@
+<div class="btn-group" style="width: 100%; margin-bottom: 1%;margin-top: 1%;">
+	<button type="button" class="btn btn-primary"
+		onclick="window.location.href='/index'" style="width: 5%;"><i class="glyphicon glyphicon-home"></i></button>
+	<button type="button" class="btn btn-default"
+		onclick="window.location.href='/student-home'" style="width: 20%;"><i class="glyphicon glyphicon-book"></i>My Course</button>
+	<button type="button" class="btn btn-default"
+		onclick="window.location.href='/search-mentor'" style="width: 20%;"><i class="glyphicon glyphicon-search"></i>Search Course</button>
+	<button type="button" class="btn btn-default"
+		onclick="window.location.href='/studentview'" style="width: 25%;"><i class="glyphicon glyphicon-calendar"></i>Study log</button>
+	<button type="button" class="btn btn-default"
+		onclick="window.location.href='/studentview'" style="width: 25%;"><i class="glyphicon glyphicon-plus"></i>Community</button>
+	<button type="button" class="btn btn-default dropdown-toggle"
+		data-toggle="dropdown" style="width: 5%;">
+		{{ user.username }} <span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+		<li><a href="profile?user_id={{ user.id }}"><i class="glyphicon glyphicon-user"></i> My Profile</a></li>
+		<li><a href="chat"><i class="glyphicon glyphicon-user"></i> Private Chat</a></li>
+		<li><a href="/account-setting"><i class="glyphicon glyphicon-cog"></i> Account Settings</a></li>
+		{% if profile.is_mentor %}
+		<li>----------------</li>
+		{% else%}
+		<li><a href="/become-mentor"><i class="glyphicon glyphicon-edit"></i> Become Mentor</a></li>
+		{% endif %}
+		<li><a href="#"><i class="glyphicon glyphicon-question-sign"></i> Help</a></li>
+		<li><a href="signout"><i class="glyphicon glyphicon-log-out"></i>
+				Log Out</a></li>
+	</ul>
+</div>
