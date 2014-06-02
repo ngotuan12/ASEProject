@@ -1,7 +1,7 @@
 <div class="flexslider" style="max-height: 50px;">
 	<ul class="slides">
-		<li>
-			<div class="col-sm">
+		{% for ls in lsRecomment %}
+		<li><div class="col-sm">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<!-- panel-btns -->
@@ -16,11 +16,8 @@
 								src="images/photos/userprofile.png" alt="">
 							</a>
 							<div class="media-body event-body">
-								<h4 class="subtitle">About The Author</h4>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-									sed do eiusmod tempor incididunt ut labore et dolore magna
-									aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-									ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+								<h4 class="subtitle">Course Name: {{ls.name}}</h4>
+								<p>{{ls.description|truncatechars:100}}</p>
 
 							</div>
 						</div>
@@ -28,92 +25,7 @@
 					</div>
 				</div>
 			</div>
-		</li>
-		
-		<li>
-<div class="col-sm">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<!-- panel-btns -->
-					<h3 class="panel-title" align="center">Recomment course by
-						Admin</h3>
-				</div>
-				<div class="panel-body">
-
-					<div class="media">
-						<a class="pull-left" href="#"> <img
-							class="media-object thumbnail"
-							src="images/photos/userprofile.png" alt="">
-						</a>
-						<div class="media-body event-body">
-							<h4 class="subtitle">About The Author</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-								sed do eiusmod tempor incididunt ut labore et dolore magna
-								aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-								ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-		</li>
-		<li><div class="col-sm">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<!-- panel-btns -->
-					<h3 class="panel-title" align="center">Recomment course by
-						Admin</h3>
-				</div>
-				<div class="panel-body">
-
-					<div class="media">
-						<a class="pull-left" href="#"> <img
-							class="media-object thumbnail"
-							src="images/photos/userprofile.png" alt="">
-						</a>
-						<div class="media-body event-body">
-							<h4 class="subtitle">About The Author</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-								sed do eiusmod tempor incididunt ut labore et dolore magna
-								aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-								ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-		</li>
-		<li><div class="col-sm">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<!-- panel-btns -->
-					<h3 class="panel-title" align="center">Recomment course by
-						Admin</h3>
-				</div>
-				<div class="panel-body">
-
-					<div class="media">
-						<a class="pull-left" href="#"> <img
-							class="media-object thumbnail"
-							src="images/photos/userprofile.png" alt="">
-						</a>
-						<div class="media-body event-body">
-							<h4 class="subtitle">About The Author</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-								sed do eiusmod tempor incididunt ut labore et dolore magna
-								aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-								ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-		</li>
+		</li> 
+		{% endfor %}
 	</ul>
 </div>
