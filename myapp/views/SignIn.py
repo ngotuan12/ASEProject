@@ -45,7 +45,8 @@ def index(request):
 				if is_mentor:
 					return HttpResponseRedirect('/mentor-course?user_id='+str(user.id))	
 				else:
-					return HttpResponseRedirect('/search-mentor')
+					return HttpResponseRedirect('/student-home')
+					#return HttpResponseRedirect('/search-mentor')
 			else:
 				c = {
 						'error_message':"User name or password does not correct",

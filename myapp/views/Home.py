@@ -33,7 +33,7 @@ def index(request):
 		if is_mentor:
 			return HttpResponseRedirect('/mentor-course?user_id='+str(request.user.id))	
 		else:
-			return HttpResponseRedirect('/search-mentor')	
+			return HttpResponseRedirect('/student-home')	
 # 		context = {'posts':posts,'user_type':user_type,'user_id':request.user,}
 # 		return render(request,'myapp/index.html', context)
 # 		return HttpResponseRedirect('/personalhome')

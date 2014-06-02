@@ -1,258 +1,31 @@
 {% extends "myapp/base.html" %} 
 {% block styles %}
 <link href="css/student-home.css" rel="stylesheet">
+<link rel="stylesheet" href="slider/flexslider.css" type="text/css" />
 {% endblock %} 
 {% block content %}
-<div class="row">
-	<div class="col-md-7">
-		<div class="activity-block activity-list">
-			<div class="media act-media">
-				<div class="media-body act-media-body">
-					<div class="media-header">
-						<strong>Recommends course for you</strong> <br>
-					</div>
-					<div class="media blog-media">
-						<a class="pull-left" href="#"> <img class="media-object"
-							src="images/photos/media5.png" alt="">
-						</a>
-						<div class="media-body">
-							<h4 class="media-title">
-								<a href="#">Ut Enim Ad Minim Veniam</a> <br> <small
-									class="text-muted">By <a> TuanNA</a>| today at 3:18pm
-								</small>
-							</h4>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-								eiusmod tempor incididunt ut labore et dolore magna aliqua.
-								Nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-								commodo consequat... <a href="#">Read more</a>
-							</p>
-						</div>
-					</div>
-					<div class="media blog-media">
-						<a class="pull-left" href="#"> <img class="media-object"
-							src="images/photos/media5.png" alt="">
-						</a>
-						<div class="media-body">
-							<h4 class="media-title">
-								<a href="#">Ut Enim Ad Minim Veniam</a>
-							</h4>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-								eiusmod tempor incididunt ut labore et dolore magna aliqua.
-								Nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-								commodo consequat... <a href="#">Read more</a>
-							</p>
-						</div>
-					</div>
-					<!-- media -->
+<div class="contentpanel">
+{% include 'myapp/pnlSlide.html' %}
 
-				</div>
-
-			</div>
-			<div class="media act-media">
-
-				<div class="media-body act-media-body">
-					<div class="media-header">
-						<a class="pull-left" href="#"> <img
-							style="width: 65px; height: 65px;" class="media-object act-thumb"
-							src="images/category/book.png" alt="">
-						</a> <a><strong>Books</strong></a> <br>
-					</div>
-					<div class="media blog-media">
-						<a class="pull-left" href="#"> <img class="media-object"
-							src="images/photos/media5.png" alt="">
-						</a>
-						<div class="media-body">
-							<h4 class="media-title">
-								<a href="#">Ut Enim Ad Minim Veniam</a> <br> <small
-									class="text-muted">By <a> TuanNA</a>| today at 3:18pm
-								</small>
-							</h4>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-								eiusmod tempor incididunt ut labore et dolore magna aliqua.
-								Nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-								commodo consequat... <a href="#">Read more</a>
-							</p>
-						</div>
-					</div>
-					<!-- media -->
-
-				</div>
-			</div>
-			<!-- media -->
-			<div class="media act-media">
-
-				<div class="media-body act-media-body">
-					<div class="media-header">
-						<a class="pull-left" href="#"> <img
-							style="width: 65px; height: 65px;" class="media-object act-thumb"
-							src="images/category/life.jpg" alt="">
-						</a> <a><strong>Life tips</strong></a> <br>
-					</div>
-					<div class="media blog-media">
-						<a class="pull-left" href="#"> <img class="media-object"
-							src="images/photos/media5.png" alt="">
-						</a>
-						<div class="media-body">
-							<h4 class="media-title">
-								<a href="#">Ut Enim Ad Minim Veniam</a> <br> <small
-									class="text-muted">By <a> TuanNA</a>| today at 3:18pm
-								</small>
-							</h4>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-								eiusmod tempor incididunt ut labore et dolore magna aliqua.
-								Nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-								commodo consequat... <a href="#">Read more</a>
-							</p>
-						</div>
-					</div>
-					<!-- media -->
-
-				</div>
-			</div>
-			<!-- media -->
-		</div>
-	</div>
-	<div class="col-md-5">
-		<div class="activity-block activity-list">
-
-			<div class="media act-media">
-				<a class="pull-left" href="#"> <img
-					class="media-object act-thumb" src="images/photos/user.png" alt="">
-				</a>
-				<div class="media-body act-media-body">
-					<strong>{{ user.first_name|add:" "|add:user.last_name }}</strong>.
-					<br> <small class="text-muted">Profile update at
-						3:30pm</small>
-				</div>
-
-				<div class="media-body">
-					<h4 class="media-title">
-						<a href="#">Profile inprogress</a> <br>
-					</h4>
-					<p>
-						<strong style="font-weight: bold;">1. Account</strong> <br>
-						2. Job title & company <br> 3. Experience <br> 4. Skills
-						& Expertise
-					</p>
-					<a class="btn btn-orange" style="margin-left: 30%;">Update your
-						profile</a>
-				</div>
-			</div>
-			<div class="media act-media">
-				<div class="media-header">
-					<strong>People you may known</strong> <br>
-				</div>
-
-				<div class="media-body">
-					<div class="media-user">
-						<a class="pull-left" href="#"> <img
-							class="media-object act-thumb" src="images/photos/user.png"
-							alt="">
-						</a>
-						<div class="media-body act-media-body">
-							<a>Nguyễn Mạnh Cường</a>. <br> <small
-								class="text-muted">CFO</small> at <small
-								class="text-muted">Ex-artisan </small>
-						</div>
-						<button type="button" class="close" data-dismiss="alert"
-							aria-hidden="true">×</button>
-					</div>
-
-					<div class="media-user">
-						<a class="pull-left" href="#"> <img
-							class="media-object act-thumb" src="images/photos/user.png"
-							alt="">
-						</a>
-						<div class="media-body act-media-body">
-							<a>Ngô Anh Tuấn</a>. <br> <small
-								class="text-muted">Head R&D </small> at <small
-								class="text-muted">Ex-artisan </small>
-						</div>
-						<button type="button" class="close" data-dismiss="alert"
-							aria-hidden="true">×</button>
-
-					</div>
-					<a class="pull-right" href="#"> See more <i
-						class="fa fa-angle-double-right"></i></a>
-				</div>
-			</div>
-			
-			<div class="media act-media">
-				<div class="media-header">
-					<strong>Mentor you may want to follow</strong> <br>
-				</div>
-
-				<div class="media-body">
-					<div class="media-user">
-						<a class="pull-left" href="#"> <img
-							class="media-object act-thumb" src="images/photos/user.png"
-							alt="">
-						</a>
-						<div class="media-body act-media-body">
-							<a>Nguyễn Mạnh Cường</a>. <br> <small
-								class="text-muted">CFO</small> at <small
-								class="text-muted">Ex-artisan </small>
-						</div>
-					</div>
-
-					<div class="media-user">
-						<a class="pull-left" href="#"> <img
-							class="media-object act-thumb" src="images/photos/user.png"
-							alt="">
-						</a>
-						<div class="media-body act-media-body">
-							<a>Ngô Anh Tuấn</a>. <br> <small
-								class="text-muted">Head R&D </small> at <small
-								class="text-muted">Ex-artisan </small>
-						</div>
-
-					</div>
-					<a class="pull-right" href="#"> See more <i
-						class="fa fa-angle-double-right"></i></a>
-				</div>
-			</div>
-			
-			<div class="media act-media">
-				<div class="media-header">
-					<strong>Curiculum you may be interested in</strong> <br>
-				</div>
-
-				<div class="media-body">
-					<div class="media-user">
-						<a class="pull-left" href="#"> <img
-							class="media-object act-thumb" src="images/photos/user.png"
-							alt="">
-						</a>
-						<div class="media-body act-media-body">
-							<a>Nguyễn Mạnh Cường</a>. <br> <small
-								class="text-muted">CFO</small> at <small
-								class="text-muted">Ex-artisan </small>
-						</div>
-					</div>
-
-					<div class="media-user">
-						<a class="pull-left" href="#"> <img
-							class="media-object act-thumb" src="images/photos/user.png"
-							alt="">
-						</a>
-						<div class="media-body act-media-body">
-							<a>Ngô Anh Tuấn</a>. <br> <small
-								class="text-muted">Head R&D </small> at <small
-								class="text-muted">Ex-artisan </small>
-						</div>
-
-					</div>
-					<a class="pull-right" href="#"> See more <i
-						class="fa fa-angle-double-right"></i></a>
-				</div>
-			</div>
-			<!-- media -->
-		</div>
-	</div>
+{% include 'myapp/pnlRecomment.html' %}
 </div>
-
 {% endblock %}
+
+{% block scripts %}
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/retina.min.js"></script>
+
+<script src="js/custom.js"></script>
+<script defer src="slider/jquery.flexslider.js"></script>
+<script type="text/javascript">
+$(window).load(function() {
+  $('.flexslider').flexslider({
+    animation: "slide",
+    controlNav: false,
+  });
+});
+</script>
+{% endblock scripts%}
