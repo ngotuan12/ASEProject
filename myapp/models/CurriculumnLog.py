@@ -5,13 +5,15 @@ from mongoengine.document import Document
 from mongoengine.fields import  DateTimeField, ReferenceField, IntField
 
 from myapp.models.Curriculumn import Curriculumn
+from myapp.models.ProgressType import ProgressType
 
 
 class CurriculumnLog(Document):
 	published_date = DateTimeField(default=datetime.now)
 	curriculumn = ReferenceField(Curriculumn)
-	like = IntField()
-	user = ReferenceField(User)
+	process =ReferenceField(ProgressType)
+	user_id = ReferenceField('User')
+	lastUpdate=DateTimeField(default=datetime.now)
 	meta = {
 			'ordering': ['-published_date']
- }
+}

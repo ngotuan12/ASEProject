@@ -11,16 +11,29 @@
 			</div>
 			<div class="timeline-btns">
 				<div class="pull-left">
-					<a href="#" data-toggle="modal" data-target="#rating"
-						class="tooltips" title="" data-original-title="Like"><i
-						class="glyphicon glyphicon-heart"></i></a> <a href="#"
-						class="tooltips" data-toggle="modal"
-						data-target="#commentOnLecture" title=""
-						data-original-title="Add Comment"><i
-						class="glyphicon glyphicon-comment"></i></a>
+					<!-- Start block -->
+						<!-- <form name="formLikeMaterial" method="post" onsubmit="return false;">
+						{% csrf_token %}
+							<a href="#" id="like" onclick="MyFunction('{{ mt.id }}');" data-toggle="modal" data-target="#rating"
+								class="tooltips" title="" data-original-title="Like"><i
+							id="icon{{mt.id}}"	class="glyphicon glyphicon-heart-empty"></i></a>
+							<input type="hidden" name="posttype" value="likeMaterial">
+						</form> -->
+					<!-- End of block -->
+						<form name="formLikeMaterial" method="post">
+						{% csrf_token %}
+							<a href="#" id="like" onclick="MyFunction('{{ mt.id }}');" data-toggle="modal" data-target="#rating"
+								class="tooltips" title="" data-original-title="Like"><i
+							id="icon{{mt.id}}"	class="glyphicon glyphicon-heart-empty"></i></a>
+							<input type="hidden" name="posttype" value="likeMaterial">
+						</form>
 				</div>
 				<div class="pull-right">
-					<small class="text-muted">1 people like this</small>
+					<!-- <span id="numberLike{{mt.id}}" class="text-muted">{{ course_id }}</span>
+					<span id="numberLike{{mt.id}}" class="text-muted">{{ mt.id }}</span> -->
+					<span id="numberLike{{mt.id}}" class="text-muted">1 people like this</span>
+					<input type="text" value="1" id="hiddenNumberLike{{mt.id}}" class="text-muted" hidden="false">
+					<input type="text" value="0" id="hiddenOnlyClick{{mt.id}}" class="text-muted" hidden="false">
 				</div>
 			</div>
 		</div>
@@ -84,9 +97,67 @@
 		</form>
 	</div>
 </div>
+<script src="http://code.jquery.com/jquery-2.0.3.js"></script>
+<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js">
+</script>
+<script type="text/javascript"
+	src="http://malsup.github.com/min/jquery.form.min.js">
+</script>
 <script>
 function commentMaterial(hd_course_id,hd_material_id) {
 	document.forms["formCmtMaterial"].hd_course_id.value = hd_course_id
 	document.forms["formCmtMaterial"].hd_material_id.value = hd_material_id;
 };
+function MyFunction(material_id){
+	$.ajax({
+				url: "/myapp/views/CourseDetail.py",
+				type: "post",
+				data: {'param':{"hello":"world"}},
+				dataType: "application/json",
+				success : function(response)
+				{
+					alert(response);
+				}
+			});
+	window.alert('oh')
+	var ic=document.getElementById('icon'+material_id);
+	var testClass = ic.className;
+	if(!document.getElementById('icon'+material_id).classList.contains('glyphicon-heart'))
+	{
+		document.getElementById('hiddenOnlyClick'+material_id).value=1;
+		ic.className="glyphicon glyphicon-heart"
+		var numberLike=parseInt(document.getElementById('hiddenNumberLike'+material_id).value);
+		numberLike=numberLike+1;
+		document.getElementById('hiddenNumberLike'+material_id).value=numberLike;
+		if(numberLike<2)
+		{
+			document.getElementById('numberLike'+material_id).innerHTML=numberLike +' people like this';
+		}
+		else
+		{
+			document.getElementById('numberLike'+material_id).innerHTML=numberLike +' peoples like this';
+		}
+	}
+	else
+	{
+		var numberLike=parseInt(document.getElementById('hiddenNumberLike'+material_id).value);
+		if(document.getElementById('hiddenOnlyClick'+material_id).value==1)
+		{
+			document.getElementById('hiddenOnlyClick'+material_id).value=0;
+			ic.className="glyphicon glyphicon-heart-empty";
+			numberLike=numberLike-1;
+		}
+		document.getElementById('hiddenNumberLike'+material_id).value=numberLike;
+		if(numberLike<2)
+		{
+			document.getElementById('numberLike'+material_id).innerHTML=numberLike +' people like this';
+		}
+		else
+		{
+			document.getElementById('numberLike'+material_id).innerHTML=numberLike +' peoples like this';
+		}
+	}
+}
 </script>

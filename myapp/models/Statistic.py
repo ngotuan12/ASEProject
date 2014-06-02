@@ -12,4 +12,4 @@ class Statistic(Document):
 	type =StringField()
 	meta = {
 			'ordering': ['-published_date']
- }
+}

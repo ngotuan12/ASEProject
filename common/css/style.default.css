@@ -2654,13 +2654,13 @@ div.error label.error:before {
    font-size: 14px;
    width: 20px;
    height: 20px;
-   color: #ccc;
+   /* color: #ccc; */
    text-align: center;
    margin-right: 5px;
 }
 
 .timeline-btns a:hover {
-   color: #666;
+  /*  color: #666; */
 }
 
 .panel-timeline .panel-heading {

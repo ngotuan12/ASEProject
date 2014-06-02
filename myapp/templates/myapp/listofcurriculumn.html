@@ -18,7 +18,7 @@
 						{% if cl.joined_user|length > 0 %}
 							{% if username in cl.joined_user %}
 								<div class="btn-group pull-right">
-									<a href="course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}"><button type="button" class="btn btn-primary">Joined</button></a>
+									<a href="course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}"><button type="button" class="btn btn-default">Joined</button></a>
 								</div>
 							{% endif %}
 						{% else %}

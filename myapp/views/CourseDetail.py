@@ -4,18 +4,21 @@ Created on Apr 3, 2014
 @author: TuanNA
 '''
 from datetime import datetime
-from django.http.response import HttpResponseRedirect
+
 from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from mongoengine.django.auth import User
 
-from myapp.models import Comment, Student, ProgressType, Impression
+from myapp.models import Comment, Student, Impression
 from myapp.models.CommentPost import CommentPost
 from myapp.models.Curriculumn import Curriculumn
+from myapp.models.CurriculumnLog import CurriculumnLog
 from myapp.models.CurriculumnStudyProgress import CurriculumnStudyProgress
 from myapp.models.Material import Material
 from myapp.models.MentorPost import MentorPost
+from myapp.models.ProgressType import ProgressType
 from myapp.util import context_processors
 
 
@@ -114,12 +117,26 @@ def index(request):
 			csp.impression = Impression.objects.get(showpiority=impression)
 			csp.description = description
 			csp.save()
+			
 			#UPDATE Curriculumn
 			print(user.id)
 			curri=Curriculumn()
+			
 			curri = Curriculumn.objects.get(id=curriculum_id)
 			curri.joined_user.append(user);
+			
 			curri.save()
+			# Save CurriculumnLog
+			lisProgressType = ProgressType.objects()
+			progressType =lisProgressType[0]
+			
+			curriLog=CurriculumnLog()
+			
+			curriLog.curriculumn=curri
+			curriLog.process=progressType
+			curriLog.user_id=user
+			
+			curriLog.save()
 			#SHOW Record
 			cl = Curriculumn.objects(id=curriculum_id)
 			has_curriculum = False
@@ -186,6 +203,8 @@ def index(request):
 						}
 # 			return render(request, '/course-detail?course_id=' + curriculum_id+'&user_id=' + user_id, context)53833c3430635f163c51a5d5
 			return HttpResponseRedirect('course-detail?course_id='+ curriculum_id +'&user_id='+user_id )
+		elif request.POST['posttype']== "likeMaterial":
+			print('ok')
 		else:
 			comment = request.POST['txtComment']
 			course_id = request.POST['hd_course_id']
@@ -195,7 +214,7 @@ def index(request):
 			cmt = Comment()
 			cmt.user = request.user
 			cmt.content=comment
-			cmt.save()# 		user_id = request.session
+			cmt.save()
 			cl = Curriculumn.objects.get(id=course_id)
 			mt = Material.objects.get(id=material_id)
 			mt.comment.append(cmt);
