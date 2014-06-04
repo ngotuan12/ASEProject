@@ -13,6 +13,13 @@
 </div>
 
 <div id='calendar'></div>
+<form action="" name = "frmCalendar" id="frmCalendar" method="POST"> 
+{% csrf_token %} 
+<input type="hidden" name="user_id" value="{{ user_id }}"/>
+<input type="hidden" name="datacontent" value="{{ cuongnm }}" />
+</form>
+<button class="btn btn-sm btn-white pull-right"
+        onclick="submitdata('Update new data','{{user_id}}');">Save</button>
 
 <div style='clear:both'></div>
 </div>
