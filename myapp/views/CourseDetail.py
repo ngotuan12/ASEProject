@@ -3,11 +3,13 @@ Created on Apr 3, 2014
 
 @author: TuanNA
 '''
+from builtins import len
 from datetime import datetime
+import json
 
 from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, render_to_response
 from mongoengine.django.auth import User
 
@@ -19,10 +21,12 @@ from myapp.models.CurriculumnStudyProgress import CurriculumnStudyProgress
 from myapp.models.Material import Material
 from myapp.models.MentorPost import MentorPost
 from myapp.models.ProgressType import ProgressType
+from myapp.models.Statistic import Statistic
+from myapp.models.StatisticDetail import StatisticDetail
 from myapp.util import context_processors
 
 
-#@login_required(login_url='/signin')
+@login_required(login_url='/signin')
 def index(request):
 	if request.method == 'GET':
 		vCourse_id = request.GET['course_id']
@@ -94,8 +98,85 @@ def index(request):
 					}
 		return render(request, 'myapp/course-detail.html', context)
 	elif request.method == 'POST':
-		print(request.POST['posttype'])
-		if request.POST['posttype']== "frmJoincourse":
+		if request.POST['posttype'] == "likeMaterial":
+			user=User.objects.get(username=str(request.user))
+			print(request.POST['posttype'])
+			materialId=request.POST['materialId']
+			like =request.POST['type']#like or dislike
+			print(like)
+			print('type: '+request.POST['type'])
+			print('material: '+request.POST['materialId'])
+			print('course: ' +request.POST['courseId'])
+			print('author: ' +request.POST['userId'])
+			print('user: ' +str(user.id) )
+			
+			#insert or update StatisticDetail
+			mt = Material.objects(id=materialId).order_by('published_date')[:1]
+			lsStatisticDetail=StatisticDetail.objects(like_user=user.id)
+			sd = StatisticDetail()
+			exist=False
+			sd_id=0
+			if len(lsStatisticDetail) >0 and len(mt) >0:
+				for ss in lsStatisticDetail:
+					for s in  mt[0].statistic.statistic_detail:
+						if str(ss.id) == str(s.id):
+							exist=True
+							sd_id=ss.id
+							print(str(ss.id))
+							print(str(s.status))
+							print(str(s.id))
+							break
+			if exist is True :
+				sd=StatisticDetail.objects.get(id=sd_id)
+				if like == '0':
+					sd.status='1'
+				else:
+					sd.status='0'
+				sd.save()
+				
+			else:
+				if like == '0':
+					sd.status='1'
+				else:
+					sd.status='0'
+				sd.like_user=user
+				sd.save()
+			print(exist)
+			#insert Statistic
+			#type:1-material,2-curriculumn,3:action
+			currentLikeNumber=0
+			currentTakenNumber=0
+			
+			if len(mt) :
+				if mt[0].statistic :
+					currentLikeNumber = mt[0].statistic.currentLikeNumber
+					currentTakenNumber = mt[0].statistic.currentTakenNumber
+					print(currentLikeNumber)
+			if like == '0':
+				currentLikeNumber +=1
+			else:
+				currentLikeNumber -=1
+			print(currentLikeNumber)
+			
+			st=Statistic()
+			print(mt[0].statistic.id)
+			if len(mt) > 0 :
+				st=Statistic.objects.get(id=mt[0].statistic.id)
+			st.currentLikeNumber=currentLikeNumber
+			st.currentTakenNumber=currentTakenNumber
+			st.type='1'
+			if exist is True :
+				print('exist')
+			else:
+					st.statistic_detail.append(sd)
+			st.save()
+			#update Material
+			mt = Material.objects.get(id=materialId)
+			mt.statistic=st
+			mt.save()
+# 			
+			return HttpResponse(json.dumps({"formdata": materialId}),content_type="application/json")
+		elif request.POST['posttype']== "frmJoincourse":
 			curriculum_id = request.POST['curriculum_id']
 			user_id=request.POST['user_id']
 			print(curriculum_id)
@@ -203,9 +284,7 @@ def index(request):
 						}
 # 			return render(request, '/course-detail?course_id=' + curriculum_id+'&user_id=' + user_id, context)53833c3430635f163c51a5d5
 			return HttpResponseRedirect('course-detail?course_id='+ curriculum_id +'&user_id='+user_id )
-		elif request.POST['posttype']== "likeMaterial":
-			print('ok')
-		else:
+		else :
 			comment = request.POST['txtComment']
 			course_id = request.POST['hd_course_id']
 			material_id = request.POST['hd_material_id']
@@ -214,12 +293,12 @@ def index(request):
 			cmt = Comment()
 			cmt.user = request.user
 			cmt.content=comment
-			cmt.save()
+# 			cmt.save()
 			cl = Curriculumn.objects.get(id=course_id)
 			mt = Material.objects.get(id=material_id)
 			mt.comment.append(cmt);
-			mt.save()
-			cl.save()
+# 			mt.save()
+# 			cl.save()
 	# 		comments = CommentPost.objects(post_id=post_id).all()
 			cl = Curriculumn.objects.get(id=course_id)
 			context = {	'cl':cl,
@@ -229,3 +308,4 @@ def index(request):
 			context.update(csrf(request))
 			context.update(context_processors.user(request))
 			return render_to_response("myapp/course-detail.html", context)
+		

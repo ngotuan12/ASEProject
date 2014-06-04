@@ -4,7 +4,7 @@
 			<div class="media">
 				<div class="media-body" style="text-align: justify;">
 					<h4>
-						<a href="post-detail?post_id={{mt.id}}">{{mt.name}}</a>
+						<a href="post-detail?post_id={{mt.id}}">{{ mt.name }}</a>
 					</h4>
 					<p>{{ mt.description }}</p>
 				</div>
@@ -20,19 +20,56 @@
 							<input type="hidden" name="posttype" value="likeMaterial">
 						</form> -->
 					<!-- End of block -->
-						<form name="formLikeMaterial" method="post">
-						{% csrf_token %}
-							<a href="#" id="like" onclick="MyFunction('{{ mt.id }}');" data-toggle="modal" data-target="#rating"
-								class="tooltips" title="" data-original-title="Like"><i
-							id="icon{{mt.id}}"	class="glyphicon glyphicon-heart-empty"></i></a>
+					<form name="formLikeMaterial" id="formLike" method="post" action="">
+							{% csrf_token %}
+							{% if mt.statistic.statistic_detail|length > 0 %}
+								{% for sd in mt.statistic.statistic_detail %}
+									{% if sd.like_user == user_id %}
+										{% if sd.status == '1' %}
+											<a href="#" id="like" data-toggle="modal" data-target="#rating"
+												class="tooltips" title="" data-original-title="Like"><i
+											id="icon{{mt.id}}"	class="glyphicon glyphicon-heart"></i></a>
+											<input type="hidden" id="type{{mt.id}}" name="type" value="1">
+										{% else %}
+											<a href="#" id="like" data-toggle="modal" data-target="#rating"
+												class="tooltips" title="" data-original-title="Like"><i
+												id="icon{{mt.id}}"	class="glyphicon glyphicon-heart-empty"></i></a>
+											<input type="hidden" id="type{{mt.id}}" name="type" value="0">
+										{% endif %}
+									{% endif %}
+								{% endfor %}
+							{% else %}
+								<a href="#" id="like" data-toggle="modal" data-target="#rating"
+									class="tooltips" title="" data-original-title="Like"><i
+								id="icon{{mt.id}}"	class="glyphicon glyphicon-heart-empty"></i></a>
+								<input type="hidden" id="type{{mt.id}}" name="type" value="0">
+							{% endif %}
 							<input type="hidden" name="posttype" value="likeMaterial">
-						</form>
+							
+							<input type="hidden" id="materialId" name="materialId" value="{{ mt.id }}">
+							<input type="hidden" name="courseId" value="{{ course_id }}">
+							<input type="hidden" name="userId" value="{{ author_id }}">
+					</form>
 				</div>
 				<div class="pull-right">
 					<!-- <span id="numberLike{{mt.id}}" class="text-muted">{{ course_id }}</span>
 					<span id="numberLike{{mt.id}}" class="text-muted">{{ mt.id }}</span> -->
-					<span id="numberLike{{mt.id}}" class="text-muted">1 people like this</span>
-					<input type="text" value="1" id="hiddenNumberLike{{mt.id}}" class="text-muted" hidden="false">
+					<!-- {% if mt.statistic.statistic_detail|length > 0 %}
+						{% for sd in mt.statistic.statistic_detail %}
+							{% if sd.like_user == user_id %}
+								{% if sd.status == '1' %}
+									<span id="numberLike{{mt.id}}" class="text-muted"> you and {{ mt.statistic.currentLikeNumber }} people like this</span>
+								{% else %}
+									<span id="numberLike{{mt.id}}" class="text-muted"> {{ mt.statistic.currentLikeNumber }} people like this</span>
+								{% endif %}
+								
+							{% endif %}
+						{% endfor %}
+					{% else %}
+						<span id="numberLike{{mt.id}}" class="text-muted">{{ mt.statistic.currentLikeNumber }} people like this</span>
+					{% endif %} -->
+					<span id="numberLike{{mt.id}}" class="text-muted">{{ mt.statistic.currentLikeNumber }} people like this</span>
+					<input type="text" value="{{ mt.statistic.currentLikeNumber }}" id="hiddenNumberLike{{mt.id}}" class="text-muted" hidden="false">
 					<input type="text" value="0" id="hiddenOnlyClick{{mt.id}}" class="text-muted" hidden="false">
 				</div>
 			</div>
@@ -110,53 +147,11 @@ function commentMaterial(hd_course_id,hd_material_id) {
 	document.forms["formCmtMaterial"].hd_course_id.value = hd_course_id
 	document.forms["formCmtMaterial"].hd_material_id.value = hd_material_id;
 };
+
 function MyFunction(material_id){
-	$.ajax({
-				url: "/myapp/views/CourseDetail.py",
-				type: "post",
-				data: {'param':{"hello":"world"}},
-				dataType: "application/json",
-				success : function(response)
-				{
-					alert(response);
-				}
-			});
-	var ic=document.getElementById('icon'+material_id);
-	var testClass = ic.className;
-	if(!document.getElementById('icon'+material_id).classList.contains('glyphicon-heart'))
-	{
-		document.getElementById('hiddenOnlyClick'+material_id).value=1;
-		ic.className="glyphicon glyphicon-heart"
-		var numberLike=parseInt(document.getElementById('hiddenNumberLike'+material_id).value);
-		numberLike=numberLike+1;
-		document.getElementById('hiddenNumberLike'+material_id).value=numberLike;
-		if(numberLike<2)
-		{
-			document.getElementById('numberLike'+material_id).innerHTML=numberLike +' people like this';
-		}
-		else
-		{
-			document.getElementById('numberLike'+material_id).innerHTML=numberLike +' peoples like this';
-		}
-	}
-	else
-	{
-		var numberLike=parseInt(document.getElementById('hiddenNumberLike'+material_id).value);
-		if(document.getElementById('hiddenOnlyClick'+material_id).value==1)
-		{
-			document.getElementById('hiddenOnlyClick'+material_id).value=0;
-			ic.className="glyphicon glyphicon-heart-empty";
-			numberLike=numberLike-1;
-		}
-		document.getElementById('hiddenNumberLike'+material_id).value=numberLike;
-		if(numberLike<2)
-		{
-			document.getElementById('numberLike'+material_id).innerHTML=numberLike +' people like this';
-		}
-		else
-		{
-			document.getElementById('numberLike'+material_id).innerHTML=numberLike +' peoples like this';
-		}
-	}
-}
+	$("#formLike").submit();
+};
+
+
+
 </script>
