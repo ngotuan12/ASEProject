@@ -59,16 +59,16 @@ $("form#formLike").submit(function( event ) {
 				document.getElementById('hiddenOnlyClick'+material_id).value=1;
 				ic.className="glyphicon glyphicon-heart"
 				var numberLike=parseInt(document.getElementById('hiddenNumberLike'+material_id).value);
-				numberLike=numberLike+1;
+				numberLike=numberLike;
 				document.getElementById('hiddenNumberLike'+material_id).value=numberLike;
 				document.getElementById('type'+material_id).value=1;
-				if((numberLike-1)<1)
+				if(numberLike<1)
 				{
 					document.getElementById('numberLike'+material_id).innerHTML='you like this';
 				}
 				else
 				{
-					document.getElementById('numberLike'+material_id).innerHTML='you and ' + (numberLike-1) +' people like this';
+					document.getElementById('numberLike'+material_id).innerHTML='you and ' + numberLike +' people like this';
 				}
 			}
 			else
@@ -76,11 +76,11 @@ $("form#formLike").submit(function( event ) {
 				var numberLike=parseInt(document.getElementById('hiddenNumberLike'+material_id).value);
 					document.getElementById('hiddenOnlyClick'+material_id).value=0;
 					ic.className="glyphicon glyphicon-heart-empty";
-					numberLike=numberLike-1;
+					numberLike=numberLike;
 				document.getElementById('hiddenNumberLike'+material_id).value=numberLike;
 				document.getElementById('type'+material_id).value=0;
 				
-				if(numberLike<2)
+				if(numberLike<1)
 				{
 					document.getElementById('numberLike'+material_id).innerHTML=numberLike +' people like this';
 				}

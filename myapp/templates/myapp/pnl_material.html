@@ -49,7 +49,11 @@
 						<span id="numberLike{{mt.id}}" class="text-muted">{{ mt.statistic.currentLikeNumber }} people like this</span>
 					{% endif %} -->
 					{% if mt.note == '1' %}
-						<span id="numberLike{{mt.id}}" class="text-muted">you and {{ mt.statistic.currentLikeNumber }} people like this</span>
+						{% if mt.statistic.currentLikeNumber > 0 %}
+							<span id="numberLike{{mt.id}}" class="text-muted">you and {{ mt.statistic.currentLikeNumber }} people like this</span>
+						{% else %}
+							<span id="numberLike{{mt.id}}" class="text-muted">you like this</span>
+						{% endif %}
 					{% else %} 
 						<span id="numberLike{{mt.id}}" class="text-muted">{{ mt.statistic.currentLikeNumber }} people like this</span>
 					{% endif %}
