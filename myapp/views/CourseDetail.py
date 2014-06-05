@@ -9,9 +9,11 @@ import json
 
 from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
+from django.db.models.sql.datastructures import Date
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, render_to_response
 from mongoengine.django.auth import User
+from oauthlib.oauth2.rfc6749 import catch_errors_and_unavailability
 
 from myapp.models import Comment, Student, Impression
 from myapp.models.CommentPost import CommentPost
@@ -24,7 +26,6 @@ from myapp.models.ProgressType import ProgressType
 from myapp.models.Statistic import Statistic
 from myapp.models.StatisticDetail import StatisticDetail
 from myapp.util import context_processors
-from oauthlib.oauth2.rfc6749 import catch_errors_and_unavailability
 
 
 @login_required(login_url='/signin')
@@ -63,45 +64,14 @@ def index(request):
 		mtTotal = 0
 		actTotal = 0
 		try :
-			lsmt = []
-			lscl = []
-			lscl = cl[0]
-
-			st = StatisticDetail()
-			st.user = user
-			st.object_id = str(mtid)
-			st.status="1"
-			#st.save()
-			object_id = str(mtid)
-			isLike = False
-			
-
-			lscl.__setitem__('name', 'aaaaaasdfsdfdsfsdaaa')
-			print(lscl.__getattribute__('name'))
-			print(lscl.__getattribute__('material'))
-			
-			for i in lscl.__getattribute__('material'):
-				i.note='0'
-				print(i.name)
-				print(i.id)
-				try:
-					#is_like = StatisticDetail.objects.get(object_id=str(i.id),status=status,user=user.id)
-					is_like = StatisticDetail.objects.get(object_id="538838e656328600023c4beb",status=status,user=user.id)
-					
-					if len(is_like):
-						print('')
-						i.note='1'
-				except Exception as e:
-					print(e)
-				
-			for c in lscl:
+			for c in cl:
 				if c.statistic.currentTakenNumber:
 					c.statistic.currentTakenNumber=10
 					clTaken += c.statistic.currentTakenNumber
 				if c.statistic.currentLikeNumber:
 					clLike += c.statistic.currentLikeNumber
-				lsmt = c.material
-				for mt in lsmt:
+				
+				for mt in c.material:
 					if mt.statistic.currentTakenNumber:
 						mtTaken += mt.statistic.currentTakenNumber
 					if mt.statistic.currentLikeNumber:
@@ -128,6 +98,31 @@ def index(request):
 		#comments = CommentPost.objects(post_id=vpost_id).all()
 		#comments = cl.comments
 		#Fix code get like status
+		lscl = []
+		lscl = cl[0]
+		
+# 		mtt=Material.objects()[:1]
+		st = StatisticDetail()
+		st.user = user
+		st.object_id = '537f051a008ebc68d6419d75'
+		st.status="1"
+# 		st.save()
+		lscl.__setitem__('name', 'aaaaaasdfsdfdsfsdaaa')
+#		print(lscl.__getattribute__('name'))
+#		print(lscl.__getattribute__('material'))
+		
+		for i in lscl.__getattribute__('material'):
+			i.note='0'
+			print(i.name)
+			print(i.id)
+			try:
+				#is_like = StatisticDetail.objects.get(object_id=str(i.id),status=status,user=user.id)
+				is_like = StatisticDetail.objects(object_id=str(i.id),status=status,user=user.id)
+				if len(is_like):
+					i.note='1'
+					i.__getattribute__('statistic').currentLikeNumber -=1
+			except Exception as e:
+				print(e)
 		
 		context = {	'cl':lscl,'is_joined':is_joined,
 					'user_id':request.user,
@@ -151,79 +146,58 @@ def index(request):
 			user=User.objects.get(username=str(request.user))
 			print(request.POST['posttype'])
 			materialId=request.POST['materialId']
-			like =request.POST['type']#like or dislike
-			print(like)
-			print('type: '+request.POST['type'])
+			status =request.POST['status']#like or dislike
+			print(status)
+			print('status: '+request.POST['status'])
 			print('material: '+request.POST['materialId'])
 			print('course: ' +request.POST['courseId'])
 			print('author: ' +request.POST['userId'])
 			print('user: ' +str(user.id) )
 			
-			#insert or update StatisticDetail
-			mt = Material.objects(id=materialId).order_by('published_date')[:1]
-			lsStatisticDetail=StatisticDetail.objects(like_user=user.id)
-			sd = StatisticDetail()
-			exist=False
-			sd_id=0
-			if len(lsStatisticDetail) >0 and len(mt) >0:
-				for ss in lsStatisticDetail:
-					for s in  mt[0].statistic.statistic_detail:
-						if str(ss.id) == str(s.id):
-							exist=True
-							sd_id=ss.id
-							print(str(ss.id))
-							print(str(s.status))
-							print(str(s.id))
-							break
-			if exist is True :
-				sd=StatisticDetail.objects.get(id=sd_id)
-				if like == '0':
-					sd.status='1'
-				else:
-					sd.status='0'
-				sd.save()
-				
+			#update status=0 for recors last with status=1,user_id,material
+			sdLast=StatisticDetail.objects(user=user.id,object_id=str(materialId),status='1').order_by('published_date')[:10]
+			if len(sdLast):
+				print('exist, update the last record')
+				for sdUpdate in sdLast:
+					sdUpdate.status='0'
+					sdUpdate.save()
 			else:
-				if like == '0':
-					sd.status='1'
-				else:
-					sd.status='0'
-				sd.like_user=user
-				sd.save()
-			print(exist)
-			#insert Statistic
-			#type:1-material,2-curriculumn,3:action
-			currentLikeNumber=0
-			currentTakenNumber=0
-			
-			if len(mt) :
-				if mt[0].statistic :
-					currentLikeNumber = mt[0].statistic.currentLikeNumber
-					currentTakenNumber = mt[0].statistic.currentTakenNumber
-					print(currentLikeNumber)
-			if like == '0':
-				currentLikeNumber +=1
-			else:
-				currentLikeNumber -=1
-			print(currentLikeNumber)
-			
-			st=Statistic()
-			print(mt[0].statistic.id)
-			if len(mt) > 0 :
-				st=Statistic.objects.get(id=mt[0].statistic.id)
-			st.currentLikeNumber=currentLikeNumber
-			st.currentTakenNumber=currentTakenNumber
-			st.type='1'
-			if exist is True :
+				print('no update ')
+			sdNew=StatisticDetail()
+			sdNew.user=user
+			sdNew.object_id=str(materialId)
+			if status =='0':
+				sdNew.status='1'
+			else :
+				sdNew.status='0'
+			sdNew.save()
+			#update or insert statistic
+			stCurent=Statistic.objects(object_id=str(materialId)).order_by('create_date')[:1]
+			stNew=Statistic()
+			if len(stCurent) >0:
 				print('exist')
+				stNew=stCurent[0]
+				if status == '1':
+					stNew.currentLikeNumber -= 1
+				else:
+					stNew.currentLikeNumber += 1
+				stNew.type='1'
+				stNew.save()
 			else:
-					st.statistic_detail.append(sd)
-			st.save()
-			#update Material
-			mt = Material.objects.get(id=materialId)
-			mt.statistic=st
-			mt.save()
-# 			
+				print('no exist')
+				if status == '0':
+					stNew.currentLikeNumber=1
+				else:
+					stNew.currentLikeNumber=0
+				stNew.object_id=str(materialId)
+				stNew.type='1'
+				stNew.save()
+			#update material 
+			mtCurrent=Material.objects.get(id=materialId)
+			mtCurrent.statistic=stNew
+			mtCurrent.note='0'
+			mtCurrent.save()
+			
 			return HttpResponse(json.dumps({"formdata": materialId}),content_type="application/json")
 		elif request.POST['posttype']== "frmJoincourse":
 			curriculum_id = request.POST['curriculum_id']

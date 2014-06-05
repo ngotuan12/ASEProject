@@ -12,43 +12,21 @@
 			</div>
 			<div class="timeline-btns">
 				<div class="pull-left">
-					<!-- Start block -->
-						<!-- <form name="formLikeMaterial" method="post" onsubmit="return false;">
-						{% csrf_token %}
-							<a href="#" id="like" onclick="MyFunction('{{ mt.id }}');" data-toggle="modal" data-target="#rating"
-								class="tooltips" title="" data-original-title="Like"><i
-							id="icon{{mt.id}}"	class="glyphicon glyphicon-heart-empty"></i></a>
-							<input type="hidden" name="posttype" value="likeMaterial">
-						</form> -->
-					<!-- End of block -->
 					<form name="formLikeMaterial" id="formLike" method="post" action="">
 							{% csrf_token %}
-							<h1>{{ mt.note }}</h1>
-							{% if mt.statistic.statistic_detail|length > 0 %}
-								{% for sd in mt.statistic.statistic_detail %}
-									{% if sd.like_user == user_id %}
-										{% if sd.status == '1' %}
-											<a href="#" id="like" data-toggle="modal" data-target="#rating"
-												class="tooltips" title="" data-original-title="Like"><i
-											id="icon{{mt.id}}"	class="glyphicon glyphicon-heart"></i></a>
-											<input type="hidden" id="type{{mt.id}}" name="type" value="1">
-										{% else %}
-											<a href="#" id="like" data-toggle="modal" data-target="#rating"
-												class="tooltips" title="" data-original-title="Like"><i
-												id="icon{{mt.id}}"	class="glyphicon glyphicon-heart-empty"></i></a>
-											<input type="hidden" id="type{{mt.id}}" name="type" value="0">
-										{% endif %}
-									{% endif %}
-								{% endfor %}
+							{% if mt.note == '1' %}
+								<a href="#" id="like" data-toggle="modal" data-target="#rating"
+									class="tooltips" title="" data-original-title="Like"><i
+								id="icon{{mt.id}}"	class="glyphicon glyphicon-heart"></i></a>
+								<input type="hidden" id="type{{mt.id}}" name="status" value="1">
 							{% else %}
 								<a href="#" id="like" data-toggle="modal" data-target="#rating"
 									class="tooltips" title="" data-original-title="Like"><i
 								id="icon{{mt.id}}"	class="glyphicon glyphicon-heart-empty"></i></a>
-								<input type="hidden" id="type{{mt.id}}" name="type" value="0">
+								<input type="hidden" id="type{{mt.id}}" name="status" value="0">
 							{% endif %}
 							<input type="hidden" name="posttype" value="likeMaterial">
-							
-							<input type="hidden" id="materialId" name="materialId" value="{{ mt.id }}">
+							<input type="hidden" name="materialId" value="{{ mt.id }}">
 							<input type="hidden" name="courseId" value="{{ course_id }}">
 							<input type="hidden" name="userId" value="{{ author_id }}">
 					</form>
@@ -70,7 +48,11 @@
 					{% else %}
 						<span id="numberLike{{mt.id}}" class="text-muted">{{ mt.statistic.currentLikeNumber }} people like this</span>
 					{% endif %} -->
-					<span id="numberLike{{mt.id}}" class="text-muted">{{ mt.statistic.currentLikeNumber }} people like this</span>
+					{% if mt.note == '1' %}
+						<span id="numberLike{{mt.id}}" class="text-muted">you and {{ mt.statistic.currentLikeNumber }} people like this</span>
+					{% else %} 
+						<span id="numberLike{{mt.id}}" class="text-muted">{{ mt.statistic.currentLikeNumber }} people like this</span>
+					{% endif %}
 					<input type="text" value="{{ mt.statistic.currentLikeNumber }}" id="hiddenNumberLike{{mt.id}}" class="text-muted" hidden="false">
 					<input type="text" value="0" id="hiddenOnlyClick{{mt.id}}" class="text-muted" hidden="false">
 				</div>
