@@ -13,7 +13,8 @@ class Statistic(Document):
 	currentTakenNumber = IntField()
 	statistic_detail = ListField(ReferenceField(StatisticDetail))
 	lastUpdate = DateTimeField()
-	type =StringField()
+	type = StringField()
+	object_id = StringField()
 	meta = {
 			'ordering': ['-create_date']
 }

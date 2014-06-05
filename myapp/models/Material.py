@@ -1,3 +1,4 @@
+from builtins import bool
 from datetime import datetime
 
 from mongoengine.document import Document
@@ -20,6 +21,7 @@ class Material(Document):
 	description = StringField()
 	comment = ListField(ReferenceField(Comment))
 	statistic = ReferenceField(Statistic)
+	note = StringField(default='0')
 	meta = {
 			'ordering': ['-published_date']
  }

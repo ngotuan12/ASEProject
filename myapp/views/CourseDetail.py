@@ -24,6 +24,7 @@ from myapp.models.ProgressType import ProgressType
 from myapp.models.Statistic import Statistic
 from myapp.models.StatisticDetail import StatisticDetail
 from myapp.util import context_processors
+from oauthlib.oauth2.rfc6749 import catch_errors_and_unavailability
 
 
 @login_required(login_url='/signin')
@@ -35,9 +36,24 @@ def index(request):
 		cl = Curriculumn.objects(id=vCourse_id)
 		has_curriculum = False
 		is_mentor = request.session['is_mentor']
+		user=User.objects.get(username=str(request.user))
+		student=Student.objects.get(user=user.id)
+
+		object_id = "537f051c008ebc68d6419d77"
+		print()
+		str_user = str(user.id)
+		str_user = "53833d5630635f17c4daab02"
+		print(str_user)
+		#userid = "53833d5630635f17c4daab02"
+		status = "1"
+		
+		mtr = Material.objects()[:1]
+		mtid = mtr[0].id
+		print(mtid)
+
 		if len(cl):
 			has_curriculum = True
-		print(has_curriculum)
+
 		clTaken = 0
 		clLike = 0
 		mtTaken = 0
@@ -47,17 +63,52 @@ def index(request):
 		mtTotal = 0
 		actTotal = 0
 		try :
-			for c in cl:
+			lsmt = []
+			lscl = []
+			lscl = cl[0]
+
+			st = StatisticDetail()
+			st.user = user
+			st.object_id = str(mtid)
+			st.status="1"
+			#st.save()
+			object_id = str(mtid)
+			isLike = False
+			
+
+			lscl.__setitem__('name', 'aaaaaasdfsdfdsfsdaaa')
+			print(lscl.__getattribute__('name'))
+			print(lscl.__getattribute__('material'))
+			
+			for i in lscl.__getattribute__('material'):
+				i.note='0'
+				print(i.name)
+				print(i.id)
+				try:
+					#is_like = StatisticDetail.objects.get(object_id=str(i.id),status=status,user=user.id)
+					is_like = StatisticDetail.objects.get(object_id="538838e656328600023c4beb",status=status,user=user.id)
+					
+					if len(is_like):
+						print('')
+						i.note='1'
+				except Exception as e:
+					print(e)
+				
+			for c in lscl:
 				if c.statistic.currentTakenNumber:
+					c.statistic.currentTakenNumber=10
 					clTaken += c.statistic.currentTakenNumber
 				if c.statistic.currentLikeNumber:
 					clLike += c.statistic.currentLikeNumber
-				for mt in c.material:
+				lsmt = c.material
+				for mt in lsmt:
 					if mt.statistic.currentTakenNumber:
 						mtTaken += mt.statistic.currentTakenNumber
 					if mt.statistic.currentLikeNumber:
 						mtLike += mt.statistic.currentLikeNumber
 						mtTotal += 1
+					mt.__setitem__('name', 'aaaaaaaaa')
+					print(mt.name)
 				for act in c.action:
 					if act.statistic.currentTakenNumber:
 						actTaken += act.statistic.currentTakenNumber
@@ -70,17 +121,15 @@ def index(request):
 			print(actLike)
 		except Exception as e:
 			print(e)
-		user=User.objects.get(username=str(request.user))
-		print(user.id)
-		student=Student.objects.get(user=user.id)
-		print(student.id)
 		progress = CurriculumnStudyProgress.objects(curriculumn=cl[0].id,student=student.id)
 		is_joined = False
 		if len(progress)>0:
 			is_joined = True
 		#comments = CommentPost.objects(post_id=vpost_id).all()
 		#comments = cl.comments
-		context = {	'cl':cl[0],'is_joined':is_joined,
+		#Fix code get like status
+		
+		context = {	'cl':lscl,'is_joined':is_joined,
 					'user_id':request.user,
 					'course_id':vCourse_id,
 					'author_id':author_id,

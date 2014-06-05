@@ -1,3 +1,4 @@
+
 <div class="col-xs-6 col-sm-6 col-md-6">
 	<div class="people-item">
 		<div>
@@ -22,6 +23,7 @@
 					<!-- End of block -->
 					<form name="formLikeMaterial" id="formLike" method="post" action="">
 							{% csrf_token %}
+							<h1>{{ mt.note }}</h1>
 							{% if mt.statistic.statistic_detail|length > 0 %}
 								{% for sd in mt.statistic.statistic_detail %}
 									{% if sd.like_user == user_id %}

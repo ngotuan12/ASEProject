@@ -8,8 +8,10 @@ from mongoengine.fields import  DateTimeField,ReferenceField, StringField
 
 class StatisticDetail(Document):
 	create_date = DateTimeField(default=datetime.now)
-	like_user = ReferenceField(User)
+	user = ReferenceField(User)
 	status = StringField(default='0')
+	object_id = StringField()
+	reason = StringField()
 	meta = {
 			'ordering': ['-create_date']
 }
