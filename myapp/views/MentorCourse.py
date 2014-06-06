@@ -30,6 +30,7 @@ def index(request):
 # 		mentor = Mentor()
 # 		mentor.user = request.user
 # 		mentor.save()
+		print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
 		mentor = Mentor.objects.get(user=request.user)
 		#curriculum
 		course_name = request.POST['course_name']
@@ -44,7 +45,7 @@ def index(request):
 		curriculumn.from_date = datetime.strptime(start_date,'%m/%d/%Y')
 		curriculumn.to_date = datetime.strptime(end_date,'%m/%d/%Y')
 		curriculumn.mentor = mentor
-		curriculumn.save()
+# 		curriculumn.save()
 		#material
 		material_title = request.POST['material_title']
 		material_type = request.POST['material_type']
@@ -57,18 +58,18 @@ def index(request):
 		material.url = material_url
 		material.code = material_code
 		material.description = material_description
-		material.save()
+# 		material.save()
 		curriculumn.material.append(material)
-		curriculumn.save()
+# 		curriculumn.save()
 		#action
 		action_name = request.POST['action_name']
 		action_description = request.POST['action_description']
 		action = Action()
 		action.name = action_name
 		action.description = action_description
-		action.save()
+# 		action.save()
 		curriculumn.action.append(action)
-		curriculumn.save()
+# 		curriculumn.save()
 		return HttpResponseRedirect('/');
 @login_required(login_url='/signin')
 def add_action(request):
@@ -82,10 +83,10 @@ def add_action(request):
 		action = Action()
 		action.name = action_name
 		action.description = action_description
-		action.save()
+# 		action.save()
 		#curriculum
 		curriculum.action.append(action)
-		curriculum.save()
+#		curriculum.save()
 		return HttpResponseRedirect('/');
 @login_required(login_url='/signin')
 def add_material(request):
@@ -105,10 +106,10 @@ def add_material(request):
 		material.url = material_url
 		material.code = material_code
 		material.description = material_description
-		material.save()
+# 		material.save()
 		#curriculum
 		curriculum.material.append(material)
-		curriculum.save()
+# 		curriculum.save()
 		return HttpResponseRedirect('/');
 @login_required(login_url='/signin')
 def join_course(request):
