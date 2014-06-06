@@ -9,6 +9,7 @@ from mongoengine.django.auth import User
 from myapp.models.Curriculumn import Curriculumn
 from myapp.models.Mentor import Mentor
 from myapp.util import context_processors
+from myapp.models.Category import Category
 
 
 @login_required(login_url='/signin')
@@ -17,6 +18,7 @@ def index(request):
 # 		cl = Curriculumn.objects(mentor=mentor)
 # 		mentor = Mentor.objects.get(user=re)
 # 		mentor_id = '5375ce146c02298c9af00e00'
+		lisCategory =Category.objects()
 		user_id=request.GET['user_id']
 		user = User.objects.get(id=user_id)
 		mentor = Mentor.objects.get(user=user)
@@ -69,5 +71,6 @@ def index(request):
 					'actLike':actLike,
 					'mtTotal':mtTotal,
 					'actTotal':actTotal,
-					'has_curriculum':has_curriculum,}
+					'has_curriculum':has_curriculum,
+					'listCategory':lisCategory,}
 		return render(request,'myapp/studentview.html', context)

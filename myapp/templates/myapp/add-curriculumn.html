@@ -25,6 +25,7 @@
 						</ul>
 
 						<form class="form" id="firstForm" novalidate="novalidate" method="post" action="/add-course">
+						
 							{% csrf_token %} 
 							<div class="tab-content">
 								<div class="progress progress-striped active">
@@ -35,30 +36,71 @@
 									<div class="form-group">
 										<div class="col-sm">
 											<input type="text" name="course_name" class="form-control"
-												required="" placeholder="Course name">
+											 placeholder="Course name">
 										</div>
 									</div>
 
 									<div class="form-group">
 										<div class="col-sm-6">
 											<input type="text" id="duration" name="duration" class="form-control"
-												required="" placeholder="Duration" maxlength="2">
+												 placeholder="Duration" maxlength="2">
 
 										</div>
 										<div class="col-sm-6">
-											<select class="form-control" name="duration_type"required="">
+											<select class="form-control" name="duration_type">
 												<option value="Week">Week</option>
 												<option value="Month">Month</option>
 												<option value="Year">Year</option>
 											</select>
 										</div>
 									</div>
-
+									<div class="form-group">
+										<div class="col-sm-6">
+											<span id="parentId" hidden="false"></span>
+											<select id="listCategories" hidden="false">
+												{% if listCategory %}
+													{% for category in listCategory %}
+														{% if  category.isparent == '0' %}
+															<option isparent="{{ category.id}}" anc="{{category.parentCategory.id}}" value="{{ category.id }}">{{category.categoryName}}</option>
+														{% endif %}
+													{% endfor %}
+												{% endif %}
+											</select>
+											<select onChange="delivery(this)" name="parentCategory" id="ddlViewBy" class="form-control" >
+												{% if listCategory %}
+													{% for category in listCategory %}
+														{% if  category.isparent == '1' %}
+															{% if  parentCategory and category.id|truncatechars:100 == parentCategory %}
+																<option value="{{ category.id }}" selected>{{category.categoryName}}</option>
+															{% else %}
+																<option value="{{ category.id }}">{{category.categoryName}}</option>
+															{% endif %}
+														{% endif %}
+													{% endfor %}
+												{% endif %}
+											</select>
+										</div>
+										<div class="col-sm-6">
+											<select name="childrenCategory" id="childrenCategory" title="Please select once " class="form-control" >
+												{% if listCategory %}
+													{% for category in listCategory %}
+														{% if  category.isparent == '0' and parentCategory and category.parentCategory.id|truncatechars:100 == parentCategory %}
+															{% if  childrenCategory and category.id|truncatechars:100 == childrenCategory %}
+																<option value="{{ category.id }}" selected>{{category.categoryName}}</option>
+															{% else %}
+																<option value="{{ category.id }}">{{category.categoryName}}</option>
+															{% endif %}
+														{% endif %}
+													{% endfor %}
+												{% endif %}
+											</select>
+										</div>
+									</div>
 									<div class="form-group">
 										<div class="col-sm-6">
 											<div class="input-group">
 												<input type="text" name="start_date" class="form-control"
-													required="" placeholder="Start date" id="startdate">
+													 placeholder="Start date" id="startdate">
 												<span class="input-group-addon"><i
 													class="fa fa-calendar"></i></span>
 											</div>
@@ -66,68 +108,108 @@
 										<div class="col-sm-6">
 											<div class="input-group">
 												<input type="text" name="end_date" class="form-control"
-													required="" placeholder="End date" id="enddate"> <span
+													 placeholder="End date" id="enddate"> <span
 													class="input-group-addon"><i class="fa fa-calendar"></i></span>
 											</div>
 										</div>
 									</div>
-
-								</div>
-								<div class="tab-pane" id="vtab2">
-									<!-- <div id="panel-left" class="col-sm-3">
-										<div class="rdio rdio-primary">
-											<input type="radio" id="male" value="m" name="radio">
-											<label for="male">Male</label>
+									<div class="form-group">
+										<div class="col-sm">
+										<textarea name="curriculumn_description" class="form-control"
+											 placeholder="description" rows="5"> </textarea>
 										</div>
-										<div class="rdio rdio-primary">
-											<input type="radio" value="f" id="female" name="radio">
-											<label for="female">Female</label>
-										</div>
-
-										<div class="rdio rdio-primary">
-											<input type="radio" value="f1" id="female1" name="radio">
-											<label for="female1">Female</label>
-										</div>
-
-									</div> -->
-										<div class="form-group">
-											<div class="col-sm-6">
-												<input type="text" name="material_title"
-													class="form-control" required=""
-													placeholder="Material title">
-											</div>
-											<div class="col-sm-6">
-												<select name="material_type" class="form-control"
-													required="">
-													<option value="">Choose type</option>
-													<option value="Book" selected>Book</option>
-													<option value="Video">Video</option>
-													<option value="Document">Document</option>
-												</select>
-											</div>
-										</div>
-
-
-										<div class="form-group">
-											<div class="col-sm-6">
-												<input type="text" name="material_url" class="form-control"
-													required="" placeholder="Material url">
-											</div>
-											<div class="col-sm-6">
-												<input type="text" name="material_code" class="form-control"
-													required="" placeholder="Material code">
-											</div>
-										</div>
-
-										<div class="form-group">
-											<div class="col-sm">
-												<textarea name="material_description" class="form-control"
-													required="" placeholder="description"> </textarea>
-											</div>
-										</div>
-
 									</div>
-
+								</div>
+								<div class="tab-pane mainpanel " id="vtab2">
+									<div class="row">
+										<div class="col-sm-3" style="margin-top: 1px;">
+											<div class="panel panel-default">
+												<div class="panel-heading" style="height: 402px !important;" >
+													<div class="col-sm-9" style="margin-bottom: 10px;">
+														<span>List materials</span>
+														<input type="" id="numberMaterial"  value="0" hidden="false">
+													</div>
+													<div class="col-sm-9" id="listMaterial">
+													<div class="rdio rdio-primary">
+														<input type="radio" id="male" value="m" name="gender">
+														<label for="male">Material 1</label>
+													</div><!-- rdio -->
+													<div class="rdio rdio-primary">
+														<input type="radio" value="f" id="female" name="gender">
+														<label for="female">Material 2</label>
+													</div><!-- rdio -->
+													<div class="rdio rdio-primary">
+														<input type="radio" value="f2" id="female1" name="gender">
+														<label for="female">Material 3</label>
+													</div><!-- rdio -->
+													<div class="rdio rdio-primary">
+														<input type="radio" value="f1" id="female2" name="gender">
+														<label for="female">Material 4</label>
+													</div><!-- rdio -->
+													
+													</div>
+													<div class="form-group">
+														<div class="col-sm-12">
+															<button class="btn btn-primary" style="margin-top: 10px">Save all curriculum</button>
+														</div>
+													</div>
+												</div>
+											</div><!-- panel-default -->
+										</div><!-- col-md-3 -->
+										<div class="col-sm-9" style="margin-top: 1px;">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<div class="form-group">
+														<div class="col-sm-12">
+															<input id="material_title" type="text" name="material_title"
+																class="form-control" required=""
+																placeholder="Material title">
+														</div>
+													</div>
+													<div class="form-group">
+														<div class="col-sm-8">
+																<select name="material_type" class="form-control"
+																	required="">
+																	<option value="">Choose type</option>
+																	<option value="Book" selected>Book</option>
+																	<option value="Video">Video</option>
+																	<option value="Document">Document</option>
+																</select>
+														</div>
+														<div class="col-sm-4" style="margin-top: 8px;">
+															<span>(Ex: Book,Video,Doccument,Doc,...)</span>
+														</div>
+													</div>
+													<div class="form-group">
+														<div class="col-sm-12">
+															<input type="text" id="material_url" name="material_url" class="form-control"
+																required="" placeholder="Material url">
+														</div>
+														<!-- <div class="col-sm-6">
+															<input type="text" name="material_code" class="form-control"
+																required="" placeholder="Material code">
+														</div> -->
+													</div>
+													<div class="form-group">
+														<div class="col-sm-12">
+															<textarea id="material_description" name="material_description" class="form-control"
+																required="" placeholder="description" rows='3'> </textarea>
+														</div>
+													</div>
+													<div class="form-group">
+														<div class="col-sm-12">
+															<ul class="pager" style="border-top: none !important;background: white !important;padding: 0px !important;float: right;">
+																
+																<li class=""><a href="#" onclick="addCurriculum();">Add Curriculum</a></li>
+															</ul>
+														</div>
+													</div>
+													
+												</div>
+											</div><!-- panel-default -->
+										</div><!-- col-md-9 -->
+									</div>
+								</div>
 								<div class="tab-pane" id="vtab3">
 									<div class="form-group">
 											<div class="col-sm">
@@ -167,3 +249,62 @@
 	<!-- modal-dialog -->
 </div>
 <!-- modal -->
+<script src="js/masonry.pkgd.min.js"></script>
+<script src="js/jquery-ui-1.10.3.min.js"></script>
+<script src="js/chosen.jquery.min.js"></script>
+
+<script src="js/bootstrap-wizard.min.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/jquery.maskedinput.min.js"></script>
+<script src="js/jquery.numeric.js"></script>
+<script src="js/custom.js"></script>
+
+<script>
+	function delivery(x){
+		
+		var country = x.value;
+		document.getElementById('parentId').innerHTML = country;
+		select = document.getElementById('childrenCategory');
+		for(var i=select.options.length-1;i>=0;i--)
+		{
+			select.remove(i);
+		}
+		//remove  option
+		
+		var ex = document.getElementById("listCategories").options;
+		//window.alert(ex.length)
+		for(var i=0;i<ex.length;i++)
+		{
+			if(ex[i].getAttribute('anc')==country)
+			{
+				//window.alert(ex[i].text)
+				var opt = document.createElement('option');
+				opt.value = ex[i].value;
+				opt.innerHTML = ex[i].text;
+				select.appendChild(opt);
+			}
+		}
+	}
+	function addCurriculum()
+	{
+		var material_title=document.getElementById("material_title").value.toString();
+		var material_url =document.getElementById("material_url").value.toString();
+		var material_description=document.getElementById("material_description").value.toString();
+		var numberMaterial=parseInt(document.getElementById("numberMaterial").value);
+		
+		if(material_title.trim()==""||material_url.trim()==""||material_description.trim()=="")
+		{
+			alert('empty');
+		}
+			
+		else
+		{
+			alert('no empty');
+			
+			numberMaterial +=1;
+			document.getElementById("numberMaterial").value=numberMaterial.toString();
+			alert(document.getElementById("numberMaterial").value);
+		}
+		
+	}
+</script>
