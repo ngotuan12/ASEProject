@@ -3,25 +3,20 @@ Created on Apr 3, 2014
 
 @author: TuanNA
 '''
-from builtins import len
 from datetime import datetime
 import json
 
 from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
-from django.db.models.sql.datastructures import Date
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, render_to_response
 from mongoengine.django.auth import User
-from oauthlib.oauth2.rfc6749 import catch_errors_and_unavailability
 
 from myapp.models import Comment, Student, Impression
-from myapp.models.CommentPost import CommentPost
 from myapp.models.Curriculumn import Curriculumn
 from myapp.models.CurriculumnLog import CurriculumnLog
 from myapp.models.CurriculumnStudyProgress import CurriculumnStudyProgress
 from myapp.models.Material import Material
-from myapp.models.MentorPost import MentorPost
 from myapp.models.ProgressType import ProgressType
 from myapp.models.Statistic import Statistic
 from myapp.models.StatisticDetail import StatisticDetail

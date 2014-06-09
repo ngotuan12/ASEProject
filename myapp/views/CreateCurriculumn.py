@@ -26,6 +26,7 @@ def index(request):
 		return render(request, 'myapp/mentor-post.html', context)
 	elif request.method == 'POST':
 		print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+		print(request.POST['material_description1'])
 		mentor = Mentor.objects.get(user=request.user)
 		
 		category_id =request.POST['childrenCategory']

@@ -108,7 +108,7 @@
 										<div class="col-sm-6">
 											<div class="input-group">
 												<input type="text" name="end_date" class="form-control"
-													 placeholder="End date" id="enddate"> <span
+													placeholder="End date" id="enddate"> <span
 													class="input-group-addon"><i class="fa fa-calendar"></i></span>
 											</div>
 										</div>
@@ -128,29 +128,14 @@
 													<div class="col-sm-9" style="margin-bottom: 10px;">
 														<span>List materials</span>
 														<input type="" id="numberMaterial"  value="0" hidden="false">
+														<input type="" id="currentNumberMaterial"  value="0" hidden="false">
 													</div>
 													<div class="col-sm-9" id="listMaterial">
-													<div class="rdio rdio-primary">
-														<input type="radio" id="male" value="m" name="gender">
-														<label for="male">Material 1</label>
-													</div><!-- rdio -->
-													<div class="rdio rdio-primary">
-														<input type="radio" value="f" id="female" name="gender">
-														<label for="female">Material 2</label>
-													</div><!-- rdio -->
-													<div class="rdio rdio-primary">
-														<input type="radio" value="f2" id="female1" name="gender">
-														<label for="female">Material 3</label>
-													</div><!-- rdio -->
-													<div class="rdio rdio-primary">
-														<input type="radio" value="f1" id="female2" name="gender">
-														<label for="female">Material 4</label>
-													</div><!-- rdio -->
-													
+														
 													</div>
 													<div class="form-group">
 														<div class="col-sm-12">
-															<button class="btn btn-primary" style="margin-top: 10px">Save all curriculum</button>
+															<button class="btn btn-primary" id="saveMaterial" style="margin-top: 10px;display: none;" onclick="saveMaterial();">Save all material</button>
 														</div>
 													</div>
 												</div>
@@ -168,9 +153,9 @@
 													</div>
 													<div class="form-group">
 														<div class="col-sm-8">
-																<select name="material_type" class="form-control"
+																<select id="material_type" name="material_type" class="form-control"
 																	required="">
-																	<option value="">Choose type</option>
+																	<option value="-1">Choose type</option>
 																	<option value="Book" selected>Book</option>
 																	<option value="Video">Video</option>
 																	<option value="Document">Document</option>
@@ -198,9 +183,9 @@
 													</div>
 													<div class="form-group">
 														<div class="col-sm-12">
-															<ul class="pager" style="border-top: none !important;background: white !important;padding: 0px !important;float: right;">
-																
-																<li class=""><a href="#" onclick="addCurriculum();">Add Curriculum</a></li>
+															<ul class="pager" style="border-top: none !important;background: white !important;padding: 0px !important;">
+																<li style="float: left; display: none;" id="showCreate"><a href="#" id="createMaterial" onclick="createMaterial();">Create new  material</a></li>
+																<li style="float: right;"><a href="#" id="addMaterial" onclick="addMaterial();">Add material</a></li>
 															</ul>
 														</div>
 													</div>
@@ -285,7 +270,21 @@
 			}
 		}
 	}
-	function addCurriculum()
+	function saveMaterial()
+	{
+		alert('save');
+	}
+	function createMaterial()
+	{
+		document.getElementById('material_title').value="";
+		document.getElementById('material_type').value="Book";
+		document.getElementById('material_url').value="";
+		document.getElementById('material_description').value="";
+		
+		document.getElementById('showCreate').style.display="none";
+		document.getElementById('addMaterial').innerHTML="Add material";
+	}
+	function addMaterial()
 	{
 		var material_title=document.getElementById("material_title").value.toString();
 		var material_url =document.getElementById("material_url").value.toString();
@@ -294,17 +293,118 @@
 		
 		if(material_title.trim()==""||material_url.trim()==""||material_description.trim()=="")
 		{
-			alert('empty');
+			document.getElementById("saveMaterial").style.display="none";
 		}
-			
 		else
 		{
-			alert('no empty');
-			
-			numberMaterial +=1;
-			document.getElementById("numberMaterial").value=numberMaterial.toString();
-			alert(document.getElementById("numberMaterial").value);
+			if(document.getElementById('addMaterial').innerHTML=="Save change")
+			{
+				if(document.getElementById('currentNumberMaterial').value !="0")
+				{
+					index=document.getElementById('currentNumberMaterial').value;
+					//set value current material selected
+					document.getElementById('material_title'+index.toString()).value=document.getElementById('material_title').value;
+					document.getElementById('material_type'+index.toString()).value=document.getElementById('material_type').value;
+					document.getElementById('material_url'+index.toString()).value=document.getElementById('material_url').value;
+					document.getElementById('material_description'+index.toString()).value=document.getElementById('material_description').value;
+					
+					//clear  material input
+					document.getElementById('material_title').value="";
+					document.getElementById('material_type').value="Book";
+					document.getElementById('material_url').value="";
+					document.getElementById('material_description').value="";
+					//
+					document.getElementById('addMaterial').innerHTML="Add material";
+					document.getElementById('showCreate').style.display="none";
+				}
+			}
+			else
+			{
+				//alert('no empty');
+				document.getElementById("saveMaterial").style.display="inline";
+				numberMaterial +=1;
+				document.getElementById("numberMaterial").value=numberMaterial.toString();
+				//alert(document.getElementById("numberMaterial").value);
+				
+				var div = document.createElement("div");
+				div.className ="rdio rdio-primary";
+				div.id ="material"+numberMaterial.toString();
+				//Assign different attributes to the element
+				var radio = document.createElement("input");
+				//Assign different attributes to the element
+				radio.setAttribute("type", "radio");
+				radio.setAttribute("id",numberMaterial.toString());
+				radio.setAttribute("name", "gender");
+				radio.setAttribute("value",numberMaterial.toString());
+				
+				lb = document.createElement("label");
+				lb.setAttribute("for",numberMaterial.toString());
+				lb.innerHTML ="Material " + numberMaterial.toString();
+				//label.htmlFor = numberMaterial.toString();
+				
+				
+				
+				var  material_title= document.createElement("input");
+				material_title.setAttribute("type", "text");
+				material_title.setAttribute("hidden", "false");
+				material_title.setAttribute("id", "material_title"+numberMaterial.toString());
+				material_title.setAttribute("name","material_title"+numberMaterial.toString());
+				material_title.setAttribute("value",document.getElementById('material_title').value);
+				
+				var  material_type= document.createElement("input");
+				material_type.setAttribute("type", "text");
+				material_type.setAttribute("hidden", "false");
+				material_type.setAttribute("id", "material_type"+numberMaterial.toString());
+				material_type.setAttribute("name","material_type"+numberMaterial.toString());
+				material_type.setAttribute("value",document.getElementById('material_type').value);
+				
+				var  material_url= document.createElement("input");
+				material_url.setAttribute("type", "text");
+				material_url.setAttribute("hidden", "false");
+				material_url.setAttribute("id", "material_url"+numberMaterial.toString());
+				material_url.setAttribute("name","material_url"+numberMaterial.toString());
+				material_url.setAttribute("value",document.getElementById('material_url').value);
+				
+				var  material_description= document.createElement("input");
+				material_description.setAttribute("type", "text");
+				material_description.setAttribute("hidden", "false");
+				material_description.setAttribute("id", "material_description"+numberMaterial.toString());
+				material_description.setAttribute("name","material_description"+numberMaterial.toString());
+				material_description.setAttribute("value",document.getElementById('material_description').value);
+				
+				
+				div.appendChild(radio);
+				div.appendChild(lb);
+				
+				div.appendChild(material_title);
+				div.appendChild(material_type);
+				div.appendChild(material_url);
+				div.appendChild(material_description);
+				
+				var container = document.getElementById('listMaterial');
+				container.appendChild(div);
+				//event
+				radio.onclick = function()
+				{
+					
+					document.getElementById('addMaterial').innerHTML="Save change";
+					document.getElementById('showCreate').style.display="inline";
+					IdDivSelected=div.getAttribute("id");
+					var index = IdDivSelected[IdDivSelected.length-1];
+					//curentMaterial selected
+					document.getElementById('currentNumberMaterial').value=index.toString();
+					//set material input
+					document.getElementById('material_title').value=document.getElementById('material_title'+index.toString()).value;
+					document.getElementById('material_type').value=document.getElementById('material_type'+index.toString()).value;
+					document.getElementById('material_url').value=document.getElementById('material_url'+index.toString()).value;
+					document.getElementById('material_description').value=document.getElementById('material_description'+index.toString()).value;
+				};
+				//clear  material input
+				document.getElementById('material_title').value="";
+				document.getElementById('material_type').value="Book";
+				document.getElementById('material_url').value="";
+				document.getElementById('material_description').value="";
+			}
 		}
-		
 	}
 </script>

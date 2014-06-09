@@ -1,4 +1,3 @@
-from builtins import bool
 from datetime import datetime
 
 from mongoengine.document import Document
