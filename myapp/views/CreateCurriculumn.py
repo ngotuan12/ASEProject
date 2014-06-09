@@ -1,12 +1,14 @@
+# -*- coding: utf-8 -*-
 '''
 Created on Apr 3, 2014
 
 @author: TuanNA
 '''
 from datetime import datetime
+import json
 
 from django.contrib.auth.decorators import login_required
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
 from myapp.models.Action import Action
@@ -25,8 +27,9 @@ def index(request):
 		context = {'name':name}
 		return render(request, 'myapp/mentor-post.html', context)
 	elif request.method == 'POST':
-		print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
-		print(request.POST['material_description1'])
+		
+		numberMaterial=int(request.POST['numberMaterial'])
+		
 		mentor = Mentor.objects.get(user=request.user)
 		
 		category_id =request.POST['childrenCategory']
@@ -47,20 +50,21 @@ def index(request):
 		curriculumn.to_date = datetime.strptime(end_date,'%m/%d/%Y')
 		curriculumn.mentor = mentor
 		curriculumn.category=category
-# 		curriculumn.save()
+		curriculumn.save()
 		#material
-		material_title = request.POST['material_title']
-		material_type = request.POST['material_type']
-		material_url = request.POST['material_url']
-		material_description = request.POST['material_description']
-		material = Material()
-		material.name = material_title
-		material.type = MaterialType.objects.get(name=material_type)
-		material.url = material_url
-		material.description = material_description
-# 		material.save()
-		curriculumn.material.append(material)
-# 		curriculumn.save()
+		for n in range(numberMaterial):
+			material_title = request.POST['material_title'+str(n+1)]
+			material_type = request.POST['material_type'+str(n+1)]
+			material_url = request.POST['material_url'+str(n+1)]
+			material_description = request.POST['material_description'+str(n+1)]
+			material = Material()
+			material.name = material_title
+			material.type = MaterialType.objects.get(name=material_type)
+			material.url = material_url
+			material.description = material_description
+			material.save()
+			curriculumn.material.append(material)
+			curriculumn.save()
 		#action
 		action_name = request.POST['action_name']
 		action_description = request.POST['action_description']
@@ -70,4 +74,7 @@ def index(request):
 # 		action.save()
 		curriculumn.action.append(action)
 # 		curriculumn.save()
-		return HttpResponseRedirect('/')
+# 		return HttpResponseRedirect('/')
+
+		materialId="insert material "
+		return HttpResponse(json.dumps({"formdata": materialId}),content_type="application/json")
