@@ -45,8 +45,8 @@
 <script src="js/custom.js"></script>
 
 <script>
-  jQuery(window).load(function(){
-	$("#firstForm").submit(function( event ) {
+	jQuery(window).load(function(){
+		$("#firstForm").submit(function( event ) {
 		// Stop form from submitting normally
 		event.preventDefault();
 		// Get some values from elements on the page:
@@ -62,6 +62,7 @@
 			document.getElementById('finish').style.display="inline";
 			document.getElementById('showSave').style.display="none";
 			document.getElementById('showAdd').style.display="none";
+			document.getElementById('showCreate').style.display="none";
 		});
 	});	
     var container = document.querySelector('#bloglist');
