@@ -59,12 +59,9 @@
 		// Put the results in a div
 		posting.done(function( data )
 		{
-			document.getElementById('finish').style.display="inline";
-			document.getElementById('showSave').style.display="none";
 			document.getElementById('showAdd').style.display="none";
-			document.getElementById('showCreate').style.display="none";
 		});
-	});	
+	});
     var container = document.querySelector('#bloglist');
     var msnry = new Masonry( container, {
       // options
@@ -103,7 +100,7 @@
       return false;
     },
     onNext: function(tab, navigation, index) {
-    	if(index !=2)
+        if( index !=2 )
     	{
     		var $valid = jQuery('#firstForm').valid();
     	    if(!$valid) {
@@ -114,7 +111,8 @@
     	      var $current = index+1;
     	      var $percent = ($current/$total) * 100;
     	      jQuery('#courseWizard').find('.progress-bar').css('width', $percent+'%');
-    	}
+    	} 
+        document.getElementById('finish').style.display="none";
     },
     onPrevious: function(tab, navigation, index) {
       var $total = navigation.find('li').length;
@@ -137,7 +135,7 @@
 			$('#courseWizard').find('.pager .finish').hide();
 		}
 		$('#courseWizard .finish').click(function() {
-			jQuery('#firstForm').submit();
+		 jQuery('#firstForm').submit();
 		});
 		
     }

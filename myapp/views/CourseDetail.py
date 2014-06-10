@@ -311,12 +311,12 @@ def index(request):
 			cmt = Comment()
 			cmt.user = request.user
 			cmt.content=comment
-# 			cmt.save()
+			cmt.save()
 			cl = Curriculumn.objects.get(id=course_id)
 			mt = Material.objects.get(id=material_id)
 			mt.comment.append(cmt);
-# 			mt.save()
-# 			cl.save()
+			mt.save()
+			cl.save()
 	# 		comments = CommentPost.objects(post_id=post_id).all()
 			cl = Curriculumn.objects.get(id=course_id)
 			context = {	'cl':cl,

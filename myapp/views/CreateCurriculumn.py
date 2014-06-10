@@ -67,6 +67,8 @@ def index(request):
 			curriculumn.save()
 		#action
 		action_name = request.POST['action_name']
+		if request.POST['action_name'] :
+			print('1')
 		action_description = request.POST['action_description']
 		action = Action()
 		action.name = action_name

@@ -130,13 +130,6 @@
 													<div class="col-sm-9" id="listMaterial">
 														
 													</div>
-													<div class="form-group">
-														<div class="col-sm-12">
-															<ul class="pager" style="border-top: none !important;background: white !important;padding: 0px !important;">
-																<li style="float: left;display: none;" id="showSave"><a href="#" id="saveMaterial" onclick="saveMaterial();">Save  materials</a></li>
-															</ul>
-														</div>
-													</div>
 												</div>
 											</div><!-- panel-default -->
 										</div><!-- col-md-3 -->
@@ -146,14 +139,13 @@
 													<div class="form-group">
 														<div class="col-sm-12">
 															<input id="material_title" type="text" name="material_title"
-																class="form-control" required=""
+																class="form-control" 
 																placeholder="Material title">
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="col-sm-8">
-																<select id="material_type" name="material_type" class="form-control"
-																	required="">
+																<select id="material_type" name="material_type" class="form-control">
 																	<option value="-1">Choose type</option>
 																	<option value="Book" selected>Book</option>
 																	<option value="Video">Video</option>
@@ -167,7 +159,7 @@
 													<div class="form-group">
 														<div class="col-sm-12">
 															<input type="text" id="material_url" name="material_url" class="form-control"
-																required="" placeholder="Material url">
+																 placeholder="Material url">
 														</div>
 														<!-- <div class="col-sm-6">
 															<input type="text" name="material_code" class="form-control"
@@ -177,15 +169,13 @@
 													<div class="form-group">
 														<div class="col-sm-12">
 															<textarea id="material_description" name="material_description" class="form-control"
-																required="" placeholder="description" rows='3'> </textarea>
+																placeholder="description" rows='3' > </textarea>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="col-sm-12">
 															<ul class="pager" style="border-top: none !important;background: white !important;padding: 0px !important;">
-																<li style="float: left; display: none;" id="showCreate"><a href="#" id="createMaterial" onclick="createMaterial();">Create new  material</a></li>
 																 <li style="float: right;" id="showAdd"><a href="#" id="addMaterial" onclick="addMaterial();">Add material</a></li>
-																<!-- <li style="float: right;"><button class="btn btn-primary" id="addMaterial" onclick="addMaterial();">Add material</button></li> -->
 															</ul>
 														</div>
 													</div>
@@ -218,8 +208,9 @@
 						<ul class="pager wizard">
 							<li class="previous disabled"><a href="javascript:void(0)">Previous</a></li>
 							<li class="next"><a href="javascript:void(0)">Next</a></li>
-							<li style="display:none;" id="finish"><a href="/mentor-course?user_id={{ user_id }}">Finish</a></li>
+							<li style="display:none;" id="finish" onclick="saveMaterial();"><a href="/mentor-course?user_id={{ user_id }}">Finish</a></li>
 							<li class="next finish" style="display:none;"><a href="javascript:;">Finish</a></li>
+							
 						</ul>
 
 					</div>
@@ -277,37 +268,42 @@
 	function saveMaterial()
 	{
 		$("#firstForm").submit();
-		document.getElementById('showCreatenewMaterial').value = '1';
 	}
-	function createMaterial()
-	{
-		/* document.getElementById('material_title').value="";
-		document.getElementById('material_type').value="Book";
-		document.getElementById('material_url').value="";
-		document.getElementById('material_description').value=""; */
-		
-		document.getElementById('showCreate').style.display="none";
-		document.getElementById('addMaterial').innerHTML="Add material";
-	}
+	
 	function addMaterial()
 	{
+		
 		var material_title=document.getElementById("material_title").value.toString();
 		var material_url =document.getElementById("material_url").value.toString();
 		var material_description=document.getElementById("material_description").value.toString();
 		var numberMaterial=parseInt(document.getElementById("numberMaterial").value);
-		
-		if(material_title.trim()==""||material_url.trim()==""||material_description.trim()=="")
+		if(material_title.trim()==""||material_url.trim()==""|| material_description.trim() == "")
 		{
-				var $valid = jQuery('#firstForm').valid();
-				if(!$valid)
-				{
-					$validator.focusInvalid();
-					return false;
-				}
+			if(material_title.trim()=="")
+			{
+				document.getElementById("material_title").setAttribute("placeholder", "Material title can be not null ");
+				document.getElementById("material_title").focus();
+			}
+			if(material_description.trim()=="")
+			{
+				document.getElementById("material_description").setAttribute("placeholder", "Material description can be not null ");
+				document.getElementById("material_description").focus();
+			}
+			if(material_url.trim()=="")
+			{
+				document.getElementById("material_url").setAttribute("placeholder", "Material url can be not null ");
+				document.getElementById("material_url").focus();
+			}
+			/* var $valid = jQuery('#firstForm').valid();
+			if(!$valid)
+			{
+				$validator.focusInvalid();
+				return false;
+			} */
 		}
 		else
 		{
-			document.getElementById('showSave').style.display="inline";
+			document.getElementById('finish').style.display="inline";
 			if(document.getElementById('addMaterial').innerHTML=="Save change")
 			{
 				if(document.getElementById('currentNumberMaterial').value !="0")
@@ -320,13 +316,15 @@
 					document.getElementById('material_description'+index.toString()).value=document.getElementById('material_description').value;
 					
 					//clear  material input
-					/* document.getElementById('material_title').value="";
+					document.getElementById('material_title').value="";
+					document.getElementById("material_title").setAttribute("placeholder", "Title");
 					document.getElementById('material_type').value="Book";
 					document.getElementById('material_url').value="";
-					document.getElementById('material_description').value=""; */
+					document.getElementById("material_url").setAttribute("placeholder", "Url");
+					document.getElementById('material_description').value="";
+					document.getElementById("material_description").setAttribute("placeholder", "Description");
 					//
 					document.getElementById('addMaterial').innerHTML="Add material";
-					document.getElementById('showCreate').style.display="none";
 				}
 			}
 			else
@@ -398,10 +396,6 @@
 				{
 					
 					document.getElementById('addMaterial').innerHTML="Save change";
-					if(document.getElementById('showCreatenewMaterial').value =='0')
-					{
-						document.getElementById('showCreate').style.display="inline";
-					}
 					IdDivSelected=div.getAttribute("id");
 					var index = IdDivSelected[IdDivSelected.length-1];
 					//curentMaterial selected
@@ -413,10 +407,13 @@
 					document.getElementById('material_description').value=document.getElementById('material_description'+index.toString()).value;
 				};
 				//clear  material input
-				/* document.getElementById('material_title').value="";
+				document.getElementById('material_title').value="";
+				document.getElementById("material_title").setAttribute("placeholder", "Title");
 				document.getElementById('material_type').value="Book";
 				document.getElementById('material_url').value="";
-				document.getElementById('material_description').value=""; */
+				document.getElementById("material_url").setAttribute("placeholder", "Url");
+				document.getElementById('material_description').value="";
+				document.getElementById("material_description").setAttribute("placeholder", "Description");
 			}
 		}
 	}
