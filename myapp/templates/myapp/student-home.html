@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="slider/flexslider.css" type="text/css" />
 {% endblock %} 
 {% block content %}
-<div class="contentpanel">
+<div class="contentpanel" style="margin-top: 3%">
 
 {% include 'myapp/pnlSlide.html' %}
 
@@ -20,8 +20,14 @@
 <script src="js/modernizr.min.js"></script>
 <script src="js/retina.min.js"></script>
 
-<script src="js/custom.js"></script>
 <script defer src="slider/jquery.flexslider.js"></script>
+
+<script src="js/jquery-ui-1.10.3.min.js"></script>
+<script src="js/chosen.jquery.min.js"></script>
+
+<script src="js/custom.js"></script>
+
+
 <script type="text/javascript">
 $(window).load(function() {
   $('.flexslider').flexslider({
