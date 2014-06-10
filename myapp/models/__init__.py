@@ -36,4 +36,5 @@ from myapp.models.UserProfile import UserProfile
 from myapp.models.UserType import UserType
 from myapp.models.WorkField import WorkField
 from myapp.models.StatisticDetail import StatisticDetail
+from myapp.models.StudyLog import StudyLog
 
