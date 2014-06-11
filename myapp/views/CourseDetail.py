@@ -80,12 +80,9 @@ def index(request):
 					if act.statistic.currentLikeNumber:
 						actLike += act.statistic.currentLikeNumber
 						actTotal +=1
-			print(mtTaken)
-			print(mtLike)
-			print(actTaken)
-			print(actLike)
 		except Exception as e:
 			print(e)
+		print(cl[0].id)
 		progress = CurriculumnStudyProgress.objects(curriculumn=cl[0].id,student=student.id)
 		is_joined = False
 		if len(progress)>0:

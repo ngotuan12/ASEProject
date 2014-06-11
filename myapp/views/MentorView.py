@@ -80,4 +80,4 @@ def index(request):
 					'actTotal':actTotal,
 					'has_curriculum':has_curriculum,
 					'listCategory':lisCategory,}
-		return render(request,'myapp/studentview.html', context)
+		return render(request,'myapp/mentorview.html', context)

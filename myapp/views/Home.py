@@ -29,7 +29,10 @@ def index(request):
 # 				return HttpResponseRedirect('/search-mentor')
 # 		except Exception:
 # 			user_type = ""
-		is_mentor = request.session['is_mentor']
+		try:
+			is_mentor = request.session['is_mentor']
+		except Exception as e:
+			is_mentor = False	
 		if is_mentor:
 			return HttpResponseRedirect('/mentor-course?user_id='+str(request.user.id))	
 		else:

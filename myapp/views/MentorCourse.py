@@ -94,14 +94,19 @@ def add_action(request):
 def add_material(request):
 	if request.method == 'POST':
 		#curriculum
-		curriculum_id = request.POST['curriculum_id']
-		curriculum = Curriculumn.objects.get(id=curriculum_id)
-		#material
-		material_title = request.POST['material_title']
-		material_type = request.POST['material_type']
-		material_url = request.POST['material_url']
-		material_code = request.POST['material_code']
-		material_description = request.POST['material_description']
+		try:
+			curriculum_id = request.POST['curriculum_id']
+			curriculum = Curriculumn.objects.get(id=curriculum_id)
+			#material
+			material_title = request.POST['material_title']
+			material_type = request.POST['material_type']
+			material_url = request.POST['material_url']
+			material_code = request.POST['material_code']
+			material_description = request.POST['material_description']
+		except Exception as e:
+			c = {
+					'error_message':e,
+				}
 		material = Material()
 		material.name = material_title
 		material.type = MaterialType.objects.get(name=material_type)

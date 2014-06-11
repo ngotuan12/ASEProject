@@ -18,9 +18,11 @@
 
 
 					<a
-						href="course-detail?course_id=538720845b4b6593bfe11fb0&amp;user_id=53833c3430635f163c51a5d5"><h4
+						href="course-detail?course_id={{ ls.id }}&user_id={{ ls.author_id }}"><h4
 							class="person-name">{{ ls.name }}</h4></a>
 					<ul class="blog-meta">
+						<li>Course Start: {{ ls.author_id }}</li>
+						<li>Duration: {{ ls.id }}</li>
 						<li>Course Start: {{ls.from_date|date:'Y-M-d'}}</li>
 						<li>Duration: {{ ls.duration }} - {{ls.duration_type}}</li>
 					</ul>

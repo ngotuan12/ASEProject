@@ -31,7 +31,10 @@ def index(request):
 			for mt in Course.material:
 				mt={"name":mt.name,"description":mt.description}
 				lsmt.append(mt)
-			lsCourseDetail={"name":Course.name,
+			lsCourseDetail={
+							"id": Course.id,
+							"author_id":Course.mentor.user.id,
+							"name":Course.name,
 							"duration":Course.duration,
 							"duration_type":Course.duration_type,
 							"from_date":Course.from_date,
