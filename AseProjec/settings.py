@@ -7,14 +7,14 @@ import mongoengine
 
 # mongoengine.register_connection(alias, name, host, port, is_slave, read_preference, slaves, username, password)
 mongoengine.connect('my_db',host="oceanic.mongohq.com",port=10043,username="admin",password="113322")
-AUTHENTICATION_BACKENDS = (
-    'mongoengine.django.auth.MongoEngineBackend',
+
+SOCIAL_AUTH_AUTHENTICATION_BACKENDS = (
     'social.backends.open_id.OpenIdAuth',
     'social.backends.google.GoogleOpenId',
     'social.backends.google.GoogleOAuth2',
     'social.backends.google.GoogleOAuth',
     'social.backends.twitter.TwitterOAuth',
-    'social.backends.facebook.FacebookOAuth2',
+    'social.backends.yahoo.YahooOpenId',
 )
 SESSION_ENGINE = 'mongoengine.django.sessions'
 DEBUG = True
@@ -162,6 +162,7 @@ ROOT_URLCONF = 'AseProjec.urls'
 WSGI_APPLICATION = 'AseProjec.wsgi.application'
 
 
+SOCIAL_AUTH_USER_MODEL = 'mongoengine.django.auth.User'
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -180,10 +181,10 @@ INSTALLED_APPS = (
 )
 AUTH_USER_MODEL = 'mongo_auth.MongoUser'
 
-LOGIN_REDIRECT_URL = '/home'
+LOGIN_REDIRECT_URL = '/signinsns'
 LOGIN_ERROR_URL = '/'
 LOGIN_URL = '/'
-
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/signupsns'
 
 SOCIAL_AUTH_STORAGE = 'social.apps.django_app.me.models.DjangoStorage'
 

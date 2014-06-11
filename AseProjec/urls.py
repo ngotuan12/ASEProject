@@ -13,6 +13,8 @@ from myapp.views import Home, AccountSetting, PostDetail, SignIn, MentorPost, \
 # from django.contrib import admin
 # admin.autodiscover()
 urlpatterns = patterns('',
+					
+						url(r'^signinsns$', SignIn.signinsns, name='signinsns'),
 						url(r'^error-authenticate$', AuthenFail.index),
 						url('', include('social.apps.django_app.urls', namespace='social')),
                        url(r'^$', Home.index),
