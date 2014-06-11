@@ -105,8 +105,6 @@ def index(request):
 		
 		for i in lscl.__getattribute__('material'):
 			i.note='0'
-			print(i.name)
-			print(i.id)
 			try:
 				#is_like = StatisticDetail.objects.get(object_id=str(i.id),status=status,user=user.id)
 				is_like = StatisticDetail.objects(object_id=str(i.id),status=status,user=user.id)
@@ -139,17 +137,10 @@ def index(request):
 			print(request.POST['posttype'])
 			materialId=request.POST['materialId']
 			status =request.POST['status']#like or dislike
-			print(status)
-			print('status: '+request.POST['status'])
-			print('material: '+request.POST['materialId'])
-			print('course: ' +request.POST['courseId'])
-			print('author: ' +request.POST['userId'])
-			print('user: ' +str(user.id) )
 			
 			#update status=0 for recors last with status=1,user_id,material
 			sdLast=StatisticDetail.objects(user=user.id,object_id=str(materialId),status='1').order_by('published_date')[:10]
 			if len(sdLast):
-				print('exist, update the last record')
 				for sdUpdate in sdLast:
 					sdUpdate.status='0'
 					sdUpdate.save()
@@ -167,7 +158,6 @@ def index(request):
 			stCurent=Statistic.objects(object_id=str(materialId)).order_by('create_date')[:1]
 			stNew=Statistic()
 			if len(stCurent) >0:
-				print('exist')
 				stNew=stCurent[0]
 				if status == '1':
 					stNew.currentLikeNumber -= 1
@@ -176,7 +166,6 @@ def index(request):
 				stNew.type='1'
 				stNew.save()
 			else:
-				print('no exist')
 				if status == '0':
 					stNew.currentLikeNumber=1
 				else:
@@ -266,22 +255,12 @@ def index(request):
 						if act.statistic.currentLikeNumber:
 							actLike += act.statistic.currentLikeNumber
 							actTotal +=1
-				print(mtTaken)
-				print(mtLike)
-				print(actTaken)
-				print(actLike)
 			except Exception as e:
 				print(e)
-# 			user=User.objects.get(username=str(request.user))
-# 			print(user.id)
-# 			student=Student.objects.get(user=user.id)
-# 			print(student.id)
 			progress = CurriculumnStudyProgress.objects(curriculumn=cl[0].id,student=student.id)
 			is_joined = False
 			if len(progress)>0:
 				is_joined = True
-			#comments = CommentPost.objects(post_id=vpost_id).all()
-			#comments = cl.comments
 			context = {	'cl':cl[0],'is_joined':is_joined,
 						'user_id':request.user,
 						'course_id':curriculum_id,
@@ -297,7 +276,6 @@ def index(request):
 						'actTotal':actTotal,
 						'has_curriculum':has_curriculum,
 						}
-# 			return render(request, '/course-detail?course_id=' + curriculum_id+'&user_id=' + user_id, context)53833c3430635f163c51a5d5
 			return HttpResponseRedirect('course-detail?course_id='+ curriculum_id +'&user_id='+user_id )
 		else :
 			comment = request.POST['txtComment']
@@ -315,18 +293,7 @@ def index(request):
 			mt.comment.append(cmt);
 			mt.save()
 			cl.save()
-# 			comments = CommentPost.objects(post_id=post_id).all()
-# 			cl = Curriculumn.objects.get(id=course_id)
-# 			context = {	'cl':cl,
-# 						'user_id':request.user,
-# 						'course_id':course_id
-# 						}
-# 			context.update(csrf(request))
-# 			context.update(context_processors.user(request))
-# 			return render_to_response("myapp/course-detail.html", context)
-			
 			status = "1"
-# 			author_id='53833c3430635f163c51a5d5';
 			print(author_id)
 			author = User.objects.get(id=author_id)
 			cl = Curriculumn.objects(id=course_id)
@@ -379,7 +346,6 @@ def index(request):
 				print(i.name)
 				print(i.id)
 				try:
-					#is_like = StatisticDetail.objects.get(object_id=str(i.id),status=status,user=user.id)
 					is_like = StatisticDetail.objects(object_id=str(i.id),status=status,user=user.id)
 					if len(is_like):
 						i.note='1'
