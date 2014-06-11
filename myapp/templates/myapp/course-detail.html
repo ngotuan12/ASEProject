@@ -62,7 +62,7 @@ $("form#formLike").submit(function( event ) {
 				numberLike=numberLike;
 				document.getElementById('hiddenNumberLike'+material_id).value=numberLike;
 				document.getElementById('type'+material_id).value=1;
-				if(numberLike<1)
+				if(numberLike == 0)
 				{
 					document.getElementById('numberLike'+material_id).innerHTML='you like this';
 				}
