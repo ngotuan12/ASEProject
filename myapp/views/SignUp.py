@@ -18,7 +18,7 @@ from myapp.util import context_processors
 def signupsns(request):
 	user=User.objects.get(username=str(request.user))
 	studentnew = Student()
-	studentnew.user = user[0]
+	studentnew.user = user
 	studentnew.save()
 	request.session['is_mentor'] = False
 	return HttpResponseRedirect('/student-home')
