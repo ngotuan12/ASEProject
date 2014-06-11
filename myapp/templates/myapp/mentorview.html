@@ -1,28 +1,21 @@
 {% extends "myapp/base.html" %} 
-
+{%block styles %}
+<link href="css/mentor-course.css" rel="stylesheet">
+{% endblock %}
 {%block content %}
-
-<div class="row" style="margin-bottom: 1%;">
-	<div id="mainMenuBar" class="btn-group"
-		style="width: 100%; text-align: center; margin-bottom: 0px; margin-left: 10%; margin-top: 1%">
-		<button type="button" class="btn btn-default"
-			onclick="window.location.href='/personalhome'" style="width: 20%;">Home</button>
-		<button type="button" class="btn btn-primary"
-			onclick="window.location.href='/mentorview'" style="width: 20%;">As
-			Mentor</button>
-		<button type="button" class="btn btn-default"
-			onclick="window.location.href='/studentview'" style="width: 20%;">As
-			Student</button>
-		<button type="button" class="btn btn-default"
-			onclick="window.location.href='/profile'" style="width: 20%;">Profile</button>
-	</div>
-</div>
-<div class="tab-content mb30">
+ <div class="tab-content mb30">
+	<!-- start tab home -->
 	<!-- Tab home display all post that exists in DB -->
-	<div class="tab-pane active" id="home"
-		style="background-color: #d8dbde;">
-		<!-- start tab home -->
-		{% include 'myapp/asmentor.html' %}
+	<div class="tab-pane active" id="home" style="background-color: #d8dbde;">
+		<div class="contentpanel" style="min-height: 500px;">
+		{% if has_curriculum %} 
+			{% include 'myapp/asstudent.html' %} 
+			{% include 'myapp/listofcurriculumn.html' %}
+		{% else %}
+			<p>aaskdjs</p>
+			{% include 'myapp/createcourse.html' %}
+		{% endif %}
+		</div>
 	</div>
 	<!-- end of tab home -->
 	<div class="tab-pane " id="News" style="background-color: #d8dbde;">
@@ -36,33 +29,160 @@
 <!-- end of tab Events -->
 </div>
 {% endblock content%} 
-{% block scripts %}
-<script src="js/jquery-1.10.2.min.js"></script>
-<script src="js/jquery-migrate-1.2.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/modernizr.min.js"></script>
-<script src="js/jquery.sparkline.min.js"></script>
-<script src="js/toggles.min.js"></script>
-<script src="js/retina.min.js"></script>
-<script src="js/jquery.cookies.js"></script>
 
+{% block scripts %}
+<script src="js/masonry.pkgd.min.js"></script>
 <script src="js/jquery-ui-1.10.3.min.js"></script>
 <script src="js/chosen.jquery.min.js"></script>
 
+<script src="js/bootstrap-wizard.min.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/jquery.maskedinput.min.js"></script>
+<script src="js/jquery.numeric.js"></script>
 <script src="js/custom.js"></script>
 
 <script>
-  jQuery(window).load(function(){
-    // Show aciton upon row hover
-    jQuery('.table-hidaction tbody tr').hover(function(){
-      jQuery(this).find('.table-action-hide a').animate({opacity: 1});
-    },function(){
-      jQuery(this).find('.table-action-hide a').animate({opacity: 0});
+	jQuery(window).load(function(){
+		/* $("#firstForm").submit(function( event ) {
+		// Stop form from submitting normally
+		event.preventDefault();
+		// Get some values from elements on the page:
+		var $form = $( this ),token= $form.find( "input[name='csrfmiddlewaretoken']" ).val(),
+			term = 'likeMaterial',
+			url = $form.attr( "action" );
+		// Send the data using post
+		var posting = $.post( url, $( this ).serialize() );
+		
+		// Put the results in a div
+		posting.done(function( data )
+		{
+			document.getElementById('showAdd').style.display="none";
+		});
+	}); */
+    var container = document.querySelector('#bloglist');
+    var msnry = new Masonry( container, {
+      // options
+      columnWidth: '.col-xs-6',
+      itemSelector: '.col-xs-6'
     });
-    // Chosen Select
-        jQuery(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
-  	// Date Picker
-        jQuery('#datepicker').datepicker();
-	});	
+    
+    // check on load
+    if(jQuery(window).width() <= 480 )
+        msnry.destroy();
+
+    // check on resize
+    jQuery(window).resize(function(){
+        if(jQuery(this).width() <= 480 )
+            msnry.destroy();
+    });
+	// Date Picker
+	jQuery('#planstart').datepicker();
+	jQuery('#planend').datepicker();
+  // Basic Wizard
+  jQuery('#basicWizard').bootstrapWizard();
+  // Date Picker
+  jQuery('#startdate').datepicker({});
+  jQuery("#startdate").mask("99/99/9999");
+  // Date Picker
+  jQuery('#enddate').datepicker();
+  jQuery("#enddate").mask("99/99/9999");
+  $("#duration").numeric();
+  // Progress Wizard
+  $('#courseWizard').bootstrapWizard({
+    'nextSelector': '.next',
+    'previousSelector': '.previous',
+    'lastSelector':'.submit',
+    tabClass: 'nav nav-pills nav-justified nav-disabled-click',
+    onTabClick: function(tab, navigation, index) {
+      return false;
+    },
+    onNext: function(tab, navigation, index) {
+        if( index !=2 )
+    	{
+    		var $valid = jQuery('#firstForm').valid();
+    	    if(!$valid) {
+    	    	$validator.focusInvalid();
+    	   		return false;
+    	     }
+    	      var $total = navigation.find('li').length;
+    	      var $current = index+1;
+    	      var $percent = ($current/$total) * 100;
+    	      jQuery('#courseWizard').find('.progress-bar').css('width', $percent+'%');
+    	} 
+        document.getElementById('finish').style.display="none";
+    },
+    onPrevious: function(tab, navigation, index) {
+      var $total = navigation.find('li').length;
+      var $current = index+1;
+      var $percent = ($current/$total) * 100;
+      jQuery('#courseWizard').find('.progress-bar').css('width', $percent+'%');
+      
+    },
+    onTabShow: function(tab, navigation, index) {
+      var $total = navigation.find('li').length;
+      var $current = index+1;
+      var $percent = ($current/$total) * 100;
+      jQuery('#courseWizard').find('.progress-bar').css('width', $percent+'%');
+      if($current >= $total) {
+			$('#courseWizard').find('.pager .next').hide();
+			$('#courseWizard').find('.pager .finish').show();
+			$('#courseWizard').find('.pager .finish').removeClass('disabled');
+		} else {
+			$('#courseWizard').find('.pager .next').show();
+			$('#courseWizard').find('.pager .finish').hide();
+		}
+		$('#courseWizard .finish').click(function() {
+		 jQuery('#firstForm').submit();
+		});
+		
+    }
+  });
+
+	
+  });
+	function onMaterialFormSubmit()
+	{
+		var $valid = jQuery('#materialForm').valid();
+		if(!$valid) 
+		{
+			$validator.focusInvalid();
+			return false;
+		}
+		jQuery('#materialForm').submit();
+	};
+	function onActionFormSubmit()
+	{
+		var $valid = jQuery('#actionForm').valid();
+		if(!$valid) 
+		{
+			$validator.focusInvalid();
+			return false;
+		}
+		jQuery('#actionForm').submit();
+	};
+	function onShowFormMaterial(curriculumId) 
+	{
+		$("#materialForm").find("#curriculum_id").val(curriculumId);
+	};
+	function onShowFormAction(curriculumId) 
+	{
+		$("#actionForm").find("#curriculum_id").val(curriculumId);
+	};
+
+	function onValidateSubmit()
+	{
+		var $valid = jQuery('#formjoincourse').valid();
+		if(!$valid) 
+		{
+			$validator.focusInvalid();
+			return false;
+		}
+		jQuery('#formjoincourse').submit();
+	};
+	function onJoinCourse(curriculumId) 
+	{
+		$("#formjoincourse").find("#curriculum_id").val(curriculumId);
+	};
+
 </script>
 {% endblock scripts%}

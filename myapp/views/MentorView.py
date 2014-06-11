@@ -3,109 +3,81 @@ Created on Apr 3, 2014
 @author: TuanNA
 '''
 from django.contrib.auth.decorators import login_required
-from django.core.context_processors import csrf
 from django.shortcuts import render, render_to_response
 from mongoengine.django.auth import User
 
-from myapp.models.CommentPost import CommentPost
-from myapp.models.Esay import Esay
-from myapp.models.MentorPost import MentorPost
+from myapp.models.Curriculumn import Curriculumn
+from myapp.models.Mentor import Mentor
 from myapp.util import context_processors
+from myapp.models.Category import Category
 
 
 @login_required(login_url='/signin')
 def index(request):
 	if request.method == 'GET':
-		posts = MentorPost.objects
-		user_type = ""
+# 		cl = Curriculumn.objects(mentor=mentor)
+# 		mentor = Mentor.objects.get(user=re)
+# 		mentor_id = '5375ce146c02298c9af00e00'
+		lisCategory =Category.objects()
 		try:
-			user_type = request.session['user_type']
-		except Exception:
-			user_type = ""
-			
-		context = {'posts':posts,'user_type':user_type,'user_id':request.user,}
-		return render(request,'myapp/mentorview.html', context)
-	elif request.method == 'POST':
-		posttype = request.POST['posttype']
-		#post type = 2 mean lecture;
-		if posttype == '2':
-			#user_id = request.session['_auth_user_id']
-			print("creating post...")
-			Title = request.POST['txtTitle']
-			Content = request.POST['txtContent']
-			#FromDate = request.POST['dtpfromdate']
-			#ToDate = request.POST['dtptodate']
-			Amazonlink = request.POST['txtAmazonLink']
-			#Cost = request.POST['txtCost']
-			user_id = User.objects.get(id=request.session['_auth_user_id'])
-			print(user_id)
-			mp = MentorPost()
-			mp.title = Title
-			# 			mp.videolink = Videolink
-			# 			mp.imagelink = Imagelink
-			# 			mp.amazonlink = Amazonlink
-			mp.content = Content
-			mp.user_id = user_id
-			mp.post_type = "2"
-			mp.status = "1"
-			#mp.from_date = FromDate
-			#mp.to_date = ToDate
-			mp.amazonlink = Amazonlink
-			mp.save()
-			#post created
-			posts = MentorPost.objects
-			user_type = ""
-			try:
-				user_type = request.session['user_type']
-			except Exception:
-				user_type = ""
-				
-			context = {'posts':posts,'user_type':user_type,'user_id':request.user,}
-			return render(request,'myapp/personalhome.html', context)
-		elif posttype == '1':
-			comment = request.POST['txtComment']
-			post_id = request.POST['hd_post_id']
-			user_id = request.session['_auth_user_id']
-			cmt = CommentPost()
-			cmt.content=comment
-			cmt.user_id=User.objects.get(id=user_id)
-			cmt.post_id=MentorPost.objects.get(id=post_id)
-			cmt.save()# 		user_id = request.session
-			post = MentorPost.objects.get(id=post_id)
-			post.comments.append(cmt);
-			post.save()
-			user_type = ""
-			try:
-				user_type = request.session['user_type']
-			except Exception:
-				user_type = ""
-			context = {'post':post,'user_type':user_type,'user_id':request.user,}
-			context.update(csrf(request))
-			context.update(context_processors.user(request))
-		elif posttype == '3':
-			title = request.POST['txtTitle']
-			content = request.POST['txtContent']
-			post_id = request.POST['post_id']
-			user_id = request.session['_auth_user_id']
-# 			cmt = CommentPost()
-# 			cmt.content=comment
-# 			cmt.user_id=User.objects.get(id=user_id)
-# 			cmt.post_id=MentorPost.objects.get(id=post_id)
-# 			cmt.save()
-			esay = Esay()
-			esay.title = title
-			esay.content = content
-			esay.save()
-			post = MentorPost.objects.get(id=post_id)
-			post.esay.append(esay);
-			post.save()
-			posts = MentorPost.objects
-			user_type = ""
-			try:
-				user_type = request.session['user_type']
-			except Exception:
-				user_type = ""
-			context = {'post':post,'user_type':user_type,'user_id':request.user,}
-			context.update(csrf(request))
-			context.update(context_processors.user(request))
-		return render_to_response("myapp/personalhome.html", context)
+			user_id=request.GET['user_id']
+		except Exception as e:
+			c = {
+					'error_message':e,
+				}
+			user=User.objects.get(username=str(request.user))
+			user_id = user.id
+		user = User.objects.get(id=user_id)
+		mentor = Mentor.objects.get(user=user)
+		cl = Curriculumn.objects(mentor=mentor)
+		has_curriculum = False
+		is_mentor = request.session['is_mentor']
+		if len(cl):
+			has_curriculum = True
+		clTaken = 0
+		clLike = 0
+		mtTaken = 0
+		mtLike = 0
+		actTaken = 0
+		actLike = 0
+		mtTotal = 0
+		actTotal = 0
+		try:
+			for c in cl:
+				clTaken += c.statistic.currentTakenNumber
+				clLike += c.statistic.currentLikeNumber
+				for mt in c.material:
+						mtTaken += mt.statistic.currentTakenNumber
+						mtLike += mt.statistic.currentLikeNumber
+						mtTotal += 1
+				for act in c.action:
+					actTaken += act.statistic.currentTakenNumber
+					actLike += act.statistic.currentLikeNumber
+					actTotal +=1
+			print(mtTaken)
+			print(mtLike)
+			print(actTaken)
+			print(actLike)
+		except Exception as e:
+			print(e)
+		for c in cl:
+			if len(c.joined_user)>0 :
+				for u in c.joined_user:
+					print(u)
+		context = {'user_id':user_id,
+					'username':request.user,
+					'cl':cl,
+					'author':mentor.user.username,
+					'author_id':user_id,
+					'is_mentor':is_mentor,
+					'clTaken':clTaken,
+					'clLike':clLike,
+					'mtTaken':mtTaken,
+					'mtLike':mtLike,
+					'actTaken':actTaken,
+					'actLike':actLike,
+					'mtTotal':mtTotal,
+					'actTotal':actTotal,
+					'has_curriculum':has_curriculum,
+					'listCategory':lisCategory,}
+		return render(request,'myapp/studentview.html', context)
