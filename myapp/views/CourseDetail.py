@@ -307,6 +307,7 @@ def index(request):
 			course_id = request.POST['hd_course_id']
 			material_id = request.POST['hd_material_id']
 			user_id = request.session['_auth_user_id']
+			author_id=request.POST['hd_author_course_id']
 			ur = request.user
 			cmt = Comment()
 			cmt.user = request.user
@@ -317,13 +318,92 @@ def index(request):
 			mt.comment.append(cmt);
 			mt.save()
 			cl.save()
-	# 		comments = CommentPost.objects(post_id=post_id).all()
-			cl = Curriculumn.objects.get(id=course_id)
-			context = {	'cl':cl,
+# 			comments = CommentPost.objects(post_id=post_id).all()
+# 			cl = Curriculumn.objects.get(id=course_id)
+# 			context = {	'cl':cl,
+# 						'user_id':request.user,
+# 						'course_id':course_id
+# 						}
+# 			context.update(csrf(request))
+# 			context.update(context_processors.user(request))
+# 			return render_to_response("myapp/course-detail.html", context)
+			
+			status = "1"
+# 			author_id='53833c3430635f163c51a5d5';
+			print(author_id)
+			author = User.objects.get(id=author_id)
+			cl = Curriculumn.objects(id=course_id)
+			has_curriculum = False
+			is_mentor = request.session['is_mentor']
+			user=User.objects.get(username=str(request.user))
+			student=Student.objects.get(user=user.id)
+	
+			clTaken = 0
+			clLike = 0
+			mtTaken = 0
+			mtLike = 0
+			actTaken = 0
+			actLike = 0
+			mtTotal = 0
+			actTotal = 0
+			try :
+				for c in cl:
+					if c.statistic.currentTakenNumber:
+						c.statistic.currentTakenNumber=10
+						clTaken += c.statistic.currentTakenNumber
+					if c.statistic.currentLikeNumber:
+						clLike += c.statistic.currentLikeNumber
+					
+					for mt in c.material:
+						if mt.statistic.currentTakenNumber:
+							mtTaken += mt.statistic.currentTakenNumber
+						if mt.statistic.currentLikeNumber:
+							mtLike += mt.statistic.currentLikeNumber
+							mtTotal += 1
+						print(mt.name)
+					for act in c.action:
+						if act.statistic.currentTakenNumber:
+							actTaken += act.statistic.currentTakenNumber
+						if act.statistic.currentLikeNumber:
+							actLike += act.statistic.currentLikeNumber
+							actTotal +=1
+			except Exception as e:
+				print(e)
+				
+			progress = CurriculumnStudyProgress.objects(curriculumn=cl[0].id,student=student.id)
+			is_joined = False
+			if len(progress)>0:
+				is_joined = True
+				
+			lscl = []
+			lscl = cl[0]
+			for i in lscl.__getattribute__('material'):
+				i.note='0'
+				print(i.name)
+				print(i.id)
+				try:
+					#is_like = StatisticDetail.objects.get(object_id=str(i.id),status=status,user=user.id)
+					is_like = StatisticDetail.objects(object_id=str(i.id),status=status,user=user.id)
+					if len(is_like):
+						i.note='1'
+						i.__getattribute__('statistic').currentLikeNumber -=1
+				except Exception as e:
+					print(e)
+			
+			context = {	'cl':lscl,'is_joined':is_joined,
 						'user_id':request.user,
-						'course_id':course_id
+						'course_id':course_id,
+						'author_id':author_id,
+						'author':author.username,
+						'is_mentor':is_mentor,
+						'clTaken':clTaken,
+						'clLike':clLike,
+						'mtTaken':mtTaken,
+						'mtLike':mtLike,
+						'actTaken':actTaken,
+						'actLike':actLike,
+						'mtTotal':mtTotal,
+						'actTotal':actTotal,
+						'has_curriculum':has_curriculum,
 						}
-			context.update(csrf(request))
-			context.update(context_processors.user(request))
-			return render_to_response("myapp/course-detail.html", context)
-		
+			return render(request, 'myapp/course-detail.html', context)

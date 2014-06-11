@@ -27,7 +27,7 @@ def index(request):
 		context = {'name':name}
 		return render(request, 'myapp/mentor-post.html', context)
 	elif request.method == 'POST':
-		
+		print('AAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBBBBB')
 		numberMaterial=int(request.POST['numberMaterial'])
 		
 		mentor = Mentor.objects.get(user=request.user)
@@ -50,7 +50,7 @@ def index(request):
 		curriculumn.to_date = datetime.strptime(end_date,'%m/%d/%Y')
 		curriculumn.mentor = mentor
 		curriculumn.category=category
-		curriculumn.save()
+# 		curriculumn.save()
 		#material
 		for n in range(numberMaterial):
 			material_title = request.POST['material_title'+str(n+1)]
@@ -62,9 +62,9 @@ def index(request):
 			material.type = MaterialType.objects.get(name=material_type)
 			material.url = material_url
 			material.description = material_description
-			material.save()
+# 			material.save()
 			curriculumn.material.append(material)
-			curriculumn.save()
+# 			curriculumn.save()
 		#action
 		action_name = request.POST['action_name']
 		if request.POST['action_name'] :
@@ -76,7 +76,7 @@ def index(request):
 # 		action.save()
 		curriculumn.action.append(action)
 # 		curriculumn.save()
-# 		return HttpResponseRedirect('/')
+		return HttpResponseRedirect('/')
 
-		materialId="insert material "
-		return HttpResponse(json.dumps({"formdata": materialId}),content_type="application/json")
+# 		materialId="insert material "
+# 		return HttpResponse(json.dumps({"formdata": materialId}),content_type="application/json")

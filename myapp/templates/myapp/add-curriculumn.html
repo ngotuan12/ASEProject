@@ -188,13 +188,13 @@
 								<div class="tab-pane" id="vtab3">
 									<div class="form-group">
 											<div class="col-sm">
-												<input type="text" name="action_name" class="form-control"
+												<input type="text" id="action_name" name="action_name" class="form-control"
 													required="" placeholder="Action name">
 											</div>
 										</div>
 									<div class="form-group">
 											<div class="col-sm">
-												<textarea name="action_description" class="form-control"
+												<textarea id="action_description" name="action_description" class="form-control"
 													required="" placeholder="Action description"> </textarea>
 											</div>
 										</div>
@@ -209,7 +209,7 @@
 							<li class="previous disabled"><a href="javascript:void(0)">Previous</a></li>
 							<li class="next"><a href="javascript:void(0)">Next</a></li>
 							<li style="display:none;" id="finish" onclick="saveMaterial();"><a href="/mentor-course?user_id={{ user_id }}">Finish</a></li>
-							<li class="next finish" style="display:none;"><a href="javascript:;">Finish</a></li>
+							<li class="next finish" style="display:none;" onclick="saveAction();"><a href="#">Finish</a></li>
 							
 						</ul>
 
@@ -264,6 +264,11 @@
 				select.appendChild(opt);
 			}
 		}
+	}
+	function saveAction()
+	{
+		alert(document.getElementById("action_name").value)
+		alert(document.getElementById("action_description").value)
 	}
 	function saveMaterial()
 	{

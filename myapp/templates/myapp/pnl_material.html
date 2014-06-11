@@ -55,9 +55,18 @@
 							<span id="numberLike{{mt.id}}" class="text-muted">you like this</span>
 						{% endif %}
 					{% else %} 
-						<span id="numberLike{{mt.id}}" class="text-muted">{{ mt.statistic.currentLikeNumber }} people like this</span>
+						{% if mt.statistic.currentLikeNumber > 0 %}
+							<span id="numberLike{{mt.id}}" class="text-muted">{{ mt.statistic.currentLikeNumber }} people like this</span>
+						{% else %}
+							<span id="numberLike{{mt.id}}" class="text-muted">people like this</span>
+						{% endif %}
 					{% endif %}
-					<input type="text" value="{{ mt.statistic.currentLikeNumber }}" id="hiddenNumberLike{{mt.id}}" class="text-muted" hidden="false">
+					{% if mt.statistic.currentLikeNumber > 0 %}
+						<input type="text" value="{{ mt.statistic.currentLikeNumber }}" id="hiddenNumberLike{{mt.id}}" class="text-muted" hidden="false">
+					{% else %}
+						<input type="text" value="0" id="hiddenNumberLike{{mt.id}}" class="text-muted" hidden="false">
+					{% endif %}
+					
 					<input type="text" value="0" id="hiddenOnlyClick{{mt.id}}" class="text-muted" hidden="false">
 				</div>
 			</div>
@@ -105,6 +114,7 @@
 			{% csrf_token %} 
 			<input type="hidden" name="hd_material_id" value="{{ mt.id }}"> 
 			<input type="hidden" name="hd_course_id" value="{{ course_id }}">
+			<input type="hidden" name="hd_author_course_id" value="{{ author_id }}">
 			<input type="hidden" name="posttype" value="1">
 			<div class="panel-footer">
 				<div class="media">
