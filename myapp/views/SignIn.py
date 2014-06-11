@@ -16,6 +16,7 @@ from myapp.models.UserProfile import UserProfile
 from myapp.util import context_processors
 
 
+
 def index(request):
 	username = ""
 	password = ""

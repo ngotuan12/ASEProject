@@ -15,6 +15,13 @@ from myapp.models.UserProfile import UserProfile
 from myapp.util import context_processors
 
 
+def signupsns(request):
+	user=User.objects.get(username=str(request.user))
+	studentnew = Student()
+	studentnew.user = user[0]
+	studentnew.save()
+	request.session['is_mentor'] = False
+	return HttpResponseRedirect('/student-home')
 def index(request):
 	firstname = "";
 	lastname = "";
