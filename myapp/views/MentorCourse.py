@@ -19,7 +19,10 @@ from mongoengine.django.auth import User
 @login_required(login_url='/signin')
 def index(request):
 	if request.method == 'GET':
-		user_id = request.GET['user_id']
+		try:
+			user_id = request.GET['user_id']
+		except Exception:
+			user_id = request.user
 		user = User.objects.get(id=user_id)
 		context = {'mentor':user}
 		return render(request,'myapp/mentor-course.html', context)
@@ -30,7 +33,6 @@ def index(request):
 # 		mentor = Mentor()
 # 		mentor.user = request.user
 # 		mentor.save()
-		print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
 		mentor = Mentor.objects.get(user=request.user)
 		#curriculum
 		course_name = request.POST['course_name']
