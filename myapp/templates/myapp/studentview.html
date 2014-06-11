@@ -100,7 +100,7 @@
       return false;
     },
     onNext: function(tab, navigation, index) {
-        if( index !=2 )
+    	if(parseInt(document.getElementById("numberMaterial").value) == 0)
     	{
     		var $valid = jQuery('#firstForm').valid();
     	    if(!$valid) {
@@ -111,8 +111,23 @@
     	      var $current = index+1;
     	      var $percent = ($current/$total) * 100;
     	      jQuery('#courseWizard').find('.progress-bar').css('width', $percent+'%');
-    	} 
-        document.getElementById('finish').style.display="none";
+    	}
+    	else
+    	{
+    		if( index !=2 )
+        	{
+        		var $valid = jQuery('#firstForm').valid();
+        	    if(!$valid) {
+        	    	$validator.focusInvalid();
+        	   		return false;
+        	     }
+        	      var $total = navigation.find('li').length;
+        	      var $current = index+1;
+        	      var $percent = ($current/$total) * 100;
+        	      jQuery('#courseWizard').find('.progress-bar').css('width', $percent+'%');
+        	} 
+    	}
+    	document.getElementById('finish').style.display="none";
     },
     onPrevious: function(tab, navigation, index) {
       var $total = navigation.find('li').length;
@@ -120,6 +135,10 @@
       var $percent = ($current/$total) * 100;
       jQuery('#courseWizard').find('.progress-bar').css('width', $percent+'%');
       
+      if(parseInt(document.getElementById("numberMaterial").value) != 0)
+      {
+         document.getElementById('finish').style.display="inline";
+ 	  }
     },
     onTabShow: function(tab, navigation, index) {
       var $total = navigation.find('li').length;

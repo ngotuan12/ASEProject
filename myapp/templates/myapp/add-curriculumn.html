@@ -124,28 +124,13 @@
 	
 	function addMaterial()
 	{
-		alert(document.getElementById("material_title").value);
+		
 		var material_title=document.getElementById("material_title").value.toString();
 		var material_url =document.getElementById("material_url").value.toString();
 		var material_description=document.getElementById("material_description").value.toString();
 		var numberMaterial=parseInt(document.getElementById("numberMaterial").value);
 		if(material_title.trim()==""||material_url.trim()==""|| material_description.trim() == "")
 		{
-			/* if(material_title.trim()=="")
-			{
-				document.getElementById("material_title").setAttribute("placeholder", "Material title can be not null ");
-				document.getElementById("material_title").focus();
-			}
-			if(material_description.trim()=="")
-			{
-				document.getElementById("material_description").setAttribute("placeholder", "Material description can be not null ");
-				document.getElementById("material_description").focus();
-			}
-			if(material_url.trim()=="")
-			{
-				document.getElementById("material_url").setAttribute("placeholder", "Material url can be not null ");
-				document.getElementById("material_url").focus();
-			} */
 			var $valid = jQuery('#firstForm').valid();
 			if(!$valid)
 			{
@@ -156,7 +141,7 @@
 		else
 		{
 			document.getElementById('finish').style.display="inline";
-			if(document.getElementById('addMaterial').innerHTML=="Save change")
+			if(document.getElementById('saveMaterialHidden').value=="Save change")
 			{
 				if(document.getElementById('currentNumberMaterial').value !="0")
 				{
@@ -169,19 +154,18 @@
 					
 					//clear  material input
 					document.getElementById('material_title').value="";
-					//document.getElementById("material_title").setAttribute("placeholder", "Title");
 					document.getElementById('material_type').value="Book";
 					document.getElementById('material_url').value="";
-					//document.getElementById("material_url").setAttribute("placeholder", "Url");
 					document.getElementById('material_description').value="";
-					//document.getElementById("material_description").setAttribute("placeholder", "Description");
 					//
-					document.getElementById('addMaterial').innerHTML="Add material";
+					document.getElementById('addMaterial').innerHTML="Add";
+					document.getElementById('saveMaterialHidden').value="save";
 				}
 			}
 			else
 			{
-				//alert('no empty');
+				document.getElementById('addMaterial').innerHTML="Add";
+				document.getElementById('saveMaterialHidden').value="save";
 				numberMaterial +=1;
 				document.getElementById("numberMaterial").value=numberMaterial.toString();
 				//alert(document.getElementById("numberMaterial").value);
@@ -247,7 +231,9 @@
 				radio.onclick = function()
 				{
 					
-					document.getElementById('addMaterial').innerHTML="Save change";
+					document.getElementById('addMaterial').innerHTML="Save";
+					document.getElementById('saveMaterialHidden').value="Save change";
+					
 					IdDivSelected=div.getAttribute("id");
 					var index = IdDivSelected[IdDivSelected.length-1];
 					//curentMaterial selected
