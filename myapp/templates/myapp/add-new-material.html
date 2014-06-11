@@ -1,0 +1,64 @@
+<div class="tab-pane mainpanel " id="vtab2">
+	<div class="row">
+		<div class="col-sm-3">
+			<div class="panel panel-default">
+				<div class="panel-heading" style="height: 279px;margin-top: 1px;">
+					<div class="col-sm-9">
+						<span>List materials</span>
+						<input type="" id="numberMaterial" name="numberMaterial" value="0" hidden="false">
+						<input type="" id="currentNumberMaterial"  value="0" hidden="false">
+						<input type="" id="showCreatenewMaterial"  value="0" hidden="false">
+					</div>
+					<div class="col-sm-9" id="listMaterial">
+						
+					</div>
+				</div>
+			</div><!-- panel-default -->
+		</div><!-- col-md-3 -->
+		<div class="col-sm-9">
+			<div class="panel panel-default">
+				<div class="panel-heading" style="height: 279px;margin-top: 1px;">
+					<div class="form-group">
+						<div class="col-sm-12">
+							<input id="material_title" type="text" name="material_title"
+								class="form-control" 
+								placeholder="Material title" required="">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-8">
+							<select id="material_type" name="material_type" class="form-control">
+								<option value="-1">Choose type</option>
+								<option value="Book" selected>Book</option>
+								<option value="Video">Video</option>
+								<option value="Document">Document</option>
+							</select>
+						</div>
+						<div class="col-sm-4" style="margin-top: 8px;">
+							<span>(Ex: Book,Video,Doccument,Doc,...)</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-12">
+							<input type="text" id="material_url" name="material_url" class="form-control"
+								 placeholder="Material url" required="">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-12">
+							<textarea class="col-sm-12" id="material_description" name="material_description" rows="1" placeholder="description" style="height: 45px;" required=""></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-12">
+							<ul class="pager" style="border-top: none !important;background: white !important;padding: 0px !important;width: 109px;float: right;">
+								 <li style="float: right;" id="showAdd"><a href="#" id="addMaterial" onclick="addMaterial();">Add material</a></li>
+							</ul>
+						</div>
+					</div>
+					
+				</div>
+			</div><!-- panel-default -->
+		</div><!-- col-md-9 -->
+	</div>
+</div>
