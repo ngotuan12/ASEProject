@@ -25,13 +25,16 @@ def index(request):
 		
 		user=User.objects.get(username=str(request.user))
 		studylog = StudyLog.objects(user=user)[:1]
+		datalog=""
 		flag = 1 ;
 		if len(studylog) == 0:
 			flag = 0
+		else:
+			datalog=studylog[0].data
 			
 		context = {'username':username,
 					'lisCurriculumns':lisCurriculumns,
-					'datalog': studylog[0].data,
+					'datalog': datalog,
 					'flag' : flag
 				}
 		return render(request,'myapp/studyLog.html', context)
