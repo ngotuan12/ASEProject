@@ -6,7 +6,7 @@ from django.conf.urls import patterns, url , include
 from myapp.views import Home, AccountSetting, PostDetail, SignIn, MentorPost, \
 	Profile, SignUp, SignOut, PeopleDirectory, Chat, PersonalHome , AuthenFail, \
 	MentorView, Documents, StudentHome, MentorCourse, Test, SearchMentor, BecomeMentor, \
-	StudentView, CourseDetail, AsStudentHome , StudyLog, CreateCurriculumn
+	StudentView, CourseDetail, AsStudentHome , StudyLog, CreateCurriculumn,EditMaterial
 
 
 # Uncomment the next two lines to enable the admin:
@@ -52,6 +52,7 @@ urlpatterns = patterns('',
                        url(r'^become-mentor$', BecomeMentor.index),
                        url(r'^mentor-course$', MentorView.index,name='mentor-course'),
                        url(r'^add-course$', CreateCurriculumn.index,name='add-course'),
+                       url(r'^edit-material$', EditMaterial.index, name='edit-material'),
                        url(regex  = r'^%s(?P<path>.*)$' % settings.STATIC_URL[1:], 
     view   = 'django.views.static.serve', 
     kwargs = {'document_root': os.path.abspath(os.path.join(os.path.dirname(__file__),os.pardir))+"/common",

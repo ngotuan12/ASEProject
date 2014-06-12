@@ -2,6 +2,7 @@
 {% include 'myapp/commentOnCourse.html' %}
 {% if user.id|truncatechars:100 == user_id %}
 	{% include 'myapp/add-material.html' %}
+	{% include 'myapp/edit-material.html' %}
 	{% include 'myapp/add-action.html' %}
 {% endif %}
 
@@ -57,15 +58,23 @@
 							<table class="table table-hover table-bordered mb30">
 								<tr>
 								<th style="width: 40%;text-align: center; background-color: #1CAF9A; color: #fff">Name</th>
-								<th style="width: 60%; text-align: center; background-color: #1CAF9A; color: #fff">Description</th>
+								<th style="width: ; text-align: center; background-color: #1CAF9A; color: #fff">Description</th>
+								<th style="width: 10%; text-align: center; background-color: #1CAF9A; color: #fff"></th>
 								</tr>
 								<tbody>
 								{% for mt in cl.material %}
-								<tr onclick="document.location = 'course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}';" style="cursor: hand;" > 
-									<td >{{ mt.name|truncatechars:100 }}</td>
-									<td>{{ mt.description|truncatechars:100 }}</td>
+								<tr style="cursor: hand;" > 
+									<td onclick="document.location = 'course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}';" >{{ mt.name|truncatechars:100 }}</td>
+									<td onclick="document.location = 'course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}';" >{{ mt.description|truncatechars:100 }}</td>
+									<td class="table-action">
+									<!-- onclick="onEditFormMaterial('{{cl.id}}','{{ mt.id }}','{{ mt.name }},'{{ mt.type }}','{{ mt.url }}','{{ mt.description }}');" -->
+										<button class="btn btn-default btn-xs" data-toggle="modal" data-target="#edit-material" onclick="onEditFormMaterial('{{cl.id}}','{{ mt.id }}','{{ mt.name }}','{{ mt.url }}','{{ mt.description|truncatechars:1 }}');">
+											<i class="fa fa-pencil" style="padding-left: 5px;"></i>
+										</button>
+									</td>
 								</tr>
 								</tbody>
+								
 								{% endfor %}
 							</table>
 						</div>

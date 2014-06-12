@@ -161,8 +161,18 @@
 	};
 	function onShowFormMaterial(curriculumId) 
 	{
-		$("#materialForm").find("#curriculum_id").val(curriculumId);
+		$("#materialForm").find("#curriculum_id").val('adada');
 	};
+	function onEditFormMaterial(curriculumId,materialId,materialName,materialUrl,materialDescription) 
+	{
+		$("#editMaterialForm").find("#material_title").val(materialName);
+		$("#editMaterialForm").find("#material_url").val(materialUrl);
+		$("#editMaterialForm").find("#material_description").val(materialDescription);
+	};
+	/* function onEditFormMaterial(curriculumId,materialId,materialName,materialType,materialUrl) 
+	{
+		$("#editMaterialForm").find("#material_title").val('aadaaadj');
+	}; */
 	function onShowFormAction(curriculumId) 
 	{
 		$("#actionForm").find("#curriculum_id").val(curriculumId);

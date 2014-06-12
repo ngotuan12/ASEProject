@@ -7,14 +7,14 @@ import mongoengine
 
 # mongoengine.register_connection(alias, name, host, port, is_slave, read_preference, slaves, username, password)
 mongoengine.connect('my_db',host="oceanic.mongohq.com",port=10043,username="admin",password="113322")
-
-SOCIAL_AUTH_AUTHENTICATION_BACKENDS = (
+AUTHENTICATION_BACKENDS = (
+    'mongoengine.django.auth.MongoEngineBackend',
     'social.backends.open_id.OpenIdAuth',
     'social.backends.google.GoogleOpenId',
     'social.backends.google.GoogleOAuth2',
     'social.backends.google.GoogleOAuth',
     'social.backends.twitter.TwitterOAuth',
-    'social.backends.yahoo.YahooOpenId',
+    'social.backends.facebook.FacebookOAuth2',
 )
 SESSION_ENGINE = 'mongoengine.django.sessions'
 DEBUG = True
@@ -149,7 +149,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'myapp.views.middleware.AutoLogout',
+    #'myapp.views.middleware.AutoLogout',
     'django.middleware.csrf.CsrfViewMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -162,7 +162,6 @@ ROOT_URLCONF = 'AseProjec.urls'
 WSGI_APPLICATION = 'AseProjec.wsgi.application'
 
 
-SOCIAL_AUTH_USER_MODEL = 'mongoengine.django.auth.User'
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -181,11 +180,8 @@ INSTALLED_APPS = (
 )
 AUTH_USER_MODEL = 'mongo_auth.MongoUser'
 
-LOGIN_REDIRECT_URL = '/signinsns'
+LOGIN_REDIRECT_URL = '/home'
 LOGIN_ERROR_URL = '/'
-LOGIN_URL = '/'
-SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/signupsns'
-
 SOCIAL_AUTH_STORAGE = 'social.apps.django_app.me.models.DjangoStorage'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '86706008722-gtsfej37d74nhhvjlkblfllbj3j5qmiv.apps.googleusercontent.com'
