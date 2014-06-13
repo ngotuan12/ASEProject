@@ -53,3 +53,198 @@
 
 </div>
 <!-- modal-content -->
+<script src="js/masonry.pkgd.min.js"></script>
+<script src="js/jquery-ui-1.10.3.min.js"></script>
+<script src="js/chosen.jquery.min.js"></script>
+
+<script src="js/bootstrap-wizard.min.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/jquery.maskedinput.min.js"></script>
+<script src="js/jquery.numeric.js"></script>
+<script src="js/custom.js"></script>
+
+
+<script src="js/masonry.pkgd.min.js"></script>
+
+<script>
+	function delivery(x){
+		
+		var country = x.value;
+		document.getElementById('parentId').innerHTML = country;
+		select = document.getElementById('childrenCategory');
+		for(var i=select.options.length-1;i>=0;i--)
+		{
+			select.remove(i);
+		}
+		//remove  option
+		
+		var ex = document.getElementById("listCategories").options;
+		//window.alert(ex.length)
+		for(var i=0;i<ex.length;i++)
+		{
+			if(ex[i].getAttribute('anc')==country)
+			{
+				//window.alert(ex[i].text)
+				var opt = document.createElement('option');
+				opt.value = ex[i].value;
+				opt.innerHTML = ex[i].text;
+				select.appendChild(opt);
+			}
+		}
+	}
+	function saveAction()
+	{
+		action_name=document.getElementById("action_name").value
+		action_description=document.getElementById("action_description").value
+		if(action_name.trim()==""||action_description.trim()=="")
+		{
+			alert('false');
+		}
+		if(action_name.trim()==""||action_description.trim()=="")
+		{
+			alert('false');
+		}
+	}
+	function saveMaterial()
+	{
+		$('#material_title').removeAttr('required');
+		$('#material_url').removeAttr('required');
+		$('#material_description').removeAttr('required');
+		document.getElementById('addMaterial').style.display="none";
+		$("#firstForm").submit();
+	}
+	
+	function addMaterial()
+	{
+		
+		var material_title=document.getElementById("material_title").value.toString();
+		var material_url =document.getElementById("material_url").value.toString();
+		var material_description=document.getElementById("material_description").value.toString();
+		var numberMaterial=parseInt(document.getElementById("numberMaterial").value);
+		if(material_title.trim()==""||material_url.trim()==""|| material_description.trim() == "")
+		{
+			var $valid = jQuery('#firstForm').valid();
+			if(!$valid)
+			{
+				$validator.focusInvalid();
+				return false;
+			}
+		}
+		else
+		{
+			document.getElementById('finish').style.display="inline";
+			if(document.getElementById('saveMaterialHidden').value=="Save change")
+			{
+				if(document.getElementById('currentNumberMaterial').value !="0")
+				{
+					index=document.getElementById('currentNumberMaterial').value;
+					//set value current material selected
+					document.getElementById('material_title'+index.toString()).value=document.getElementById('material_title').value;
+					document.getElementById('material_type'+index.toString()).value=document.getElementById('material_type').value;
+					document.getElementById('material_url'+index.toString()).value=document.getElementById('material_url').value;
+					document.getElementById('material_description'+index.toString()).value=document.getElementById('material_description').value;
+					
+					//clear  material input
+					document.getElementById('material_title').value="";
+					document.getElementById('material_type').value="Book";
+					document.getElementById('material_url').value="";
+					document.getElementById('material_description').value="";
+					//
+					document.getElementById('addMaterial').innerHTML="Add";
+					document.getElementById('saveMaterialHidden').value="save";
+				}
+			}
+			else
+			{
+				document.getElementById('addMaterial').innerHTML="Add";
+				document.getElementById('saveMaterialHidden').value="save";
+				numberMaterial +=1;
+				document.getElementById("numberMaterial").value=numberMaterial.toString();
+				//alert(document.getElementById("numberMaterial").value);
+				
+				var div = document.createElement("div");
+				div.className ="rdio rdio-primary";
+				div.id ="material"+numberMaterial.toString();
+				//Assign different attributes to the element
+				var radio = document.createElement("input");
+				//Assign different attributes to the element
+				radio.setAttribute("type", "radio");
+				radio.setAttribute("id",numberMaterial.toString());
+				radio.setAttribute("name", "gender");
+				radio.setAttribute("value",numberMaterial.toString());
+				
+				lb = document.createElement("label");
+				lb.setAttribute("for",numberMaterial.toString());
+				lb.innerHTML ="Material " + numberMaterial.toString();
+				//label.htmlFor = numberMaterial.toString();
+				
+				
+				
+				var  material_title= document.createElement("input");
+				material_title.setAttribute("type", "text");
+				material_title.setAttribute("hidden", "false");
+				material_title.setAttribute("id", "material_title"+numberMaterial.toString());
+				material_title.setAttribute("name","material_title"+numberMaterial.toString());
+				material_title.setAttribute("value",document.getElementById('material_title').value);
+				
+				var  material_type= document.createElement("input");
+				material_type.setAttribute("type", "text");
+				material_type.setAttribute("hidden", "false");
+				material_type.setAttribute("id", "material_type"+numberMaterial.toString());
+				material_type.setAttribute("name","material_type"+numberMaterial.toString());
+				material_type.setAttribute("value",document.getElementById('material_type').value);
+				
+				var  material_url= document.createElement("input");
+				material_url.setAttribute("type", "text");
+				material_url.setAttribute("hidden", "false");
+				material_url.setAttribute("id", "material_url"+numberMaterial.toString());
+				material_url.setAttribute("name","material_url"+numberMaterial.toString());
+				material_url.setAttribute("value",document.getElementById('material_url').value);
+				
+				var  material_description= document.createElement("input");
+				material_description.setAttribute("type", "text");
+				material_description.setAttribute("hidden", "false");
+				material_description.setAttribute("id", "material_description"+numberMaterial.toString());
+				material_description.setAttribute("name","material_description"+numberMaterial.toString());
+				material_description.setAttribute("value",document.getElementById('material_description').value);
+				
+				
+				div.appendChild(radio);
+				div.appendChild(lb);
+				
+				div.appendChild(material_title);
+				div.appendChild(material_type);
+				div.appendChild(material_url);
+				div.appendChild(material_description);
+				
+				var container = document.getElementById('listMaterial');
+				container.appendChild(div);
+				//event
+				radio.onclick = function()
+				{
+					
+					document.getElementById('addMaterial').innerHTML="Save";
+					document.getElementById('saveMaterialHidden').value="Save change";
+					
+					IdDivSelected=div.getAttribute("id");
+					var index = IdDivSelected[IdDivSelected.length-1];
+					//curentMaterial selected
+					document.getElementById('currentNumberMaterial').value=index.toString();
+					//set material input
+					document.getElementById('material_title').value=document.getElementById('material_title'+index.toString()).value;
+					document.getElementById('material_type').value=document.getElementById('material_type'+index.toString()).value;
+					document.getElementById('material_url').value=document.getElementById('material_url'+index.toString()).value;
+					document.getElementById('material_description').value=document.getElementById('material_description'+index.toString()).value;
+				};
+				//clear  material input
+				document.getElementById('material_title').value="";
+				//document.getElementById("material_title").setAttribute("placeholder", "Title");
+				document.getElementById('material_type').value="Book";
+				document.getElementById('material_url').value="";
+				//document.getElementById("material_url").setAttribute("placeholder", "Url");
+				document.getElementById('material_description').value="";
+				//document.getElementById("material_description").setAttribute("placeholder", "Description");
+			}
+		}
+	}
+</script>
