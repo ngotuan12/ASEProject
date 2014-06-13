@@ -41,38 +41,38 @@
 						<div class="mb20"></div>
 
 						<h3>
-							<strong>Adult Social Education</strong>
+							<strong>アダルト社会教育</strong>
 						</h3>
 						<div class="mb20"></div>
 
 						<div class="feat-list">
 							<i class="fa fa-wrench"></i>
-							<h4 class="text-success">Curriculum for particular career or lifestyle.</h4>
-							<p>You can create and enhance your profile as soon as you update it.</p>
+							<h4 class="text-success">特定のキャリアやライフスタイルのためのカリキュラム。</h4>
+							<p>あなたは、すぐあなたがそれを更新として自分のプロフィールを作成し、向上させることができます。</p>
 						</div>
 
 						<div class="feat-list">
 							<i class="fa fa-wrench"></i>
-							<h4 class="text-success">Visualize carrier or life progress.</h4>
-							<p>Make life plan and progress clear and easy to manage and see what missing.</p>
+							<h4 class="text-success">キャリアや人生の進行状況を視覚化する。</h4>
+							<p>ライフプランと進捗明確かつ管理が容易に作成し、どのような行方不明参照してください。</p>
 						</div>
 
 						<div class="feat-list mb20">
 							<i class="fa fa-wrench"></i>
-							<h4 class="text-success">Obtain personal mentor.</h4>
-							<p>Many successful mentor from every fields signed up and ready to give you advice.</p>
+							<h4 class="text-success">個人的なメンターを取得します。</h4>
+							<p>あらゆる分野の多くの成功したメンター·グラフィックスはサインアップし、あなたにアドバイスを与えるために準備ができて。</p>
 						</div>
 
 						<div class="feat-list mb20">
 							<i class="fa fa-wrench"></i>
-							<h4 class="text-success">Obtain social know how</h4>
-							<p>Article about success and life was updated every day by professional.</p>
+							<h4 class="text-success">社会的なノウハウを得る方法</h4>
+							<p>成功と人生についての記事は、専門家によって毎日更新されました。</p>
 						</div>
 						
 						<div class="feat-list mb20">
 							<i class="fa fa-wrench"></i>
-							<h4 class="text-success">Get success life</h4>
-							<p>You can become mentor yourseft and do much more with us.</p>
+							<h4 class="text-success">成功の人生を取得</h4>
+							<p>あなたはyourseftメンターになり、私たちでできることはまだまだたくさんあります。</p>
 						</div>
 						
 						
@@ -87,38 +87,37 @@
 
 					<form method="post">
 						{% csrf_token %}
-						<h3 class="nomargin">Sign Up</h3>
+						<h3 class="nomargin">登録</h3>
 						
 						<p class="mt5 mb20">
-							Already a member? <a href="signin"><strong>Sign
-									In</strong></a>
+							既にメンバー ? <a href="signin"><strong>サインインする</strong></a>
 						</p>
 						{% if error_message %}
 							<div class="row mb10">
 								<label for="" class="error">{{error_message}}</label>
 							</div>
 						{% endif %} 
-						<label class="control-label">Name</label>
+						<label class="control-label">名前</label>
 						<div class="row mb10">
 							<div class="col-sm-6">
-								<input name="txtFirstName" type="text" class="form-control" placeholder="Firstname" value="{{firstname}}" />
+								<input name="txtFirstName" type="text" class="form-control" placeholder="姓" value="{{firstname}}" />
 							</div>
 							<div class="col-sm-6">
-								<input name="txtLastName" type="text" class="form-control" placeholder="Lastname" value="{{lastname}}" />
+								<input name="txtLastName" type="text" class="form-control" placeholder="姓" value="{{lastname}}" />
 							</div>
 						</div>
 
 						<div class="mb10">
-							<label class="control-label">Email</label> 
-							<input name="txtEmail" placeholder="Email" type="text"  class="form-control" value="{{mail}}"/>
+							<label class="control-label">Eメール</label> 
+							<input name="txtEmail" placeholder="Eメール" type="text"  class="form-control" value="{{mail}}"/>
 						</div>
 						<div class="mb10">
-							<label class="control-label">User name</label> 
-							<input name="txtUserName" placeholder="User name" type="text"  class="form-control" value="{{username}}"/>
+							<label class="control-label">ユーザー名</label> 
+							<input name="txtUserName" placeholder="ユーザー名" type="text"  class="form-control" value="{{username}}"/>
 						</div>
 						<div class="mb10">
-							<label class="control-label">Password</label> 
-							<input name="txtPassWord" placeholder="Pass word" type="password" class="form-control" value="{{password}}" />
+							<label class="control-label">パスワード</label> 
+							<input name="txtPassWord" placeholder="単語を渡す" type="password" class="form-control" value="{{password}}" />
 						</div>
 						<!-- <label class="control-label">Birthday</label> -->
 						<!-- <div class="row mb10">
@@ -158,7 +157,7 @@
 						</div> -->
 						<br />
 
-						<button class="btn btn-success btn-block">Sign Up</button>
+						<button class="btn btn-success btn-block">登録</button>
 						<br />
 						<div align="center">
 							<a href= "{% url 'social:begin' "twitter" %}" class="btn btn-social-icon btn-twitter">
@@ -180,10 +179,10 @@
 			<!-- row -->
 
 			<div class="signup-footer">
-				<div class="pull-left">&copy; 2014. All Rights Reserved.
+				<div class="pull-left">&copy; 2014. 無断複写·転載を禁じます.
 					</div>
 				<div class="pull-right">
-					Created By: <a href="http://ex-artisan.com/" target="_blank">Ex-artisan</a>
+					によって作成された : <a href="http://ex-artisan.com/" target="_blank">Ex-artisan</a>
 				</div>
 			</div>
 
