@@ -33,6 +33,6 @@ def index(request):
 		material.type = MaterialType.objects.get(name=material_type)
 		material.url = material_url
 		material.description = material_description
-# 		material.save()
+		material.save()
 		print('edit material edit material ')
 		return HttpResponseRedirect('/')

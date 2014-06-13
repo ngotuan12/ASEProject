@@ -133,6 +133,16 @@
 		}
 		jQuery('#materialForm').submit();
 	};
+	/* function onEditMaterialFormSubmit()
+	{
+		var $valid = jQuery('#editMaterialForm').valid();
+		if(!$valid) 
+		{
+			$validator.focusInvalid();
+			return false;
+		}
+		jQuery('#editMaterialForm').submit();
+	}; */
 	function onActionFormSubmit()
 	{
 		var $valid = jQuery('#actionForm').valid();
@@ -146,6 +156,26 @@
 	function onShowFormMaterial(curriculumId) 
 	{
 		$("#materialForm").find("#curriculum_id").val(curriculumId);
+	};
+	function onEditFormMaterial(curriculumId,materialId,materialName,materialUrl,materialDescription,materialType) 
+	{
+		//alert('studenthome');
+		$("#editMaterialForm").find("#material_title").val(materialName);
+		$("#editMaterialForm").find("#material_url").val(materialUrl);
+		$("#editMaterialForm").find("#material_description").val(materialDescription);
+		$("#editMaterialForm").find("#material_type").val(materialType);
+		$("#editMaterialForm").find("#material_id").val(materialId);
+	};
+	function onEditMaterialFromSubmit()
+	{
+		//alert(1);
+		var $valid = jQuery('#editMaterialForm').valid();
+		if(!$valid) 
+		{
+			$validator.focusInvalid();
+			return false;
+		}
+		jQuery('#editMaterialForm').submit();
 	};
 	function onShowFormAction(curriculumId) 
 	{
