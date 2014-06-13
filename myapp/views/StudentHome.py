@@ -21,8 +21,6 @@ def index(request):
 		#user = request.user
 		user = User.objects.get(username=str(request.user))
 		user_id = user.id
-		print(user_id)
-		print(user)
 		lsCourse = []
 		lsjoined = CurriculumnLog.objects(user_id = user_id)
 		for ls in lsjoined:

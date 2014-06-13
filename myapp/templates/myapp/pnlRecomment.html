@@ -1,44 +1,28 @@
+<div class="contentpanel" style="max-width: 98%; margin-top: 15%;">
+
+<div id="timeline-list" >
+
 {% for ls in lsCourse %}
-<div class="panel panel-default panel-blog" style="margin-top: 17%;">
 	<!-- start block -->
 	<div class="col-xs-6 col-sm-6 col-md-6">
+	
 		<div class="people-item">
-			<div class="col-sm">
-
-				<div class="row">
-
-
-
+			<div class="">
+				<div class="">
 					<div class="btn-group pull-right">
 						<a
 							href="/studylog"><button
 								type="button" class="btn btn-primary">StudyLog</button></a>
 					</div>
-
-
-
 					<a
 						href="course-detail?course_id={{ ls.id }}&user_id={{ ls.author_id }}"><h4
 							class="person-name">{{ ls.name }}</h4></a>
 					<ul class="blog-meta">
-						<li>Course Start: {{ ls.author_id }}</li>
-						<li>Duration: {{ ls.id }}</li>
 						<li>Course Start: {{ls.from_date|date:'Y-M-d'}}</li>
 						<li>Duration: {{ ls.duration }} - {{ls.duration_type}}</li>
 					</ul>
 				</div>
 
-				<div id="slider-success"
-					class="slider-success mb20 ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
-					aria-disabled="false">
-					<div
-						class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"
-						style="width: 60%;"></div>
-					<a class="ui-slider-handle ui-state-default ui-corner-all" href="#"
-						style="left: 60%;"></a>
-				</div>
-				<!-- Material List -->
-				
 				<div class="media-body">
 					<ul class="social-list">
 						<div>
@@ -75,5 +59,7 @@
 		</div>
 	</div>
 	<!-- end block -->
+	
 {% endfor %}
+</div>
 </div>
