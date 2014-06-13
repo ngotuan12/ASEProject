@@ -54,15 +54,22 @@
 										</div>
 								</div>
 								{% if search %}
-									<input type="text" id="textSearch" class="form-control" name="search" value="{{search}}" placeholder="Search first name,last name,username ..." autocomplete="off" style="background: #fff url(../images/icon-search.png) no-repeat 95% center;">
+									<input type="text" id="textSearch" class="form-control" name="search" value="{{search}}" placeholder="カリキュラム,材料 ..." autocomplete="off" style="background: #fff url(../images/icon-search.png) no-repeat 95% center;">
 								{% else %}
-									<input type="text" id="textSearch" class="form-control" name="search" value="" placeholder="Search first name,last name,username ..." autocomplete="off" style="background: #fff url(../images/icon-search.png) no-repeat 95% center;">
+									<input type="text" id="textSearch" class="form-control" name="search" value="" placeholder="カリキュラム,材料 ..." autocomplete="off" style="background: #fff url(../images/icon-search.png) no-repeat 95% center;">
 								{% endif %}
 						</form>
 					</div>
 				</div>
 		</div>
+		{% if listCurriculumn %}
+			
+		{% else %}
+			{% include 'myapp/pnlHelp.html' %}
+		{% endif %}
+		
 	</div>
+	
 	<div class="row">
 		<div class="people-list">
 		{% if lisUserProfile %}
