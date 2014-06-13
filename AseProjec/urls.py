@@ -14,6 +14,7 @@ from myapp.views import Home, AccountSetting, PostDetail, SignIn, MentorPost, \
 # admin.autodiscover()
 urlpatterns = patterns('',
 						url(r'^community$', Community.index, name='community'),
+						url(r'^i18n/', include('django.conf.urls.i18n')),
 						url(r'^signinsns$', SignIn.signinsns, name='signinsns'),
 						url(r'^error-authenticate$', AuthenFail.index),
 						url('', include('social.apps.django_app.urls', namespace='social')),

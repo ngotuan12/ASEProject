@@ -27,16 +27,21 @@ TEMPLATE_DIRS = (
 )
 #CSRF_COOKIE_SECURE = True
 TEMPLATE_CONTEXT_PROCESSORS =(
-	"django.contrib.auth.context_processors.auth",
-	"django.core.context_processors.debug",
-	"django.core.context_processors.i18n",
-	"django.core.context_processors.media",
-	"django.core.context_processors.static",
-	"django.core.context_processors.tz",
-	"django.contrib.messages.context_processors.messages",
-	'django.core.context_processors.csrf',
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+    'django.core.context_processors.csrf',
     'myapp.util.context_processors.user',
+    'django.core.context_processors.i18n',
 )
+LANGUAGE_CODE = 'en'
+USE_I18N = True
+
+LOCALE_PATHS = ('AseProjec/locale/',)
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -109,12 +114,12 @@ STATIC_URL = '/'
 #STATIC_IMAGE_URL = '/common/images'
 # Additional locations of static files
 STATICFILES_DIRS = (
-				'D:/Projects/ASE/AseProjec/common',
-				#("css", "D:/Projects/ASE/AseProjec/common/css"),
-				#("fonts", "D:/Projects/ASE/AseProjec/common/fonts"),
-				#("holder.js", "D:/Projects/ASE/AseProjec/common/holder.js"),
-				#("images", "D:/Projects/ASE/AseProjec/common/images"),
-				#("js", "D:/Projects/ASE/AseProjec/common/js"),
+                'D:/Projects/ASE/AseProjec/common',
+                #("css", "D:/Projects/ASE/AseProjec/common/css"),
+                #("fonts", "D:/Projects/ASE/AseProjec/common/fonts"),
+                #("holder.js", "D:/Projects/ASE/AseProjec/common/holder.js"),
+                #("images", "D:/Projects/ASE/AseProjec/common/images"),
+                #("js", "D:/Projects/ASE/AseProjec/common/js"),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -149,7 +154,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    #'myapp.views.middleware.AutoLogout',
+    'myapp.views.middleware.AutoLogout',
+    'django.middleware.locale.LocaleMiddleware',
+    'myapp.views.middleware.AutoLogout',
     'django.middleware.csrf.CsrfViewMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -178,10 +185,17 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
+
+LANGUAGES = (
+    ('en', 'English'),
+    ('nl', 'Dutch'),
+)
+
 AUTH_USER_MODEL = 'mongo_auth.MongoUser'
 
-LOGIN_REDIRECT_URL = '/home'
-LOGIN_ERROR_URL = '/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/signinsns'
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/signupsns'
+
 SOCIAL_AUTH_STORAGE = 'social.apps.django_app.me.models.DjangoStorage'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '86706008722-gtsfej37d74nhhvjlkblfllbj3j5qmiv.apps.googleusercontent.com'
