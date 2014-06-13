@@ -8,7 +8,7 @@
 
 {% include 'myapp/pnlSlide.html' %}
 
-{% if lsCourse.length > 0  %}
+{% if lsCourse|length > 0  %}
 	{% include 'myapp/pnlJoined.html' %}
 {% else%}
 	{% include 'myapp/pnlHelp.html' %}
