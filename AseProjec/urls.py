@@ -6,14 +6,14 @@ from django.conf.urls import patterns, url , include
 from myapp.views import Home, AccountSetting, PostDetail, SignIn, MentorPost, \
 	Profile, SignUp, SignOut, PeopleDirectory, Chat, PersonalHome , AuthenFail, \
 	MentorView, Documents, StudentHome, MentorCourse, Test, SearchMentor, BecomeMentor, \
-	StudentView, CourseDetail, AsStudentHome , StudyLog, CreateCurriculumn,EditMaterial
+	StudentView, CourseDetail, AsStudentHome , StudyLog, CreateCurriculumn,EditMaterial , Community
 
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 urlpatterns = patterns('',
-					
+						url(r'^community$', Community.index, name='community'),
 						url(r'^signinsns$', SignIn.signinsns, name='signinsns'),
 						url(r'^error-authenticate$', AuthenFail.index),
 						url('', include('social.apps.django_app.urls', namespace='social')),
