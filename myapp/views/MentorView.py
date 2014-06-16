@@ -60,10 +60,6 @@ def index(request):
 			print(actLike)
 		except Exception as e:
 			print(e)
-		for c in cl:
-			if len(c.joined_user)>0 :
-				for u in c.joined_user:
-					print(u)
 		context = {'user_id':user_id,
 					'username':request.user,
 					'cl':cl,

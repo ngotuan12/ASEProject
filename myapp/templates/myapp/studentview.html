@@ -6,7 +6,7 @@
  <div class="tab-content mb30">
 	<!-- start tab home -->
 	<!-- Tab home display all post that exists in DB -->
-	<div class="tab-pane active" id="home" style="background-color: #d8dbde;">
+	<div class="tab-pane active" id="home" style="background-color: #d8dbde;margin-top: 3%;">
 		<div class="contentpanel" style="min-height: 500px;">
 		{% if has_curriculum %} 
 			{% include 'myapp/asstudent.html' %} 
@@ -204,6 +204,7 @@
 	function onEditFormMaterial(curriculumId,materialId,materialName,materialUrl,materialDescription,materialType) 
 	{
 		//alert('studentview');
+		alert('on studentview: Edit Material...');
 		$("#editMaterialForm").find("#material_title").val(materialName);
 		$("#editMaterialForm").find("#material_url").val(materialUrl);
 		$("#editMaterialForm").find("#material_description").val(materialDescription);

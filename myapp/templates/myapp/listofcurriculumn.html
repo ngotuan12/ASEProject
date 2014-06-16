@@ -70,7 +70,7 @@
 									<td onclick="document.location = 'course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}';" >{{ mt.description|truncatechars:100 }}</td>
 									{% if  cl.mentor.user|truncatechars:100 == username|truncatechars:100 %}
 										<td class="table-action">
-											<button class="btn btn-default btn-xs" data-toggle="modal" data-target="#edit-material" onclick="onEditFormMaterial('{{cl.id}}','{{ mt.id }}','{{ mt.name }}','{{ mt.url }}','{{ mt.description }}','{{ mt.type.name }}');">
+											<button class="btn btn-default btn-xs" data-toggle="modal" data-target="#edit-material" onclick="onEdit('{{cl.id}}','{{ mt.id }}','{{ mt.name }}','{{ mt.url }}','{{ mt.description }}','{{ mt.type.name }}');">
 												<i class="fa fa-pencil" style="padding-left: 5px;"></i>
 											</button>
 										</td>
@@ -99,9 +99,9 @@
 								</tr>
 								<tbody>
 								{% for ac in cl.action %}
-								<tr onclick="document.location = 'course-detail?course_id={{ cl.id }}';" style="cursor: hand;">
-									<td>{{ ac.name|truncatechars:100 }}</td>
-									<td>{{ ac.description|truncatechars:100 }}</td>
+								<tr>
+									<td onclick="document.location = 'course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}';">{{ ac.name|truncatechars:100 }}</td>
+									<td onclick="document.location = 'course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}';">{{ ac.description|truncatechars:100 }}</td>
 											
 											</tbody>
 								{% endfor %}

@@ -24,7 +24,11 @@ def index(request):
 		mentor = Mentor.objects.get(user=user)
 		cl = Curriculumn.objects(mentor=mentor)
 		has_curriculum = False
-		is_mentor = request.session['is_mentor']
+		is_mentor = False
+		try:
+			is_mentor = request.session['is_mentor']
+		except Exception as e:
+			print(e)
 		if len(cl):
 			has_curriculum = True
 		clTaken = 0

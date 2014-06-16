@@ -31,21 +31,14 @@ def index(request):
 		author = User.objects.get(id=author_id)
 		cl = Curriculumn.objects(id=vCourse_id)
 		has_curriculum = False
-		is_mentor = request.session['is_mentor']
+		try:
+			is_mentor = request.session['is_mentor']
+		except Exception as e:
+			is_mentor = False
 		user=User.objects.get(username=str(request.user))
-		student=Student.objects.get(user=user.id)
-
-		object_id = "537f051c008ebc68d6419d77"
-		print()
-		str_user = str(user.id)
-		str_user = "53833d5630635f17c4daab02"
-		print(str_user)
-		#userid = "53833d5630635f17c4daab02"
+		print(user.id)
+		student=Student.objects(user=user.id)
 		status = "1"
-		
-		mtr = Material.objects()[:1]
-		mtid = mtr[0].id
-		print(mtid)
 
 		if len(cl):
 			has_curriculum = True
@@ -72,8 +65,6 @@ def index(request):
 					if mt.statistic.currentLikeNumber:
 						mtLike += mt.statistic.currentLikeNumber
 						mtTotal += 1
-					mt.__setitem__('name', 'aaaaaaaaa')
-					print(mt.name)
 				for act in c.action:
 					if act.statistic.currentTakenNumber:
 						actTaken += act.statistic.currentTakenNumber
@@ -82,31 +73,18 @@ def index(request):
 						actTotal +=1
 		except Exception as e:
 			print(e)
-		print(cl[0].id)
-		progress = CurriculumnStudyProgress.objects(curriculumn=cl[0].id,student=student.id)
+		#print(cl[0].id)
 		is_joined = False
-		if len(progress)>0:
-			is_joined = True
-		#comments = CommentPost.objects(post_id=vpost_id).all()
-		#comments = cl.comments
-		#Fix code get like status
+		if len(student):
+			progress = CurriculumnStudyProgress.objects(curriculumn=cl[0].id,student=student[0].id)
+			if len(progress)>0:
+				is_joined = True
 		lscl = []
 		lscl = cl[0]
-		
-# 		mtt=Material.objects()[:1]
-		st = StatisticDetail()
-		st.user = user
-		st.object_id = '537f051a008ebc68d6419d75'
-		st.status="1"
-# 		st.save()
-		lscl.__setitem__('name', 'aaaaaasdfsdfdsfsdaaa')
-#		print(lscl.__getattribute__('name'))
-#		print(lscl.__getattribute__('material'))
 		
 		for i in lscl.__getattribute__('material'):
 			i.note='0'
 			try:
-				#is_like = StatisticDetail.objects.get(object_id=str(i.id),status=status,user=user.id)
 				is_like = StatisticDetail.objects(object_id=str(i.id),status=status,user=user.id)
 				if len(is_like):
 					i.note='1'
