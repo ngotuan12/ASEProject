@@ -6,7 +6,7 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Edit material</h4>
+				<h4 class="modal-title" id="myModalLabel">Edit material ..</h4>
 			</div>
 
 			<div class="panel panel-default">
@@ -70,3 +70,14 @@
 	<!-- modal-dialog -->
 </div>
 <!-- modal -->
+<script>
+function onEdit(curriculumId,materialId,materialName,materialUrl,materialDescription,materialType) 
+{
+	alert('on edit: Edit Material...');
+	$("#editMaterialForm").find("#material_title").val(materialName);
+	$("#editMaterialForm").find("#material_url").val(materialUrl);
+	$("#editMaterialForm").find("#material_description").val(materialDescription);
+	$("#editMaterialForm").find("#material_type").val(materialType);
+	$("#editMaterialForm").find("#material_id").val(materialId);
+};
+</script>
