@@ -19,7 +19,15 @@ from myapp.util import context_processors
 def signinsns(request):
 	user1=User.objects.get(username=str(request.user))
 	thismentor = Mentor.objects(user=user1.id)
-	if len(thismentor) == 1:
+	thisstudent = Student.objects(user=user1.id)
+	if len(thisstudent):
+		request.session['is_mentor'] = False
+	else: 
+		studentnew = Student()
+		studentnew.user = user1
+		studentnew.save()
+		request.session['is_mentor'] = False
+	if len(thismentor):
 		request.session['is_mentor'] = True
 	else: 
 		request.session['is_mentor'] = False

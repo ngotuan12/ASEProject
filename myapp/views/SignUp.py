@@ -18,7 +18,7 @@ from myapp.util import context_processors
 def signupsns(request):
 	user1=User.objects.get(username=str(request.user))
 	thisstudent = Student.objects(user=user1.id)
-	if len(thisstudent) == 1:
+	if len(thisstudent):
 		request.session['is_mentor'] = False
 	else: 
 		studentnew = Student()
