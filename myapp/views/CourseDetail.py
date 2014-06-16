@@ -165,7 +165,7 @@ def index(request):
 			curriculum = Curriculumn.objects.get(id=curriculum_id)
 			
 			user=User.objects.get(username=str(request.user))
-			student=Student.objects.get(user=user.id)
+			student=Student.objects(user=user.id)
 			
 			planstart = request.POST['planstart']
 			planend = request.POST['planend']
@@ -173,7 +173,9 @@ def index(request):
 			description = request.POST['description']
 			# Save CurriculumnStudyProgress
 			csp = CurriculumnStudyProgress()
-			csp.student=student
+			if len(student) :
+				st=student[0]
+				csp.student=st
 			csp.curriculumn = curriculum	
 			csp.PlanStartDate = datetime.strptime(planstart,'%m/%d/%Y')
 			csp.PlanEndDate = datetime.strptime(planend,'%m/%d/%Y')
@@ -235,10 +237,11 @@ def index(request):
 							actTotal +=1
 			except Exception as e:
 				print(e)
-			progress = CurriculumnStudyProgress.objects(curriculumn=cl[0].id,student=student.id)
 			is_joined = False
-			if len(progress)>0:
-				is_joined = True
+			if len(student) :
+				progress = CurriculumnStudyProgress.objects(curriculumn=cl[0].id,student=student[0].id)
+				if len(progress)>0:
+					is_joined = True
 			context = {	'cl':cl[0],'is_joined':is_joined,
 						'user_id':request.user,
 						'course_id':curriculum_id,
