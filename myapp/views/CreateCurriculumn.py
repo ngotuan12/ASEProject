@@ -57,14 +57,16 @@ def index(request):
 			material_type = request.POST['material_type'+str(n+1)]
 			material_url = request.POST['material_url'+str(n+1)]
 			material_description = request.POST['material_description'+str(n+1)]
+			material_hide = request.POST['material_hide'+str(n+1)]
 			material = Material()
 			material.name = material_title
 			material.type = MaterialType.objects.get(name=material_type)
 			material.url = material_url
 			material.description = material_description
-			material.save()
-			curriculumn.material.append(material)
-			curriculumn.save()
+			if material_hide == '0':
+				material.save()
+				curriculumn.material.append(material)
+				curriculumn.save()
 		#action
 		action_name = request.POST['action_name']
 		action_description = request.POST['action_description']

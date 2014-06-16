@@ -121,6 +121,7 @@
 		var material_url =document.getElementById("material_url").value.toString();
 		var material_description=document.getElementById("material_description").value.toString();
 		var numberMaterial=parseInt(document.getElementById("numberMaterial").value);
+		var numberMaterialShow=parseInt(document.getElementById("numberMaterialShow").value);
 		if(material_title.trim()==""||material_url.trim()==""|| material_description.trim() == "")
 		{
 			var $valid = jQuery('#firstForm').valid();
@@ -159,7 +160,9 @@
 				document.getElementById('addMaterial').innerHTML="Add";
 				document.getElementById('saveMaterialHidden').value="save";
 				numberMaterial +=1;
+				numberMaterialShow +=1; 
 				document.getElementById("numberMaterial").value=numberMaterial.toString();
+				document.getElementById("numberMaterialShow").value=numberMaterialShow.toString();
 				//alert(document.getElementById("numberMaterial").value);
 				
 				var div = document.createElement("div");
@@ -176,6 +179,17 @@
 				lb = document.createElement("label");
 				lb.setAttribute("for",numberMaterial.toString());
 				lb.innerHTML ="Material " + numberMaterial.toString();
+				
+				/* <a href="#" class="delete-row"><i class="fa fa-trash-o"></i></a> */
+				
+				var anchor=document.createElement("a");
+				anchor.setAttribute('class','delete-row');
+				anchor.href='#';
+				anchor.style.marginTop = "4px";
+				anchor.style.cssFloat = "right";
+				anchor.innerHTML = '<i class="fa fa-trash-o"></i>';
+				
+				
 				//label.htmlFor = numberMaterial.toString();
 				
 				
@@ -208,21 +222,29 @@
 				material_description.setAttribute("name","material_description"+numberMaterial.toString());
 				material_description.setAttribute("value",document.getElementById('material_description').value);
 				
+				var  material_hide= document.createElement("input");
+				material_hide.setAttribute("type", "text");
+				material_hide.setAttribute("hidden", "false");
+				material_hide.setAttribute("id", "material_hide"+numberMaterial.toString());
+				material_hide.setAttribute("name","material_hide"+numberMaterial.toString());
+				material_hide.setAttribute("value","0");
+				
 				
 				div.appendChild(radio);
 				div.appendChild(lb);
+				div.appendChild(anchor);
 				
 				div.appendChild(material_title);
 				div.appendChild(material_type);
 				div.appendChild(material_url);
 				div.appendChild(material_description);
+				div.appendChild(material_hide);
 				
 				var container = document.getElementById('listMaterial');
 				container.appendChild(div);
 				//event
 				radio.onclick = function()
 				{
-					
 					document.getElementById('addMaterial').innerHTML="Save";
 					document.getElementById('saveMaterialHidden').value="Save change";
 					
@@ -236,14 +258,50 @@
 					document.getElementById('material_url').value=document.getElementById('material_url'+index.toString()).value;
 					document.getElementById('material_description').value=document.getElementById('material_description'+index.toString()).value;
 				};
+				anchor.onclick = function()
+				{
+					IdDivSelected=div.getAttribute("id");
+					var index = IdDivSelected[IdDivSelected.length-1];
+					if (confirm('Are you sure you want to remove ?')) 
+					{
+						//$( "div" ).remove( "#material"+index.toString());
+						$("#material"+index.toString()).hide();
+						document.getElementById('material_hide'+index.toString()).value="1";
+						
+						number = parseInt(document.getElementById("numberMaterialShow").value);
+						number -=1;
+						document.getElementById("numberMaterialShow").value=number.toString();
+						
+						
+						if (document.getElementById("numberMaterialShow").value == "0")
+						{
+							document.getElementById('finish').style.display="none";
+						}
+						else
+						{
+							document.getElementById('finish').style.display="inline";
+						}
+						
+						//clear  material input
+						document.getElementById('material_title').value="";
+						document.getElementById('material_type').value="Book";
+						document.getElementById('material_url').value="";
+						document.getElementById('material_description').value="";
+						
+						document.getElementById('addMaterial').innerHTML="Add";
+						document.getElementById('saveMaterialHidden').value="save";
+					} 
+					else 
+					{
+						
+					}
+					
+				}
 				//clear  material input
 				document.getElementById('material_title').value="";
-				//document.getElementById("material_title").setAttribute("placeholder", "Title");
 				document.getElementById('material_type').value="Book";
 				document.getElementById('material_url').value="";
-				//document.getElementById("material_url").setAttribute("placeholder", "Url");
 				document.getElementById('material_description').value="";
-				//document.getElementById("material_description").setAttribute("placeholder", "Description");
 			}
 		}
 	}

@@ -84,15 +84,34 @@
       return false;
     },
     onNext: function(tab, navigation, index) {
-    var $valid = jQuery('#firstForm').valid();
-    if(!$valid) {
-    	$validator.focusInvalid();
-   		return false;
-     }
-      var $total = navigation.find('li').length;
-      var $current = index+1;
-      var $percent = ($current/$total) * 100;
-      jQuery('#courseWizard').find('.progress-bar').css('width', $percent+'%');
+    	if(document.getElementById('numberMaterialShow').value == "0")
+    	{
+    		var $valid = jQuery('#firstForm').valid();
+    	    if(!$valid) {
+    	    	$validator.focusInvalid();
+    	   		return false;
+    	     }
+    	}
+    	else
+    	{
+	   		if( index !=2 )
+   	    	{
+   	    		var $valid = jQuery('#firstForm').valid();
+   	    	    if(!$valid) {
+   	    	    	$validator.focusInvalid();
+   	    	   		return false;
+   	    	     }
+   	    	      var $total = navigation.find('li').length;
+   	    	      var $current = index+1;
+   	    	      var $percent = ($current/$total) * 100;
+   	    	      jQuery('#courseWizard').find('.progress-bar').css('width', $percent+'%');
+   	    	   		document.getElementById('finish').style.display="inline";
+   	    	}
+	   		else
+	   		{
+	   			document.getElementById('finish').style.display="none";	
+	   		}
+    	}
     },
     onPrevious: function(tab, navigation, index) {
       var $total = navigation.find('li').length;
