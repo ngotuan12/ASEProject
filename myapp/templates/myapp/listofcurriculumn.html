@@ -15,7 +15,9 @@
 			<div class="col-sm">
 				
 				<div class="row">
-					{% if user.id|truncatechars:100 != user_id %}
+					{% if user.id|truncatechars:100 == user_id %}
+					<span></span>
+					{% else %}
 						{% if cl.joined_user|length > 0 %}
 							{% if username in cl.joined_user %}
 								<div class="btn-group pull-right">
