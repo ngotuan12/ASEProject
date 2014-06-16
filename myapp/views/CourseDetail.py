@@ -6,6 +6,7 @@ Created on Apr 3, 2014
 from datetime import datetime
 import json
 
+from django.conf.locale import fa
 from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
 from django.http.response import HttpResponseRedirect, HttpResponse
@@ -20,6 +21,7 @@ from myapp.models.Material import Material
 from myapp.models.ProgressType import ProgressType
 from myapp.models.Statistic import Statistic
 from myapp.models.StatisticDetail import StatisticDetail
+from myapp.models.Mentor import Mentor
 from myapp.util import context_processors
 
 
@@ -176,7 +178,7 @@ def index(request):
 			if len(student) :
 				st=student[0]
 				csp.student=st
-			csp.curriculumn = curriculum	
+			csp.curriculumn = curriculum
 			csp.PlanStartDate = datetime.strptime(planstart,'%m/%d/%Y')
 			csp.PlanEndDate = datetime.strptime(planend,'%m/%d/%Y')
 			csp.impression = Impression.objects.get(showpiority=impression)
@@ -205,7 +207,10 @@ def index(request):
 			#SHOW Record
 			cl = Curriculumn.objects(id=curriculum_id)
 			has_curriculum = False
-			is_mentor = request.session['is_mentor']
+			is_mentor=False
+			mentor=Mentor.objects(user=user.id)
+			if len(mentor):
+				is_mentor=True
 			if len(cl):
 				has_curriculum = True
 			print(has_curriculum)
