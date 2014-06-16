@@ -193,7 +193,7 @@ LANGUAGES = (
 
 AUTH_USER_MODEL = 'mongo_auth.MongoUser'
 
-LOGIN_REDIRECT_URL = '/signinsns'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/signinsns'
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/signupsns'
 
 SOCIAL_AUTH_STORAGE = 'social.apps.django_app.me.models.DjangoStorage'
