@@ -15,11 +15,9 @@ def index(request):
 	if request.method == 'GET':
 		return render(request, 'myapp/become-mentor.html', {})
 	elif request.method == 'POST':
-		profile = UserProfile.objects.get(user_id=request.user)
-		profile.is_mentor = True
-		profile.save()
 		mentor = Mentor()
 		mentor.user = request.user
 		mentor.save()
+		request.session['is_mentor'] = True
 		return HttpResponseRedirect('/mentor-course?user_id='+str(request.user.id))
 # 	return render(request, 'myapp/become-mentor.html', c)
