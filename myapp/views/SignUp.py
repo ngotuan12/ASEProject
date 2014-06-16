@@ -16,11 +16,15 @@ from myapp.util import context_processors
 
 
 def signupsns(request):
-	user=User.objects.get(username=str(request.user))
-	studentnew = Student()
-	studentnew.user = user
-	studentnew.save()
-	request.session['is_mentor'] = False
+	user1=User.objects.get(username=str(request.user))
+	thisstudent = Student.objects(user=user1.id)
+	if len(thisstudent) == 1:
+		request.session['is_mentor'] = False
+	else: 
+		studentnew = Student()
+		studentnew.user = user1
+		studentnew.save()
+		request.session['is_mentor'] = False
 	return HttpResponseRedirect('/student-home')
 def index(request):
 	firstname = "";
