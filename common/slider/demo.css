@@ -223,11 +223,12 @@ html[xmlns] .slides {
 
 .div-slide h1 {
 	width: 100%;
-	padding: 1%;
+	/* padding: 1%; */
+	line-height:35px !important;
 	position: absolute;
 	left: 0;
 	bottom: 0;
-	background: rgba(0, 0, 0, 0.6);
+	background: #434242;
 	color: #fff;
 	text-align: center;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
@@ -235,20 +236,3 @@ html[xmlns] .slides {
 	line-height: 18px;
 }
 
-@media screen and (max-width: 860px) {
-	.flex-direction-nav .flex-prev {
-		display: none;
-		opacity: 1;
-		left: 0;
-	}
-	.flex-direction-nav .flex-next {
-		display: none;
-		opacity: 1;
-		right: 0;
-	}
-	.flexslider .slides>li {
-		display: none;
-		-webkit-backface-visibility: hidden;
-		height: 200px;
-	}
-}
