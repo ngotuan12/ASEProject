@@ -224,15 +224,15 @@ html[xmlns] .slides {
 .div-slide h1 {
 	width: 100%;
 	/* padding: 1%; */
-	line-height:35px !important;
+	line-height:35px;
 	position: absolute;
 	left: 0;
 	bottom: 0;
 	background: #434242;
 	color: #fff;
-	text-align: center;
+	text-align: left;
+	padding-left:10%;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
 	font-size: 14px;
-	line-height: 18px;
 }
 
