@@ -1,7 +1,7 @@
 {% load i18n %}
 <div class="btn-group" style="width: 100%; margin-bottom: 1%;margin-top: 1%;">
 	<button type="button" class="btn btn-primary"
-		onclick="window.location.href='/index'" style="width: 5%;"><i class="glyphicon glyphicon-home"></i></button>
+		onclick="window.location.href='/index'" style="width: 10%;"><i class="glyphicon glyphicon-home"></i></button>
 	{% if is_mentor == True %}
 	<button type="button" class="btn btn-default"
 		onclick="window.location.href='/mentor-course'" style="width: 15%;"><i class="glyphicon glyphicon-book"></i>メンターとして</button>
@@ -12,13 +12,13 @@
 		onclick="window.location.href='/student-home'" style="width: 30%;"><i class="glyphicon glyphicon-book"></i>私のカリキュラム</button>
 	{% endif%}
 	<button type="button" class="btn btn-default"
-		onclick="window.location.href='/search-mentor'" style="width: 30%;"><i class="glyphicon glyphicon-search"></i>サーチ</button>
+		onclick="window.location.href='/search-mentor'" style="width: 20%;"><i class="glyphicon glyphicon-search"></i>サーチ</button>
 	<button type="button" class="btn btn-default"
-		onclick="window.location.href='/studylog'" style="width: 30%;"><i class="glyphicon glyphicon-calendar"></i>研究スケジュール</button>
+		onclick="window.location.href='/studylog'" style="width: 20%;"><i class="glyphicon glyphicon-calendar"></i>研究スケジュール</button>
 	<!-- <button type="button" class="btn btn-default"
-		onclick="window.location.href='/community'" style="width: 25%;"><i class="glyphicon glyphicon-plus"></i>{% trans "コミュニティ" %}</button> -->
+		onclick="window.location.href='/community'" style="width: 30%;"><i class="glyphicon glyphicon-plus"></i>{% trans "コミュニティ" %}</button> -->
 	<button type="button" class="btn btn-default dropdown-toggle"
-		data-toggle="dropdown" style="width: 5%;">
+		data-toggle="dropdown" style="width: 20%;">
 		{{ user.username }} <span class="caret"></span>
 	</button>
 	
