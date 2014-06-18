@@ -1,33 +1,33 @@
-{% extends "myapp/base.html" %} {%block content %}
-<div class="row" id="ex3" style="height:450px;width:1000px;margin-left:12%;overflow-y:scroll;background-color:lightgray;">
-	<div class="col-md-11" style="height: 460px;margin-top: 20px;margin-left: 30px;">
-		<p>
-			<a href="/t/community_guidelines">Nguyên tắc cộng đồng</a>
-			<a href="/t/community_guidelines">Nguyên tắc cộng đồng</a>
-		</p>
-		<h1>Mentoring agreement</h1>
-		<p>Here are some suggestions for items that may be included in an agreement. Then you will both know where you are, what to expect from the other person and when the arrangement will end. </p>
-		<h3>Time</h3>
-		<p>Agree when the mentor relationship will end: three months would be a reasonable length of time but it could be shorter &mdash; or longer. You can always decide to extend the relationship if you both wish &mdash; again a finite time is best &mdash; or just to continue as friends. Agree how often and how long you'll meet: perhaps once or twice a week initially, possibly over coffee or lunch.</p>
-		<h3>Flexibility</h3>
-		<p>Agree, too, whether it is OK to be phoned up or called on if the person you are mentoring has a particular question. Since part of the role is to reassure, it is probably a good idea to agree to this initially and re-negotiate if it gets out of hand &mdash; which is unlikely if your other meetings are regular.</p>
-		<h3>Confidentiality</h3>
-		<p>Agree that you will not disclose to anyone else what you discuss with the person you are mentoring unless with her/his agreement. Agree how you will describe the partnership to others, including the head of institution if she/he asks.</p>
-		<h3>Boundaries</h3>
-		<p>You are not responsible for the person you are mentoring, nor for his/her formal induction. But you can easily answer questions, fill in the odd small gap in it, allay anxieties and give friendly guidance. It isn't your job to fill in all the gaps left by the formal induction process.</p>
-		<h3>Review and evaluation</h3>
-		<p>At the end of the arrangement, look back over the time and list what went well and what you might do differently another time. Comment constructively on each other's handling of the role. Tell the head of institution or whoever recruited you to the role if you've enjoyed it and if you would be prepared to do it again. Tell PPD if you've enjoyed it, or if you haven't enjoyed it and would like to talk it over. Tell them too of any tips for future mentors or people being mentored or suggestions for amendments to this note or other induction documents.</p>
-		<h3>If you think something is going wrong</h3>
-		<p>Use your judgement. Encourage the person you're mentoring to tackle it if that's at all possible. Remember you aren't their advocate. But if you think someone's physical or emotional health or safety may be at risk, you have a duty to draw the attention of that person to the possible risk and to take reasonable steps to avert it. If you think something needs to be brought to the attention of an authority, your union may be able to do it anonymously. If you are going to someone else, do discuss the matter with the person you are mentoring first and tell him/her what you are thinking of doing. Remember that in law you may be considered to be the University's ear: if you have heard of something on which the University ought to take action, like harassment, the University may be deemed to have heard it too; if then the University doesn't act, it may be considered to have deliberately ignored a problem because you have not fulfilled your responsibility to disclose it or remedy it.</p>
+{% extends "myapp/base.html" %} 
+{%block content %}
+<div class="contentpanel" style="margin-top: 3%; min-height: 550px;">
+
+	<div class="row" id="ex3" style="margin-top:1%; overflow-y:scroll;background-color:lightgray;">
+		<div class="col-md-11" style="height: 460px;margin-top: 20px;margin-left: 30px;">
+			<h1>Mentoring agreement</h1>
+			<p>Here are some suggestions for items that may be included in an agreement. Then you will both know where you are, what to expect from the other person and when the arrangement will end. </p>
+			<h3>Time</h3>
+			<p>Agree when the mentor relationship will end: three months would be a reasonable length of time but it could be shorter &mdash; or longer. You can always decide to extend the relationship if you both wish &mdash; again a finite time is best &mdash; or just to continue as friends. Agree how often and how long you'll meet: perhaps once or twice a week initially, possibly over coffee or lunch.</p>
+			<h3>Flexibility</h3>
+			<p>Agree, too, whether it is OK to be phoned up or called on if the person you are mentoring has a particular question. Since part of the role is to reassure, it is probably a good idea to agree to this initially and re-negotiate if it gets out of hand &mdash; which is unlikely if your other meetings are regular.</p>
+			<h3>Confidentiality</h3>
+			<p>Agree that you will not disclose to anyone else what you discuss with the person you are mentoring unless with her/his agreement. Agree how you will describe the partnership to others, including the head of institution if she/he asks.</p>
+			<h3>Boundaries</h3>
+			<p>You are not responsible for the person you are mentoring, nor for his/her formal induction. But you can easily answer questions, fill in the odd small gap in it, allay anxieties and give friendly guidance. It isn't your job to fill in all the gaps left by the formal induction process.</p>
+			<h3>Review and evaluation</h3>
+			<p>At the end of the arrangement, look back over the time and list what went well and what you might do differently another time. Comment constructively on each other's handling of the role. Tell the head of institution or whoever recruited you to the role if you've enjoyed it and if you would be prepared to do it again. Tell PPD if you've enjoyed it, or if you haven't enjoyed it and would like to talk it over. Tell them too of any tips for future mentors or people being mentored or suggestions for amendments to this note or other induction documents.</p>
+			<h3>If you think something is going wrong</h3>
+			<p>Use your judgement. Encourage the person you're mentoring to tackle it if that's at all possible. Remember you aren't their advocate. But if you think someone's physical or emotional health or safety may be at risk, you have a duty to draw the attention of that person to the possible risk and to take reasonable steps to avert it. If you think something needs to be brought to the attention of an authority, your union may be able to do it anonymously. If you are going to someone else, do discuss the matter with the person you are mentoring first and tell him/her what you are thinking of doing. Remember that in law you may be considered to be the University's ear: if you have heard of something on which the University ought to take action, like harassment, the University may be deemed to have heard it too; if then the University doesn't act, it may be considered to have deliberately ignored a problem because you have not fulfilled your responsibility to disclose it or remedy it.</p>
+		</div>
 	</div>
-</div>
-<div class="row" style="margin-top: 30px;width:1000px;margin-left: 12%">
-	<div class="col-md-11" style="float: right;">
-		<form class="" action="become-mentor" method="post">
-			{% csrf_token %}
-			<button class="btn btn-primary" style="float: right;">Agree</button>
-		</form>
-		<button type="reset" class="btn btn-default" style="float: right;margin-right: 8px;" onClick="location.href='student-home'">Cancel</button>
+	<div class="row" style="margin-top: 30px;width:1000px;margin-left: 12%">
+		<div class="col-md-11" style="float: right;">
+			<form class="" action="become-mentor" method="post">
+				{% csrf_token %}
+				<button class="btn btn-primary" style="float: right;">Agree</button>
+			</form>
+			<button type="reset" class="btn btn-default" style="float: right;margin-right: 8px;" onClick="location.href='student-home'">Cancel</button>
+		</div>
 	</div>
-</div>
+</div> <!-- End of content panel -->
 {% endblock content%}
