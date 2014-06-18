@@ -2,21 +2,21 @@
 	<div class="form-group">
 		<div class="col-sm">
 			<input type="text" name="course_name" class="form-control"
-			 placeholder="Course name" required="">
+			 placeholder="カリキュラム名" required="">
 		</div>
 	</div>
 
 	<div class="form-group">
 		<div class="col-sm-6">
 			<input type="text" id="duration" name="duration" class="form-control"
-				 placeholder="Duration" maxlength="2" required="">
+				 placeholder="デュレーション" maxlength="2" required="">
 
 		</div>
 		<div class="col-sm-6">
 			<select class="form-control" name="duration_type">
-				<option value="Week">Week</option>
-				<option value="Month">Month</option>
-				<option value="Year">Year</option>
+				<option value="Week">週</option>
+				<option value="Month">月</option>
+				<option value="Year">年</option>
 			</select>
 		</div>
 	</div>
@@ -47,7 +47,7 @@
 			</select>
 		</div>
 		<div class="col-sm-6">
-			<select name="childrenCategory" id="childrenCategory" title="Please select once " class="form-control" required="">
+			<select name="childrenCategory" id="childrenCategory" title="一度選択してください " class="form-control" required="">
 				{% if listCategory %}
 					{% for category in listCategory %}
 						{% if  category.isparent == '0'%}
@@ -62,7 +62,7 @@
 		<div class="col-sm-6">
 			<div class="input-group">
 				<input type="text" name="start_date" class="form-control" 
-					 placeholder="Start date" id="startdate" required="">
+					 placeholder="開始日" id="startdate" required="">
 				<span class="input-group-addon"><i
 					class="fa fa-calendar"></i></span>
 			</div>
@@ -70,7 +70,7 @@
 		<div class="col-sm-6">
 			<div class="input-group">
 				<input type="text" name="end_date" class="form-control"
-					placeholder="End date" id="enddate" required=""> <span
+					placeholder="終了日" id="enddate" required=""> <span
 					class="input-group-addon"><i class="fa fa-calendar"></i></span>
 			</div>
 		</div>
@@ -78,7 +78,7 @@
 	<div class="form-group">
 		<div class="col-sm">
 		<textarea name="curriculumn_description" class="form-control"
-			 placeholder="description" rows="2" required=""> </textarea>
+			 placeholder="説明" rows="2" required=""> </textarea>
 		</div>
 	</div>
 </div>

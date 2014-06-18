@@ -6,7 +6,7 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Create Course</h4>
+				<h4 class="modal-title" id="myModalLabel">カリキュラムの作成</h4>
 			</div>
 
 			<div class="panel panel-default">
@@ -16,12 +16,12 @@
 					<div id="courseWizard" class="basic-wizard">
 
 						<ul class="nav nav-pills nav-justified nav-disabled-click">
-							<li class="active"><a href="#vtab1" data-toggle="tab"><span>Step
-										1:</span> Create course</a></li>
-							<li><a href="#vtab2" data-toggle="tab"><span>Step
-										2:</span> Add material </a></li>
-							<li><a href="#vtab3" data-toggle="tab"><span>Step
-										3:</span> Action to do</a></li>
+							<li class="active"><a href="#vtab1" data-toggle="tab"><span>ステップ 
+										1:</span> カリキュラムの作成</a></li>
+							<li><a href="#vtab2" data-toggle="tab"><span>ステップ 
+										2:</span> 素材を追加 </a></li>
+							<li><a href="#vtab3" data-toggle="tab"><span>ステップ 
+										3:</span> アクションを追加</a></li>
 						</ul>
 
 						<form class="form" id="firstForm" novalidate="novalidate" method="post" action="/add-course">
@@ -40,11 +40,11 @@
 						</form>
 						
 						<ul class="pager wizard">
-							<li class="previous disabled"><a href="javascript:void(0)">Previous</a></li>
-							<li class="next"><a href="javascript:void(0)">Next</a></li>
+							<li class="previous disabled"><a href="javascript:void(0)">前</a></li>
+							<li class="next"><a href="javascript:void(0)">次</a></li>
 							<!-- <li style="display:none;" id="finish" onclick="saveMaterial();"><a href="/mentor-course?user_id={{ user_id }}">Finish</a></li> -->
-							<li style="display:none;" id="finish" onclick="saveMaterial();"><button class="btn btn-primary">Finish</button></li>
-							<li class="next finish" style="display:none;" ><button class="btn btn-primary" style="float: right;">Finish</button></li>
+							<li style="display:none;" id="finish" onclick="saveMaterial();"><button class="btn btn-primary">仕上げ</button></li>
+							<li class="next finish" style="display:none;" ><button class="btn btn-primary" style="float: right;">仕上げ</button></li>
 							
 						</ul>
 

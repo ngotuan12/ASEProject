@@ -4,7 +4,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading" style="height: 279px;margin-top: 1px;">
 					<div class="col-sm-9">
-						<span>List materials</span>
+						<span>リスト材料</span>
 						<input type="" id="numberMaterial" name="numberMaterial" value="0" hidden="false">
 						<input type="" id="numberMaterialShow"  value="0" hidden="false">
 						<input type="" id="currentNumberMaterial"  value="0" hidden="false">
@@ -24,37 +24,37 @@
 						<div class="col-sm-12">
 							<input id="material_title" type="text" name="material_title"
 								class="form-control" 
-								placeholder="Material title" required="">
+								placeholder="素材名" required="">
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-8">
 							<select id="material_type" name="material_type" class="form-control">
-								<option value="-1">Choose type</option>
-								<option value="Book" selected>Book</option>
-								<option value="Video">Video</option>
-								<option value="Document">Document</option>
+								<option value="-1">タイプを選択</option>
+								<option value="Book" selected>本</option>
+								<option value="Video">ビデオ</option>
+								<option value="Document">ドキュメント</option>
 							</select>
 						</div>
 						<div class="col-sm-4" style="margin-top: 8px;">
-							<span>(Ex: Book,Video,Doccument,Doc,...)</span>
+							<span>(例：ブック、ビデオ、ドキュメント...)</span>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-12">
 							<input type="text" id="material_url" name="material_url" class="form-control"
-								 placeholder="Material url" required="">
+								 placeholder="素材  url" required="">
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-12">
-							<textarea class="col-sm-12" id="material_description" name="material_description" rows="1" placeholder="description" style="height: 45px;" required=""></textarea>
+							<textarea class="col-sm-12" id="material_description" name="material_description" rows="1" placeholder="説明" style="height: 70px;" required=""></textarea>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-12">
 							<ul class="pager" style="border-top: none !important;background: white !important;padding: 0px !important;width: 55px;float: right;">
-								 <li style="float: right;" id="showAdd"><a href="#" id="addMaterial" onclick="addMaterial();">Add</a></li>
+								 <li style="float: right;" id="showAdd"><a href="#" id="addMaterial" onclick="addMaterial();">加える</a></li>
 							</ul>
 						</div>
 					</div>
