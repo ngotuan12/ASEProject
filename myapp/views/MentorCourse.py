@@ -111,7 +111,7 @@ def add_material(request):
 		material.name = material_title
 		material.type = MaterialType.objects.get(name=material_type)
 		material.url = material_url
-		material.code = material_code
+		material.code = ""
 		material.description = material_description
 # 		material.save()
 		#curriculum
