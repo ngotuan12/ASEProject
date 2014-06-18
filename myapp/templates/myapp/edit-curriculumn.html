@@ -1,0 +1,47 @@
+<!-- Modal -->
+<div class="modal fade" id="edit-curriculumn" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Edit Curriculum ..</h4>
+			</div>
+			<form class="form" id="editCurriculumnForm" novalidate="novalidate" method="post" action="/edit-curriculumn">
+				{% csrf_token %}
+				{% include 'myapp/add-course.html' %}
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" onclick="return onEditCurriculumnFromSubmit();">Save</button>
+				</div>
+			</form>
+			<!-- End of block -->
+
+		</div>
+		<!-- modal-content -->
+
+	</div>
+	<!-- modal-dialog -->
+</div>
+<!-- modal -->
+<script>
+function onEditCurriculumn(curriculumId,curriculumName,curriculumDuration,curriculumDurationType,curriculumCategoryparent,curriculumChildren,curriculumStartDate,curriculumEndDate,curriculumDescription)
+{
+	/* $("#editCurriculumnForm").find("#curriculumn_id").val(curriculumId);
+	$("#editCurriculumnForm").find("#course_name").val(curriculumName);
+	$("#editCurriculumnForm").find("#duration").val(curriculumDuration);
+	$("#editCurriculumnForm").find("#duration_type").val(curriculumDurationType);
+	$("#editCurriculumnForm").find("#curriculumn_description").val(curriculumDescription); */
+};
+function onEditCurriculumnFromSubmit()
+{
+	var $valid = jQuery('#editCurriculumnForm').valid();
+	if(!$valid) 
+	{
+		$validator.focusInvalid();
+		return false;
+	}
+	jQuery('#editCurriculumnForm').submit();
+};
+</script>
