@@ -4,6 +4,8 @@
 	{% include 'myapp/add-material.html' %}
 	{% include 'myapp/edit-material.html' %}
 	{% include 'myapp/add-action.html' %}
+	{% include 'myapp/edit-action.html' %}
+	{% include 'myapp/edit-curriculumn.html' %}
 {% endif %}
 
 {% if has_curriculum %}
@@ -16,7 +18,7 @@
 				
 				<div class="row">
 					{% if user.id|truncatechars:100 == user_id %}
-					<span></span>
+						
 					{% else %}
 						{% if cl.joined_user|length > 0 %}
 							{% if username in cl.joined_user %}
@@ -34,6 +36,12 @@
 					<ul class="blog-meta">
 						<li>Course Start: {{ cl.from_date|date:'Y-M-d' }}</li>
 						<li>Duration: {{ cl.duration }} - {{ cl.duration_type }}</li>
+						{% if user.id|truncatechars:100 == user_id %}
+							<li>
+								<a href="#" data-toggle="modal" data-target="#edit-curriculumn" onclick="onEditCurriculumn('{{cl.id}}','{{cl.name}}','{{cl.duration}}','{{cl.duration_type}}','{{cl.category.parentCategory.categoryName }}','{{cl.category.categoryName }}','{{cl.from_date }}','{{cl.to_date }}','{{cl.description }}');"><i class="fa fa-pencil"></i></a> 
+								<a href="#" class="delete-row" data-toggle="modal" data-target=""><i class="fa fa-trash-o"></i></a>
+							</li>
+						{% endif %}
 					</ul>
 				</div>
 				
@@ -98,13 +106,22 @@
 								<tr >
 								<th style="width: 40%; text-align: center; background-color: #1CAF9A; color: #fff">Action to do</th>
 								<th style="width: 60%; text-align: center; background-color: #1CAF9A; color: #fff">Description</th>
+								{% if  cl.mentor.user|truncatechars:100 == username|truncatechars:100 %}
+									<th style="width: 10%; text-align: center; background-color: #1CAF9A; color: #fff"></th>
+								{% endif %}
 								</tr>
 								<tbody>
 								{% for ac in cl.action %}
 								<tr>
 									<td onclick="document.location = 'course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}';">{{ ac.name|truncatechars:100 }}</td>
 									<td onclick="document.location = 'course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}';">{{ ac.description|truncatechars:100 }}</td>
-											
+									{% if  cl.mentor.user|truncatechars:100 == username|truncatechars:100 %}
+										<td class="table-action">
+											<button class="btn btn-default btn-xs" data-toggle="modal" data-target="#edit-action" onclick="onEditAction('{{ac.id}}','{{ ac.name }}','{{ ac.description }}');">
+												<i class="fa fa-pencil" style="padding-left: 5px;"></i>
+											</button>
+										</td>
+									{% endif %}
 											</tbody>
 								{% endfor %}
 							</table>

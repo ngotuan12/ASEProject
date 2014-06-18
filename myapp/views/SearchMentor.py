@@ -20,7 +20,12 @@ def index(request):
 # 		if user.parentCategory is not None :
 # 			print(user.parentCategory.categoryName)
 # 	print('finish')
-	c = {'lisUserProfile':lisUserProfile,'listCategory':lisCategory}
+	
+	if len(lisCategory) > 0:
+		category=lisCategory[0]
+		c = {'lisUserProfile':lisUserProfile,'listCategory':lisCategory,'category':category}
+	else:
+		c = {'lisUserProfile':lisUserProfile,'listCategory':lisCategory}
 	if request.method == 'GET':
 		return render(request, 'myapp/search-mentor.html', c)
 	elif request.method == 'POST':
