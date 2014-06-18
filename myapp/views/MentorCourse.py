@@ -47,12 +47,12 @@ def index(request):
 		curriculumn.from_date = datetime.strptime(start_date,'%m/%d/%Y')
 		curriculumn.to_date = datetime.strptime(end_date,'%m/%d/%Y')
 		curriculumn.mentor = mentor
-# 		curriculumn.save()
+		curriculumn.save()
 		#material
 		material_title = request.POST['material_title']
 		material_type = request.POST['material_type']
 		material_url = request.POST['material_url']
-		material_code = request.POST['material_code']
+		material_code = ""
 		material_description = request.POST['material_description']
 		material = Material()
 		material.name = material_title
@@ -60,18 +60,19 @@ def index(request):
 		material.url = material_url
 		material.code = material_code
 		material.description = material_description
-# 		material.save()
+		material.save()
 		curriculumn.material.append(material)
-# 		curriculumn.save()
+		curriculumn.save()
 		#action
 		action_name = request.POST['action_name']
 		action_description = request.POST['action_description']
 		action = Action()
 		action.name = action_name
 		action.description = action_description
-# 		action.save()
-		curriculumn.action.append(action)
-# 		curriculumn.save()
+		if request.POST['action_name']:
+			action.save()
+			curriculumn.action.append(action)
+			curriculumn.save()
 		return HttpResponseRedirect('/');
 @login_required(login_url='/signin')
 def add_action(request):
@@ -85,10 +86,10 @@ def add_action(request):
 		action = Action()
 		action.name = action_name
 		action.description = action_description
-# 		action.save()
+		action.save()
 		#curriculum
 		curriculum.action.append(action)
-#		curriculum.save()
+		curriculum.save()
 		return HttpResponseRedirect('/');
 @login_required(login_url='/signin')
 def add_material(request):
@@ -101,7 +102,7 @@ def add_material(request):
 			material_title = request.POST['material_title']
 			material_type = request.POST['material_type']
 			material_url = request.POST['material_url']
-			material_code = request.POST['material_code']
+			material_code = ""
 			material_description = request.POST['material_description']
 		except Exception as e:
 			c = {
@@ -111,12 +112,12 @@ def add_material(request):
 		material.name = material_title
 		material.type = MaterialType.objects.get(name=material_type)
 		material.url = material_url
-		material.code = ""
+		material.code = material_code
 		material.description = material_description
-# 		material.save()
+		material.save()
 		#curriculum
 		curriculum.material.append(material)
-# 		curriculum.save()
+		curriculum.save()
 		return HttpResponseRedirect('/');
 @login_required(login_url='/signin')
 def join_course(request):
