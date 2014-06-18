@@ -27,8 +27,9 @@ def index(request):
 				}
 			user=User.objects.get(username=str(request.user))
 			user_id = user.id
+		
 		user = User.objects.get(id=user_id)
-		mentor = Mentor.objects.get(user=user)
+		mentor = Mentor.objects.get(user=user.id)
 		cl = Curriculumn.objects(mentor=mentor)
 		has_curriculum = False
 		is_mentor = request.session['is_mentor']

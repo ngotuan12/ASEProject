@@ -1,4 +1,7 @@
+from mongoengine.django.auth import User
+
 from myapp.models.Mentor import Mentor
+
 
 def user(request):
 	"""A context processor that adds the user to template context"""
@@ -11,8 +14,18 @@ def user(request):
 				is_mentor = True
 		except Exception as e:
 			is_mentor = False
-	return {
+	if (request.user.is_authenticated()==True) and(request.user is not None):
+		loggedUser = User.objects(username=str(request.user))
+		return {
+			'user': request.user,
+			'profile':profile,
+			'is_mentor':is_mentor,
+			'loggedUser':loggedUser[0]
+		}
+	else:
+		return {
 		'user': request.user,
 		'profile':profile,
-		'is_mentor':is_mentor
+		'is_mentor':is_mentor,
+		'loggedUser':[]
 	}
