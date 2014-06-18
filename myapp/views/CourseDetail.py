@@ -329,8 +329,6 @@ def index(request):
 			lscl = cl[0]
 			for i in lscl.__getattribute__('material'):
 				i.note='0'
-				print(i.name)
-				print(i.id)
 				try:
 					is_like = StatisticDetail.objects(object_id=str(i.id),status=status,user=user.id)
 					if len(is_like):
