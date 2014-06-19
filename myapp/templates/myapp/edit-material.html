@@ -71,12 +71,12 @@
 </div>
 <!-- modal -->
 <script>
-function onEdit(curriculumId,materialId,materialName,materialUrl,materialDescription,materialType) 
+function onEdit(curriculumId,materialId) 
 {
-	$("#editMaterialForm").find("#material_title").val(materialName);
-	$("#editMaterialForm").find("#material_url").val(materialUrl);
-	$("#editMaterialForm").find("#material_description").val(materialDescription);
-	$("#editMaterialForm").find("#material_type").val(materialType);
+	$("#editMaterialForm").find("#material_title").val($('#materialName'+materialId).val());
+	$("#editMaterialForm").find("#material_url").val($('#materialUrl'+materialId).val());
+	$("#editMaterialForm").find("#material_description").val($('#materialDescription'+materialId).val());
+	$("#editMaterialForm").find("#material_type").val($('#materialType'+materialId).val());
 	$("#editMaterialForm").find("#material_id").val(materialId);
 };
 </script>

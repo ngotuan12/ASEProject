@@ -46,10 +46,10 @@
 <!-- modal -->
 
 <script>
-function onEditAction(actionId,actionName,ActionDescription) 
+function onEditAction(actionId) 
 {
-	$("#editActionForm").find("#action_name").val(actionName);
-	$("#editActionForm").find("#action_description").val(ActionDescription);
+	$("#editActionForm").find("#action_name").val($('#actionName'+actionId).val());
+	$("#editActionForm").find("#action_description").val($('#actionDescription'+actionId).val());
 	$("#editActionForm").find("#action_id").val(actionId);
 };
 function onEditActionFromSubmit()
