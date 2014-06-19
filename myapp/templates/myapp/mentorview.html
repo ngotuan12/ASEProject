@@ -2,22 +2,20 @@
 {%block styles %}
 <link href="css/mentor-course.css" rel="stylesheet">
 {% endblock %}
+{% block header %}
+	{% include 'myapp/pnl_header.html' %}
+{% endblock %} 
+
 {%block content %}
- <div class="contentpanel" style="margin-top: 3%;">
-	<!-- start tab home -->
-	<!-- Tab home display all post that exists in DB -->
-	<div class="tab-pane active" id="home" style="background-color: #d8dbde;">
-		<div class="contentpanel" style="min-height: 500px;">
+	<div class="contentpanel" style="min-height: 550px;padding: 0px;">
 		{% if has_curriculum == True %} 
-			{% include 'myapp/asstudent.html' %} 
 			{% include 'myapp/listofcurriculumn.html' %}
 		{% else %}
 			{% include 'myapp/createcourse.html' %}
 		{% endif %}
-		</div>
+	
+		<!-- end of content panel -->
 	</div>
-	<!-- end of content panel -->
-</div>
 {% endblock content%} 
 
 {% block scripts %}

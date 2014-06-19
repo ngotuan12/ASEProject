@@ -1,6 +1,10 @@
 {% extends "myapp/base.html" %} 
+
 {% block header %}
-{% endblock %}
+	{% include 'myapp/pnl_header.html' %}
+{% endblock %} 
+
+
 {% block content %}
 <!-- Start content panel -->
 {% include 'myapp/pnl_course.html' %}

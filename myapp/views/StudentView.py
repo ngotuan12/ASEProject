@@ -39,24 +39,6 @@ def index(request):
 		actLike = 0
 		mtTotal = 0
 		actTotal = 0
-		try:
-			for c in cl:
-				clTaken += c.statistic.currentTakenNumber
-				clLike += c.statistic.currentLikeNumber
-				for mt in c.material:
-						mtTaken += mt.statistic.currentTakenNumber
-						mtLike += mt.statistic.currentLikeNumber
-						mtTotal += 1
-				for act in c.action:
-					actTaken += act.statistic.currentTakenNumber
-					actLike += act.statistic.currentLikeNumber
-					actTotal +=1
-			print(mtTaken)
-			print(mtLike)
-			print(actTaken)
-			print(actLike)
-		except Exception as e:
-			print(e)
 		for c in cl:
 			if len(c.joined_user)>0 :
 				for u in c.joined_user:

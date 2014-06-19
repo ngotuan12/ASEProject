@@ -1,8 +1,7 @@
-<div class="contentpanel" style="margin-top: 3%;">
+<div class="contentpanel">
 	{% include 'myapp/createesay.html'%} {% include 'myapp/addphoto.html'%}
 	{% include 'myapp/addvideo.html' %} {% include 'myapp/addlink.html' %}
-	
-	{% include "myapp/asstudent.html"%}
+
 	{% if not is_joined %}
 		{% if author == username %}
 			<p></p>

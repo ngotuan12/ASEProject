@@ -2,34 +2,22 @@
 {%block styles %}
 <link href="css/mentor-course.css" rel="stylesheet">
 {% endblock %}
+
+{% block header %}
+	{% include 'myapp/pnl_header.html' %}
+{% endblock %} 
+
 {%block content %}
- <div class="tab-content mb30">
-	<!-- start tab home -->
-	<!-- Tab home display all post that exists in DB -->
-	<div class="tab-pane active" id="home" style="background-color: #d8dbde;margin-top: 3%;">
-		<div class="contentpanel" style="min-height: 500px;">
-		{% if has_curriculum %} 
-			{% include 'myapp/asstudent.html' %} 
-			{% include 'myapp/listofcurriculumn.html' %}
-		{% else %}
-			{% if ismentor %}
-				{% include 'myapp/createcourse.html' %}
-			{% else %}
-				{% include 'myapp/listofcurriculumn.html' %}
-			{% endif %}
-		{% endif %}
-		</div>
-	</div>
-	<!-- end of tab home -->
-	<div class="tab-pane " id="News" style="background-color: #d8dbde;">
-		<!-- start tab home -->
-	</div>
-	<!-- end of content panel -->
-</div>
-<!-- end of tab home -->
-<div class="tab-pane " id="Lectures" style="background-color: #d8dbde;">
-</div>
-<!-- end of tab Events -->
+<div class="contentpanel" style="min-height: 500px;">
+{% if has_curriculum %} 
+	{% include 'myapp/listofcurriculumn.html' %}
+{% else %}
+	{% if ismentor %}
+		{% include 'myapp/createcourse.html' %}
+	{% else %}
+		{% include 'myapp/listofcurriculumn.html' %}
+	{% endif %}
+{% endif %}
 </div>
 {% endblock content%} 
 

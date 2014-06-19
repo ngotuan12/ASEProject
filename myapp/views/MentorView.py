@@ -43,24 +43,6 @@ def index(request):
 		actLike = 0
 		mtTotal = 0
 		actTotal = 0
-		try:
-			for c in cl:
-				clTaken += c.statistic.currentTakenNumber
-				clLike += c.statistic.currentLikeNumber
-				for mt in c.material:
-						mtTaken += mt.statistic.currentTakenNumber
-						mtLike += mt.statistic.currentLikeNumber
-						mtTotal += 1
-				for act in c.action:
-					actTaken += act.statistic.currentTakenNumber
-					actLike += act.statistic.currentLikeNumber
-					actTotal +=1
-			print(mtTaken)
-			print(mtLike)
-			print(actTaken)
-			print(actLike)
-		except Exception as e:
-			print(e)
 		context = {'user_id':user_id,
 					'username':request.user,
 					'cl':cl,

@@ -38,7 +38,6 @@ def index(request):
 		except Exception as e:
 			is_mentor = False
 		user=User.objects.get(username=str(request.user))
-		print(user.id)
 		student=Student.objects(user=user.id)
 		status = "1"
 
@@ -53,29 +52,7 @@ def index(request):
 		actLike = 0
 		mtTotal = 0
 		actTotal = 0
-		try :
-			for c in cl:
-				if c.statistic.currentTakenNumber:
-					c.statistic.currentTakenNumber=10
-					clTaken += c.statistic.currentTakenNumber
-				if c.statistic.currentLikeNumber:
-					clLike += c.statistic.currentLikeNumber
-				
-				for mt in c.material:
-					if mt.statistic.currentTakenNumber:
-						mtTaken += mt.statistic.currentTakenNumber
-					if mt.statistic.currentLikeNumber:
-						mtLike += mt.statistic.currentLikeNumber
-						mtTotal += 1
-				for act in c.action:
-					if act.statistic.currentTakenNumber:
-						actTaken += act.statistic.currentTakenNumber
-					if act.statistic.currentLikeNumber:
-						actLike += act.statistic.currentLikeNumber
-						actTotal +=1
-		except Exception as e:
-			print(e)
-		#print(cl[0].id)
+
 		is_joined = False
 		if len(student):
 			progress = CurriculumnStudyProgress.objects(curriculumn=cl[0].id,student=student[0].id)
