@@ -3,7 +3,7 @@
 	{% include 'myapp/addvideo.html' %} {% include 'myapp/addlink.html' %}
 
 	{% if not is_joined %}
-		{% if author == username %}
+		{% if user_id|truncatechars:100 == cl.mentor.user.username|truncatechars:100 %}
 			<p></p>
 		{% else %}
 			<form id="frmJoincourse" method="post">

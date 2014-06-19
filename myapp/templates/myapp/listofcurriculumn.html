@@ -37,10 +37,10 @@
 						<li>Course Start: {{ cl.from_date|date:'Y-M-d' }}</li>
 						<li>Duration: {{ cl.duration }} - {{ cl.duration_type }}</li>
 						{% if user.id|truncatechars:100 == user_id %}
-							<li>
+							<!-- <li>
 								<a href="#" data-toggle="modal" data-target="#edit-curriculumn" onclick="onEditCurriculumn('{{cl.id}}','{{cl.name}}','{{cl.duration}}','{{cl.duration_type}}','{{cl.category.parentCategory.categoryName }}','{{cl.category.categoryName }}','{{cl.from_date }}','{{cl.to_date }}','{{cl.description }}');"><i class="fa fa-pencil"></i></a> 
 								<a href="#" class="delete-row" data-toggle="modal" data-target=""><i class="fa fa-trash-o"></i></a>
-							</li>
+							</li> -->
 						{% endif %}
 					</ul>
 				</div>
@@ -61,14 +61,14 @@
 							{% if user.id|truncatechars:100 == user_id %}
 							<div class="btn-group  pull-left">
 								<button type="button" class="btn btn-sm btn-white"
-									data-toggle="modal" data-target="#add-material" onclick="onShowFormMaterial('{{cl.id}}');">Add Material</button>
+									data-toggle="modal" data-target="#add-material" onclick="onShowFormMaterial('{{cl.id}}');">素材を追加</button>
 							</div>
 							{% endif%}
 						<div class="table-responsive">
 							<table class="table table-hover table-bordered mb30" >
 								<tr>
-								<th style="width: 40%;text-align: center; background-color: #1CAF9A; color: #fff">Name</th>
-								<th style="width: ; text-align: center; background-color: #1CAF9A; color: #fff">Description</th>
+								<th style="width: 40%;text-align: center; background-color: #1CAF9A; color: #fff">名前</th>
+								<th style="width: ; text-align: center; background-color: #1CAF9A; color: #fff">説明</th>
 								{% if  cl.mentor.user|truncatechars:100 == username|truncatechars:100 %}
 									<th style="width: 10%; text-align: center; background-color: #1CAF9A; color: #fff"></th>
 								{% endif %}
@@ -101,14 +101,14 @@
 							{% if user.id|truncatechars:100 == user_id %}
 								<div class="btn-group  pull-left">
 									<button type="button" class="btn btn-sm btn-white"
-										data-toggle="modal" data-target="#add-action" onclick="onShowFormAction('{{cl.id}}');">Add Action</button>
+										data-toggle="modal" data-target="#add-action" onclick="onShowFormAction('{{cl.id}}');">アクションの追加</button>
 								</div>
 							{% endif%}
 						<div class="table-responsive">
 							<table class="table table-hover table-bordered mb30">
 								<tr >
-								<th style="width: 40%; text-align: center; background-color: #1CAF9A; color: #fff">Action to do</th>
-								<th style="width: 60%; text-align: center; background-color: #1CAF9A; color: #fff">Description</th>
+								<th style="width: 40%; text-align: center; background-color: #1CAF9A; color: #fff">アクションの追加</th>
+								<th style="width: 60%; text-align: center; background-color: #1CAF9A; color: #fff">説明</th>
 								{% if  cl.mentor.user|truncatechars:100 == username|truncatechars:100 %}
 									<th style="width: 10%; text-align: center; background-color: #1CAF9A; color: #fff"></th>
 								{% endif %}

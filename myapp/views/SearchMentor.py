@@ -3,13 +3,17 @@ Created on Apr 3, 2014
 
 @author: ducdienpt
 '''
+from builtins import len
+
 from django.core.context_processors import csrf
 from django.shortcuts import render, render_to_response
 from mongoengine.django.auth import User
 from mongoengine.queryset.visitor import Q
 
 from myapp.models import UserProfile, Curriculumn, Category
+from myapp.models.Mentor import Mentor
 from myapp.util import context_processors
+
 
 def index(request):
 	lisUserProfile = {}
@@ -32,6 +36,8 @@ def index(request):
 		lisUserProfile={}
 		listCurriculumn={}
 		lisCategory =Category.objects()
+		user=User.objects.get(username=str(request.user))
+		mentor=Mentor.objects(user=user.id)
 		try:
 			keyword = request.POST['search']
 			parentCategory = request.POST['parentCategory'];
@@ -41,7 +47,11 @@ def index(request):
 # 			lisUserProfile = UserProfile.objects(user_id__in=users,is_mentor=True)
 			
 # 			categoryObject =Category.objects.get(id=childrenCategory)
-			listCurriculumn =Curriculumn.objects(category=childrenCategory ,name__icontains=keyword).order_by('published_date')
+			if len(mentor)>0:
+				mt=mentor[0]
+				listCurriculumn =Curriculumn.objects(category=childrenCategory ,name__icontains=keyword).order_by('published_date')
+			else:
+				listCurriculumn =Curriculumn.objects(category=childrenCategory ,name__icontains=keyword).order_by('published_date')
 			print(len(listCurriculumn))
 # 			listCurriculumn =Curriculumn.objects(name__icontains=keyword)
 			c = {'lisUserProfile':lisUserProfile,'listCurriculumn':listCurriculumn,'listCategory':lisCategory,'search':keyword,'parentCategory':parentCategory,'childrenCategory':childrenCategory}
@@ -52,7 +62,11 @@ def index(request):
 		except Exception:
 			keyword = request.POST['search']
 			parentCategory = request.POST['parentCategory'];
-			listCurriculumn =Curriculumn.objects(name__icontains=keyword).order_by('published_date')
+			if len(mentor)>0:
+				mt=mentor[0]
+				listCurriculumn =Curriculumn.objects(name__icontains=keyword).order_by('published_date')
+			else:
+				listCurriculumn =Curriculumn.objects(name__icontains=keyword).order_by('published_date')
 			c = {'lisUserProfile':lisUserProfile,'listCurriculumn':listCurriculumn,'listCategory':lisCategory,'search':keyword,'parentCategory':parentCategory}
 			c.update(csrf(request))
 			c.update(context_processors.user(request))
