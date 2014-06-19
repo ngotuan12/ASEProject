@@ -4,7 +4,7 @@
 	<div class="breadcrumb-wrapper">
 	{% if cl.mentor.user.id == user.id %}
 		{% include "myapp/add-material.html"%}
-			<button class="btn btn-default btn-block" data-toggle="modal" data-target="#add-material">Add material </button>
+			<button class="btn btn-default btn-block" data-toggle="modal" data-target="#add-material">素材を追加 </button>
 		{% elif is_joined %}
 			<span class="label">{{ user.username }} back to course!</span>
 		{% endif %}
@@ -14,7 +14,7 @@
 	<div class="pageheader" style="margin-top: 4%; height: 70px;">
 		<h2 style="margin-top: 1%;"><i class="fa fa-font"></i> {{ user.username }}</h2>
 		<div class="breadcrumb-wrapper">
-			<button class="btn btn-default btn-block" data-toggle="modal" data-target="#add-new-course">New curriculumn</button>
+			<button class="btn btn-default btn-block" data-toggle="modal" data-target="#add-new-course">新カリキュラム</button>
 		</div>
 	</div>
 
