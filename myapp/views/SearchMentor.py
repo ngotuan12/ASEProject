@@ -33,12 +33,14 @@ def index(request):
 	if request.method == 'GET':
 		return render(request, 'myapp/search-mentor.html', c)
 	elif request.method == 'POST':
-		lisUserProfile={}
-		listCurriculumn={}
-		lisCategory =Category.objects()
-		user=User.objects.get(username=str(request.user))
-		mentor=Mentor.objects(user=user.id)
+		
 		try:
+			lisUserProfile={}
+			listCurriculumn={}
+			lisCategory =Category.objects()
+			user=User.objects.get(username=str(request.user))
+			mentor=Mentor.objects(user=user.id)
+			
 			keyword = request.POST['search']
 			parentCategory = request.POST['parentCategory'];
 			childrenCategory =request.POST['childrenCategory'];
@@ -59,6 +61,11 @@ def index(request):
 			c.update(context_processors.user(request))
 			return render_to_response("myapp/search-mentor.html", c)
 		except Exception:
+			lisUserProfile={}
+			listCurriculumn={}
+			lisCategory =Category.objects()
+			user=User.objects.get(username=str(request.user))
+			mentor=Mentor.objects(user=user.id)
 			keyword = request.POST['search']
 			parentCategory = request.POST['parentCategory'];
 			if len(mentor)>0:
