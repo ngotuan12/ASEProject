@@ -37,10 +37,10 @@
 						<li>Course Start: {{ cl.from_date|date:'Y-M-d' }}</li>
 						<li>Duration: {{ cl.duration }} - {{ cl.duration_type }}</li>
 						{% if user.id|truncatechars:100 == user_id %}
-							<li>
+							<!-- <li>
 								<a href="#" data-toggle="modal" data-target="#edit-curriculumn" onclick="onEditCurriculumn('{{cl.id}}','{{cl.name}}','{{cl.duration}}','{{cl.duration_type}}','{{cl.category.parentCategory.categoryName }}','{{cl.category.categoryName }}','{{cl.from_date }}','{{cl.to_date }}','{{cl.description }}');"><i class="fa fa-pencil"></i></a> 
 								<a href="#" class="delete-row" data-toggle="modal" data-target=""><i class="fa fa-trash-o"></i></a>
-							</li>
+							</li> -->
 						{% endif %}
 					</ul>
 				</div>
