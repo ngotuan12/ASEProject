@@ -85,7 +85,7 @@
 
 				<div class="col-md-6">
 
-					<form method="post">
+					<form class="form" method="post" novalidate="novalidate" id="formsignup" >
 						{% csrf_token %}
 						<h3 class="nomargin">登録</h3>
 						
@@ -96,28 +96,28 @@
 							<div class="row mb10">
 								<label for="" class="error">{{error_message}}</label>
 							</div>
-						{% endif %} 
+						{% endif %} 												
 						<label class="control-label">名前</label>
 						<div class="row mb10">
 							<div class="col-sm-6">
-								<input name="txtFirstName" type="text" class="form-control" placeholder="姓" value="{{firstname}}" />
+								<input name="txtFirstName" type="text" class="form-control" placeholder="姓" value="{{firstname}}" required=""/>
 							</div>
 							<div class="col-sm-6">
-								<input name="txtLastName" type="text" class="form-control" placeholder="姓" value="{{lastname}}" />
+								<input name="txtLastName" type="text" class="form-control" placeholder="姓" value="{{lastname}}" required=""/>
 							</div>
 						</div>
 
 						<div class="mb10">
 							<label class="control-label">Eメール</label> 
-							<input name="txtEmail" placeholder="Eメール" type="text"  class="form-control" value="{{mail}}"/>
+							<input name="txtEmail" placeholder="Eメール" type="email"  class="form-control" value="{{mail}}" required=""/>
 						</div>
 						<div class="mb10">
 							<label class="control-label">ユーザー名</label> 
-							<input name="txtUserName" placeholder="ユーザー名" type="text"  class="form-control" value="{{username}}"/>
+							<input name="txtUserName" placeholder="ユーザー名" type="text"  class="form-control" value="{{username}}" required=""/>
 						</div>
 						<div class="mb10">
 							<label class="control-label">パスワード</label> 
-							<input name="txtPassWord" placeholder="単語を渡す" type="password" class="form-control" value="{{password}}" />
+							<input name="txtPassWord" placeholder="単語を渡す" type="password" class="form-control" value="{{password}}" required=""/>
 						</div>
 						<!-- <label class="control-label">Birthday</label> -->
 						<!-- <div class="row mb10">
@@ -156,8 +156,8 @@
 							</div>
 						</div> -->
 						<br />
-
-						<button class="btn btn-success btn-block">登録</button>
+						
+						<button class="btn btn-success btn-block" onclick="validatesignup();">登録</button>
 						<br />
 						<div align="center">
 							<a href= "{% url 'social:begin' "twitter" %}" class="btn btn-social-icon btn-twitter">
@@ -169,9 +169,10 @@
 	  						<a href= "{% url 'social:begin' "google-oauth2" %}" class="btn btn-social-icon btn-google-plus">
 	    						<i class="fa fa-google-plus"></i>
 	  						</a>
-	  					</div>
-						
+	  					</div>						
 					</form>
+					
+					
 				</div>
 				<!-- col-sm-6 -->
 
@@ -197,22 +198,19 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/modernizr.min.js"></script>
 	<script src="js/retina.min.js"></script>
-
+	<script src="js/jquery.validate.min.js"></script>
 	<script src="js/chosen.jquery.min.js"></script>
 
 	<script src="js/custom.js"></script>
 	<script>
-    jQuery(document).ready(function(){
-        
-        // Chosen Select
-        jQuery(".chosen-select").chosen({
-            'width':'100%',
-            'white-space':'nowrap',
-            disable_search_threshold: 10
-        });
-        
-    });
+	function validatesignup()
+	{
+		var $valid = jQuery('#formsignup').valid();
+		if(!$valid) {
+			$validator.focusInvalid();
+			return false;
+		 }
+	}
 </script>
-
 </body>
 </html>
