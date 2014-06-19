@@ -18,17 +18,21 @@
 						<form class="col-sm-6" action="search-mentor" method="post" style="margin-left: 25%;">
 						{% csrf_token %}
 							<div class="form-group">
-									<label class="col-sm-6 control-label">Parents Categories</label><label class="col-sm-6 control-label">Children Categories</label>
+									<label class="col-sm-6 control-label">両親カテゴリー</label><label class="col-sm-6 control-label">子どもカテゴリー</label>
 									<!-- <label class="col-sm-6 control-label">Categories1</label> -->
 										<div class="col-sm-6">
 											<select  onChange="delivery(this)" name="parentCategory" id="ddlViewBy" title="Please select at least 2 flowers" class="form-control" size="5" multiple="multiple" required="">
 												{% if listCategory %}
-													{% for category in listCategory %}
-														{% if  category.isparent == '1' %}
-															{% if  parentCategory and category.id|truncatechars:100 == parentCategory %}
-																<option value="{{ category.id }}" selected>{{category.categoryName}}</option>
+													{% for cate in listCategory %}
+														{% if  cate.isparent == '1' %}
+															{% if category and category.id|truncatechars:100 == cate.id|truncatechars:100 %}
+																<option value="{{ cate.id }}" selected>{{cate.categoryName}}</option>
 															{% else %}
-																<option value="{{ category.id }}">{{category.categoryName}}</option>
+																{% if  parentCategory and cate.id|truncatechars:100 == parentCategory %}
+																	<option value="{{ cate.id }}" selected>{{cate.categoryName}}</option>
+																{% else %}
+																	<option value="{{ cate.id }}">{{cate.categoryName}}</option>
+																{% endif %}
 															{% endif %}
 														{% endif %}
 													{% endfor %}
@@ -39,12 +43,18 @@
 										<div class="col-sm-6">
 											<select name="childrenCategory" id="childrenCategory" title="Please select at least 2 flowers" class="form-control" size="5" multiple="multiple" onchange="this.form.submit()">
 												{% if listCategory %}
-													{% for category in listCategory %}
-														{% if  category.isparent == '0' and parentCategory and category.parentCategory.id|truncatechars:100 == parentCategory %}
-															{% if  childrenCategory and category.id|truncatechars:100 == childrenCategory %}
-																<option value="{{ category.id }}" selected>{{category.categoryName}}</option>
+													{% for cate in listCategory %}
+														{% if cate.isparent == '0' %}
+															{% if category and category.id|truncatechars:100 == cate.parentCategory.id|truncatechars:100 %}
+																<option value="{{ cate.id }}">{{cate.categoryName}}</option>
 															{% else %}
-																<option value="{{ category.id }}">{{category.categoryName}}</option>
+																{% if parentCategory and cate.parentCategory.id|truncatechars:100 == parentCategory %}
+																	{% if  childrenCategory and cate.id|truncatechars:100 == childrenCategory %}
+																		<option value="{{ cate.id }}" selected>{{cate.categoryName}}</option>
+																	{% else %}
+																		<option value="{{ cate.id }}">{{cate.categoryName}}</option>
+																	{% endif %}
+																{% endif %}
 															{% endif %}
 														{% endif %}
 													{% endfor %}
@@ -62,7 +72,7 @@
 					</div>
 				</div>
 		</div>
-		{% if listCurriculumn %}
+		{% if listCurriculumn or parentCategory %}
 			
 		{% else %}
 			{% include 'myapp/pnlHelp.html' %}
