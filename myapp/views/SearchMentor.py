@@ -52,7 +52,6 @@ def index(request):
 				listCurriculumn =Curriculumn.objects(category=childrenCategory ,name__icontains=keyword).order_by('published_date')
 			else:
 				listCurriculumn =Curriculumn.objects(category=childrenCategory ,name__icontains=keyword).order_by('published_date')
-			print(len(listCurriculumn))
 # 			listCurriculumn =Curriculumn.objects(name__icontains=keyword)
 			c = {'lisUserProfile':lisUserProfile,'listCurriculumn':listCurriculumn,'listCategory':lisCategory,'search':keyword,'parentCategory':parentCategory,'childrenCategory':childrenCategory}
 			#get data from mongodb
