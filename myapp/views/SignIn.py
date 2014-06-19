@@ -18,7 +18,7 @@ from myapp.util import context_processors
 
 def signinsns(request):
 	is_mentor = False
-	
+
 	user1=User.objects.get(username=str(request.user))
 	thismentor = Mentor.objects(user=user1.id)
 	thisstudent = Student.objects(user=user1.id)
@@ -34,7 +34,7 @@ def signinsns(request):
 	request.session['is_mentor'] = is_mentor
 	
 	if is_mentor:
-		return HttpResponseRedirect('/mentor-course?user_id='+user1.id)
+		return HttpResponseRedirect('/mentor-course?user_id='+str(user1.id))
 	else:
 		return HttpResponseRedirect('/student-home')
 def index(request):

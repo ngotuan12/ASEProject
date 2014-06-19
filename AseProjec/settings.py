@@ -36,15 +36,12 @@ TEMPLATE_CONTEXT_PROCESSORS =(
     "django.contrib.messages.context_processors.messages",
     'django.core.context_processors.csrf',
     'myapp.util.context_processors.user',
-    'django.core.context_processors.i18n',
 )
-LANGUAGE_CODE = 'en'
-USE_I18N = True
 
-LOCALE_PATHS = ('AseProjec/locale/',)
+LOCALE_PATHS = ('/conf/locale/',)
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    # ('CuongNM', 'cuongnm@ex-artisan.com'),
 )
 
 MANAGERS = ADMINS
@@ -78,7 +75,7 @@ TIME_ZONE = 'America/Chicago'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'us'
 
 SITE_ID = 1
 
@@ -151,13 +148,11 @@ AUTO_LOGOUT_DELAY = 5
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'myapp.views.middleware.AutoLogout',
-    'django.middleware.locale.LocaleMiddleware',
-    'myapp.views.middleware.AutoLogout',
-    'django.middleware.csrf.CsrfViewMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -188,7 +183,8 @@ INSTALLED_APPS = (
 
 LANGUAGES = (
     ('en', 'English'),
-    ('nl', 'Dutch'),
+    ('en-us', 'English'),
+    ('ja', 'Japan'),
 )
 
 AUTH_USER_MODEL = 'mongo_auth.MongoUser'
