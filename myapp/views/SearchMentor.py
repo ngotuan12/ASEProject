@@ -3,7 +3,6 @@ Created on Apr 3, 2014
 
 @author: ducdienpt
 '''
-from builtins import len
 
 from django.core.context_processors import csrf
 from django.shortcuts import render, render_to_response
