@@ -120,8 +120,8 @@
 								<tbody>
 								{% for ac in cl.action %}
 								<tr>
-									<td onclick="document.location = 'course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}';">{{ ac.name|truncatechars:100 }}</td>
-									<td onclick="document.location = 'course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}';">{{ ac.description|truncatechars:100 }}</td>
+									<td>{{ ac.name|truncatechars:100 }}</td>
+									<td>{{ ac.description|truncatechars:100 }}</td>
 									{% if  cl.mentor.user|truncatechars:100 == username|truncatechars:100 %}
 										<td class="table-action">
 											<button class="btn btn-default btn-xs" data-toggle="modal" data-target="#edit-action" onclick='onEditAction("{{ac.id}}");'>
