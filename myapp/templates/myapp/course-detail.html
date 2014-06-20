@@ -35,9 +35,14 @@ jQuery(window).load(function(){
 		if(jQuery(this).width() <= 480 )
 			msnry.destroy();
 	});
+	// Date Picker
+	var pickerOpts = {
+		minDate: new Date(),
+		maxDate: "+365"
+	};
 // Date Picker
-jQuery('#planstart').datepicker({});
-jQuery('#planend').datepicker({});
+jQuery('#planstart').datepicker(pickerOpts);
+jQuery('#planend').datepicker(pickerOpts);
 $('a#like').click( function() {
 	$(this).closest("form").submit();
 });
