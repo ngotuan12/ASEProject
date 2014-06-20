@@ -67,8 +67,12 @@
             msnry.destroy();
     });
 	// Date Picker
-	jQuery('#planstart').datepicker();
-	jQuery('#planend').datepicker();
+	var pickerOpts = {
+		minDate: new Date(),
+		maxDate: "+365"
+	};
+	jQuery('#planstart').datepicker(pickerOpts);
+	jQuery('#planend').datepicker(pickerOpts);
   // Basic Wizard
   jQuery('#basicWizard').bootstrapWizard();
   // Date Picker
