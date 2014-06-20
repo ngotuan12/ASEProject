@@ -25,6 +25,7 @@ def signinsns(request):
 	thismentor = Mentor.objects(user=user1.id)
 	thisstudent = Student.objects(user=user1.id)
 	thiscurrijoined = Curriculumn.objects()
+	username=str(request.user)
 	
 	for cl in thiscurrijoined:
 		if username in cl.joined_user:
@@ -52,6 +53,7 @@ def index(request):
 	password = ""
 	is_mentor=False
 	is_join = False
+	username=str(request.user)
 	for cl in thiscurrijoined:
 		if username in cl.joined_user:
 			is_join = True	
