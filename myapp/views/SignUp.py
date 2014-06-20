@@ -26,7 +26,7 @@ def signupsns(request):
 		studentnew.user = user1
 		studentnew.save()
 		request.session['is_mentor'] = False
-	return HttpResponseRedirect('/student-home')
+	return HttpResponseRedirect('/search-mentor')
 def index(request):
 	firstname = "";
 	lastname = "";
@@ -62,7 +62,7 @@ def index(request):
 			logout(request)
 			login(request, user)
 			request.session['is_mentor'] = False
-			return HttpResponseRedirect('/home')
+			return HttpResponseRedirect('/search-mentor')
 		except mongoengine.errors.NotUniqueError as e:
 				return getSignupError(request,'ユーザーはすでに存在しています！',firstname,lastname,username,password,email)
 def getSignupError(request,e,firstname,lastname,username,password,email):

@@ -12,17 +12,24 @@ from mongoengine.django.auth import User
 from myapp.models.Mentor import Mentor
 from myapp.models.Student import Student
 from myapp.models.UserLogin import UserLogin
+from myapp.models.Curriculumn import Curriculumn
 from myapp.models.UserProfile import UserProfile
 from myapp.util import context_processors
+from _ast import For
 
 
 def signinsns(request):
 	is_mentor = False
-
+	is_join = False
 	user1=User.objects.get(username=str(request.user))
 	thismentor = Mentor.objects(user=user1.id)
 	thisstudent = Student.objects(user=user1.id)
-
+	thiscurrijoined = Curriculumn.objects()
+	
+	for cl in thiscurrijoined:
+		if username in cl.joined_user:
+			is_join = True	
+	
 	if len(thisstudent) ==  0:
 		studentnew = Student()
 		studentnew.user = user1
@@ -36,11 +43,19 @@ def signinsns(request):
 	if is_mentor:
 		return HttpResponseRedirect('/mentor-course?user_id='+str(user1.id))
 	else:
-		return HttpResponseRedirect('/student-home')
+		if is_join:
+			return HttpResponseRedirect('/student-home')
+		else:
+			return HttpResponseRedirect('/search-mentor')
 def index(request):
 	username = ""
 	password = ""
 	is_mentor=False
+	is_join = False
+	for cl in thiscurrijoined:
+		if username in cl.joined_user:
+			is_join = True	
+			
 	if request.method == 'GET':
 		return render(request, 'myapp/signin.html', {})
 	elif request.method == 'POST':
@@ -66,7 +81,10 @@ def index(request):
 				if is_mentor:
 					return HttpResponseRedirect('/mentor-course?user_id='+str(user.id))	
 				else:
-					return HttpResponseRedirect('/student-home')
+					if is_join:
+						return HttpResponseRedirect('/student-home')
+					else:
+						return HttpResponseRedirect('/search-mentor')
 					#return HttpResponseRedirect('/search-mentor')
 			else:
 				c = {
