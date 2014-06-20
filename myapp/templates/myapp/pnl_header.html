@@ -1,4 +1,5 @@
 {% if user.id|truncatechars:100 != user_id %}
+	{% include "myapp/add-curriculumn.html"%}
 	<div class="pageheader" style="margin-top: 4%; height: 70px;">
 	<h2 style="margin-left: 1%;margin-top: 1%;" ><i class="fa fa-font"></i> {{ author }}</h2>
 	<div class="breadcrumb-wrapper">
@@ -11,17 +12,14 @@
 	</div>
 	</div>
 {% else %}
+	{% include "myapp/joincourse.html"%}
 	<div class="pageheader" style="margin-top: 4%; height: 70px;">
 		<h2 style="margin-left: 1%;margin-top: 1%;"><i class="fa fa-font"></i> {{ user.username }}</h2>
-		<div class="breadcrumb-wrapper">
-			<button class="btn btn-default btn-block" data-toggle="modal" data-target="#add-new-course">新カリキュラム</button>
-		</div>
+		{% if has_curriculum == True %} 
+			<div class="breadcrumb-wrapper">
+				<button class="btn btn-default btn-block" data-toggle="modal" data-target="#add-new-course">新カリキュラム</button>
+			</div>
+		{% endif %}
 	</div>
 
-{% endif %}
-
-{% if user.id|truncatechars:100 == user_id %}
-	{% include "myapp/add-curriculumn.html"%}
-{% else %}
-	{% include "myapp/joincourse.html"%}
 {% endif %}
