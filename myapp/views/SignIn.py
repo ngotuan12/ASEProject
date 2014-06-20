@@ -54,7 +54,10 @@ def index(request):
 	is_mentor=False
 	is_join = False
 	username=str(request.user)
-	for cl in thiscurrijoined:
+	
+	thiscurrijoined1 = Curriculumn.objects()
+	
+	for cl in thiscurrijoined1:
 		if username in cl.joined_user:
 			is_join = True	
 			
