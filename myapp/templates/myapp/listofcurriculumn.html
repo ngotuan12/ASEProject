@@ -23,16 +23,16 @@
 						{% if cl.joined_user|length > 0 %}
 							{% if username in cl.joined_user %}
 								<div class="btn-group pull-right">
-									<a href="course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}"><button type="button" class="btn btn-default">Joined</button></a>
+									<a href="course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}"><button type="button" class="btn btn-default">参加しました</button></a>
 								</div>
 							{% else %}
 								<div class="btn-group pull-right">
-									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#joincourse" onclick="onJoinCourse('{{cl.id}}');">Join</button>
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#joincourse" onclick="onJoinCourse('{{cl.id}}');">参加する</button>
 								</div>
 							{% endif %}
 						{% else %}
 							<div class="btn-group pull-right">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#joincourse" onclick="onJoinCourse('{{cl.id}}');">Join</button>
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#joincourse" onclick="onJoinCourse('{{cl.id}}');">参加する</button>
 							</div>
 						{% endif %}
 	 				{% endif %}
