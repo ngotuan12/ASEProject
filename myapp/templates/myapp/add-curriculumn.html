@@ -159,13 +159,13 @@
 					document.getElementById('material_url').value="";
 					document.getElementById('material_description').value="";
 					//
-					document.getElementById('addMaterial').innerHTML="Add";
+					document.getElementById('addMaterial').innerHTML="加える";
 					document.getElementById('saveMaterialHidden').value="save";
 				}
 			}
 			else
 			{
-				document.getElementById('addMaterial').innerHTML="Add";
+				document.getElementById('addMaterial').innerHTML="加える";
 				document.getElementById('saveMaterialHidden').value="save";
 				numberMaterial +=1;
 				numberMaterialShow +=1; 
@@ -186,7 +186,7 @@
 				
 				lb = document.createElement("label");
 				lb.setAttribute("for",numberMaterial.toString());
-				lb.innerHTML ="Material " + numberMaterial.toString();
+				lb.innerHTML ="素材  " + numberMaterial.toString();
 				
 				/* <a href="#" class="delete-row"><i class="fa fa-trash-o"></i></a> */
 				
@@ -253,7 +253,7 @@
 				//event
 				radio.onclick = function()
 				{
-					document.getElementById('addMaterial').innerHTML="Save";
+					document.getElementById('addMaterial').innerHTML="保存";
 					document.getElementById('saveMaterialHidden').value="Save change";
 					
 					IdDivSelected=div.getAttribute("id");
@@ -270,7 +270,7 @@
 				{
 					IdDivSelected=div.getAttribute("id");
 					var index = IdDivSelected[IdDivSelected.length-1];
-					if (confirm('Are you sure you want to remove ?')) 
+					if (confirm('あなたが削除してもよろしいですか？ ')) 
 					{
 						//$( "div" ).remove( "#material"+index.toString());
 						$("#material"+index.toString()).hide();
@@ -295,7 +295,7 @@
 						document.getElementById('material_url').value="";
 						document.getElementById('material_description').value="";
 						
-						document.getElementById('addMaterial').innerHTML="Add";
+						document.getElementById('addMaterial').innerHTML="加える";
 						document.getElementById('saveMaterialHidden').value="save";
 					} 
 					else 

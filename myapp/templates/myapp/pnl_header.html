@@ -1,6 +1,6 @@
 {% if user.id|truncatechars:100 != user_id %}
 	<div class="pageheader" style="margin-top: 4%; height: 70px;">
-	<h2><i class="fa fa-font"></i> {{ author }}</h2>
+	<h2 style="margin-left: 1%;margin-top: 1%;" ><i class="fa fa-font"></i> {{ author }}</h2>
 	<div class="breadcrumb-wrapper">
 	{% if cl.mentor.user.id == user.id %}
 		{% include "myapp/add-material.html"%}
@@ -12,7 +12,7 @@
 	</div>
 {% else %}
 	<div class="pageheader" style="margin-top: 4%; height: 70px;">
-		<h2 style="margin-top: 1%;"><i class="fa fa-font"></i> {{ user.username }}</h2>
+		<h2 style="margin-left: 1%;margin-top: 1%;"><i class="fa fa-font"></i> {{ user.username }}</h2>
 		<div class="breadcrumb-wrapper">
 			<button class="btn btn-default btn-block" data-toggle="modal" data-target="#add-new-course">新カリキュラム</button>
 		</div>

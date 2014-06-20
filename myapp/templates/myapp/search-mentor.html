@@ -63,11 +63,20 @@
 											<label class="error" for="flowers"></label>
 										</div>
 								</div>
-								{% if search %}
-									<input type="text" id="textSearch" class="form-control" name="search" value="{{search}}" placeholder="カリキュラム,材料 ..." autocomplete="off" style="background: #fff url(../images/icon-search.png) no-repeat 95% center;">
-								{% else %}
-									<input type="text" id="textSearch" class="form-control" name="search" value="" placeholder="カリキュラム,材料 ..." autocomplete="off" style="background: #fff url(../images/icon-search.png) no-repeat 95% center;">
-								{% endif %}
+								<div class="form-group">
+									<div class="col-sm-12">
+										<div class="input-group mb15">
+											{% if search %}
+												<input type="text" id="textSearch" class="form-control" name="search" value="{{search}}" placeholder="カリキュラム,材料 ..." autocomplete="off" style="background: #fff url(../images/icon-search.png) no-repeat 95% center;">
+											{% else %}
+												<input type="text" id="textSearch" class="form-control" name="search" value="" placeholder="カリキュラム,材料 ..." autocomplete="off" style="background: #fff url(../images/icon-search.png) no-repeat 95% center;">
+											{% endif %}
+											<span class="input-group-btn">
+												<button type="button" class="btn btn-primary" onclick="this.form.submit()" >検索</button>
+											</span>
+										</div>
+									</div>
+								</div>
 						</form>
 					</div>
 				</div>
