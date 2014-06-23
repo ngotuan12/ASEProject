@@ -16,6 +16,8 @@ AUTHENTICATION_BACKENDS = (
     'social.backends.twitter.TwitterOAuth',
     'social.backends.facebook.FacebookOAuth2',
 )
+
+
 SESSION_ENGINE = 'mongoengine.django.sessions'
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -204,6 +206,21 @@ SOCIAL_AUTH_FACEBOOK_KEY = '295316650624581'
 SOCIAL_AUTH_FACEBOOK_SECRET = 'f814a4e83209881e9cc4ab81775963e4'
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details'
+)
+
+SOCIAL_AUTH_PIPELINE += (
+    'myapp.util.pipelines.save_profile_picture',
+)
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.

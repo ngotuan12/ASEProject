@@ -15,17 +15,21 @@ from myapp.models.UserLogin import UserLogin
 from myapp.models.Curriculumn import Curriculumn
 from myapp.models.UserProfile import UserProfile
 from myapp.util import context_processors
-from _ast import For
 
 
 def signinsns(request):
 	is_mentor = False
 	is_join = False
+	
+	
 	user1=User.objects.get(username=str(request.user))
 	thismentor = Mentor.objects(user=user1.id)
 	thisstudent = Student.objects(user=user1.id)
+	thisprofile = UserProfile.objects(user_id=user1)
 	thiscurrijoined = Curriculumn.objects()
 	username=str(request.user)
+	
+	request.session['avatar'] = thisprofile[0].images
 	
 	for cl in thiscurrijoined:
 		if username in cl.joined_user:
