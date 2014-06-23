@@ -9,7 +9,7 @@
 {% endif %}
 
 {% if has_curriculum %}
-<div id="bloglist" class="row">
+<div id="bloglist">
 	{% for cl in cl %}
 	<!-- Start block -->
 	<div class="col-xs-6 col-sm-6 col-md-6">
@@ -49,7 +49,7 @@
 					</ul>
 				</div>
 				
-				<div id="slider-success"
+				<!-- <div id="slider-success"
 					class="slider-success mb20 ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
 					aria-disabled="false">
 					<div
@@ -57,7 +57,7 @@
 						style="width: 60%;"></div>
 					<a class="ui-slider-handle ui-state-default ui-corner-all"
 						href="#" style="left: 60%;"></a>
-				</div>
+				</div> -->
 				<div class="media-body">
 					<ul class="social-list">
 						<div >
@@ -120,8 +120,8 @@
 								<tbody>
 								{% for ac in cl.action %}
 								<tr>
-									<td onclick="document.location = 'course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}';">{{ ac.name|truncatechars:100 }}</td>
-									<td onclick="document.location = 'course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}';">{{ ac.description|truncatechars:100 }}</td>
+									<td>{{ ac.name|truncatechars:100 }}</td>
+									<td>{{ ac.description|truncatechars:100 }}</td>
 									{% if  cl.mentor.user|truncatechars:100 == username|truncatechars:100 %}
 										<td class="table-action">
 											<button class="btn btn-default btn-xs" data-toggle="modal" data-target="#edit-action" onclick='onEditAction("{{ac.id}}");'>
@@ -137,7 +137,7 @@
 						</div>
 						{% endif %}
 						
-							<div class="table-responsive" style="text-align: center;">
+							<!-- <div class="table-responsive" style="text-align: center;">
 							<div class="tinystat mr20">
 								<div id="sparkline2" class="chart mt5">
 									<img alt="" src="images/chart09.jpg"
@@ -149,7 +149,7 @@
 									<h4>{{ cl.statistic.currentTakenNumber}}</h4>
 								</div>
 							</div>
-							<!-- tinystat -->
+							tinystat
 
 							<div class="tinystat mr20">
 								<div id="sparkline3" class="chart mt5">
@@ -162,8 +162,8 @@
 									<h4>{{ cl.statistic.currentLikeNumber}}</h4>
 								</div>
 							</div>
-							<!-- tinystat -->
-							</div>
+							tinystat
+							</div> -->
 						</div>
 
 					</ul>

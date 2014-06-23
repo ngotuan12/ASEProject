@@ -89,80 +89,7 @@
 		
 	</div>
 	
-	<div class="row">
-		<div class="people-list">
-		{% if lisUserProfile %}
-			{% for profile in lisUserProfile %}
-				<div class="col-sm-6">
-					<div class="people-item">
-						<div class="media">
-							<div class="pull-left">
-								<a href="/profile?user_id={{profile.user_id.id }}" >
-								{% if profile.is_mentor %}
-									<img style="margin-bottom: 10px ;" alt=""
-										{% if profile.images %}
-											src="/{{profile.images}}" class="thumbnail media-object">
-										{% else %}
-											src="images/photos/user.png" class="thumbnail media-object">
-										{% endif %}
-									</a>
-									<a href="/mentor-course?user_id={{profile.user_id.id}}"><button class="btn btn-orange" style="width: 110px;">Curriculum</button></a>
-								{% else %}
-									<img style="margin-bottom: 45px ;" alt=""
-										{% if profile.images %}
-											src="/{{profile.images}}" class="thumbnail media-object">
-										{% else %}
-											src="images/photos/user.png" class="thumbnail media-object">
-										{% endif %}
-									</a>
-								{% endif %}
-							</div>
-							<div class="media-body">
-								{% if profile.user_id.last_name and profile.user_id.first_name %}
-									<a href="/studentview?user_id={{profile.user_id.id }}"><h4 class="person-name peoplename">{{profile.user_id.last_name|add:" "|add:profile.user_id.first_name}}</h4></a>
-								{% else %}
-									<a href="/studentview?user_id={{profile.user_id.id }}"><h4 class="person-name peoplename">{{profile.user_id.username}}</h4></a>
-								{% endif %}
-								{% if profile.is_mentor %}
-									<div class="text-muted">
-										<i class="fa fa-briefcase"></i>Mentor
-									</div>
-								{% else %}
-									<div class="text-muted">
-										<i class="fa fa-briefcase"></i>Student
-									</div>
-								{% endif %}
-								<div class="text-muted">
-									<i class="fa fa-briefcase"></i> <a href="#">{{profile.job_title.name}}</a> at <a
-										href="http://www.ex-artisan.com" target="_blank">{{profile.company}}</a>
-								</div>
-								<div class="text-muted">
-									<i class="fa fa-briefcase"></i>Skill : 
-									{% for skill in profile.skill %}
-											{{skill|add:","}}
-									{% endfor %}
-								</div>
-								<div class="text-muted">
-									<i class="fa fa-briefcase"></i>Education : 
-									{% for edu in profile.edu %}
-											{{edu|add:","}}
-									{% endfor %}
-								</div>
-								
-							</div>
-									
-						</div>
-					</div>
-				</div>
-			{% endfor %}
-			{% else %}
-				<div class="col-md-6">
-				</div>
-				<!-- col-md-6 -->
-			{% endif %}
-		</div>
-	</div>
-	<div class="row">
+	<div class="row" id="result-list">
 		<div class="people-list">
 			<!-- Cucutium  -->
 			{% if listCurriculumn %}
@@ -231,6 +158,27 @@
 <script src="js/custom.js"></script>
 
 <script>
+ jQuery(window).load(function(){
+
+
+	var container = document.querySelector('#result-list');
+	var msnry = new Masonry( container, {
+	// options
+	columnWidth: '.col-md-6',
+	itemSelector: '.col-md-6'
+	});
+
+	// check on load
+	if(jQuery(window).width() <= 640 )
+		msnry.destroy();
+
+	// check on resize
+	jQuery(window).resize(function(){
+	if(jQuery(this).width() <= 640 )
+		msnry.destroy();
+	});
+});
+
 	function delivery(x){
 		var country = x.value;
 		document.getElementById('parentId').innerHTML = country;
