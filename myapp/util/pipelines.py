@@ -15,12 +15,19 @@ def save_profile_picture(strategy, user, response, details,is_new=False,*args,**
 	
 	try:
 		if url:
-			thisprofile = UserProfile.objects(user_id=user)
-			if len(thisprofile) == 0:
-				upro = UserProfile()
-				upro.user_id = user
-				upro.images = url
-				upro.save()
+			try:
+				thisprofile = UserProfile.objects(user_id=user)
+				#ThaiNN Please review this code
+				if len(thisprofile) == 0:
+					upro = UserProfile()
+					upro.user_id = user
+					upro.images = url
+					upro.save()
+			except Exception as e:
+					upro = UserProfile()
+					upro.user_id = user
+					upro.images = "/images/avatar/default.png"
+					upro.save()
+					print(e)
 	except HTTPError:
 		pass
-	

@@ -20,17 +20,30 @@ from myapp.util import context_processors
 def signinsns(request):
 	is_mentor = False
 	is_join = False
-	
+	defaultUserImage = "/images/avatar/default.png"
 	
 	user1=User.objects.get(username=str(request.user))
 	thismentor = Mentor.objects(user=user1.id)
 	thisstudent = Student.objects(user=user1.id)
-	thisprofile = UserProfile.objects(user_id=user1)
 	thiscurrijoined = Curriculumn.objects()
+	
 	username=str(request.user)
-	
-	request.session['avatar'] = thisprofile[0].images
-	
+	avatar = ""
+	user_images = ""
+	try:
+		thisprofile = UserProfile.objects(user_id=user1)
+		request.session['user_images'] = thisprofile[0].images
+
+		user_images= request.session['user_images']
+
+	except Exception as e:
+		upro = UserProfile()
+		upro.user_id = user1
+		upro.images = defaultUserImage
+		upro.save()
+		request.session['user_images'] = defaultUserImage
+		print(e)
+			
 	for cl in thiscurrijoined:
 		if username in cl.joined_user:
 			is_join = True	
@@ -44,19 +57,24 @@ def signinsns(request):
 		is_mentor = True
 		
 	request.session['is_mentor'] = is_mentor
-	
+	context = 	{
+				'avatar':avatar,
+				'user_images':user_images
+				}
 	if is_mentor:
-		return HttpResponseRedirect('/mentor-course?user_id='+str(user1.id))
+		return HttpResponseRedirect('/mentor-course?user_id='+str(user1.id),context )
 	else:
 		if is_join:
-			return HttpResponseRedirect('/student-home')
+			return HttpResponseRedirect('/student-home',context)
 		else:
-			return HttpResponseRedirect('/search-mentor')
+			return HttpResponseRedirect('/search-mentor',context)
 def index(request):
 	username = ""
 	password = ""
 	is_mentor=False
 	is_join = False
+	defaultUserImage = "/images/avatar/default.png"
+	
 	username=str(request.user)
 	
 	thiscurrijoined1 = Curriculumn.objects()
@@ -79,21 +97,35 @@ def index(request):
 				logout(request)
 				user.backend = 'mongoengine.django.auth.MongoEngineBackend'
 				login(request, user)
-				profile = UserProfile.objects.get(user_id=user)
-				request.session['user_images'] = profile.images
-				
+
 				mentor = Mentor.objects(user=user)
 				if len(mentor) > 0:
 					is_mentor = True
 				request.session['is_mentor'] = is_mentor
-				
+
+				user_images = ""
+				try:
+					profile = UserProfile.objects(user_id=user)
+					user_images = profile[0].images
+					request.session['user_images'] = user_images
+				except Exception as e:
+					upro = UserProfile()
+					upro.user_id = user
+					upro.images = defaultUserImage
+					upro.save()
+					request.session['user_images'] = defaultUserImage
+					print(e)
+				context = 	{
+							'user_images':user_images,
+							}
+
 				if is_mentor:
-					return HttpResponseRedirect('/mentor-course?user_id='+str(user.id))	
+					return HttpResponseRedirect('/mentor-course?user_id='+str(user.id),context)	
 				else:
 					if is_join:
-						return HttpResponseRedirect('/student-home')
+						return HttpResponseRedirect('/student-home',context)
 					else:
-						return HttpResponseRedirect('/search-mentor')
+						return HttpResponseRedirect('/search-mentor',context)
 					#return HttpResponseRedirect('/search-mentor')
 			else:
 				c = {

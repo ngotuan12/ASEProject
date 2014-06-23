@@ -70,8 +70,15 @@ def index(request):
 					i.__getattribute__('statistic').currentLikeNumber -=1
 			except Exception as e:
 				print(e)
+		avatar = ""
+		try:
+			avatar = request.session['avatar']
+		except Exception as e:
+			request.session['avatar'] = ""
+			print(e)
 		
-		context = {	'cl':lscl,'is_joined':is_joined,
+		context = {	'cl':lscl,
+					'is_joined':is_joined,
 					'user_id':request.user,
 					'course_id':vCourse_id,
 					'author_id':author_id,
@@ -86,6 +93,7 @@ def index(request):
 					'mtTotal':mtTotal,
 					'actTotal':actTotal,
 					'has_curriculum':has_curriculum,
+					'avatar':avatar
 					}
 		return render(request, 'myapp/course-detail.html', context)
 	elif request.method == 'POST':
