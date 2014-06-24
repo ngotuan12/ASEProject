@@ -33,7 +33,6 @@ def signinsns(request):
 	try:
 		thisprofile = UserProfile.objects(user_id=user1)
 		request.session['user_images'] = thisprofile[0].images
-
 		user_images= request.session['user_images']
 
 	except Exception as e:
