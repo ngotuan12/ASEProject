@@ -83,6 +83,7 @@
 						<div class="table-responsive">
 							<table class="table table-hover table-bordered mb30" >
 								<tr>
+								<th style="width: 5%;text-align: center; background-color: #1CAF9A; color: #fff">リンク</th>
 								<th style="width: 40%;text-align: center; background-color: #1CAF9A; color: #fff">名前</th>
 								<th style="width: ; text-align: center; background-color: #1CAF9A; color: #fff">説明</th>
 								{% if  cl.mentor.user|truncatechars:100 == username|truncatechars:100 %}
@@ -92,6 +93,7 @@
 								<tbody>
 								{% for mt in cl.material %}
 								<tr style="cursor: hand;" > 
+								<td onclick="document.location = 'course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}';" ><a href="{{ mt.url }}"><img alt="" src="/images/photos/amzon.jpg" style="width: 50px;"></a></td>
 									<td onclick="document.location = 'course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}';" >{{ mt.name|truncatechars:100 }}</td>
 									<td onclick="document.location = 'course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}';" >{{ mt.description|truncatechars:100 }}</td>
 									{% if  cl.mentor.user|truncatechars:100 == username|truncatechars:100 %}
