@@ -41,12 +41,20 @@
 						<li>Course Start: {{ cl.from_date|date:'Y-M-d' }}</li>
 						<li>Duration: {{ cl.duration }} - {{ cl.duration_type }}</li>
 						{% if user.id|truncatechars:100 == user_id %}
-							<!-- <li>
-								<a href="#" data-toggle="modal" data-target="#edit-curriculumn" onclick="onEditCurriculumn('{{cl.id}}','{{cl.name}}','{{cl.duration}}','{{cl.duration_type}}','{{cl.category.parentCategory.categoryName }}','{{cl.category.categoryName }}','{{cl.from_date }}','{{cl.to_date }}','{{cl.description }}');"><i class="fa fa-pencil"></i></a> 
-								<a href="#" class="delete-row" data-toggle="modal" data-target=""><i class="fa fa-trash-o"></i></a>
-							</li> -->
+							<li>
+								<a href="#" data-toggle="modal" data-target="#edit-curriculumn" onclick="onEditCurriculumn('{{cl.id}}');"><i class="fa fa-pencil"></i></a> 
+								<!-- <a href="#" class="delete-row" data-toggle="modal" data-target=""><i class="fa fa-trash-o"></i></a> -->
+							</li>
 						{% endif %}
 					</ul>
+					<input type="hidden" id="curriculumnName{{ cl.id }}" value="{{ cl.name }}">
+					<input type="hidden" id="curriculumnDuration{{ cl.id}}" value="{{ cl.duration }}">
+					<input type="hidden" id="curriculumnDurationType{{ cl.id }}" value="{{ cl.duration_type }}">
+					<input type="hidden" id="curriculumnCategoryParent{{ cl.id}}" value="{{ cl.category.parentCategory.id  }}">
+					<input type="hidden" id="curriculumnCategoryChildren{{ cl.id}}" value="{{ cl.category.id }}">
+					<input type="hidden" id="curriculumnFromDate{{ cl.id}}" value="{{ cl.from_date|date:'m/d/Y' }}">
+					<input type="hidden" id="curriculumnToDate{{ cl.id}}" value="{{ cl.to_date|date:'m/d/Y' }}">
+					<input type="hidden" id="curriculumnDescription{{ cl.id}}" value="{{ cl.description }}">
 				</div>
 				
 				<!-- <div id="slider-success"
@@ -120,8 +128,8 @@
 								<tbody>
 								{% for ac in cl.action %}
 								<tr>
-									<td>{{ ac.name|truncatechars:100 }}</td>
-									<td>{{ ac.description|truncatechars:100 }}</td>
+									<td >{{ ac.name|truncatechars:100 }}</td>
+									<td >{{ ac.description|truncatechars:100 }}</td>
 									{% if  cl.mentor.user|truncatechars:100 == username|truncatechars:100 %}
 										<td class="table-action">
 											<button class="btn btn-default btn-xs" data-toggle="modal" data-target="#edit-action" onclick='onEditAction("{{ac.id}}");'>

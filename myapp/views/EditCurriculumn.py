@@ -10,9 +10,11 @@ from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 
+from myapp.models.Category import Category
 from myapp.models.Curriculumn import Curriculumn
-from myapp.models.MaterialType import MaterialType
 from myapp.models.Material import Material
+from myapp.models.MaterialType import MaterialType
+
 
 @login_required(login_url='/signin')
 def index(request):
@@ -21,18 +23,25 @@ def index(request):
 		name="edit material"
 		context = {'name':name}
 		return render(request, 'myapp/mentor-post.html', context)
-	elif request.method == 'POST':	
-# 		material_title = request.POST['material_title']
-# 		material_type = request.POST['material_type']
-# 		material_url = request.POST['material_url']
-# 		material_description = request.POST['material_description']
-# 		material_id=request.POST['material_id']
-# 		
-# 		material = Material.objects.get(id=material_id)
-# 		material.name = material_title
-# 		material.type = MaterialType.objects.get(name=material_type)
-# 		material.url = material_url
-# 		material.description = material_description
-# # 		material.save()
+	elif request.method == 'POST':
+		curriculumn_id=request.POST['edit_curriculumn_id']
+		curriculumn_name = request.POST['editName']
+		curriculumn_duration = request.POST['editDuration']
+		curriculumn_duration_type = request.POST['editDurationType']
+		curriculumn_category = request.POST['changeChildrenCategory']
+		curriculumn_from_date=request.POST['curriculumstartdate']
+		curriculumn_to_date = request.POST['curriculumenddate']
+		curriculumn_description = request.POST['editDescription']
+		
+		
+		curriculumn = Curriculumn.objects.get(id=curriculumn_id)
+		curriculumn.name = curriculumn_name
+		curriculumn.duration = curriculumn_duration
+		curriculumn.duration_type = curriculumn_duration_type
+		curriculumn.category = Category.objects.get(id=curriculumn_category)
+		curriculumn.from_date=datetime.strptime(curriculumn_from_date,'%m/%d/%Y')
+		curriculumn.to_date=datetime.strptime(curriculumn_to_date,'%m/%d/%Y')
+		curriculumn.description = curriculumn_description
+		curriculumn.save()
 		print('edit curriculumn edit curriculumn ')
 		return HttpResponseRedirect('/')
