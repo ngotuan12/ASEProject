@@ -26,7 +26,7 @@ def save_profile_picture(strategy, user, response, details,is_new=False,*args,**
 			except Exception as e:
 					upro = UserProfile()
 					upro.user_id = user
-					upro.images = "/images/avatar/default.png"
+					upro.images = url
 					upro.save()
 					print(e)
 	except HTTPError:

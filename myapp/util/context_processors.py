@@ -9,6 +9,11 @@ def user(request):
 	is_mentor = False
 	if (request.user.is_authenticated()==True) and(request.user is not None):
 		try:
+			user_images = request.session['user_images']
+		except Exception as e:
+			user_images = ""
+	if (request.user.is_authenticated()==True) and(request.user is not None):
+		try:
 			isMentor = Mentor.objects.get(user=request.user)
 			if len(isMentor):
 				is_mentor = True
@@ -20,12 +25,14 @@ def user(request):
 			'user': request.user,
 			'profile':profile,
 			'is_mentor':is_mentor,
-			'loggedUser':loggedUser[0]
+			'loggedUser':loggedUser[0],
+			'user_images':user_images
 		}
 	else:
 		return {
 		'user': request.user,
 		'profile':profile,
 		'is_mentor':is_mentor,
-		'loggedUser':[]
+		'loggedUser':[],
+		'user_images':""
 	}
