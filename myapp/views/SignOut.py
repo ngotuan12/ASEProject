@@ -8,5 +8,6 @@ from django.http.response import HttpResponseRedirect
 
 
 def index(request):
+	request.session['user_images'] = ""
 	logout(request)
 	return HttpResponseRedirect('/')
