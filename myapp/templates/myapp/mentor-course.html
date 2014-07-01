@@ -50,6 +50,14 @@
 	</div>
 </div>
 
+<input type="hidden" name="user_id" id="user_id" value={{user_id}} />
+<script type="text/javascript">
+function setValue() {
+	user_id = document.getElementById("user_id").value
+	alert(user_id);
+}
+window.onload = setValue;
+</script>
 <!-- Modal -->
 {% include "myapp/add-curriculumn.html"%}
 <!-- modal -->
@@ -63,6 +71,7 @@
 <script src="js/custom.js"></script>
 <script>
 jQuery(document).ready(function(){
+	
   // Basic Wizard
   jQuery('#basicWizard').bootstrapWizard();
   // Date Picker
