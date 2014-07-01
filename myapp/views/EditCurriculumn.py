@@ -44,4 +44,4 @@ def index(request):
 		curriculumn.description = curriculumn_description
 		curriculumn.save()
 		print('edit curriculumn edit curriculumn ')
-		return HttpResponseRedirect('/')
+		return HttpResponseRedirect('/mentorview')

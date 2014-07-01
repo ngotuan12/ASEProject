@@ -29,4 +29,4 @@ def index(request):
 		action.description = action_description
 		action.save()
 		print('edit action edit action ')
-		return HttpResponseRedirect('/')
+		return HttpResponseRedirect('/mentorview')

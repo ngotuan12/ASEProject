@@ -35,4 +35,4 @@ def index(request):
 		material.description = material_description
 		material.save()
 		print('edit material edit material ')
-		return HttpResponseRedirect('/')
+		return HttpResponseRedirect('/mentorview')

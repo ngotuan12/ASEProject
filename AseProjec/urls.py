@@ -7,7 +7,7 @@ from myapp.views import Home, AccountSetting, PostDetail, SignIn, MentorPost, \
 	Profile, SignUp, SignOut, PeopleDirectory, Chat, PersonalHome , AuthenFail, \
 	MentorView, Documents, StudentHome, MentorCourse, Test, SearchMentor, BecomeMentor, \
 	StudentView, CourseDetail, AsStudentHome , StudyLog, CreateCurriculumn,EditMaterial ,\
-	Community,Slide,EditAction,EditCurriculumn
+	Community,Slide,EditAction,EditCurriculumn, errorpage
 
 
 # Uncomment the next two lines to enable the admin:
@@ -25,7 +25,7 @@ urlpatterns = patterns('',
                        url(r'^account-setting$', AccountSetting.index),
                         url(r'^blog-single$', PostDetail.index, name='blog-single'),
                         url(r'^mentorpost$', MentorPost.index),
-						url(r'^mentorview$', MentorView.index,name='mentorview'),
+						url(r'^mentorview$', MentorView.afterlogin,name='mentorview'),
 						url(r'^studentview$', StudentView.index,name='studentview'),
 						url(r'^studylog$', StudyLog.index,name='studylog'),
 						url(r'^AsStudentHome$', AsStudentHome.index,name='studenthome'),
@@ -53,11 +53,13 @@ urlpatterns = patterns('',
                        url(r'^search-mentor$', SearchMentor.index),
                        url(r'^become-mentor$', BecomeMentor.index),
                        url(r'^mentor-course$', MentorView.index,name='mentor-course'),
+                       url(r'^mentor-view$', MentorView.afterlogin,name='mentor-view'),
                        url(r'^add-course$', CreateCurriculumn.index,name='add-course'),
                        url(r'^edit-material$', EditMaterial.index, name='edit-material'),
                        url(r'^edit-action$', EditAction.index, name='edit-action'),
                        url(r'^edit-curriculumn$', EditCurriculumn.index, name='edit-curriculumn'),
                        url(r'^slide$',Slide.index),
+                       url(r'^error-page$',errorpage.index,name='error-page'),
                        url(regex  = r'^%s(?P<path>.*)$' % settings.STATIC_URL[1:], 
     view   = 'django.views.static.serve', 
     kwargs = {'document_root': os.path.abspath(os.path.join(os.path.dirname(__file__),os.pardir))+"/common",

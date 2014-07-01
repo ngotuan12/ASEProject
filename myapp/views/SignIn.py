@@ -61,7 +61,7 @@ def signinsns(request):
 				'user_images':user_images
 				}
 	if is_mentor:
-		return HttpResponseRedirect('/mentor-course?user_id='+str(user1.id),context )
+		return HttpResponseRedirect('/mentorview',context )
 	else:
 		if is_join:
 			return HttpResponseRedirect('/student-home',context)
@@ -119,7 +119,7 @@ def index(request):
 							}
 
 				if is_mentor:
-					return HttpResponseRedirect('/mentor-course?user_id='+str(user.id),context)	
+					return HttpResponseRedirect('/mentorview',context)	
 				else:
 					if is_join:
 						return HttpResponseRedirect('/student-home',context)

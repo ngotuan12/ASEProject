@@ -1,6 +1,6 @@
 {% include 'myapp/commentOnAction.html' %}
 {% include 'myapp/commentOnCourse.html' %}
-{% if user.id|truncatechars:100 == user_id %}
+{% if author_id == userlogged %}
 	{% include 'myapp/add-material.html' %}
 	{% include 'myapp/edit-material.html' %}
 	{% include 'myapp/add-action.html' %}
@@ -17,7 +17,7 @@
 			<div class="col-sm">
 				
 				<div class="row">
-					{% if username|truncatechars:100 == author|truncatechars:100 %}
+					{% if userlogged|truncatechars:100 == author_id|truncatechars:100 %}
 						<div class="btn-group pull-right" style="margin-right: 2%;">
 							<button class="btn btn-default" data-toggle="modal" data-target="#edit-curriculumn" onclick="onEditCurriculumn('{{cl.id}}');">
 								<i class="fa fa-pencil" style="padding-left: 5px;"></i>
@@ -74,7 +74,7 @@
 					<ul class="social-list">
 						<div >
 						{% if cl.material|length > 0  %}
-							{% if user.id|truncatechars:100 == user_id %}
+							{% if author_id == userlogged %}
 							<div class="btn-group  pull-left">
 								<button type="button" class="btn btn-sm btn-white"
 									data-toggle="modal" data-target="#add-material" onclick="onShowFormMaterial('{{cl.id}}');">素材を追加</button>
@@ -96,7 +96,7 @@
 								<td><a href="{{ mt.url }}" target="_blank"><img alt="" src="/images/photos/amzon.jpg" style="width: 50px;"></a></td>
 									<td onclick="document.location = 'course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}';" >{{ mt.name|truncatechars:100 }}</td>
 									<td onclick="document.location = 'course-detail?course_id={{ cl.id }}&user_id={{cl.mentor.user.id}}';" >{{ mt.description|truncatechars:100 }}</td>
-									{% if  cl.mentor.user|truncatechars:100 == username|truncatechars:100 %}
+									{% if  author_id == userlogged %}
 										<td class="table-action">
 											<button class="btn btn-default btn-xs" data-toggle="modal" data-target="#edit-material" onclick='onEdit("{{cl.id}}","{{ mt.id }}");'>
 												<i class="fa fa-pencil" style="padding-left: 5px;"></i>
@@ -116,7 +116,7 @@
 						{% endif %}
 
 						{% if cl.action|length > 0  %}
-							{% if user.id|truncatechars:100 == user_id %}
+							{% if author_id == userlogged %}
 								<div class="btn-group  pull-left">
 									<button type="button" class="btn btn-sm btn-white"
 										data-toggle="modal" data-target="#add-action" onclick="onShowFormAction('{{cl.id}}');">アクションの追加</button>
@@ -127,7 +127,7 @@
 								<tr >
 								<th style="width: 40%; text-align: center; background-color: #1CAF9A; color: #fff">アクションの追加</th>
 								<th style="width: 60%; text-align: center; background-color: #1CAF9A; color: #fff">説明</th>
-								{% if  cl.mentor.user|truncatechars:100 == username|truncatechars:100 %}
+								{% if  author_id == userlogged %}
 									<th style="width: 10%; text-align: center; background-color: #1CAF9A; color: #fff"></th>
 								{% endif %}
 								</tr>
@@ -136,7 +136,7 @@
 								<tr>
 									<td >{{ ac.name|truncatechars:100 }}</td>
 									<td >{{ ac.description|truncatechars:100 }}</td>
-									{% if  cl.mentor.user|truncatechars:100 == username|truncatechars:100 %}
+									{% if  author_id == userlogged %}
 										<td class="table-action">
 											<button class="btn btn-default btn-xs" data-toggle="modal" data-target="#edit-action" onclick='onEditAction("{{ac.id}}");'>
 												<i class="fa fa-pencil" style="padding-left: 5px;"></i>

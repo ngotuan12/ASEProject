@@ -4,7 +4,7 @@
 		onclick="window.location.href='/index'" style="width: 10%;"><i class="glyphicon glyphicon-home"></i></button>
 	{% if is_mentor == True %}
 	<button type="button" class="btn btn-default"
-		onclick="window.location.href='/mentor-course?user_id={{loggedUser.id}}'" style="width: 15%;"><i class="glyphicon glyphicon-book"></i> メンターとして</button>
+		onclick="window.location.href='/mentorview'" style="width: 15%;"><i class="glyphicon glyphicon-book"></i> メンターとして</button>
 		
 	<button type="button" class="btn btn-default" onclick="window.location.href='/student-home'" style="width: 15%;"><i class="glyphicon glyphicon-book"></i> 学生として</button>
 	{% else %}
