@@ -88,6 +88,9 @@
 								center : 'title',
 								right : 'month,agendaWeek,agendaDay'
 							},
+							viewDisplay: function (element) {
+								submitdata();
+						    }
 							eventClick: function(calEvent, jsEvent, view) {
 								var flag = confirm("Do you want to delete this event ?");
 								if (flag) {
