@@ -1,10 +1,21 @@
-from social.apps.django_app.middleware import SocialAuthExceptionMiddleware
-from social import exceptions as social_exceptions
-from django.http import HttpResponseRedirect
 from datetime import datetime, timedelta
+
 from django.conf import settings
 from django.contrib import auth
+from django.http import HttpResponseRedirect
+from social import exceptions as social_exceptions
+from django.shortcuts import render
+from social.apps.django_app.middleware import SocialAuthExceptionMiddleware
 
+
+class ExceptionMiddleware(object):
+    def process_exception(self, request, exception):
+        if exception:
+            ex = exception
+            context={"ex":ex}
+            return render(request,'myapp/error-page.html', context)
+
+        
 class SocialAuthExceptionMiddleware(SocialAuthExceptionMiddleware):
     def process_exception(self, request, exception):
         if hasattr(social_exceptions, 'AuthFailed'):
