@@ -40,21 +40,27 @@ def index(request):
 		return render(request,'myapp/studyLog.html', context)
 	
 	elif request.method == 'POST':
-		
-		datacontent = request.POST['datacontent']
-		user=User.objects.get(username=str(request.user))
-		studylog = StudyLog.objects(user=user)[:1]
-		
-		if len(datacontent) >0:
-			if len(studylog) >0:
-				print('update')
-				st=studylog[0]
-				st.data=str(datacontent)
-				st.save()
-			else:
-				print('insert')
-				study = StudyLog()
-				study.user = user
-				study.data = datacontent
-				study.save()
-		return HttpResponse(json.dumps({"formdata": materialId}),content_type="application/json")
+		err_message=""
+		try:
+			datacontent = request.POST['datacontent']
+			user=User.objects.get(username=str(request.user))
+			studylog = StudyLog.objects(user=user)[:1]
+			
+			if len(datacontent) >0:
+				print(datacontent)
+				
+				if len(studylog) >0:
+					print('update')
+					st=studylog[0]
+					st.data=str(datacontent)
+					st.save()
+				else:
+					print('insert')
+					study = StudyLog()
+					study.user = user
+					study.data = datacontent
+					study.save()
+		except Exception as e:
+			print(e)
+			err_message = e
+		return HttpResponse(json.dumps({"formdata": err_message }),content_type="application/json")
