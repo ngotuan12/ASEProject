@@ -168,7 +168,7 @@
 						    {
 						    	submitdata();
 						    },
-						    events : JSON.parse(text),
+						    events : json,
 							selectable: true,
 							selectHelper: true,
 							select: function(start, end) {
@@ -218,7 +218,6 @@
 			});
 	var data = '{{ datalog }}';
 	var json = JSON.parse(data.replace(/&quot;/g,'"'));
-	var text = JSON.stringify(json);
 
 	function submitdata() {
 		alert('preparing..');
