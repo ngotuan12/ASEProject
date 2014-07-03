@@ -1,16 +1,22 @@
-{% extends "myapp/base.html" %} {% block styles %}
-<link href="css/student-home.css" rel="stylesheet">
-<link rel="stylesheet" href="slider/flexslider.css" type="text/css" />
-{% endblock %} {% block content %}
+{% extends "myapp/base.html" %} 
+
+{% block styles %}
+<link href='css/fullcalendar.css' rel='stylesheet' />
+<link href='css/fullcalendar.print.css' rel='stylesheet' media='print' />
+{% endblock %} 
+
+{% block content %}
 <div class="contentpanel">{% include 'myapp/calendar.html' %}</div>
-{% endblock %} {% block scripts %}
-<script src="js/jquery-1.10.2.min.js"></script>
-<script src="js/jquery-migrate-1.2.1.min.js"></script>
-<script src="js/modernizr.min.js"></script>
-<script src="js/retina.min.js"></script>
+{% endblock %} 
+
+{% block scripts %}
+
+<script src='js/moment.min.js'></script>
+<script src='js/jquery-ui.custom.min.js'></script> 
+<script src='js/fullcalendar.min.js'></script>
 
 <script src="js/custom.js"></script>
-<script defer src="slider/jquery.flexslider.js"></script>
+
 <script type="text/javascript">
 	$(window)
 			.load(
@@ -44,14 +50,10 @@
 
 					});
 </script>
-<link href='css/fullcalendar.css' rel='stylesheet' />
-<link href='css/fullcalendar.print.css' rel='stylesheet' media='print' />
-<script src='js/jquery.min.js'></script>
-<script src='js/jquery-ui.custom.min.js'></script>
-<script src='js/fullcalendar.min.js'></script>
 <script>
 	$(document).ready(
-			function() {
+			function()
+			{
 				/* initialize the external events
 				-----------------------------------------------------------------*/
 
@@ -119,6 +121,7 @@
 								$('#calendar').fullCalendar('unselect');
 							},
 							editable : true,
+							timezone: 'UTC',
 							droppable : true, // this allows things to be dropped onto the calendar !!!
 							drop : function(date, allDay) { // this function is called when something is dropped
 
@@ -183,6 +186,7 @@
 								$('#calendar').fullCalendar('unselect');
 							},
 							editable : true,
+							timezone: 'UTC',
 							droppable : true, // this allows things to be dropped onto the calendar !!!
 							drop : function(date, allDay) { // this function is called when something is dropped
 
@@ -215,13 +219,12 @@
 	var data = '{{ datalog }}';
 	var json = JSON.parse(data.replace(/&quot;/g,'"'));
 	var text = JSON.stringify(json);
-	
-	
-	
-	function submitdata() {
 
+	function submitdata() {
+		alert('preparing..');
 		var eventsFromCalendar = $('#calendar').fullCalendar('clientEvents');
 		var eventsForCookie = [];
+		
 		$.each(eventsFromCalendar, function(index, value) {
 			var event = new Object();
 			event.id = value.id;
@@ -230,10 +233,12 @@
 			event.title = value.title;
 			eventsForCookie.push(event);
 		});
-		console.log(JSON.stringify(eventsForCookie));
 		document.getElementById('datacontent').value = JSON
 				.stringify(eventsForCookie);
+		var data = document.getElementById('datacontent').value;
+		alert(data);
 		$("#frmCalendar").submit();
+		alert('Data saved..!');
 	}
 </script>
 
