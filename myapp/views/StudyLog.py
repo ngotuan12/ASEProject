@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf8 -*-
 '''
 Created on Apr 3, 2014
 @author: TuanNA
