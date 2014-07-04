@@ -33,7 +33,18 @@
 
 											// Put the results in a div
 											posting.done(function(data) {
-												
+												/* var a = data.responseText; */
+												var ex = document.getElementById("selCurriculumnTemp").options;
+												  for(var i=0;i<ex.length;i++)
+												  {
+													  var cur = JSON.stringify(data.currilogid);
+													  var res = cur.substring(1, cur.length-1);
+												   if(ex[i].getAttribute('curriid').toString()==res.toString())
+												   {
+														var dddd = data.datacontent.toString();
+														ex[i].setAttribute('datalog',dddd);														
+												   }
+												  }
 											});
 										});
 
@@ -49,6 +60,97 @@
 <script src='js/jquery.min.js'></script>
 <script src='js/jquery-ui.custom.min.js'></script>
 <script src='js/fullcalendar.min.js'></script>
+<script src="js/chosen.jquery.min.js"></script>
+<script>
+jQuery(document).ready(function(){
+  // Chosen Select
+  jQuery(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
+  
+});
+//when the timezone selector changes, rerender the calendar
+
+
+$('#selCurriculumn').change(function(){
+	var curriid = $(this).find('option:selected').attr('curriid');
+	var ex = document.getElementById("selCurriculumnTemp").options;
+	  for(var i=0;i<ex.length;i++)
+	  {
+	   if(ex[i].getAttribute('curriid')==curriid)
+	   {
+		   var curridatalog = ex[i].getAttribute('datalog');
+	   }
+	  }
+    $("#curriculumnlog_id").val(curriid);
+    $('#calendar').fullCalendar('destroy');
+    var json1 = JSON.parse(curridatalog.replace(/&quot;/g,'"'));
+    renderCalendar1(json1);
+});
+function renderCalendar1(stringtoShow) {
+	$('#calendar').fullCalendar(
+			{
+				header : {
+					left : 'prev,next today',
+					center : 'title',
+					right : 'month,agendaWeek,agendaDay'
+				},
+				eventClick: function(calEvent, jsEvent, view) {
+					var flag = confirm("Do you want to delete this event ?");
+					if (flag) {
+						$('#calendar').fullCalendar('removeEvents',calEvent._id);
+						submitdata();
+					}
+			    },
+			    eventDrop: function( event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view )
+			    {
+			    	submitdata();
+			    },
+			    events : stringtoShow,
+				selectable: true,
+				selectHelper: true,
+				select: function(start, end) {
+					var title = prompt('Event Title:');
+					var eventData;
+					if (title) {
+						eventData = {
+							title: title,
+							start: start,
+							end: end
+						};
+						$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+						submitdata();
+					}
+					$('#calendar').fullCalendar('unselect');
+				},
+				editable : true,
+				droppable : true, // this allows things to be dropped onto the calendar !!!
+				drop : function(date, allDay) { // this function is called when something is dropped
+
+					// retrieve the dropped element's stored Event Object
+					var originalEventObject = $(this).data(
+							'eventObject');
+					// we need to copy it, so that multiple events don't have a reference to the same object
+					var copiedEventObject = $.extend({},
+							originalEventObject);
+
+					// assign it the date that was reported
+					copiedEventObject.start = date;
+					copiedEventObject.allDay = allDay;
+
+					// render the event on the calendar
+					// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+					$('#calendar').fullCalendar('renderEvent',
+							copiedEventObject, true);
+
+					// is the "remove after drop" checkbox checked?
+					if ($('#drop-remove').is(':checked')) {
+						// if so, remove the element from the "Draggable Events" list
+						$(this).remove();
+					}
+					submitdata();
+			}
+	});
+}
+</script>
 <script>
 	$(document).ready(
 			function() {
@@ -80,76 +182,15 @@
 
 				/* initialize the calendar
 				-----------------------------------------------------------------*/
-				function renderCalendar() {
-					$('#calendar').fullCalendar(
-							{
-								header : {
-									left : 'prev,next today',
-									center : 'title',
-									right : 'month,agendaWeek,agendaDay'
-								},
-								eventClick: function(calEvent, jsEvent, view) {
-									var flag = confirm("Do you want to delete this event ?");
-									if (flag) {
-										$('#calendar').fullCalendar('removeEvents',calEvent._id);
-										submitdata();
-									}
-							    },
-							    eventDrop: function( event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view )
-							    {
-							    	submitdata();
-							    },
-							    events : json,
-								selectable: true,
-								selectHelper: true,
-								select: function(start, end) {
-									var title = prompt('Event Title:');
-									var eventData;
-									if (title) {
-										eventData = {
-											title: title,
-											start: start,
-											end: end
-										};
-										$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-										submitdata();
-									}
-									$('#calendar').fullCalendar('unselect');
-								},
-								editable : true,
-								droppable : true, // this allows things to be dropped onto the calendar !!!
-								drop : function(date, allDay) { // this function is called when something is dropped
-	
-									// retrieve the dropped element's stored Event Object
-									var originalEventObject = $(this).data(
-											'eventObject');
-									// we need to copy it, so that multiple events don't have a reference to the same object
-									var copiedEventObject = $.extend({},
-											originalEventObject);
-	
-									// assign it the date that was reported
-									copiedEventObject.start = date;
-									copiedEventObject.allDay = allDay;
-	
-									// render the event on the calendar
-									// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-									$('#calendar').fullCalendar('renderEvent',
-											copiedEventObject, true);
-	
-									// is the "remove after drop" checkbox checked?
-									if ($('#drop-remove').is(':checked')) {
-										// if so, remove the element from the "Draggable Events" list
-										$(this).remove();
-									}
-									submitdata();
-							}
-					});
-				}
-				renderCalendar();
+				renderCalendar1(json);
 			});
-	var data = '{{ datalog }}';
-	var json = JSON.parse(data.replace(/&quot;/g,'"'));
-	
+	var firstdatalog="[]";
+	{% if firstcurrilog %}
+		{% if firstcurrilog.data %}
+			firstdatalog='{{ firstcurrilog.data }}';
+		{% endif %}
+	{% endif %}
+	var json = JSON.parse(firstdatalog.replace(/&quot;/g,'"'));
 	
 	
 	function submitdata() {
@@ -230,3 +271,4 @@ width: 1100px ;
 </style>
 
 {% endblock scripts%}
+

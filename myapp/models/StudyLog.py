@@ -7,7 +7,7 @@ from mongoengine.fields import StringField, ReferenceField, DateTimeField
 class StudyLog(Document):
 	published_date = DateTimeField(default=datetime.now)
 	data = StringField()
-	user = ReferenceField(User)
+	user = ReferenceField(User)	
 	meta = {
 		'ordering': ['-published_date']
 	}
