@@ -4,13 +4,13 @@
             <div class="col-sm-6">
             <div class="input-group mb15">
               <div class="input-group-btn">
-                <button type="button" class="btn btn-default" tabindex="-1">Progress</button>
+                <button type="button" class="btn btn-default" tabindex="-1" id="showProgress">Progress</button>
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tabindex="-1">
-                  <span class="caret"></span>
+                  <span class="caret" id="showCurriLog"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
 					{% for progress in listProgress %}
-						<li><a href="#">{{ progress.progressName }}</a></li>
+						<li onclick="changeProgress('{{ listcurrilog }}','{{progress.id}}','{{progress.progressName}}');"><a href="#">{{ progress.progressName }}</a></li>
 					{% endfor %}
                 </ul>
               </div>
@@ -18,9 +18,9 @@
 				{% if listcurrilog %}
 					{% for currilog in listcurrilog %}
 						{% if currilog.data %}
-							<option datalog="{{ currilog.data }}" curriid="{{ currilog.id }}">{{ currilog.curriculumn.name }}</option>
+							<option value="{{ currilog.process.id }}" progressId="{{ currilog.process.id }}" datalog="{{ currilog.data }}" curriid="{{ currilog.id }}">{{ currilog.curriculumn.name }}</option>
 						{% else %}
-							<option datalog="[]" curriid="{{ currilog.id }}">{{ currilog.curriculumn.name }}</option>
+							<option value="{{ currilog.process.id }}" progressId="{{ currilog.process.id }}" datalog="[]" curriid="{{ currilog.id }}">{{ currilog.curriculumn.name }}</option>
 						{% endif %}
 					{% endfor %}
 				{% endif %}
@@ -59,12 +59,12 @@
 
 <div id='wrap'>
 
-<div id='external-events' style="width: 20%;">
+<div id='external-events' style="width: 20%;height: 100px;">
 <h4>カリキュラム入社</h4>
 {% if lisCurriculumns %}
 	{% for curriculumn in lisCurriculumns %}
 		{% if username in curriculumn.joined_user %}
-			<div class='external-event'>{{ curriculumn.name }}</div>
+			<div class='external-event'>{{ curriculumn.name|truncatechars:50 }}</div>
 		{% endif %}
 	{% endfor %}
 {% endif %}

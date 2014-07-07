@@ -186,6 +186,7 @@ def index(request):
 			
 			curriLog.curriculumn=curri
 			curriLog.process=progressType
+			curriLog.data='[]'
 			curriLog.user_id=user
 			
 			curriLog.save()
