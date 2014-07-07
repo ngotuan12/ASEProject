@@ -77,18 +77,20 @@ jQuery(document).ready(function(){
 
 
 $('#selCurriculumn').change(function(){
+	var curriculumnid = $(this).find('option:selected').attr('curriidd');
 	var curriid = $(this).find('option:selected').attr('curriid');
-	var curridatalog=$(this).find('option:selected').attr('datalog');	
+	var curridatalog=$(this).find('option:selected').attr('datalog');
 	var curriprogressName = $(this).find('option:selected').attr('processName');
 	var curriprogressrate=$(this).find('option:selected').attr('processrate');	
 	$('button#showUpdateProgress').text(curriprogressName);	
-	$("#ratebar").css("width", curriprogressrate +"%");
-	
-	
+	$("#ratebar").css("width", curriprogressrate +"%");	
 	$("#curriculumnlog_id").val(curriid);
 	$('#calendar').fullCalendar('destroy');
 	var json1 = JSON.parse(curridatalog.replace(/&quot;/g,'"'));
 	renderCalendar1(json1);
+	
+	$(".external-event[curriId='" + curriculumnid + "']").css("display", "block");
+	$(".external-event[curriId!='" + curriculumnid + "']").css("display", "none");
 });
 function renderCalendar1(stringtoShow) {
 	$('#calendar').fullCalendar(
@@ -193,9 +195,14 @@ function renderCalendar1(stringtoShow) {
 				renderCalendar1(json);
 				
 				var curriprogressName1 = $('#selCurriculumn').find('option:selected').attr('processName');
-				var curriprogressrate1 =$('#selCurriculumn').find('option:selected').attr('processrate');	
+				var curriprogressrate1 =$('#selCurriculumn').find('option:selected').attr('processrate');
+				var curriculumid1 =$('#selCurriculumn').find('option:selected').attr('curriidd');
+				
 				$('button#showUpdateProgress').text(curriprogressName1);	
 				$("#ratebar").css("width", curriprogressrate1 +"%");
+				
+				$(".external-event[curriId='" + curriculumid1 + "']").css("display", "block");
+				$(".external-event[curriId!='" + curriculumid1 + "']").css("display", "none");
 			});
 	/* var firstdatalog="[]";
 

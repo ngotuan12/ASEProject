@@ -18,9 +18,9 @@
 				{% if listcurrilog %}
 					{% for currilog in listcurrilog %}
 						{% if currilog.data %}
-							<option processName="{{ currilog.process.progressName }}" processrate="{{ currilog.process.rate }}" value="{{ currilog.process.id }}" progressId="{{ currilog.process.id }}" datalog="{{ currilog.data }}" curriid="{{ currilog.id }}">{{ currilog.curriculumn.name }}</option>
+							<option curriidd="{{ currilog.curriculumn.id }}" processName="{{ currilog.process.progressName }}" processrate="{{ currilog.process.rate }}" value="{{ currilog.process.id }}" progressId="{{ currilog.process.id }}" datalog="{{ currilog.data }}" curriid="{{ currilog.id }}">{{ currilog.curriculumn.name }}</option>
 						{% else %}
-							<option processName="{{ currilog.process.progressName }}" processrate="{{ currilog.process.rate }}" value="{{ currilog.process.id }}" progressId="{{ currilog.process.id }}" datalog="[]" curriid="{{ currilog.id }}">{{ currilog.curriculumn.name }}</option>
+							<option curriidd="{{ currilog.curriculumn.id }}" processName="{{ currilog.process.progressName }}" processrate="{{ currilog.process.rate }}" value="{{ currilog.process.id }}" progressId="{{ currilog.process.id }}" datalog="[]" curriid="{{ currilog.id }}">{{ currilog.curriculumn.name }}</option>
 						{% endif %}
 					{% endfor %}
 				{% endif %}
@@ -61,16 +61,18 @@
 
 <div id='external-events' style="width: 20%;">
 <h4>カリキュラム入社</h4>
-{% if lisCurriculumns %}
-	{% for curriculumn in lisCurriculumns %}		
-		{% for material in curriculumn.material %}
-			<div class='external-event'>{{ material.name|truncatechars:50}}</div>
+<div id="listMA">
+	{% if lisCurriculumns %}
+		{% for curriculumn in lisCurriculumns %}		
+			{% for material in curriculumn.material %}
+				<div class='external-event' curriId={{ curriculumn.id }}>{{ material.name|truncatechars:50}}</div>
+			{% endfor %}
+			{% for action in curriculumn.action %}
+				<div class='external-event' curriId={{ curriculumn.id }}>{{ action.name|truncatechars:50 }}</div>
+			{% endfor %}
 		{% endfor %}
-		{% for action in curriculumn.action %}
-			<div class='external-event'>{{ action.name|truncatechars:50 }}</div>
-		{% endfor %}
-	{% endfor %}
-{% endif %}
+	{% endif %}
+</div>
 <!-- <button class="btn btn-primary btn-xs" onclick="submitdata();" style="float: right;margin-bottom: 10px;">Save</button>-->
 <!-- <input type='checkbox' id='drop-remove' /> <label for='drop-remove'>remove after drop</label> -->
 
