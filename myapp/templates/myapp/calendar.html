@@ -1,6 +1,3 @@
-<input type="hidden" id="currentcurriculumnLogid" value="">
-<input type="hidden" id="currentcurriculumnLogData" value="">
-
 <div class="panel panel-default" style="margin-top: 1% !important;">
         <div class="panel-body panel-body-nopadding">
           <form style="margin-top: 1% !important;">
@@ -18,17 +15,6 @@
                 </ul>
               </div>
              	<select  id="selCurriculumn" class="form-control chosen-select" data-placeholder="Choose a Curriculumn ..." style="display: none;">
-				{% if listcurrilog %}
-					{% for currilog in listcurrilog %}
-						{% if currilog.data %}
-							<option datalog="{{ currilog.data }}" curriid="{{ currilog.id }}">{{ currilog.curriculumn.name }}</option>
-						{% else %}
-							<option datalog="[]" curriid="{{ currilog.id }}">{{ currilog.curriculumn.name }}</option>
-						{% endif %}
-					{% endfor %}
-				{% endif %}
-                </select>
-                <select  id="selCurriculumnTemp"  hidden="false">
 				{% if listcurrilog %}
 					{% for currilog in listcurrilog %}
 						{% if currilog.data %}

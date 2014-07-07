@@ -33,18 +33,8 @@
 
 											// Put the results in a div
 											posting.done(function(data) {
-												/* var a = data.responseText; */
-												var ex = document.getElementById("selCurriculumnTemp").options;
-												  for(var i=0;i<ex.length;i++)
-												  {
-													  var cur = JSON.stringify(data.currilogid);
-													  var res = cur.substring(1, cur.length-1);
-												   if(ex[i].getAttribute('curriid').toString()==res.toString())
-												   {
-														var dddd = data.datacontent.toString();
-														ex[i].setAttribute('datalog',dddd);														
-												   }
-												  }
+												var dddd = data.datacontent.toString();
+										        var abc= $('#selCurriculumn').find('option:selected').attr('datalog',dddd);
 											});
 										});
 
@@ -72,18 +62,11 @@ jQuery(document).ready(function(){
 
 $('#selCurriculumn').change(function(){
 	var curriid = $(this).find('option:selected').attr('curriid');
-	var ex = document.getElementById("selCurriculumnTemp").options;
-	  for(var i=0;i<ex.length;i++)
-	  {
-	   if(ex[i].getAttribute('curriid')==curriid)
-	   {
-		   var curridatalog = ex[i].getAttribute('datalog');
-	   }
-	  }
-    $("#curriculumnlog_id").val(curriid);
-    $('#calendar').fullCalendar('destroy');
-    var json1 = JSON.parse(curridatalog.replace(/&quot;/g,'"'));
-    renderCalendar1(json1);
+	var curridatalog=$(this).find('option:selected').attr('datalog');
+	$("#curriculumnlog_id").val(curriid);
+	$('#calendar').fullCalendar('destroy');
+	var json1 = JSON.parse(curridatalog.replace(/&quot;/g,'"'));
+	renderCalendar1(json1);
 });
 function renderCalendar1(stringtoShow) {
 	$('#calendar').fullCalendar(
@@ -182,16 +165,20 @@ function renderCalendar1(stringtoShow) {
 
 				/* initialize the calendar
 				-----------------------------------------------------------------*/
+				
+				var curridatalog=$('#selCurriculumn').find('option:selected').attr('datalog');
+				var json = JSON.parse(curridatalog.replace(/&quot;/g,'"'));
 				renderCalendar1(json);
 			});
-	var firstdatalog="[]";
+	/* var firstdatalog="[]";
+
 	{% if firstcurrilog %}
 		{% if firstcurrilog.data %}
 			firstdatalog='{{ firstcurrilog.data }}';
 		{% endif %}
 	{% endif %}
-	var json = JSON.parse(firstdatalog.replace(/&quot;/g,'"'));
-	
+	alert(firstdatalog);
+	var json = JSON.parse(firstdatalog.replace(/&quot;/g,'"')); */
 	
 	function submitdata() {
 
@@ -211,6 +198,7 @@ function renderCalendar1(stringtoShow) {
 		console.log(JSON.stringify(eventsForCookie));
 		document.getElementById('datacontent').value = JSON
 				.stringify(eventsForCookie);
+		var abc= $('#selCurriculumn').find('option:selected').attr('datalog',document.getElementById('datacontent').value);
 		$("#frmCalendar").submit();
 	}
 </script>
