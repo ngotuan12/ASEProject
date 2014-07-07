@@ -201,6 +201,38 @@ function renderCalendar1(stringtoShow) {
 		var abc= $('#selCurriculumn').find('option:selected').attr('datalog',document.getElementById('datacontent').value);
 		$("#frmCalendar").submit();
 	}
+	
+	//Change progress
+	function changeProgress( listCurr,progressIdCurent,progressName )
+	{
+		var listCurrilog = document.getElementById("selCurriculumn").options;
+		$('button#showProgress').text(progressName);
+		var exist=false;
+		
+		for(var i=0;i<listCurrilog.length;i++)
+		{
+			var option= listCurrilog[i];
+			/* alert(progressIdCurent+"-"+option.getAttribute('progressId')); */
+			
+			if(option.getAttribute('progressId')==progressIdCurent)
+			{
+				//option.disabled=false;
+				$("#selCurriculumn option[value=" + option.value + "]").show();
+				exist=true;
+			}
+			else
+			{
+			//	option.disabled=true;
+				$("#selCurriculumn option[value=" + option.value + "]").hide();
+			}
+		}
+		if( exist==false)
+		{
+			
+		}
+		
+		$('#selCurriculumn').trigger('chosen:updated');
+	}
 </script>
 
 <style>
