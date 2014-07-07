@@ -14,6 +14,8 @@ from mongoengine.django.auth import User
 
 from myapp.models.Curriculumn import Curriculumn
 from myapp.models.CurriculumnLog import CurriculumnLog
+from myapp.models.Material import Material
+from myapp.models.Action import Action
 from myapp.models.Mentor import Mentor
 from myapp.models.ProgressType import ProgressType
 from myapp.models.StudyLog import StudyLog
@@ -27,10 +29,11 @@ def index(request):
 		user=User.objects.get(username=str(request.user))
 		print(request.user)
 		lisCurriculumns = Curriculumn.objects()
-		listABC=[]
+		listjoinedcurri=[]
 		for curriculumn in lisCurriculumns:
 			if username in curriculumn.joined_user:
-				listABC.append(curriculumn)
+				listjoinedcurri.append(curriculumn)
+
 		
 		listProgress = ProgressType.objects()
 		
@@ -48,18 +51,18 @@ def index(request):
 			datalog=studylog[0].data
 		if len(listcurrilog)>0:
 			context = {'username':username,
-						'lisCurriculumns':listABC,
+						'lisCurriculumns':listjoinedcurri,
 						'listProgress' : listProgress,
 						'listcurrilog': listcurrilog,
 						'datalog': datalog,
 						'firstcurrilog':currilog,
 						'flag' : flag
+						
 					}
 		else:
 			context = {'username':username,
 						'lisCurriculumns':listABC,
 						'listProgress' : listProgress,
-						'listcurrilog': listcurrilog,
 						'datalog': datalog,
 						'flag' : flag
 					}
