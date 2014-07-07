@@ -69,24 +69,48 @@ def index(request):
 		return render(request,'myapp/studyLog.html', context)
 	
 	elif request.method == 'POST':
-		err_message=""
-		try:
-			datacontent = request.POST['datacontent']
-			currilogid = request.POST['curriculumnlog_id']
-			user=User.objects.get(username=str(request.user))
-			currilog = CurriculumnLog.objects(id=currilogid)[:1]
+		fromType = request.POST['formType']
+		if	fromType == "frmCalendar" :
+			err_message=""
 			
-			
-			if len(datacontent) >0:
-				print(datacontent)
-				print(currilogid)
+			try:
 				
-				if len(currilog) >0:
-					print('update')
-					cl=currilog[0]
-					cl.data=str(datacontent)
-					cl.save()
-		except Exception as e:
-			print(e)
-			err_message = e
-		return HttpResponse(json.dumps({"formdata": err_message,"datacontent":datacontent,"currilogid":currilogid }),content_type="application/json")
+				datacontent = request.POST['datacontent']
+				currilogid = request.POST['curriculumnlog_id']
+				user=User.objects.get(username=str(request.user))
+				currilog = CurriculumnLog.objects(id=currilogid)[:1]
+				
+				
+				if len(datacontent) >0:
+					print(datacontent)
+					print(currilogid)
+					
+					if len(currilog) >0:
+						print('update')
+						cl=currilog[0]
+						cl.data=str(datacontent)
+						cl.save()
+			except Exception as e:
+				print(e)
+				err_message = e
+			return HttpResponse(json.dumps({"formdata": err_message,"datacontent":datacontent,"currilogid":currilogid }),content_type="application/json")
+		elif fromType == "frmProgress" :
+			err_message=""
+			
+			try:
+				
+				currilogid = request.POST['curriculumnlog_id']
+				progressid = request.POST['progress_id']
+				
+				currilog = CurriculumnLog.objects(id=currilogid)[:1]
+				newprogress = ProgressType.objects(id=progressid)[:1]
+				print(currilogid)
+				print(progressid)
+				cl = currilog[0]
+				cl.process = newprogress[0]
+				cl.save()
+				success="successful"
+			except Exception as e:
+				print(e)
+				err_message = e
+			return HttpResponse(json.dumps({"formdata": err_message,"success": success}),content_type="application/json")

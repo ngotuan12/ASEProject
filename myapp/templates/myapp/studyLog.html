@@ -12,38 +12,54 @@
 <script src="js/custom.js"></script>
 <script defer src="slider/jquery.flexslider.js"></script>
 <script type="text/javascript">
-	$(window)
-			.load(
-					function() {
+	$(window).load(function() {
 
-						$("#frmCalendar")
-								.submit(
-										function(event) {
-											// Stop form from submitting normally
-											event.preventDefault();
-											// Get some values from elements on the page:
-											var $form = $(this), token = $form
-													.find(
-															"input[name='csrfmiddlewaretoken']")
-													.val(), term = 'likeMaterial', url = $form
-													.attr("action");
-											// Send the data using post
-											var posting = $.post(url, $(this)
-													.serialize());
+		$("#frmCalendar").submit(
+			function(event) {
+				// Stop form from submitting normally
+				event.preventDefault();
+				// Get some values from elements on the page:
+				var $form = $(this), token = $form
+						.find(
+								"input[name='csrfmiddlewaretoken']")
+						.val(), term = 'likeMaterial', url = $form
+						.attr("action");
+				// Send the data using post
+				var posting = $.post(url, $(this)
+						.serialize());
 
-											// Put the results in a div
-											posting.done(function(data) {
-												var dddd = data.datacontent.toString();
-										        var abc= $('#selCurriculumn').find('option:selected').attr('datalog',dddd);
-											});
-										});
+				// Put the results in a div
+				posting.done(function(data) {
+					var dddd = data.datacontent.toString();
+			        var abc= $('#selCurriculumn').find('option:selected').attr('datalog',dddd);
+				});
+		});
+		
+		$("#frmProgress").submit(
+				function(event) {
+					// Stop form from submitting normally
+					event.preventDefault();
+					// Get some values from elements on the page:
+					var $form = $(this), token = $form
+							.find(
+									"input[name='csrfmiddlewaretoken']")
+							.val(), term = 'likeMaterial', url = $form
+							.attr("action");
+					// Send the data using post
+					var posting = $.post(url, $(this)
+							.serialize());
 
-						$('.flexslider').flexslider({
-							animation : "slide",
-							controlNav : false,
-						});
-
+					// Put the results in a div
+					posting.done(function(data) {
+						var dddd = data.success.toString();
 					});
+			});
+
+			$('.flexslider').flexslider({
+				animation : "slide",
+				controlNav : false,
+			});
+	});
 </script>
 <link href='css/fullcalendar.css' rel='stylesheet' />
 <link href='css/fullcalendar.print.css' rel='stylesheet' media='print' />
@@ -62,7 +78,13 @@ jQuery(document).ready(function(){
 
 $('#selCurriculumn').change(function(){
 	var curriid = $(this).find('option:selected').attr('curriid');
-	var curridatalog=$(this).find('option:selected').attr('datalog');
+	var curridatalog=$(this).find('option:selected').attr('datalog');	
+	var curriprogressName = $(this).find('option:selected').attr('processName');
+	var curriprogressrate=$(this).find('option:selected').attr('processrate');	
+	$('button#showUpdateProgress').text(curriprogressName);	
+	$("#ratebar").css("width", curriprogressrate +"%");
+	
+	
 	$("#curriculumnlog_id").val(curriid);
 	$('#calendar').fullCalendar('destroy');
 	var json1 = JSON.parse(curridatalog.replace(/&quot;/g,'"'));
@@ -169,6 +191,11 @@ function renderCalendar1(stringtoShow) {
 				var curridatalog=$('#selCurriculumn').find('option:selected').attr('datalog');
 				var json = JSON.parse(curridatalog.replace(/&quot;/g,'"'));
 				renderCalendar1(json);
+				
+				var curriprogressName1 = $('#selCurriculumn').find('option:selected').attr('processName');
+				var curriprogressrate1 =$('#selCurriculumn').find('option:selected').attr('processrate');	
+				$('button#showUpdateProgress').text(curriprogressName1);	
+				$("#ratebar").css("width", curriprogressrate1 +"%");
 			});
 	/* var firstdatalog="[]";
 
@@ -198,7 +225,7 @@ function renderCalendar1(stringtoShow) {
 		console.log(JSON.stringify(eventsForCookie));
 		document.getElementById('datacontent').value = JSON
 				.stringify(eventsForCookie);
-		var abc= $('#selCurriculumn').find('option:selected').attr('datalog',document.getElementById('datacontent').value);
+		$('#selCurriculumn').find('option:selected').attr('datalog',document.getElementById('datacontent').value);
 		$("#frmCalendar").submit();
 	}
 	
@@ -218,6 +245,7 @@ function renderCalendar1(stringtoShow) {
 			{
 				//option.disabled=false;
 				$("#selCurriculumn option[value=" + option.value + "]").show();
+				$("#selCurriculumn option[value=" + option.value + "]").css("display", "block");
 				exist=true;
 			}
 			else
@@ -232,6 +260,16 @@ function renderCalendar1(stringtoShow) {
 		}
 		
 		$('#selCurriculumn').trigger('chosen:updated');
+	}
+	
+	function updateProgress(progressIdCurent,progressName,progressrate){
+		var currentCurri = $('#selCurriculumn').find('option:selected').attr('curriid').value;
+		$('button#showUpdateProgress').text(progressName);		
+		$("#ratebar").css("width", progressrate +"%");
+		document.getElementById('progress_id').value = progressIdCurent;
+		$('#selCurriculumn').find('option:selected').attr('processName',progressName);
+		$('#selCurriculumn').find('option:selected').attr('processrate',progressrate);
+		$("#frmProgress").submit();
 	}
 </script>
 
