@@ -1,16 +1,20 @@
-<div class="panel panel-default" style="margin-top: 1% !important;">
+<div class="panel panel-default" style="margin-top: 1% !important;text-align: left !important;">
         <div class="panel-body panel-body-nopadding">
           <form style="margin-top: 1% !important;">
             <div class="col-sm-6">
             <div class="input-group mb15">
               <div class="input-group-btn">
-                <button type="button" class="btn btn-default" tabindex="-1" id="showProgress">Progress</button>
+              {% if firstcurrilog %}
+              	<button type="button" class="btn btn-default" tabindex="-1" id="showProgress">{{ firstcurrilog.process.progressName }}</button>
+              {% else %}
+              	<button type="button" class="btn btn-default" tabindex="-1" id="showProgress">Choose progress</button>
+              {% endif %}
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tabindex="-1">
                   <span class="caret" id="showCurriLog"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
 					{% for progress in listProgress %}
-						<li style="float: left;" onclick="changeProgress('{{ listcurrilog }}','{{progress.id}}','{{progress.progressName}}');"><a href="#">{{ progress.progressName }}</a></li>
+						<li style="float: left;" onclick="changeProgress('{{progress.id}}','{{progress.progressName}}');"><a href="#">{{ progress.progressName }}</a></li>
 					{% endfor %}
                 </ul>
               </div>
@@ -18,9 +22,9 @@
 				{% if listcurrilog %}
 					{% for currilog in listcurrilog %}
 						{% if currilog.data %}
-							<option curriidd="{{ currilog.curriculumn.id }}" processName="{{ currilog.process.progressName }}" processrate="{{ currilog.process.rate }}" value="{{ currilog.process.id }}" progressId="{{ currilog.process.id }}" datalog="{{ currilog.data }}" curriid="{{ currilog.id }}">{{ currilog.curriculumn.name }}</option>
+							<option curriidd="{{ currilog.curriculumn.id }}" processName="{{ currilog.process.progressName }}" processrate="{{ currilog.process.rate }}" value="{{ currilog.process.id }}" progressId="{{ currilog.process.id }}" datalog="{{ currilog.data }}" curriid="{{ currilog.id }}">{{ currilog.curriculumn.name|truncatechars:50 }}</option>
 						{% else %}
-							<option curriidd="{{ currilog.curriculumn.id }}" processName="{{ currilog.process.progressName }}" processrate="{{ currilog.process.rate }}" value="{{ currilog.process.id }}" progressId="{{ currilog.process.id }}" datalog="[]" curriid="{{ currilog.id }}">{{ currilog.curriculumn.name }}</option>
+							<option curriidd="{{ currilog.curriculumn.id }}" processName="{{ currilog.process.progressName }}" processrate="{{ currilog.process.rate }}" value="{{ currilog.process.id }}" progressId="{{ currilog.process.id }}" datalog="[]" curriid="{{ currilog.id }}">{{ currilog.curriculumn.name|truncatechars:50 }}</option>
 						{% endif %}
 					{% endfor %}
 				{% endif %}
@@ -62,13 +66,13 @@
 <div id='external-events' style="width: 20%;">
 <h4>カリキュラム入社</h4>
 <div id="listMA">
-	{% if lisCurriculumns %}
-		{% for curriculumn in lisCurriculumns %}		
-			{% for material in curriculumn.material %}
-				<div class='external-event' curriId={{ curriculumn.id }}>{{ material.name|truncatechars:50}}</div>
+	{% if listcurrilog %}
+		{% for curriculumnLog in listcurrilog %}		
+			{% for material in curriculumnLog.curriculumn.material %}
+				<div class='external-event' curriId={{ curriculumnLog.curriculumn.id }}>{{ material.name|truncatechars:50}}</div>
 			{% endfor %}
-			{% for action in curriculumn.action %}
-				<div class='external-event' curriId={{ curriculumn.id }}>{{ action.name|truncatechars:50 }}</div>
+			{% for action in curriculumnLog.curriculumn.action %}
+				<div class='external-event' curriId={{ curriculumnLog.curriculumn.id }}>{{ action.name|truncatechars:50 }}</div>
 			{% endfor %}
 		{% endfor %}
 	{% endif %}

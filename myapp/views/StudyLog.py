@@ -27,17 +27,10 @@ def index(request):
 	if request.method == 'GET':
 		username=request.user
 		user=User.objects.get(username=str(request.user))
-		print(request.user)
-		lisCurriculumns = Curriculumn.objects()
-		listjoinedcurri=[]
-		for curriculumn in lisCurriculumns:
-			if username in curriculumn.joined_user:
-				listjoinedcurri.append(curriculumn)
-
 		
 		listProgress = ProgressType.objects()
 		
-		listcurrilog = CurriculumnLog.objects(user_id=user)
+		listcurrilog = CurriculumnLog.objects(user_id=user).order_by('process','published_date','-curriculumn')
 		
 		if len(listcurrilog)>0:
 			currilog=listcurrilog[0]
@@ -51,18 +44,16 @@ def index(request):
 			datalog=studylog[0].data
 		if len(listcurrilog)>0:
 			context = {'username':username,
-						'lisCurriculumns':listjoinedcurri,
 						'listProgress' : listProgress,
 						'listcurrilog': listcurrilog,
 						'datalog': datalog,
 						'firstcurrilog':currilog,
 						'flag' : flag
-						
 					}
 		else:
 			context = {'username':username,
-						'lisCurriculumns':listABC,
 						'listProgress' : listProgress,
+						'listcurrilog': listcurrilog,
 						'datalog': datalog,
 						'flag' : flag
 					}

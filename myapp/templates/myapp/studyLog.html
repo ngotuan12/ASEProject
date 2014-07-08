@@ -91,6 +91,8 @@ $('#selCurriculumn').change(function(){
 	
 	$(".external-event[curriId='" + curriculumnid + "']").css("display", "block");
 	$(".external-event[curriId!='" + curriculumnid + "']").css("display", "none");
+	
+	$('#selCurriculumn').trigger('chosen:updated');
 });
 function renderCalendar1(stringtoShow) {
 	$('#calendar').fullCalendar(
@@ -197,23 +199,19 @@ function renderCalendar1(stringtoShow) {
 				var curriprogressName1 = $('#selCurriculumn').find('option:selected').attr('processName');
 				var curriprogressrate1 =$('#selCurriculumn').find('option:selected').attr('processrate');
 				var curriculumid1 =$('#selCurriculumn').find('option:selected').attr('curriidd');
+				var progressId1 =$('#selCurriculumn').find('option:selected').attr('progressId');
 				
 				$('button#showUpdateProgress').text(curriprogressName1);	
 				$("#ratebar").css("width", curriprogressrate1 +"%");
 				
 				$(".external-event[curriId='" + curriculumid1 + "']").css("display", "block");
 				$(".external-event[curriId!='" + curriculumid1 + "']").css("display", "none");
+				
+				$("#selCurriculumn option[progressId='" + progressId1 + "']").show();
+				$("#selCurriculumn option[progressId='" + progressId1 + "']").css("display", "block");
+				$("#selCurriculumn option[progressId!='" + progressId1 + "']").hide();
+				$('#selCurriculumn').trigger('chosen:updated');
 			});
-	/* var firstdatalog="[]";
-
-	{% if firstcurrilog %}
-		{% if firstcurrilog.data %}
-			firstdatalog='{{ firstcurrilog.data }}';
-		{% endif %}
-	{% endif %}
-	alert(firstdatalog);
-	var json = JSON.parse(firstdatalog.replace(/&quot;/g,'"')); */
-	
 	function submitdata() {
 
 		var eventsFromCalendar = $('#calendar').fullCalendar('clientEvents');
@@ -237,36 +235,17 @@ function renderCalendar1(stringtoShow) {
 	}
 	
 	//Change progress
-	function changeProgress( listCurr,progressIdCurent,progressName )
+	function changeProgress(progressIdCurent,progressName )
 	{
 		var listCurrilog = document.getElementById("selCurriculumn").options;
 		$('button#showProgress').text(progressName);
-		var exist=false;
 		
-		for(var i=0;i<listCurrilog.length;i++)
-		{
-			var option= listCurrilog[i];
-			/* alert(progressIdCurent+"-"+option.getAttribute('progressId')); */
-			
-			if(option.getAttribute('progressId')==progressIdCurent)
-			{
-				//option.disabled=false;
-				$("#selCurriculumn option[value=" + option.value + "]").show();
-				$("#selCurriculumn option[value=" + option.value + "]").css("display", "block");
-				exist=true;
-			}
-			else
-			{
-			//	option.disabled=true;
-				$("#selCurriculumn option[value=" + option.value + "]").hide();
-			}
-		}
-		if( exist==false)
-		{
-			
-		}
+		$("#selCurriculumn option[value='" + progressIdCurent + "']").show();
+		$("#selCurriculumn option[value='" + progressIdCurent + "']").css("display", "block");
+		$("#selCurriculumn option[value!='" + progressIdCurent + "']").hide(); 
 		
 		$('#selCurriculumn').trigger('chosen:updated');
+		
 	}
 	
 	function updateProgress(progressIdCurent,progressName,progressrate){
