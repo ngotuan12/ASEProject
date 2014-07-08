@@ -5,9 +5,9 @@
             <div class="input-group mb15">
               <div class="input-group-btn">
               {% if firstcurrilog %}
-              	<button type="button" class="btn btn-default" tabindex="-1" id="showProgress">{{ firstcurrilog.process.progressName }}</button>
+              	<button type="button" class="btn btn-default" tabindex="-1" choosedProgressId="{{ firstcurrilog.process.id }}" id="showProgress">{{ firstcurrilog.process.progressName }}</button>
               {% else %}
-              	<button type="button" class="btn btn-default" tabindex="-1" id="showProgress">Choose progress</button>
+              	<button type="button" class="btn btn-default" tabindex="-1" choosedProgressId="" id="showProgress">Choose progress</button>
               {% endif %}
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tabindex="-1">
                   <span class="caret" id="showCurriLog"></span>
@@ -32,7 +32,7 @@
             </div>
           </div>
           
-          <div class="col-sm-6">
+          <div class="col-sm-6" id="progressdiv">
             <div class="input-group mb15">
                   <div class="progress progress-striped" style="margin-top: 1%;width: 99%;">
                   	{% if firstcurrilog %}
@@ -44,7 +44,7 @@
                   	{% endif %}
                   </div>
                  <div class="input-group-btn">
-                <button type="button" class="btn btn-default" tabindex="-1" id="showUpdateProgress">Update progress</button>
+                <button type="button" class="btn btn-default" tabindex="-1"  id="showUpdateProgress">Update progress</button>
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tabindex="-1">
                   <span class="caret"></span>
                 </button>
@@ -60,11 +60,14 @@
           </form>
         </div>
       </div>
-
+<!-- <div id='noResult' style="display: none;">
+	<h2>Choose a curriculumn </h2>
+</div> -->
 <div id='wrap'>
 
-<div id='external-events' style="width: 20%;">
+<div id='external-events' style="width: 20%;min-height: 550px;">
 <h4>カリキュラム入社</h4>
+<h5 id='noResult' style="display: none;">Choose a curriculumn</h5>
 <div id="listMA">
 	{% if listcurrilog %}
 		{% for curriculumnLog in listcurrilog %}		
@@ -97,11 +100,11 @@
 	<form action="" name = "frmProgress" id="frmProgress" method="POST" action="/studylog"> 
 		{% csrf_token %} 
 		{% if firstcurrilog %}
-			<input type="hidden" id="curriculumnlog_id" name="curriculumnlog_id" value="{{ firstcurrilog.id }}"/>
+			<input type="hidden" id="curriculumnlog_progress_id" name="curriculumnlog_id" value="{{ firstcurrilog.id }}"/>
 			<input type="hidden" id="progress_id" name="progress_id" value="{{ firstcurrilog.process.id }}"/>
 		{% else %}
+			<input type="hidden" id="curriculumnlog_progress_id" name="curriculumnlog_id" value=""/>
 			<input type="hidden" id="progress_id" name="progress_id" value=0/>
-			<input type="hidden" id="curriculumnlog_id" name="curriculumnlog_id" value=""/>
 		{% endif %}
 		<input type="hidden" name="formType" value="frmProgress"/>
 	</form>

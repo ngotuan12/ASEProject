@@ -2,7 +2,7 @@
 <link href="css/student-home.css" rel="stylesheet">
 <link rel="stylesheet" href="slider/flexslider.css" type="text/css" />
 {% endblock %} {% block content %}
-<div class="contentpanel">{% include 'myapp/calendar.html' %}</div>
+<div class="contentpanel" style="min-height: 800px;">{% include 'myapp/calendar.html' %}</div>
 {% endblock %} {% block scripts %}
 <script src="js/jquery-1.10.2.min.js"></script>
 <script src="js/jquery-migrate-1.2.1.min.js"></script>
@@ -77,14 +77,20 @@ jQuery(document).ready(function(){
 
 
 $('#selCurriculumn').change(function(){
+	$("#progressdiv").css("display", "block");
+	$("#listMA").css("display", "block");
+	$("#noResult").css("display", "none");
 	var curriculumnid = $(this).find('option:selected').attr('curriidd');
 	var curriid = $(this).find('option:selected').attr('curriid');
 	var curridatalog=$(this).find('option:selected').attr('datalog');
 	var curriprogressName = $(this).find('option:selected').attr('processName');
 	var curriprogressrate=$(this).find('option:selected').attr('processrate');	
-	$('button#showUpdateProgress').text(curriprogressName);	
+	$('button#showUpdateProgress').text(curriprogressName);
+	
+	
+	//update curriculumn progress
 	$("#ratebar").css("width", curriprogressrate +"%");	
-	$("#curriculumnlog_id").val(curriid);
+	$("#curriculumnlog_progress_id").val(curriid);
 	$('#calendar').fullCalendar('destroy');
 	var json1 = JSON.parse(curridatalog.replace(/&quot;/g,'"'));
 	renderCalendar1(json1);
@@ -93,6 +99,9 @@ $('#selCurriculumn').change(function(){
 	$(".external-event[curriId!='" + curriculumnid + "']").css("display", "none");
 	
 	$('#selCurriculumn').trigger('chosen:updated');
+	
+	
+	
 });
 function renderCalendar1(stringtoShow) {
 	$('#calendar').fullCalendar(
@@ -201,7 +210,9 @@ function renderCalendar1(stringtoShow) {
 				var curriculumid1 =$('#selCurriculumn').find('option:selected').attr('curriidd');
 				var progressId1 =$('#selCurriculumn').find('option:selected').attr('progressId');
 				
-				$('button#showUpdateProgress').text(curriprogressName1);	
+				$('button#showUpdateProgress').text(curriprogressName1);
+				
+				
 				$("#ratebar").css("width", curriprogressrate1 +"%");
 				
 				$(".external-event[curriId='" + curriculumid1 + "']").css("display", "block");
@@ -239,12 +250,26 @@ function renderCalendar1(stringtoShow) {
 	{
 		var listCurrilog = document.getElementById("selCurriculumn").options;
 		$('button#showProgress').text(progressName);
+		$('button#showProgress').attr('choosedProgressId',progressIdCurent);
 		
 		$("#selCurriculumn option[value='" + progressIdCurent + "']").show();
 		$("#selCurriculumn option[value='" + progressIdCurent + "']").css("display", "block");
 		$("#selCurriculumn option[value!='" + progressIdCurent + "']").hide(); 
 		
-		$('#selCurriculumn').trigger('chosen:updated');
+		$('#selCurriculumn').chosen('destroy');
+		$('#selCurriculumn').prop("selectedIndex", -1);
+		$('#selCurriculumn').chosen();
+		
+		$('#calendar').fullCalendar({});
+		/* $('#calendar').fullCalendar('destroy'); */
+	//	renderCalendar1("[]");
+		/* $("#wrap").css("display", "none");
+		$("#noResult").css("display", "block");
+		$("#progressdiv").css("display", "none"); */
+		$("#noResult").css("display", "block");
+		$("#listMA").css("display", "none");
+		$("#progressdiv").css("display", "none");
+		//$('#selCurriculumn').trigger('chosen:updated');
 		
 	}
 	
@@ -255,6 +280,16 @@ function renderCalendar1(stringtoShow) {
 		document.getElementById('progress_id').value = progressIdCurent;
 		$('#selCurriculumn').find('option:selected').attr('processName',progressName);
 		$('#selCurriculumn').find('option:selected').attr('processrate',progressrate);
+		$('#selCurriculumn').find('option:selected').attr('progressId',progressIdCurent);
+		$('#selCurriculumn').find('option:selected').attr('value',progressIdCurent);
+		
+		var progressChoosed=$('#showProgress').attr('choosedProgressId');
+		
+		$("#selCurriculumn option[value='" + progressChoosed + "']").show();
+		$("#selCurriculumn option[value='" + progressChoosed + "']").css("display", "block");
+		$("#selCurriculumn option[value!='" + progressChoosed + "']").hide();
+		$('#selCurriculumn').trigger('chosen:updated');
+		
 		$("#frmProgress").submit();
 	}
 </script>
