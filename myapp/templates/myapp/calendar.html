@@ -14,7 +14,7 @@
                 </button>
                 <ul class="dropdown-menu" role="menu">
 					{% for progress in listProgress %}
-						<li style="float: left;" onclick="changeProgress('{{progress.id}}','{{progress.progressName}}');"><a href="#">{{ progress.progressName }}</a></li>
+						<li style="float: left;width: 100%;" onclick="changeProgress('{{progress.id}}','{{progress.progressName}}');"><a href="#">{{ progress.progressName }}</a></li>
 					{% endfor %}
                 </ul>
               </div>
@@ -50,7 +50,7 @@
                 </button>
                 <ul class="dropdown-menu" role="menu">
 				{% for progress in listProgress %}
-						<li style="float: left;" onclick="updateProgress('{{progress.id}}','{{progress.progressName}}','{{progress.rate}}');"><a href="#">{{ progress.progressName }}</a></li>
+						<li style="float: left;width: 100%;" onclick="updateProgress('{{progress.id}}','{{progress.progressName}}','{{progress.rate}}');"><a href="#">{{ progress.progressName }}</a></li>
 				{% endfor %}
                 </ul>
               </div>
