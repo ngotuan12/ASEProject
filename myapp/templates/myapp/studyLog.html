@@ -276,6 +276,7 @@ function renderCalendar1(stringtoShow) {
 		$('#selCurriculumn').prop("selectedIndex", -1);
 		$('#selCurriculumn').chosen();
 		
+		$('#calendar').fullCalendar('destroy');
 		$('#calendar').fullCalendar({});
 		/* $('#calendar').fullCalendar('destroy'); */
 	//	renderCalendar1("[]");
