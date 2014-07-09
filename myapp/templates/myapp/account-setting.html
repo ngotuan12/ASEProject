@@ -7,96 +7,152 @@
 </div>
 {% endblock %} 
 {% block content %}
-<div class="panel panel-default">
-        <div class="panel-heading">
-          <div class="panel-btns">
-            <a href="#" class="panel-close">×</a>
-            <a href="#" class="minimize">−</a>
-          </div>
-          <h4 class="panel-title">Account Detail</h4>
-          <p>Edit your  account informaion</p>
-        </div>
-        <div class="panel-body panel-body-nopadding">
+<div class="mainpanel" style="margin-top: 2%">
+        
+    <div class="contentpanel">
+      
+      <div class="row">
+        <div class="col-sm-3">
+          <img src="{{ user_images }}" class="thumbnail img-responsive" alt="">
           
-          <form class="form-horizontal form-bordered">
-                        
-            <div class="form-group">
-				  <label class="col-sm-3 control-label" for="readonlyinput">Username</label>
-				  <div class="col-sm-6">
-					 <input type="text" value="Read Only Input" id="readonlyinput" class="form-control" readonly="readonly">
-				  </div>
+          <div class="mb30"></div>
+          
+         <div class="profile-header">
+            {% if user.firstname %}
+            <h2 class="profile-name">{{ user.firstname }}{{ user.lastname }}</h2>
+            {% else %}
+            <h2 class="profile-name">{{ user.username }}</h2>
+            {% endif %}
+            <div class="profile-location"><i class="fa fa-map-marker"></i> San Francisco, California, USA</div>
+            <div class="profile-position"><i class="fa fa-briefcase"></i> Software Engineer at <a href="#">SomeCompany, Inc.</a></div>
+            
+          </div><!-- profile-header -->
+          
+        </div><!-- col-sm-3 -->
+        <div class="col-sm-9">
+
+         <div class="panel panel-default">
+        <form method="post" action="/account-setting" class="form-horizontal form-bordered" id="frmProfile" novalidate="novalidate">
+        {% csrf_token %}
+	        <div class="panel-body panel-body-nopadding">
+	            <div class="form-group">
+					  <label class="col-sm-3 control-label" for="readonlyinput">Username</label>
+					  <div class="col-sm-6">
+						 <input name="txtUserName" type="text" value="{{ user.username }}" id="readonlyinput" class="form-control" readonly="readonly"/>
+					  </div>
+					</div>
+					
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Current Job<span class="asterisk">*</span></label>
+					<div class="col-sm-6">
+						<input name="txtJob"  type="text" value="{{ UserProfile.job_title }}" placeholder="Describle your job now" class="form-control" required=""/>
+					</div>
 				</div>
 				
-            <div class="form-group">
-              <label class="col-sm-3 control-label">Name</label>
-              <div class="col-sm-6">
-                <input type="text" placeholder="Default Input" class="form-control">
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label class="col-sm-3 control-label">Company</label>
-              <div class="col-sm-6">
-                <input type="text" placeholder="Default Input" class="form-control">
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label class="col-sm-3 control-label">Address</label>
-              <div class="col-sm-6">
-                <input type="text" placeholder="Default Input" class="form-control">
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label class="col-sm-3 control-label">About</label>
-              <div class="col-sm-6">
-                <input type="text" placeholder="Default Input" class="form-control">
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label class="col-sm-3 control-label">Twitter</label>
-              <div class="col-sm-6">
-                <input type="text" placeholder="Input link to your Twitter" class="form-control">
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label class="col-sm-3 control-label">Facebook</label>
-              <div class="col-sm-6">
-                <input type="text" placeholder="Input link to your Facebook" class="form-control">
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label class="col-sm-3 control-label">Youtube</label>
-              <div class="col-sm-6">
-                <input type="text" placeholder="Input link to your Youtube" class="form-control">
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label class="col-sm-3 control-label">Linkedin</label>
-              <div class="col-sm-6">
-                <input type="text" placeholder="Input link to your Linkedin" class="form-control">
-              </div>
-            </div>
-
-        </div><!-- panel-body -->
-        
-        <div class="panel-footer">
-			 <div class="row">
-				<div class="col-sm-6 col-sm-offset-3">
-				  <button class="btn btn-primary">Submit</button>&nbsp;
-				  <button class="btn btn-default">Cancel</button>
-				</div>
-			 </div>
-		  </div><!-- panel-footer -->
-        
+	            <div class="form-group">
+	              <label class="col-sm-3 control-label">Current Company<span class="asterisk">*</span></label>
+	              <div class="col-sm-6">
+	                <input name="txtCompany" type="text" value="{{ UserProfile.company }}" placeholder="What company are you working with now ?" class="form-control" required=""/>
+	              </div>
+	            </div>
+	            
+	            <div class="form-group">
+	              <label class="col-sm-3 control-label">Current Work Field<span class="asterisk">*</span></label>
+	              <div class="col-sm-6">
+	                <input name="txtWorking" type="text" value="{{ UserProfile.work_field }}" placeholder="Your woking field ?" class="form-control" required=""/>
+	              </div>
+	            </div>
+	            
+	            <div class="form-group">
+	              <label class="col-sm-3 control-label">Education<span class="asterisk">*</span></label>
+	              <div class="col-sm-6">
+	                <input name="txtEducation" type="text" value="{{ UserProfile.edu }}" placeholder="Your education level ?" class="form-control" required=""/>
+	              </div>
+	            </div>
+	            
+	            <div class="form-group">
+	              <label class="col-sm-3 control-label">Skill<span class="asterisk">*</span></label>
+	              <div class="col-sm-6">
+	                <input name="txtSkill" type="text" value="{{ UserProfile.skill }}" placeholder="Skill" class="form-control" required=""/>
+	              </div>
+	            </div>
+	            
+	            <div class="form-group">
+                  <label class="col-sm-3 control-label">About <span class="asterisk">*</span></label>
+                  <div class="col-sm-9">
+                    <textarea name="txaAbout" rows="5" value="{{ UserProfile.about }}" class="form-control" placeholder="Tell us some thing about your self..." required="">{{ UserProfile.about }}</textarea>
+                  </div>
+                </div>
+	
+	        </div><!-- panel-body -->
+	        
+	        <div class="panel-footer">
+				 <div class="row">
+					<div class="col-sm-6 col-sm-offset-3">
+					  <button class="btn btn-primary" onclick="validatesdata();">Submit</button>&nbsp;
+					  <span id="lblsuccess" style="display: none;" class="label label-success">Success</span>
+					  <span id="lblfail" style="display: none;" class="label label-danger">Fail</span>
+					</div>
+					
+				 </div>
+			  </div><!-- panel-footer -->
+			  <input type="hidden" name="formType" value="frmProfile"/>
+        </form>
       </div>
+          
+        </div><!-- col-sm-9 -->
+      </div><!-- row -->
+      
+    </div><!-- contentpanel -->
+  </div>
+
+
 {% endblock %}
 
 {% block scripts %}
 <script src="js/custom.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script>
+	function validatesdata()
+	{
+		var $valid = jQuery('#frmProfile').valid();
+		if(!$valid) {
+			$validator.focusInvalid();
+			return false;
+		 }
+		else
+		{
+			jQuery('#frmProfile').submit();
+		}
+		
+	}
+</script>
+<script type="text/javascript">
+		$("#frmProgress").submit(
+				function(event) {
+					// Stop form from submitting normally
+					event.preventDefault();
+					// Get some values from elements on the page:
+					var $form = $(this), token = $form
+							.find(
+									"input[name='csrfmiddlewaretoken']")
+							.val(), term = 'likeMaterial', url = $form
+							.attr("action");
+					// Send the data using post
+					var posting = $.post(url, $(this)
+							.serialize());
+
+					// Put the results in a div
+					posting.done(function(data) {
+						var dddd = data.success.toString();
+					});
+			});
+
+			$('.flexslider').flexslider({
+				animation : "slide",
+				controlNav : false,
+			});
+	});
+</script>
+<script defer src="slider/jquery.flexslider.js"></script>
 {% endblock %}

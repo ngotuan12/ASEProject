@@ -21,16 +21,16 @@ from myapp.util import context_processors
 def index(request):
 	try:
 		user_id = request.GET['user_id']
-		ListSocialProfiles=SocialProfile.objects(user_id=User.objects.get(id=user_id))
+		ListSocialProfiles = SocialProfile.objects(user_id=User.objects.get(id=user_id))
 		profile = UserProfile.objects.get(user_id=User.objects.get(id=user_id))
-		ListProfiles=UserProfile.objects
-		context = {'profile':profile,'ListSocialProfile':ListSocialProfiles,"ListProfiles":ListProfiles}
+		ListProfiles = UserProfile.objects
+		context = {'profile':profile, 'ListSocialProfile':ListSocialProfiles, "ListProfiles":ListProfiles}
 		return render(request, 'myapp/profile.html', context)
 	except Exception:
 		profile = UserProfile()
 		profile.user_id = User.objects.get(id="user_id")
 		profile = UserProfile.objects.get(user_id=User.objects.get(id=user_id))
-		context = {'profile':profile,}
+		context = {'profile':profile, }
 		return render(request, 'myapp/profile.html', context)
 @login_required(login_url='/signin')
 def createProfile(request):
@@ -41,7 +41,7 @@ def updateProfile(request):
 	if request.method == 'GET':
 		job_titles = JobTitle.objects
 		work_fields = WorkField.objects
-		context = {'job_titles':job_titles,'work_fields':work_fields,'acccount_type':request.GET['acccount_type'],}
+		context = {'job_titles':job_titles, 'work_fields':work_fields, 'acccount_type':request.GET['acccount_type'], }
 		return render(request, 'myapp/create-profile-update.html', context)
 	elif request.method == 'POST':
 		try:
@@ -63,7 +63,7 @@ def updateProfile(request):
 		except Exception as e:
 			print(e)
 			c = {
-				'error_message':e,'job_titles':JobTitle.objects,'work_fields':WorkField.objects,'acccount_type':request.GET['acccount_type'],
+				'error_message':e, 'job_titles':JobTitle.objects, 'work_fields':WorkField.objects, 'acccount_type':request.GET['acccount_type'],
 				}
 			c.update(csrf(request))
 			c.update(context_processors.user(request))
