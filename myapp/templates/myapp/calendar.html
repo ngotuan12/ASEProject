@@ -4,11 +4,12 @@
             <div class="col-sm-6">
             <div class="input-group mb15">
               <div class="input-group-btn">
-              {% if firstcurrilog %}
+              <!-- {% if firstcurrilog %}
               	<button type="button" class="btn btn-default" tabindex="-1" choosedProgressId="{{ firstcurrilog.process.id }}" id="showProgress">{{ firstcurrilog.process.progressName }}</button>
               {% else %}
               	<button type="button" class="btn btn-default" tabindex="-1" choosedProgressId="" id="showProgress">Choose progress</button>
-              {% endif %}
+              {% endif %} -->
+              <button type="button" class="btn btn-default" tabindex="-1" choosedProgressId="" id="showProgress">Choose progress</button>
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tabindex="-1">
                   <span class="caret" id="showCurriLog"></span>
                 </button>
@@ -35,13 +36,14 @@
           <div class="col-sm-6" id="progressdiv">
             <div class="input-group mb15">
                   <div class="progress progress-striped" style="margin-top: 1%;width: 99%;">
-                  	{% if firstcurrilog %}
+                  	<!-- {% if firstcurrilog %}
                   		{% if firstcurrilog.process.rate %}
                    			<div id="ratebar" class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: {{ firstcurrilog.process.rate }}%;"></div>
                   		{% else %}
                   			<div id="ratebar" class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
                   		{% endif %}
-                  	{% endif %}
+                  	{% endif %} -->
+                  	<div id="ratebar" class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
                   </div>
                  <div class="input-group-btn">
                 <button type="button" class="btn btn-default" tabindex="-1"  id="showUpdateProgress">Update progress</button>
@@ -97,13 +99,15 @@
 	</form>
 	<form action="" name = "frmProgress" id="frmProgress" method="POST" action="/studylog"> 
 		{% csrf_token %} 
-		{% if firstcurrilog %}
+		<!-- {% if firstcurrilog %}
 			<input type="hidden" id="curriculumnlog_progress_id" name="curriculumnlog_id" value="{{ firstcurrilog.id }}"/>
 			<input type="hidden" id="progress_id" name="progress_id" value="{{ firstcurrilog.process.id }}"/>
 		{% else %}
 			<input type="hidden" id="curriculumnlog_progress_id" name="curriculumnlog_id" value=""/>
 			<input type="hidden" id="progress_id" name="progress_id" value=0/>
-		{% endif %}
+		{% endif %} -->
+		<input type="hidden" id="curriculumnlog_progress_id" name="curriculumnlog_id" value=""/>
+		<input type="hidden" id="progress_id" name="progress_id" value=0/>
 		<input type="hidden" name="formType" value="frmProgress"/>
 	</form>
 <div style='clear:both'></div>

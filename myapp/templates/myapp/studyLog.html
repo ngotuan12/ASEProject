@@ -143,6 +143,7 @@ function renderCalendar1(stringtoShow) {
 					submitdata();
 				},
 				editable : true,
+				timeFormat:  'HH:mm { - HH:mm}',
 				droppable : true, // this allows things to be dropped onto the calendar !!!
 				drop : function(date, allDay) { // this function is called when something is dropped
 
@@ -207,7 +208,7 @@ function renderCalendar1(stringtoShow) {
 				var flag='{{ flag }}';
 				if(flag == '1')
 				{
-					var curridatalog=$('#selCurriculumn').find('option:selected').attr('datalog');
+					/* var curridatalog=$('#selCurriculumn').find('option:selected').attr('datalog');
 					var json = JSON.parse(curridatalog.replace(/&quot;/g,'"'));
 					renderCalendar1(json);
 					
@@ -227,7 +228,17 @@ function renderCalendar1(stringtoShow) {
 					$("#selCurriculumn option[progressId='" + progressId1 + "']").show();
 					$("#selCurriculumn option[progressId='" + progressId1 + "']").css("display", "block");
 					$("#selCurriculumn option[progressId!='" + progressId1 + "']").hide();
+					$('#selCurriculumn').trigger('chosen:updated'); */
+					
+					$("#selCurriculumn option").hide();
 					$('#selCurriculumn').trigger('chosen:updated');
+					$('#selCurriculumn').prop("selectedIndex", -1);
+					$('#selCurriculumn').trigger('chosen:updated');
+					
+					$('#calendar').fullCalendar({});
+					$("#noResult").css("display", "block");
+					$("#listMA").css("display", "none");
+					$("#progressdiv").css("display", "none");
 				}
 				else
 				{
@@ -271,7 +282,7 @@ function renderCalendar1(stringtoShow) {
 		$("#selCurriculumn option[value='" + progressIdCurent + "']").show();
 		$("#selCurriculumn option[value='" + progressIdCurent + "']").css("display", "block");
 		$("#selCurriculumn option[value!='" + progressIdCurent + "']").hide(); 
-		
+
 		$('#selCurriculumn').chosen('destroy');
 		$('#selCurriculumn').prop("selectedIndex", -1);
 		$('#selCurriculumn').chosen();
