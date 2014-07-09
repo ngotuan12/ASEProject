@@ -122,7 +122,7 @@ function renderCalendar1(stringtoShow) {
 			    {
 			    	submitdata();
 			    },
-			    events : stringtoShow,
+			   events : stringtoShow,
 				selectable: true,
 				selectHelper: true,
 				select: function(start, end) {
@@ -250,6 +250,7 @@ function renderCalendar1(stringtoShow) {
 				event.end = (value.end).toString();
 			else
 				event.end = value.end;
+			event.allDay = false;
 			event.title = value.title;
 			eventsForCookie.push(event);
 		});
