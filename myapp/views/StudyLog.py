@@ -34,14 +34,10 @@ def index(request):
 		
 		if len(listcurrilog)>0:
 			currilog=listcurrilog[0]
-		
-		studylog = StudyLog.objects(user=user)[:1]
 		datalog="[]"
-		flag = 1 ;
-		if len(studylog) == 0:
-			flag = 0
-		else:
-			datalog=studylog[0].data
+		flag = '0' ;
+		if len(listcurrilog) > 0:
+			flag = '1'
 		if len(listcurrilog)>0:
 			context = {'username':username,
 						'listProgress' : listProgress,
