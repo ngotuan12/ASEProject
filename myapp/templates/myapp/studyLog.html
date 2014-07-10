@@ -1,4 +1,5 @@
 {% extends "myapp/base.html" %} {% block styles %}
+<link href='css/fullcalendar.css' rel='stylesheet' />
 <link href="css/student-home.css" rel="stylesheet">
 <link rel="stylesheet" href="slider/flexslider.css" type="text/css" />
 {% endblock %} {% block content %}
@@ -69,14 +70,11 @@
 			});
 	});
 </script>
-<link href='css/fullcalendar.css' rel='stylesheet' />
 <link href='css/fullcalendar.print.css' rel='stylesheet' media='print' />
 <script src='js/jquery.min.js'></script>
 <script src='js/jquery-ui.custom.min.js'></script>
 <script src='js/fullcalendar.min.js'></script>
 <script src="js/chosen.jquery.min.js"></script>
-<script src="https://raw.githubusercontent.com/dinbror/bpopup/master/jquery.bpopup.min.js"></script>
-
 <script>
 jQuery(document).ready(function(){
   // Chosen Select
