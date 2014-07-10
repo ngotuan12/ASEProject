@@ -272,6 +272,7 @@ function renderCalendar1(stringtoShow) {
 		document.getElementById('datacontent').value = JSON
 				.stringify(eventsForCookie);
 		$('#selCurriculumn').find('option:selected').attr('datalog',document.getElementById('datacontent').value);
+		alert(document.getElementById('datacontent').value);
 		$("#frmCalendar").submit();
 		ShowProgressAnimation();
 	}
@@ -311,6 +312,7 @@ function renderCalendar1(stringtoShow) {
 		$('button#showUpdateProgress').text(progressName);		
 		$("#ratebar").css("width", progressrate +"%");
 		document.getElementById('progress_id').value = progressIdCurent;
+		alert(document.getElementById('progress_id').value );
 		$('#selCurriculumn').find('option:selected').attr('processName',progressName);
 		$('#selCurriculumn').find('option:selected').attr('processrate',progressrate);
 		$('#selCurriculumn').find('option:selected').attr('progressId',progressIdCurent);
