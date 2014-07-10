@@ -25,11 +25,11 @@ from myapp.util import context_processors
 @login_required(login_url='/signin')
 def index(request):
 	if request.method == 'GET':
+		
 		username=request.user
 		user=User.objects.get(username=str(request.user))
 		
-		listProgress = ProgressType.objects()
-		
+		listProgress = ProgressType.objects().order_by('rate')
 		listcurrilog = CurriculumnLog.objects(user_id=user).order_by('process','published_date','-curriculumn')
 		
 		if len(listcurrilog)>0:
