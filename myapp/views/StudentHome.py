@@ -26,9 +26,14 @@ def index(request):
 		for ls in lsjoined:
 			Course = Curriculumn.objects.get(id=ls.curriculumn.id)
 			lsmt = []
+			lsac = []
 			for mt in Course.material:
-				mt={"name":mt.name,"description":mt.description}
+				mt={"name":mt.name,"description":mt.description,"url": mt.url}
 				lsmt.append(mt)
+			if len(Course.action)>0:
+				for ac in Course.action:
+					ac={"name":ac.name,"description":ac.description}
+					lsac.append(ac)
 			lsCourseDetail={
 							"id": Course.id,
 							"author_id":Course.mentor.user.id,
@@ -36,7 +41,8 @@ def index(request):
 							"duration":Course.duration,
 							"duration_type":Course.duration_type,
 							"from_date":Course.from_date,
-							"lsmt":lsmt
+							"lsmt":lsmt,
+							"lsac":lsac
 							}
 			lsCourse.append(lsCourseDetail)
 		#List recomment by admin

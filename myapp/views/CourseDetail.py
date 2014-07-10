@@ -179,7 +179,7 @@ def index(request):
 			
 			curri.save()
 			# Save CurriculumnLog
-			lisProgressType = ProgressType.objects()
+			lisProgressType = ProgressType.objects().order_by('rate')
 			progressType =lisProgressType[0]
 			
 			curriLog=CurriculumnLog()
