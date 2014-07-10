@@ -75,7 +75,7 @@
 				<div class='external-event' curriId={{ curriculumnLog.curriculumn.id }}>{{ material.name|truncatechars:50}}</div>
 			{% endfor %}
 			{% for action in curriculumnLog.curriculumn.action %}
-				<div class='external-event' curriId={{ curriculumnLog.curriculumn.id }}>{{ action.name|truncatechars:50 }}</div>
+				<div class='external-event'  curriId={{ curriculumnLog.curriculumn.id }}>{{ action.name|truncatechars:50 }}</div>
 			{% endfor %}
 		{% endfor %}
 	{% endif %}
@@ -89,11 +89,12 @@
 <div id='calendar'></div>
 	<form action="" name = "frmCalendar" id="frmCalendar" method="POST" action="/studylog"> 
 		{% csrf_token %} 
-		{% if firstcurrilog %}
+		<!-- {% if firstcurrilog %}
 			<input type="hidden" id="curriculumnlog_id" name="curriculumnlog_id" value="{{ firstcurrilog.id }}"/>
 		{% else %}
 			<input type="hidden" id="curriculumnlog_id" name="curriculumnlog_id" value=""/>
-		{% endif %}
+		{% endif %} -->
+		<input type="hidden" id="curriculumnlog_id" name="curriculumnlog_id" value=""/>
 		<input type="hidden" name="datacontent" id="datacontent"/>
 		<input type="hidden" name="formType" value="frmCalendar"/>
 	</form>

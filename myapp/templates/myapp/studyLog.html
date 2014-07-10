@@ -100,8 +100,8 @@ $('#selCurriculumn').change(function(){
 	
 	$('#selCurriculumn').trigger('chosen:updated');
 	
-	
-	
+	//update curriculumnCurrentId
+	$("#curriculumnlog_id").val(curriid);
 });
 function renderCalendar1(stringtoShow) {
 	$('#calendar').fullCalendar(
