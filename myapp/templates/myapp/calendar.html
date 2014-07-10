@@ -87,7 +87,7 @@
 
 
 <div id='calendar'></div>
-	<form action="" name = "frmCalendar" id="frmCalendar" method="POST" action="/studylog"> 
+	<form name = "frmCalendar" id="frmCalendar" method="POST" action="/studylog"> 
 		{% csrf_token %} 
 		<!-- {% if firstcurrilog %}
 			<input type="hidden" id="curriculumnlog_id" name="curriculumnlog_id" value="{{ firstcurrilog.id }}"/>
@@ -98,7 +98,7 @@
 		<input type="hidden" name="datacontent" id="datacontent"/>
 		<input type="hidden" name="formType" value="frmCalendar"/>
 	</form>
-	<form action="" name = "frmProgress" id="frmProgress" method="POST" action="/studylog"> 
+	<form name = "frmProgress" id="frmProgress" method="POST" action="/studylog"> 
 		{% csrf_token %} 
 		<!-- {% if firstcurrilog %}
 			<input type="hidden" id="curriculumnlog_progress_id" name="curriculumnlog_id" value="{{ firstcurrilog.id }}"/>
