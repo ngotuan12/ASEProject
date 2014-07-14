@@ -68,7 +68,7 @@ def index(request):
 						print('update')
 						cl=currilog[0]
 # 						s=datacontent.decode('utf-8')
-						cl.data=str(datacontent)
+						cl.data=str(datacontent.encode('utf-8'))
 						cl.save()
 						err_message +="-[success]"
 						err_message += "-[Finish update]"
