@@ -60,7 +60,6 @@ def index(request):
 		fromType = request.POST['formType']
 		if	fromType == "frmCalendar" :
 			err_message=""
-			
 			try:
 				datacontent = request.POST['datacontent']
 				currilogid = request.POST['curriculumnlog_id']
