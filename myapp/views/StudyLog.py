@@ -9,18 +9,11 @@ import json
 
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from mongoengine.django.auth import User
 
-from myapp.models.Curriculumn import Curriculumn
 from myapp.models.CurriculumnLog import CurriculumnLog
-from myapp.models.Material import Material
-from myapp.models.Action import Action
-from myapp.models.Mentor import Mentor
 from myapp.models.ProgressType import ProgressType
-from myapp.models.StudyLog import StudyLog
-from myapp.util import context_processors
-from django.conf.locale import fi
 
 
 @login_required(login_url='/signin')
@@ -59,7 +52,7 @@ def index(request):
 	elif request.method == 'POST':
 		fromType = request.POST['formType']
 		if	fromType == "frmCalendar" :
-			err_message=""
+			err_message="Error: "
 			try:
 				datacontent = request.POST['datacontent']
 				currilogid = request.POST['curriculumnlog_id']
@@ -73,7 +66,8 @@ def index(request):
 					else:
 						print('update')
 						cl=currilog[0]
-						cl.data=str(datacontent)
+						s=datacontent.decode('utf-8')
+						cl.data=s
 						cl.save()
 						err_message="success"
 				else:
