@@ -64,12 +64,14 @@ def index(request):
 					if len(currilog) <= 0:
 						err_message += "can not find curriculumn_log "
 					else:
+						err_message="[Start update]"
 						print('update')
 						cl=currilog[0]
-						s=datacontent.decode('utf-8')
-						cl.data=s
+# 						s=datacontent.decode('utf-8')
+						cl.data=str(datacontent)
 						cl.save()
-						err_message="success"
+						err_message +="-[success]"
+						err_message += "-[Finish update]"
 				else:
 					err_message += "can not find data content "
 			except Exception as e:
