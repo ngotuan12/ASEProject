@@ -20,6 +20,7 @@ from myapp.models.Mentor import Mentor
 from myapp.models.ProgressType import ProgressType
 from myapp.models.StudyLog import StudyLog
 from myapp.util import context_processors
+from django.conf.locale import fi
 
 
 @login_required(login_url='/signin')
@@ -61,7 +62,6 @@ def index(request):
 			err_message=""
 			
 			try:
-				
 				datacontent = request.POST['datacontent']
 				currilogid = request.POST['curriculumnlog_id']
 				user=User.objects.get(username=str(request.user))
@@ -69,24 +69,27 @@ def index(request):
 				
 				
 				if len(datacontent) >0:
-					print(datacontent)
-					print(currilogid)
-					
-					if len(currilog) >0:
+					if len(currilog) <= 0:
+						err_message += "can not find curriculumn_log "
+					else:
 						print('update')
 						cl=currilog[0]
 						cl.data=str(datacontent)
 						cl.save()
+						err_message="success"
+				else:
+					err_message += "can not find data content "
 			except Exception as e:
 				print(e)
 				err_message = e
-			return HttpResponse(json.dumps({"formdata": err_message,"datacontent":datacontent,"currilogid":currilogid }),content_type="application/json")
+			finally:
+				return HttpResponse(json.dumps({"formdata": err_message,"datacontent":datacontent,"currilogid":currilogid }),content_type="application/json")
 		elif fromType == "frmProgress" :
 			err_message=""
 			
 			try:
 				
-				currilogid = request.POST['curriculumnlog_id']
+				currilogid = request.POST['curriculumnlog_progress_id']
 				progressid = request.POST['progress_id']
 				
 				currilog = CurriculumnLog.objects(id=currilogid)[:1]
