@@ -33,7 +33,7 @@
 
 				// Put the results in a div
 				posting.done(function(data) {
-					alert(data.formdata);
+					alert(JSON.stringify(data));
 					HideProgressAnimation();
 				});
 		});
