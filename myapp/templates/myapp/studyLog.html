@@ -224,6 +224,9 @@ function renderCalendar1(stringtoShow) {
 					$("#noResult").css("display", "block");
 					$("#listMA").css("display", "none");
 					$("#progressdiv").css("display", "none");
+					
+					//update progress
+					countprogress();
 				}
 				else
 				{
@@ -234,6 +237,16 @@ function renderCalendar1(stringtoShow) {
 				}
 				
 			});
+	function countprogress(){
+		$('#listProcess li').each(function() {
+			var progressId=$(this).find('a').attr('id');
+			var progressName=$(this).find('a').attr('progressName');
+			$(this).find('a').text('Test message here');
+			//count number reocord have display = "block" in select tag
+			var number_records=$("#selCurriculumn option[value='" + progressId + "']").size();
+			$(this).find('a').text(progressName+'   (' + number_records + ')');
+		});
+	}
 	function submitdata() {
 
 		var eventsFromCalendar = $('#calendar').fullCalendar('clientEvents');
@@ -263,7 +276,11 @@ function renderCalendar1(stringtoShow) {
 	function changeProgress(progressIdCurent,progressName )
 	{
 		var listCurrilog = document.getElementById("selCurriculumn").options;
+		
+		//count number reocord have display = "block" in select tag
+		var number_records=$("#selCurriculumn option[value='" + progressIdCurent + "']").size();
 		$('button#showProgress').text(progressName);
+		
 		$('button#showProgress').attr('choosedProgressId',progressIdCurent);
 		
 		$("#selCurriculumn option[value='" + progressIdCurent + "']").show();
@@ -281,6 +298,7 @@ function renderCalendar1(stringtoShow) {
 		$("#progressdiv").css("display", "none");
 		$("#noData").css("display", "none");
 		
+		
 	}
 	
 	function updateProgress(progressIdCurent,progressName,progressrate){
@@ -288,7 +306,6 @@ function renderCalendar1(stringtoShow) {
 		$('button#showUpdateProgress').text(progressName);		
 		$("#ratebar").css("width", progressrate +"%");
 		document.getElementById('progress_id').value = progressIdCurent;
-		alert(document.getElementById('progress_id').value );
 		$('#selCurriculumn').find('option:selected').attr('processName',progressName);
 		$('#selCurriculumn').find('option:selected').attr('processrate',progressrate);
 		$('#selCurriculumn').find('option:selected').attr('progressId',progressIdCurent);
@@ -300,6 +317,9 @@ function renderCalendar1(stringtoShow) {
 		$("#selCurriculumn option[value='" + progressChoosed + "']").css("display", "block");
 		$("#selCurriculumn option[value!='" + progressChoosed + "']").hide();
 		$('#selCurriculumn').trigger('chosen:updated');
+		
+		//update progress
+		countprogress();
 		
 		$("#frmProgress").submit();
 		ShowProgressAnimation();
