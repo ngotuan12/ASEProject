@@ -1,8 +1,9 @@
-from requests import request, HTTPError
+from requests import HTTPError
 from myapp.models.UserProfile import UserProfile
 import json
 
 def save_profile_picture(strategy, user, response, details,is_new=False,*args,**kwargs):
+	
 	if strategy.backend.name == 'facebook':
 		url = 'http://graph.facebook.com/{0}/picture'.format(response['id'])
 	else:
@@ -14,8 +15,7 @@ def save_profile_picture(strategy, user, response, details,is_new=False,*args,**
 		url = ""
 	
 	if strategy.backend.name == 'google-oauth2' and "picture" in response:
-		resJSON = json.loads(response)
-		url = resJSON['picture']
+		url = response['picture']
 	else:
 		url = ""
 	
@@ -29,11 +29,11 @@ def save_profile_picture(strategy, user, response, details,is_new=False,*args,**
 					upro.user_id = user
 					upro.images = url
 					upro.save()
+				else:
+					mypro = thisprofile[0]
+					mypro.images = url
+					mypro.save()
 			except Exception as e:
-					upro = UserProfile()
-					upro.user_id = user
-					upro.images = url
-					upro.save()
 					print(e)
 	except HTTPError:
 		pass
