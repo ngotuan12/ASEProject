@@ -1,4 +1,5 @@
 {% extends "myapp/base.html" %} {% block styles %}
+<link href='css/fullcalendar.css' rel='stylesheet' />
 <link href="css/student-home.css" rel="stylesheet">
 <link rel="stylesheet" href="slider/flexslider.css" type="text/css" />
 {% endblock %} {% block content %}
@@ -11,14 +12,7 @@
 
 
 {% endblock %} {% block scripts %}
-<script src="js/jquery-1.10.2.min.js"></script>
-<script src="js/jquery-migrate-1.2.1.min.js"></script>
-<script src="js/modernizr.min.js"></script>
-<script src="js/retina.min.js"></script>
-
 <script src="js/custom.js"></script>
-<script src="js/spin.js"></script>
-
 <script defer src="slider/jquery.flexslider.js"></script>
 <script type="text/javascript">
 	$(window).load(function() {
@@ -39,9 +33,10 @@
 
 				// Put the results in a div
 				posting.done(function(data) {
-					var dddd = data.datacontent.toString();
-			        var abc= $('#selCurriculumn').find('option:selected').attr('datalog',dddd);
-			        HideProgressAnimation();
+					console.log('message: '+data.formdata)
+					console.log('all data :'+JSON.stringify(data));
+					HideProgressAnimation();
+					console.log('done');
 				});
 		});
 		
@@ -61,7 +56,7 @@
 
 					// Put the results in a div
 					posting.done(function(data) {
-						var dddd = data.success.toString();
+						
 						HideProgressAnimation();
 					});
 			});
@@ -72,14 +67,11 @@
 			});
 	});
 </script>
-<link href='css/fullcalendar.css' rel='stylesheet' />
 <link href='css/fullcalendar.print.css' rel='stylesheet' media='print' />
 <script src='js/jquery.min.js'></script>
 <script src='js/jquery-ui.custom.min.js'></script>
 <script src='js/fullcalendar.min.js'></script>
 <script src="js/chosen.jquery.min.js"></script>
-<script src="https://raw.githubusercontent.com/dinbror/bpopup/master/jquery.bpopup.min.js"></script>
-
 <script>
 jQuery(document).ready(function(){
   // Chosen Select
@@ -99,7 +91,7 @@ $('#selCurriculumn').change(function(){
 	var curriid = $(this).find('option:selected').attr('curriid');
 	var curridatalog=$(this).find('option:selected').attr('datalog');
 	var curriprogressName = $(this).find('option:selected').attr('processName');
-	var curriprogressrate=$(this).find('option:selected').attr('processrate');	
+	var curriprogressrate=$(this).find('option:selected').attr('processrate');
 	$('button#showUpdateProgress').text(curriprogressName);
 	
 	
@@ -223,28 +215,6 @@ function renderCalendar1(stringtoShow) {
 				var flag='{{ flag }}';
 				if(flag == '1')
 				{
-					/* var curridatalog=$('#selCurriculumn').find('option:selected').attr('datalog');
-					var json = JSON.parse(curridatalog.replace(/&quot;/g,'"'));
-					renderCalendar1(json);
-					
-					var curriprogressName1 = $('#selCurriculumn').find('option:selected').attr('processName');
-					var curriprogressrate1 =$('#selCurriculumn').find('option:selected').attr('processrate');
-					var curriculumid1 =$('#selCurriculumn').find('option:selected').attr('curriidd');
-					var progressId1 =$('#selCurriculumn').find('option:selected').attr('progressId');
-					
-					$('button#showUpdateProgress').text(curriprogressName1);
-					
-					
-					$("#ratebar").css("width", curriprogressrate1 +"%");
-					
-					$(".external-event[curriId='" + curriculumid1 + "']").css("display", "block");
-					$(".external-event[curriId!='" + curriculumid1 + "']").css("display", "none");
-					
-					$("#selCurriculumn option[progressId='" + progressId1 + "']").show();
-					$("#selCurriculumn option[progressId='" + progressId1 + "']").css("display", "block");
-					$("#selCurriculumn option[progressId!='" + progressId1 + "']").hide();
-					$('#selCurriculumn').trigger('chosen:updated'); */
-					
 					$("#selCurriculumn option").hide();
 					$('#selCurriculumn').trigger('chosen:updated');
 					$('#selCurriculumn').prop("selectedIndex", -1);
@@ -284,6 +254,7 @@ function renderCalendar1(stringtoShow) {
 		document.getElementById('datacontent').value = JSON
 				.stringify(eventsForCookie);
 		$('#selCurriculumn').find('option:selected').attr('datalog',document.getElementById('datacontent').value);
+		//alert(document.getElementById('datacontent').value);
 		$("#frmCalendar").submit();
 		ShowProgressAnimation();
 	}
@@ -305,16 +276,10 @@ function renderCalendar1(stringtoShow) {
 		
 		$('#calendar').fullCalendar('destroy');
 		$('#calendar').fullCalendar({});
-		/* $('#calendar').fullCalendar('destroy'); */
-	//	renderCalendar1("[]");
-		/* $("#wrap").css("display", "none");
-		$("#noResult").css("display", "block");
-		$("#progressdiv").css("display", "none"); */
 		$("#noResult").css("display", "block");
 		$("#listMA").css("display", "none");
 		$("#progressdiv").css("display", "none");
 		$("#noData").css("display", "none");
-		//$('#selCurriculumn').trigger('chosen:updated');
 		
 	}
 	
@@ -323,6 +288,7 @@ function renderCalendar1(stringtoShow) {
 		$('button#showUpdateProgress').text(progressName);		
 		$("#ratebar").css("width", progressrate +"%");
 		document.getElementById('progress_id').value = progressIdCurent;
+		alert(document.getElementById('progress_id').value );
 		$('#selCurriculumn').find('option:selected').attr('processName',progressName);
 		$('#selCurriculumn').find('option:selected').attr('processrate',progressrate);
 		$('#selCurriculumn').find('option:selected').attr('progressId',progressIdCurent);
