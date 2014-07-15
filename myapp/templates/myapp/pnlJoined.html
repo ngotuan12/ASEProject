@@ -42,7 +42,7 @@
 										<tr	style="cursor: hand;">
 											<td><a href="{{ mt.url }}" target="_blank"><img alt="" src="/images/photos/amzon.jpg" style="width: 50px;"></a></td>
 											<td onclick="document.location = 'course-detail?course_id={{ ls.id }}&user_id={{ ls.author_id }}';">{{mt.name}}</td>
-											<td style="text-align: justify;" onclick="document.location = 'course-detail?course_id={{ ls.id }}&user_id={{ ls.author_id }}';">{{mt.description}}</td>
+											<td style="text-align: justify;" onclick="document.location = 'course-detail?course_id={{ ls.id }}&user_id={{ ls.author_id }}';">{{mt.description|truncatechars:100}}</td>
 										</tr>
 									</tbody>
 									{% endfor %}
