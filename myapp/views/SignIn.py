@@ -87,7 +87,13 @@ def index(request):
 	elif request.method == 'POST':
 		username = request.POST['txtUserName']
 		password = request.POST['txtPassWord']
+		
+		if 'next' in request.GET:
+			nextpage = request.GET['next']
+		else:
+			nextpage = ""
 		try: 
+			
 			user = User.objects.get(username=username)
 			transaction = UserLogin()
 			transaction.user = user
@@ -117,15 +123,17 @@ def index(request):
 				context = 	{
 							'user_images':user_images,
 							}
-
-				if is_mentor:
-					return HttpResponseRedirect('/mentorview',context)	
+				if nextpage:
+					return HttpResponseRedirect(nextpage,context)	
 				else:
-					if is_join:
-						return HttpResponseRedirect('/student-home',context)
+					if is_mentor:
+						return HttpResponseRedirect('/mentorview',context)	
 					else:
-						return HttpResponseRedirect('/search-mentor',context)
-					#return HttpResponseRedirect('/search-mentor')
+						if is_join:
+							return HttpResponseRedirect('/student-home',context)
+						else:
+							return HttpResponseRedirect('/search-mentor',context)
+						#return HttpResponseRedirect('/search-mentor')
 			else:
 				c = {
 						'error_message':"User name or password does not correct",

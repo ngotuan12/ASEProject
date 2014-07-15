@@ -3,7 +3,6 @@ from myapp.models.UserProfile import UserProfile
 import json
 
 def save_profile_picture(strategy, user, response, details,is_new=False,*args,**kwargs):
-
 	if strategy.backend.name == 'facebook':
 		url = 'http://graph.facebook.com/{0}/picture'.format(response['id'])
 	else:
@@ -14,10 +13,9 @@ def save_profile_picture(strategy, user, response, details,is_new=False,*args,**
 	else:
 		url = ""
 	
-	if strategy.backend.name == 'google' and "image" in response:
+	if strategy.backend.name == 'google-oauth2' and "picture" in response:
 		resJSON = json.loads(response)
-		inimgtag = resJSON['image']
-		url = inimgtag['url']
+		url = resJSON['picture']
 	else:
 		url = ""
 	
