@@ -8,11 +8,13 @@
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tabindex="-1">
                   <span class="caret" id="showCurriLog"></span>
                 </button>
-                <ul class="dropdown-menu" role="menu" id="listProcess" style="min-width: 252px;">
-					{% for progress in listProgress %}
-						<li style="float: left;width: 100%;" onclick="changeProgress('{{progress.id}}','{{progress.progressName}}');"><a href="#" id="{{ progress.id }}" progressName="{{ progress.progressName }}" >{{ progress.progressName }}</a></li>
-					{% endfor %}
-                </ul>
+                {% if flag == '1' %}
+	                <ul class="dropdown-menu" role="menu" id="listProcess" style="min-width: 252px;">
+						{% for progress in listProgress %}
+							<li style="float: left;width: 100%;" onclick="changeProgress('{{progress.id}}','{{progress.progressName}}');"><a href="#" id="{{ progress.id }}" progressName="{{ progress.progressName }}" >{{ progress.progressName }}</a></li>
+						{% endfor %}
+	                </ul>
+                {% endif %}
               </div>
              	<select  id="selCurriculumn" class="form-control chosen-select" data-placeholder="コースを選択してください..." style="display: none;">
 				{% if listcurrilog %}
