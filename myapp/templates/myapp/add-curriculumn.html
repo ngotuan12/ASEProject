@@ -173,6 +173,19 @@
 				document.getElementById("numberMaterialShow").value=numberMaterialShow.toString();
 				//alert(document.getElementById("numberMaterial").value);
 				
+				//check
+				if(document.getElementById('numberMaterialShow').value != "0")
+				{
+					if($('#courseWizard').find('.pager .next').hasClass('disabled'))
+					{
+						$('#courseWizard').find('.pager .next').removeClass('disabled');
+					}
+				}
+				else
+				{
+					$('#courseWizard').find('.pager .next').addClass('disabled');
+				}
+				
 				var div = document.createElement("div");
 				div.className ="rdio rdio-primary";
 				div.id ="material"+numberMaterial.toString();
@@ -287,6 +300,19 @@
 						else
 						{
 							document.getElementById('finish').style.display="inline";
+						}
+						//check
+						
+						if(document.getElementById('numberMaterialShow').value != "0")
+						{
+							if($('#courseWizard').find('.pager .next').hasClass('disabled'))
+							{
+								$('#courseWizard').find('.pager .next').removeClass('disabled');
+							}
+						}
+						else
+						{
+							$('#courseWizard').find('.pager .next').addClass('disabled');
 						}
 						
 						//clear  material input
