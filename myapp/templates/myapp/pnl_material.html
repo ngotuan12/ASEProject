@@ -78,15 +78,11 @@
 				<div class="alert alert-success"
 					style="margin-left: 5%; margin-right: 30%;">
 					<div class="media" style="padding-bottom: 0px;">
-						{% if avatar|length > 0 %}
+						
 						<a href="#" class="pull-left"> <img alt=""
-							src="{{ avatar }}" class="media-object"
-							style="width: 32px;height: 32px;"></a>
-						{% else %}
-						<a href="#" class="pull-left"> <img alt=""
-							src="images/photos/user3.png" class="media-object"
-							style="width: 32px;height: 32px;"></a>
-						{% endif %}
+							src="/upload/{{ cmt.user.username }}-avatar.jpg" class="media-object"
+							style="width: 32px;height: 32px;" onError="this.onerror=null;this.src='/images/avatar/default.png';" /></a>
+							
 						<h4>
 							<a href="profile?user_id={{ cmt.user_id }}">{{cmt.user.username}}</a>
 							- Since:{{cmt.create_date|date:'Y-M-d'}}
@@ -101,8 +97,8 @@
 					style="margin-left: 30%; margin-right: 5%;">
 					<div class="media" style="padding-bottom: 0px;">
 						<a href="#" class="pull-right"> <img alt=""
-							src="images/photos/user3.png" class="media-object"
-							style="width: 32px;height: 32px;"></a>
+							src="/upload/{{ cmt.user.username }}-avatar.jpg" class="media-object"
+							style="width: 32px;height: 32px;" onError="this.onerror=null;this.src='/images/avatar/default.png';"></a>
 						<h4>
 							<a href="profile?user_id={{ cmt.user_id }}">{{cmt.user.username}}</a>
 							- {{cmt.create_date|date:'Y-M-d'}}
@@ -125,8 +121,8 @@
 			<div class="panel-footer">
 				<div class="media">
 					<a href="#" class="pull-left"> <img alt=""
-						src="images/photos/user3.png" class="media-object"
-						style="width: 32px; height: 32px;">
+						src="{{ user_images }}" class="media-object"
+						style="width: 32px; height: 32px;" onError="this.onerror=null;this.src='/images/avatar/default.png';">
 					</a>
 					<div class="media-body">
 						<input id="txtComment" type="text" name="txtComment"
@@ -138,6 +134,7 @@
 		</form>
 	</div>
 </div>
+<img alt="" id="defaultImage" src="/images/avatar/default.png" class="media-object" style="display: none" >
 <script src="http://code.jquery.com/jquery-2.0.3.js"></script>
 <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 <script type="text/javascript"
@@ -155,7 +152,5 @@ function commentMaterial(hd_course_id,hd_material_id) {
 function MyFunction(material_id){
 	$("#formLike").submit();
 };
-
-
 
 </script>
