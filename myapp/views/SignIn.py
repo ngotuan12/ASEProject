@@ -22,6 +22,10 @@ def signinsns(request):
 	is_join = False
 	defaultUserImage = "/images/avatar/default.png"
 	
+	if 'next' in request.GET:
+		nextpage = request.GET['next']
+	else:
+		nextpage = ""
 	user1=User.objects.get(username=str(request.user))
 	thismentor = Mentor.objects(user=user1.id)
 	thisstudent = Student.objects(user=user1.id)
@@ -60,13 +64,16 @@ def signinsns(request):
 				'avatar':avatar,
 				'user_images':user_images
 				}
-	if is_mentor:
-		return HttpResponseRedirect('/mentorview',context )
+	if nextpage:
+		return HttpResponseRedirect(nextpage,context)
 	else:
-		if is_join:
-			return HttpResponseRedirect('/student-home',context)
+		if is_mentor:
+			return HttpResponseRedirect('/mentorview',context )
 		else:
-			return HttpResponseRedirect('/search-mentor',context)
+			if is_join:
+				return HttpResponseRedirect('/student-home',context)
+			else:
+				return HttpResponseRedirect('/search-mentor',context)
 def index(request):
 	username = ""
 	password = ""
@@ -112,7 +119,7 @@ def index(request):
 				try:
 					profile = UserProfile.objects(user_id=user)
 					user_images = profile[0].images
-					request.session['user_images'] = user_images
+					request.session['user_images'] = "/upload/" +user.username+"-avatar.jpg"
 				except Exception as e:
 					upro = UserProfile()
 					upro.user_id = user
