@@ -176,15 +176,13 @@
 				//check
 				if(document.getElementById('numberMaterialShow').value != "0")
 				{
-					if($('#courseWizard').find('.pager .next').hasClass('disabled'))
-					{
-						$('#courseWizard').find('.pager .next').removeClass('disabled');
-					}
+					$('#courseWizard').find('.pager .next').show();
 				}
 				else
 				{
-					$('#courseWizard').find('.pager .next').addClass('disabled');
+					$('#courseWizard').find('.pager .next').hide();
 				}
+				$('#courseWizard').find('.pager .finish').hide();
 				
 				var div = document.createElement("div");
 				div.className ="rdio rdio-primary";
@@ -305,15 +303,13 @@
 						
 						if(document.getElementById('numberMaterialShow').value != "0")
 						{
-							if($('#courseWizard').find('.pager .next').hasClass('disabled'))
-							{
-								$('#courseWizard').find('.pager .next').removeClass('disabled');
-							}
+							$('#courseWizard').find('.pager .next').show();
 						}
 						else
 						{
-							$('#courseWizard').find('.pager .next').addClass('disabled');
+							$('#courseWizard').find('.pager .next').hide();
 						}
+						$('#courseWizard').find('.pager .finish').hide();
 						
 						//clear  material input
 						document.getElementById('material_title').value="";

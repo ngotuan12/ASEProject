@@ -129,10 +129,6 @@
       if(document.getElementById('numberMaterialShow').value != "0")
 	  	{
     	  document.getElementById('finish').style.display="inline";
-    	  if($('#courseWizard').find('.pager .next').hasClass('disabled'))
-			{
-				$('#courseWizard').find('.pager .next').removeClass('disabled');
-			}
     	  $('#courseWizard').find('.pager .next').show();
 	  	}
     },
@@ -150,14 +146,11 @@
 			{
 				if(document.getElementById('numberMaterialShow').value != "0")
 				{
-					if($('#courseWizard').find('.pager .next').hasClass('disabled'))
-					{
-						$('#courseWizard').find('.pager .next').removeClass('disabled');
-					}
+					$('#courseWizard').find('.pager .next').show();
 				}
 				else
 				{
-					$('#courseWizard').find('.pager .next').addClass('disabled');
+					$('#courseWizard').find('.pager .next').hide();
 				}
 			}
 			else
