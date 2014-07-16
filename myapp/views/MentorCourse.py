@@ -90,7 +90,7 @@ def add_action(request):
 		#curriculum
 		curriculum.action.append(action)
 		curriculum.save()
-		return HttpResponseRedirect('/');
+		return HttpResponseRedirect('/mentorview');
 @login_required(login_url='/signin')
 def add_material(request):
 	if request.method == 'POST':
@@ -118,7 +118,7 @@ def add_material(request):
 		#curriculum
 		curriculum.material.append(material)
 		curriculum.save()
-		return HttpResponseRedirect('/');
+		return HttpResponseRedirect('/mentorview');
 @login_required(login_url='/signin')
 def join_course(request):
 	if request.method == 'POST':

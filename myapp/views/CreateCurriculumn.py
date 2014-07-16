@@ -77,7 +77,7 @@ def index(request):
 			action.save()
 			curriculumn.action.append(action)
 			curriculumn.save()
-		return HttpResponseRedirect('/')
+		return HttpResponseRedirect('/mentorview')
 
 # 		materialId="insert material "
 # 		return HttpResponse(json.dumps({"formdata": materialId}),content_type="application/json")

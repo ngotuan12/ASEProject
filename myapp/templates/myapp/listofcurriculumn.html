@@ -107,7 +107,7 @@
 								</tr>
 								</tbody>
 								<input type="hidden" id="materialName{{ mt.id }}" value="{{ mt.name }}">
-								<input type="hidden" id="materialDescription{{ mt.id}}" value="{{ mt.description|truncatechars:100 }}">
+								<input type="hidden" id="materialDescription{{ mt.id}}" value="{{ mt.description }}">
 								<input type="hidden" id="materialUrl{{ mt.id }}" value="{{ mt.url }}">
 								<input type="hidden" id="materialType{{ mt.id}}" value="{{ mt.type.name }}">
 								{% endfor %}
