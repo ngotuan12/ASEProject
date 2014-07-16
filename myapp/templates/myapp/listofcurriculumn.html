@@ -126,7 +126,7 @@
 							<table class="table table-hover table-bordered mb30">
 								<tr >
 								<th style="width: 40%; text-align: center; background-color: #1CAF9A; color: #fff">アクションの追加</th>
-								<th style="width: 60%; text-align: center; background-color: #1CAF9A; color: #fff">説明</th>
+								<th style="text-align: center; background-color: #1CAF9A; color: #fff">説明</th>
 								{% if  author_id == userlogged %}
 									<th style="width: 10%; text-align: center; background-color: #1CAF9A; color: #fff"></th>
 								{% endif %}
@@ -144,7 +144,7 @@
 										</td>
 									{% endif %}
 									<input type="hidden" id="actionName{{ ac.id }}" value="{{ ac.name }}">
-									<input type="hidden" id="actionDescription{{ ac.id}}" value="{{ ac.description|truncatechars:100 }}">
+									<input type="hidden" id="actionDescription{{ ac.id}}" value="{{ ac.description }}">
 								</tbody>
 								{% endfor %}
 							</table>
