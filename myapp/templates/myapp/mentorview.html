@@ -126,9 +126,14 @@
       var $current = index+1;
       var $percent = ($current/$total) * 100;
       jQuery('#courseWizard').find('.progress-bar').css('width', $percent+'%');
-      if(document.getElementById('numberMaterial').value != "0")
+      if(document.getElementById('numberMaterialShow').value != "0")
 	  	{
     	  document.getElementById('finish').style.display="inline";
+    	  if($('#courseWizard').find('.pager .next').hasClass('disabled'))
+			{
+				$('#courseWizard').find('.pager .next').removeClass('disabled');
+			}
+    	  $('#courseWizard').find('.pager .next').show();
 	  	}
     },
     onTabShow: function(tab, navigation, index) {
@@ -141,7 +146,24 @@
 			$('#courseWizard').find('.pager .finish').show();
 			$('#courseWizard').find('.pager .finish').removeClass('disabled');
 		} else {
-			$('#courseWizard').find('.pager .next').show();
+			if(index==1)
+			{
+				if(document.getElementById('numberMaterialShow').value != "0")
+				{
+					if($('#courseWizard').find('.pager .next').hasClass('disabled'))
+					{
+						$('#courseWizard').find('.pager .next').removeClass('disabled');
+					}
+				}
+				else
+				{
+					$('#courseWizard').find('.pager .next').addClass('disabled');
+				}
+			}
+			else
+			{
+				$('#courseWizard').find('.pager .next').show();
+			}
 			$('#courseWizard').find('.pager .finish').hide();
 		}
 		$('#courseWizard .finish').click(function() {

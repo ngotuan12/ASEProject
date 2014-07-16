@@ -7,13 +7,13 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
+from mongoengine.django.auth import User
 
 from myapp.models import Material, MaterialType, UserProfile,\
 	CurriculumnStudyProgress, Impression
 from myapp.models.Action import Action
 from myapp.models.Curriculumn import Curriculumn
 from myapp.models.Mentor import Mentor
-from mongoengine.django.auth import User
 
 
 @login_required(login_url='/signin')
@@ -85,12 +85,12 @@ def add_action(request):
 		action_description = request.POST['action_description']
 		action = Action()
 		action.name = action_name
-		action.description = action_description
+		action.description = str(action_description.encode('utf-8'))
 		action.save()
 		#curriculum
 		curriculum.action.append(action)
 		curriculum.save()
-		return HttpResponseRedirect('/');
+		return HttpResponseRedirect('/mentorview');
 @login_required(login_url='/signin')
 def add_material(request):
 	if request.method == 'POST':
@@ -113,12 +113,12 @@ def add_material(request):
 		material.type = MaterialType.objects.get(name=material_type)
 		material.url = material_url
 		material.code = material_code
-		material.description = material_description
+		material.description = str(material_description.encode('utf-8'))
 		material.save()
 		#curriculum
 		curriculum.material.append(material)
 		curriculum.save()
-		return HttpResponseRedirect('/');
+		return HttpResponseRedirect('/mentorview');
 @login_required(login_url='/signin')
 def join_course(request):
 	if request.method == 'POST':
@@ -134,7 +134,7 @@ def join_course(request):
 		stp.PlanStartDate = datetime.strptime(planstart,'%m/%d/%Y')
 		stp.PlanEndDate = datetime.strptime(planend,'%m/%d/%Y')
 		stp.impression = Impression.objects.get(showpiority=impression)
-		stp.description = description
+		stp.description = str(description.encode('utf-8'))
 		stp.user = request.user
 		stp.save()
 

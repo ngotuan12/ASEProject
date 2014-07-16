@@ -44,7 +44,7 @@ def index(request):
 		curriculumn = Curriculumn()
 		curriculumn.name = course_name
 		curriculumn.duration = duration
-		curriculumn.description=description
+		curriculumn.description=str(description.encode('utf-8'))
 		curriculumn.duration_type = duration_type
 		curriculumn.from_date = datetime.strptime(start_date,'%m/%d/%Y')
 		curriculumn.to_date = datetime.strptime(end_date,'%m/%d/%Y')
@@ -62,7 +62,7 @@ def index(request):
 			material.name = material_title
 			material.type = MaterialType.objects.get(name=material_type)
 			material.url = material_url
-			material.description = material_description
+			material.description = str(material_description.encode('utf-8'))
 			if material_hide == '0':
 				material.save()
 				curriculumn.material.append(material)
@@ -72,12 +72,12 @@ def index(request):
 		action_description = request.POST['action_description']
 		action = Action()
 		action.name = action_name
-		action.description = action_description
+		action.description = str(action_description.encode('utf-8'))
 		if request.POST['action_name'] :
 			action.save()
 			curriculumn.action.append(action)
 			curriculumn.save()
-		return HttpResponseRedirect('/')
+		return HttpResponseRedirect('/mentorview')
 
 # 		materialId="insert material "
 # 		return HttpResponse(json.dumps({"formdata": materialId}),content_type="application/json")

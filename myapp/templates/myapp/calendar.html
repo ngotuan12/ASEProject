@@ -8,11 +8,13 @@
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tabindex="-1">
                   <span class="caret" id="showCurriLog"></span>
                 </button>
-                <ul class="dropdown-menu" role="menu" id="listProcess" style="min-width: 252px;">
-					{% for progress in listProgress %}
-						<li style="float: left;width: 100%;" onclick="changeProgress('{{progress.id}}','{{progress.progressName}}');"><a href="#" id="{{ progress.id }}" progressName="{{ progress.progressName }}" >{{ progress.progressName }}</a></li>
-					{% endfor %}
-                </ul>
+                {% if flag == '1' %}
+	                <ul class="dropdown-menu" role="menu" id="listProcess" style="min-width: 252px;">
+						{% for progress in listProgress %}
+							<li style="float: left;width: 100%;" onclick="changeProgress('{{progress.id}}','{{progress.progressName}}');"><a href="#" id="{{ progress.id }}" progressName="{{ progress.progressName }}" >{{ progress.progressName }}</a></li>
+						{% endfor %}
+	                </ul>
+                {% endif %}
               </div>
              	<select  id="selCurriculumn" class="form-control chosen-select" data-placeholder="コースを選択してください..." style="display: none;">
 				{% if listcurrilog %}
@@ -62,7 +64,7 @@
 <div id='external-events' style="width: 20%;min-height: 550px;">
 <h4>カリキュラム入社</h4>
 <h5 id='noResult' style="display: none;color: #3a81be;">調査ログを使用するには、その過程で、研究の進捗状況をロードするために参加しているコースを選択してください。</h5>
-<h5 id='noData' style="display: none;">現時点では、任意のコースに参加していません。学習ログを使用するには、コースに参加してください</h5>
+<h5 id='noData' style="display: none;">この時点で、我々はすべてのコースに参加しません。学習ログを使用するためには、当然に参加してください <a href="/search-mentor" > こちらをクリック  </a> 続行します</h5>
 <div id="listMA">
 	{% if listcurrilog %}
 		{% for curriculumnLog in listcurrilog %}		
