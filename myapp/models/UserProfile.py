@@ -7,7 +7,7 @@ from datetime import datetime
 
 from mongoengine.django.auth import User
 from mongoengine.document import Document
-from mongoengine.fields import ReferenceField, StringField, DateTimeField
+from mongoengine.fields import ReferenceField, StringField, DateTimeField,ImageField
 
 
 class UserProfile(Document):
@@ -21,6 +21,7 @@ class UserProfile(Document):
 	create_date = DateTimeField(default=datetime.now)
 	status = int()
 	about = StringField()
+	fileImage = ImageField()
 	meta = {
 			'ordering': ['-create_date']
 			}

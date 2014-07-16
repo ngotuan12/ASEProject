@@ -13,7 +13,8 @@
       
       <div class="row">
         <div class="col-sm-3">
-          <img src="{{ user_images }}" class="thumbnail img-responsive" alt="">
+          <img onclick="$('#id_image').click();"  src="{{ user_images }}" class="thumbnail img-responsive" alt="">
+          
           
           <div class="mb30"></div>
           
@@ -23,9 +24,13 @@
             {% else %}
             <h2 class="profile-name">{{ user.username }}</h2>
             {% endif %}
-            <div class="profile-location"><i class="fa fa-map-marker"></i> San Francisco, California, USA</div>
-            <div class="profile-position"><i class="fa fa-briefcase"></i> Software Engineer at <a href="#">SomeCompany, Inc.</a></div>
-            
+            <div class="profile-position"><i class="fa fa-briefcase"></i> {{ UserProfile.job_title }} <a href="#">{{ UserProfile.company }}</a></div>
+            {% if form.image.errors %}
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <strong>{{ form.image.errors }} </strong> 
+            </div>
+            {% endif %}
           </div><!-- profile-header -->
           
         </div><!-- col-sm-3 -->
@@ -100,6 +105,14 @@
         </form>
       </div>
           
+		<!-- Upload form. Note enctype attribute! -->
+		<form style="display: none;" id="frmImage" action="/account-setting" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ form }}
+			<p><input type="submit" value="Upload" /></p>
+			<input type="hidden" name="formType" value="frmImage"/>
+		</form>
+		
         </div><!-- col-sm-9 -->
       </div><!-- row -->
       
@@ -126,33 +139,12 @@
 		}
 		
 	}
-</script>
-<script type="text/javascript">
-		$("#frmProgress").submit(
-				function(event) {
-					// Stop form from submitting normally
-					event.preventDefault();
-					// Get some values from elements on the page:
-					var $form = $(this), token = $form
-							.find(
-									"input[name='csrfmiddlewaretoken']")
-							.val(), term = 'likeMaterial', url = $form
-							.attr("action");
-					// Send the data using post
-					var posting = $.post(url, $(this)
-							.serialize());
-
-					// Put the results in a div
-					posting.done(function(data) {
-						var dddd = data.success.toString();
-					});
-			});
-
-			$('.flexslider').flexslider({
-				animation : "slide",
-				controlNav : false,
-			});
+	
+	$('#id_image').live('change', function(){ 
+		$('#frmImage').submit();
 	});
+		
+	
 </script>
 <script defer src="slider/jquery.flexslider.js"></script>
 {% endblock %}
