@@ -6,17 +6,8 @@
 	</head>
 
 	<body>
+		<img src="{{user_image}}" class="img-responsive" style="margin-left: auto;margin-right: auto;padding-top: 1%"></a>
 		<!-- List of uploaded documents -->
-		{% if documents %}
-			<ul>
-			{% for document in documents %}
-				<li><a href="">fdgdfgdf</a></li>
-			{% endfor %}
-			</ul>
-		{% else %}
-			<p>No documents.</p>
-		{% endif %}
-
 		<!-- Upload form. Note enctype attribute! -->
 		<form action="/documents" method="post" enctype="multipart/form-data">
 			{% csrf_token %}
