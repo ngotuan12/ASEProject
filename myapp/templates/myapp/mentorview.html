@@ -63,16 +63,46 @@
         if(jQuery(this).width() <= 480 )
             msnry.destroy();
     });
+ // Date Picker
+	var pickerOptsStart = {
+		minDate: new Date(),
+		maxDate: "+5Y",
+		onSelect: function(dateText) {
+			jQuery("#enddate").datepicker('option', 'minDate', dateText);
+		}
+	};
+	var pickerOptsEnd = {
+			minDate: new Date(),
+			maxDate: "+5Y",
+			onSelect: function(dateText) {
+				jQuery("#startdate").datepicker('option', 'maxDate', dateText);
+			}
+		};
 	// Date Picker
-	jQuery('#planstart').datepicker();
-	jQuery('#planend').datepicker();
+	var pickerOptsPlanStart = {
+		minDate: new Date(),
+		maxDate: "+5Y",
+		onSelect: function(dateText) {
+			jQuery("#planend").datepicker('option', 'minDate', dateText);
+		}
+	};
+	var pickerOptsPlanEnd = {
+		minDate: new Date(),
+		maxDate: "+5Y",
+		onSelect: function(dateText) {
+			jQuery("#planstart").datepicker('option', 'maxDate', dateText);
+		}
+	};
+	// Date Picker
+	jQuery('#planstart').datepicker(pickerOptsPlanStart);
+	jQuery('#planend').datepicker(pickerOptsPlanEnd);
   // Basic Wizard
   jQuery('#basicWizard').bootstrapWizard();
-  // Date Picker
-  jQuery('#startdate').datepicker({});
+  
+  jQuery('#startdate').datepicker(pickerOptsStart);
   jQuery("#startdate").mask("99/99/9999");
   // Date Picker
-  jQuery('#enddate').datepicker();
+  jQuery('#enddate').datepicker(pickerOptsEnd);
   jQuery("#enddate").mask("99/99/9999");
   // Date Picker
   jQuery('#curriculumstartdate').datepicker({});
@@ -119,7 +149,6 @@
 	   			document.getElementById('finish').style.display="none";	
 	   		}
     	}
-       
     },
     onPrevious: function(tab, navigation, index) {
       var $total = navigation.find('li').length;
