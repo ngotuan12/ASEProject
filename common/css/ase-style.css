@@ -44,3 +44,12 @@
 	background: #fff;
 	float: left;
 }
+.showDiv{
+	display: none;
+}
+.alert-success:hover .showDiv{
+display : block;
+}
+.alert-danger:hover .showDiv{
+display : block;
+}
