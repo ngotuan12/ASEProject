@@ -8,6 +8,7 @@ class Comment(Document):
 	create_date = DateTimeField(default=datetime.now)
 	user = ReferenceField(User)
 	content = StringField()
+	status = StringField(default='1')
 	meta = {
 			'ordering': ['-published_date']
  }
