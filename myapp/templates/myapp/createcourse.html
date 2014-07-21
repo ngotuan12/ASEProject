@@ -165,6 +165,17 @@
 				document.getElementById("numberMaterialShow").value=numberMaterialShow.toString();
 				//alert(document.getElementById("numberMaterial").value);
 				
+				//check
+				if(document.getElementById('numberMaterialShow').value != "0")
+				{
+					$('#courseWizard').find('.pager .next').show();
+				}
+				else
+				{
+					$('#courseWizard').find('.pager .next').hide();
+				}
+				$('#courseWizard').find('.pager .finish').hide();
+				
 				var div = document.createElement("div");
 				div.className ="rdio rdio-primary";
 				div.id ="material"+numberMaterial.toString();
@@ -281,6 +292,16 @@
 						{
 							document.getElementById('finish').style.display="inline";
 						}
+						//check
+						if(document.getElementById('numberMaterialShow').value != "0")
+						{
+							$('#courseWizard').find('.pager .next').show();
+						}
+						else
+						{
+							$('#courseWizard').find('.pager .next').hide();
+						}
+						$('#courseWizard').find('.pager .finish').hide();
 						
 						//clear  material input
 						document.getElementById('material_title').value="";

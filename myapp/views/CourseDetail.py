@@ -18,10 +18,10 @@ from myapp.models.Curriculumn import Curriculumn
 from myapp.models.CurriculumnLog import CurriculumnLog
 from myapp.models.CurriculumnStudyProgress import CurriculumnStudyProgress
 from myapp.models.Material import Material
+from myapp.models.Mentor import Mentor
 from myapp.models.ProgressType import ProgressType
 from myapp.models.Statistic import Statistic
 from myapp.models.StatisticDetail import StatisticDetail
-from myapp.models.Mentor import Mentor
 from myapp.util import context_processors
 
 
@@ -249,6 +249,186 @@ def index(request):
 						'has_curriculum':has_curriculum,
 						}
 			return HttpResponseRedirect('course-detail?course_id='+ curriculum_id +'&user_id='+user_id )
+		elif request.POST['posttype']== "deleteComment":
+			try:
+				comment_status='0'
+				comment_id=request.POST['hd_comment_id']
+				course_id = request.POST['hd_course_id']
+				author_id=request.POST['hd_author_course_id']
+				user_id = request.session['_auth_user_id']
+				
+				cmt=Comment.objects.get(id=comment_id)
+				cmt.status=comment_status
+				cmt.save()
+				status = "1"
+				author = User.objects.get(id=author_id)
+				cl = Curriculumn.objects(id=course_id)
+				has_curriculum = False
+				is_mentor = request.session['is_mentor']
+				user=User.objects.get(username=str(request.user))
+				student=Student.objects.get(user=user.id)
+				
+				
+				
+				clTaken = 0
+				clLike = 0
+				mtTaken = 0
+				mtLike = 0
+				actTaken = 0
+				actLike = 0
+				mtTotal = 0
+				actTotal = 0
+				try :
+					for c in cl:
+						if c.statistic.currentTakenNumber:
+							c.statistic.currentTakenNumber=10
+							clTaken += c.statistic.currentTakenNumber
+						if c.statistic.currentLikeNumber:
+							clLike += c.statistic.currentLikeNumber
+						
+						for mt in c.material:
+							if mt.statistic.currentTakenNumber:
+								mtTaken += mt.statistic.currentTakenNumber
+							if mt.statistic.currentLikeNumber:
+								mtLike += mt.statistic.currentLikeNumber
+								mtTotal += 1
+							print(mt.name)
+						for act in c.action:
+							if act.statistic.currentTakenNumber:
+								actTaken += act.statistic.currentTakenNumber
+							if act.statistic.currentLikeNumber:
+								actLike += act.statistic.currentLikeNumber
+								actTotal +=1
+				except Exception as e:
+					print(e)
+					
+				progress = CurriculumnStudyProgress.objects(curriculumn=cl[0].id,student=student.id)
+				is_joined = False
+				if len(progress)>0:
+					is_joined = True
+					
+				lscl = []
+				lscl = cl[0]
+				for i in lscl.__getattribute__('material'):
+					i.note='0'
+					try:
+						is_like = StatisticDetail.objects(object_id=str(i.id),status=status,user=user.id)
+						if len(is_like):
+							i.note='1'
+							i.__getattribute__('statistic').currentLikeNumber -=1
+					except Exception as e:
+						print(e)
+				
+				context = {	'cl':lscl,'is_joined':is_joined,
+							'user_id':request.user,
+							'course_id':course_id,
+							'author_id':author_id,
+							'author':author.username,
+							'is_mentor':is_mentor,
+							'clTaken':clTaken,
+							'clLike':clLike,
+							'mtTaken':mtTaken,
+							'mtLike':mtLike,
+							'actTaken':actTaken,
+							'actLike':actLike,
+							'mtTotal':mtTotal,
+							'actTotal':actTotal,
+							'has_curriculum':has_curriculum,
+							}
+			except Exception as e:
+				print(e)
+			finally:
+				return render(request, 'myapp/course-detail.html', context)
+		elif request.POST['posttype']== "editComment":
+			try:
+				comment=request.POST['txtcommentName']
+				comment_id=request.POST['hd_comment_id']
+				course_id = request.POST['hd_course_id']
+				author_id=request.POST['hd_author_course_id']
+				user_id = request.session['_auth_user_id']
+				
+				cmt=Comment.objects.get(id=comment_id)
+				cmt.content=comment
+				cmt.save()
+				status = "1"
+				author = User.objects.get(id=author_id)
+				cl = Curriculumn.objects(id=course_id)
+				has_curriculum = False
+				is_mentor = request.session['is_mentor']
+				user=User.objects.get(username=str(request.user))
+				student=Student.objects.get(user=user.id)
+				
+				
+				
+				clTaken = 0
+				clLike = 0
+				mtTaken = 0
+				mtLike = 0
+				actTaken = 0
+				actLike = 0
+				mtTotal = 0
+				actTotal = 0
+				try :
+					for c in cl:
+						if c.statistic.currentTakenNumber:
+							c.statistic.currentTakenNumber=10
+							clTaken += c.statistic.currentTakenNumber
+						if c.statistic.currentLikeNumber:
+							clLike += c.statistic.currentLikeNumber
+						
+						for mt in c.material:
+							if mt.statistic.currentTakenNumber:
+								mtTaken += mt.statistic.currentTakenNumber
+							if mt.statistic.currentLikeNumber:
+								mtLike += mt.statistic.currentLikeNumber
+								mtTotal += 1
+							print(mt.name)
+						for act in c.action:
+							if act.statistic.currentTakenNumber:
+								actTaken += act.statistic.currentTakenNumber
+							if act.statistic.currentLikeNumber:
+								actLike += act.statistic.currentLikeNumber
+								actTotal +=1
+				except Exception as e:
+					print(e)
+					
+				progress = CurriculumnStudyProgress.objects(curriculumn=cl[0].id,student=student.id)
+				is_joined = False
+				if len(progress)>0:
+					is_joined = True
+					
+				lscl = []
+				lscl = cl[0]
+				for i in lscl.__getattribute__('material'):
+					i.note='0'
+					try:
+						is_like = StatisticDetail.objects(object_id=str(i.id),status=status,user=user.id)
+						if len(is_like):
+							i.note='1'
+							i.__getattribute__('statistic').currentLikeNumber -=1
+					except Exception as e:
+						print(e)
+				
+				context = {	'cl':lscl,'is_joined':is_joined,
+							'user_id':request.user,
+							'course_id':course_id,
+							'author_id':author_id,
+							'author':author.username,
+							'is_mentor':is_mentor,
+							'clTaken':clTaken,
+							'clLike':clLike,
+							'mtTaken':mtTaken,
+							'mtLike':mtLike,
+							'actTaken':actTaken,
+							'actLike':actLike,
+							'mtTotal':mtTotal,
+							'actTotal':actTotal,
+							'has_curriculum':has_curriculum,
+							}
+			except Exception as e:
+				print(e)
+			finally:
+				return render(request, 'myapp/course-detail.html', context)
 		else :
 			comment = request.POST['txtComment']
 			course_id = request.POST['hd_course_id']
