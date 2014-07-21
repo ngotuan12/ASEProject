@@ -1,0 +1,106 @@
+{% extends "myapp/base.html" %}
+{% block header %}
+<div class="pageheader">
+	<h2>
+		<i class="fa fa-edit"></i> <a href="/account-setting">プロファイル設定</a>
+	</h2>
+</div>
+{% endblock %} 
+{% block content %}
+<div class="mainpanel" style="margin-top: 2%">
+        
+    <div class="contentpanel">
+      
+      <div class="row">
+        <div class="col-sm-3">
+          
+          
+          <h5 class="subtitle">About</h5>
+          <p class="mb30">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat... <a href="#">Show More</a></p>
+          
+          <h5 class="subtitle">Connect</h5>
+          <ul class="profile-social-list">
+            <li><i class="fa fa-twitter"></i> <a href="#">twitter.com/eileensideways</a></li>
+            <li><i class="fa fa-facebook"></i> <a href="#">facebook.com/eileen</a></li>
+            <li><i class="fa fa-youtube"></i> <a href="#">youtube.com/eileen22</a></li>
+            <li><i class="fa fa-linkedin"></i> <a href="#">linkedin.com/4ever-eileen</a></li>
+            <li><i class="fa fa-pinterest"></i> <a href="#">pinterest.com/eileen</a></li>
+            <li><i class="fa fa-instagram"></i> <a href="#">instagram.com/eiside</a></li>
+          </ul>
+          
+          <div class="mb30"></div>
+          
+          <h5 class="subtitle">Address</h5>
+          <address>
+            795 Folsom Ave, Suite 600<br>
+            San Francisco, CA 94107<br>
+            <abbr title="Phone">P:</abbr> (123) 456-7890
+          </address>
+          
+          {% if status %}
+          	<h5 class="subtitle">Thêm khách hàng mới thành công</h5>
+          {% endif%}
+          
+        </div>
+        <div class="col-sm-9">
+        
+        	<div class="panel panel-default" style="min-height: 500px ;text-align:center" >
+        		<div id="main">
+        		</br></br>
+        		<button class="btn btn-primary btn-lg" style="font-size:3em;padding:1em;" onclick="onloan();">Cho vay</button>
+        		</br></br>
+        		<button class="btn btn-primary btn-lg" style="font-size:3em;padding:1em" onClick="">Trả nợ</button>
+        		</br></br>
+        		<button class="btn btn-primary btn-lg" style="font-size:3em;padding:1em" onClick="">Báo cáo</button>
+        		</div>
+        		<div id="loan">
+        		</br></br>
+        		<button class="btn btn-primary btn-lg" style="font-size:3em;padding:1em;" onClick="location.href='newcustomer'">Khách hàng mới</button>
+        		</br></br>
+        		<button class="btn btn-primary btn-lg" style="font-size:3em;padding:1em" onClick="">Khách hàng cũ</button>
+        		</br></br>
+        		<button class="btn btn-primary btn-lg" style="font-size:3em;padding:1em" onClick="onback();">Trở lại</button>
+        		</div>
+        	</div>
+        </div>
+      </div><!-- row -->
+      
+    </div><!-- contentpanel -->
+  </div>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script src="js/masonry.pkgd.min.js"></script>
+<script src="js/jquery-ui-1.10.3.min.js"></script>
+<script src="js/chosen.jquery.min.js"></script>
+ 
+<script src="js/bootstrap-wizard.min.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/jquery.maskedinput.min.js"></script>
+<script src="js/jquery.numeric.js"></script>
+<script src="js/custom.js"></script>
+ 
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#loan').css("display", "none");
+	$('#main').css("display", "block");
+});
+
+</script>
+<script type="text/javascript">
+function onloan(){
+	$('#loan').css("display", "block");
+	$('#main').css("display", "none");
+}
+
+function onback(){
+	$('#loan').css("display", "none");
+	$('#main').css("display", "block");
+}
+
+</script>
+
+<script defer src="slider/jquery.flexslider.js"></script>
+{% endblock %}
