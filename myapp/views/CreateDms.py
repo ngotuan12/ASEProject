@@ -84,20 +84,19 @@ def close_cycle_all():
 		try:
 			lscd = CusDebit.objects()
 			for cd in lscd:
-				close_cycle_cus(cd.id) 
+				close_cycle_cus(cd.cus_id) 
 		except Exception as ex:
 			print(ex)
 
-def close_cycle_cus(user):
+def close_cycle_cus(vcus_id):
 		try:
-			vuser = User.objects.get(user=request.user)
-			lscd = CusDebit.objects(cus_id = vuser.id,status=1).order_by('loan_date')
+			lscd = CusDebit.objects(cus_id = vcus_id,status=1).order_by('loan_date')
 			for cd in lscd:
-				analyze_debit(cd.id) 
+				analyze_debit_detail(cd.id)
 				
 		except Exception as ex:
 			print(ex)
-def analyze_debit(vcus_debit_id):
+def analyze_debit_detail(vcus_debit_id):
 		try:
 			vtoday = datetime.now().strftime("%y-%m-%d-%H-%M-%S")
 			print(vnow)
@@ -114,7 +113,10 @@ def analyze_debit(vcus_debit_id):
 				last_cycle = cdt.end_date
 				cdt.end_cycle = cdt.start_cycle + cdt.amount - cdt.payment
 				cdt.debit = 0
-				cdt.status = 1
+				if float(str((datetime.strptime(vtoday,"%y-%m-%d-%H-%M-%S") - last_cycle).days)) > 0:
+					cdt.is_current_month = 0
+				else:
+					cdt.is_current_month = 1
 				cdt.save()
 				total_debit += cdt.end_cycle
 			# insert them ban ghi chi tiet neu thieu
@@ -122,7 +124,72 @@ def analyze_debit(vcus_debit_id):
 			if  vMissing > 0:
 				print('Thieu chu ky cuoc: Insert them' + vMissing)
 			else:
-				print('Du chu ky cuoc') 
+				print('Du chu ky cuoc')
+			#Update total debit
+			cd = CusDebit.objects(id = vcus_debit_id)
+			cd.total_debit = total_debit
+			cd.save()
+			
 		except Exception as ex:
 			print(ex)
-		return 	total_debit
+def make_payment(vCus_id,vAmount,vPay_date):
+		try:
+			vtoday = datetime.now().strftime("%y-%m-%d-%H-%M-%S")
+			#vuser = User.objects.get(id=vCus_id)
+			vCustomer = Customer.objects(cus_id = vCus_id)
+			lscd = CusDebit.objects(cus_id = vCus_id,status=1).order_by('loan_date')
+			#Insert data in to Payment
+			#-------------------------------------------------------------------------
+			pt = Payment.objects()
+			
+			pt.cus_id  = vCustomer
+			pt.create_date= vtoday
+			pt.pay_date= vPay_date
+			pt.amount = vAmount
+			pt.status = 1
+			#-------------------------------------------------------------------------
+			for cd in lscd:
+				analyze_payment(vCus_id,cd.id,vAmount,pt.id)
+				
+		except Exception as ex:
+			print(ex)
+def analyze_payment(vCus_id,vcus_debit_id,vAmount,vPayment_id):
+	try:
+		vToday = datetime.now().strftime("%y-%m-%d-%H-%M-%S")
+		vRemainAmount = vAmount
+		lscdt = CusDebitDetail.objects(cus_debit_id = vcus_debit_id,status=1).order_by('loan_date')
+		pdt = PaymentDetail.objects()
+		
+		for cd in lscdt:
+			payment_amount = 0.00
+			current_debit = cd.end_cycle
+			if vRemainAmount > 0:
+				if cd.end_cycle >= vAmount:
+					payment_amount = vAmount
+					cd.payment = payment_amount
+					remain_debit = cd.end_cycle - payment_amount
+					cd.end_cycle = remain_debit
+					vRemainAmount = 0.00
+				else:
+					payment_amount = cd.end_cycle
+					cd.payment = payment_amount
+					remain_debit = cd.end_cycle - payment_amount
+					cd.end_cycle = remain_debit
+					vRemainAmount = vAmount - payment_amount
+				#Insert into payment detail
+				
+				pdt.payment_id = vPayment_id
+				pdt.cus_debit_id = vcus_debit_id
+				pdt.cus_id  = vCus_id
+				pdt.create_date= vToday
+				pdt.debit = current_debit
+				pdt.payment = payment_amount
+				pdt.remain = pdt.debit - pdt.payment 
+				pdt.status = 1
+				pdt.save()
+		#End for
+		if vRemainAmount > 0:
+			analyze_payment(vCus_id,vcus_debit_id,vRemainAmount,vPayment_id)
+	except Exception as ex:
+		print(ex)
+	return vRemainAmount

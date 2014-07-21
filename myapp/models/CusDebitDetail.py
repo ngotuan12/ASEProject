@@ -26,6 +26,7 @@ class CusDebitDetail(Document):
 	debit = FloatField()
 	status = FloatField()
 	create_date= DateTimeField(default=datetime.now)
+	is_current_month = FloatField()
 	meta = {
 			'ordering': ['-create_date']
 			}
