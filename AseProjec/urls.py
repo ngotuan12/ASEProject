@@ -7,13 +7,19 @@ from myapp.views import Home, AccountSetting, PostDetail, SignIn, MentorPost, \
 	Profile, SignUp, SignOut, PeopleDirectory, Chat, PersonalHome , AuthenFail, \
 	MentorView, Documents, StudentHome, MentorCourse, Test, SearchMentor, BecomeMentor, \
 	StudentView, CourseDetail, AsStudentHome , StudyLog, CreateCurriculumn,EditMaterial ,\
-	Community,Slide,EditAction,EditCurriculumn, errorpage, CreateDms
+	Community,Slide,EditAction,EditCurriculumn, errorpage, CreateDms,d_MainScreen,d_NewCus
 
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 urlpatterns = patterns('',
+						#Debit
+						url(r'^mainscreen$', d_MainScreen.index, name='d_MainScreen'),
+						url(r'^newcustomer$', d_NewCus.index, name='d_NewCus'),
+						
+						
+						#ASE
 						url(r'^community$', Community.index, name='community'),
 						url(r'^i18n/', include('django.conf.urls.i18n')),
 						url(r'^signinsns$', SignIn.signinsns, name='signinsns'),
