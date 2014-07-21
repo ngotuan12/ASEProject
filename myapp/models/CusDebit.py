@@ -15,6 +15,8 @@ class CusDebit(Document):
 	cus_id  = ReferenceField(User)
 	month = DateTimeField(default=datetime.now)
 	debit = FloatField()
+	total_debit = FloatField()
+	payment = FloatField()
 	create_date = DateTimeField(default=datetime.now)
 	loan_date = DateTimeField(default=datetime.now)
 	status = FloatField()

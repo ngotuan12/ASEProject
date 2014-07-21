@@ -22,12 +22,12 @@ def index(request):
 			user=request.user
 			#createcustomer(user)
 			#createcusdebit(user)
-			close_cycle()
+			close_cycle_all()
 		except Exception as ex:
 			print(ex)
 		context = {'msg':'done'}
 		return render(request,'myapp/CreateDms.html', context)
-def createcustomer(user):
+def createcustomer(user,id_no, address,home_address, fone_number, about):
 		try:
 			vtoday = date.today()
 			ct = Customer()
@@ -36,42 +36,42 @@ def createcustomer(user):
 			ct.first_name = user.first_name
 			ct.last_name = user.last_name
 			ct.full_name = user.first_name + user.last_name
-			ct.id_no = '111519954'
-			ct.address = 'Ha Noi'
-			ct.home_address = ''
-			ct.fone_number = '0977868788'
+			ct.id_no = id_no
+			ct.address = address
+			ct.home_address = home_address
+			ct.fone_number = fone_number
 			ct.create_date = vtoday
 			ct.status = 1
-			ct.about = 'This is cuongNM infomation'
+			ct.about = about
 			ct.save()
 		except Exception as ex:
 			print(ex)
-def createcusdebit(user):
+def createcusdebit(user,amount, loan_date,amount,rate):
 		try:
 			vtoday = date.today()
 			cd = CusDebit()
 			cd.cus_id  = user
-			cd.month = vtoday
-			cd.debit = 100000
+			cd.month = loan_date
+			cd.debit = amount
+			cd.total_debit = amount
+			cd.payment = 0.00
 			cd.create_date = vtoday
-			cd.loan_date = vtoday
+			cd.loan_date = loan_date
 			cd.status = 1
 			cd.note =''
 			cd.save()
 			createcusdebitdetail(user,cd)
 		except Exception as ex:
 			print(ex)
-def createcusdebitdetail(userid,cusdebitid):
+def createcusdebitdetail(userid,cusdebitid,loan_date,amount,rate):
 		try:
-			vtoday = date.today()
 			cdt = CusDebitDetail()
-			
 			cdt.cus_id  = userid
 			cdt.cus_debit_id  = cusdebitid
-			cdt.from_date= vtoday
+			cdt.from_date= loan_date
 			cdt.to_date= vtoday + relativedelta(months=+1) 
-			cdt.rate = 1
-			cdt.start_cycle = 10
+			cdt.rate = rate
+			cdt.start_cycle = amount
 			cdt.amount = float(str((cdt.to_date - cdt.from_date).days))*cdt.rate
 			cdt.payment = 0
 			cdt.end_cycle = cdt.start_cycle + cdt.amount - cdt.payment
@@ -80,32 +80,49 @@ def createcusdebitdetail(userid,cusdebitid):
 			cdt.save()
 		except Exception as ex:
 			print(ex)
-def close_cycle():
+def close_cycle_all():
 		try:
-			vtoday = date.today()
-			vnow = datetime.now().strftime("%y-%m-%d-%H-%M-%S")
+			lscd = CusDebit.objects()
+			for cd in lscd:
+				close_cycle_cus(cd.id) 
+		except Exception as ex:
+			print(ex)
+
+def close_cycle_cus(user):
+		try:
+			vuser = User.objects.get(user=request.user)
+			lscd = CusDebit.objects(cus_id = vuser.id,status=1).order_by('loan_date')
+			for cd in lscd:
+				analyze_debit(cd.id) 
+				
+		except Exception as ex:
+			print(ex)
+def analyze_debit(vcus_debit_id):
+		try:
+			vtoday = datetime.now().strftime("%y-%m-%d-%H-%M-%S")
 			print(vnow)
-			cd = CusDebit.objects()
-			lsCdt = CusDebitDetail.objects()
-			numofdate = 0
+			lsCdt = CusDebitDetail.objects().get(cus_debit_id = vcus_debit_id).order_by('from_date')
+			#Du thang no
+			total_debit = 0.00
+			last_cycle = datetime.now().strftime("%y-%m-%d-%H-%M-%S")
 			for cdt in lsCdt:
-				
-				print()
-				print(vnow)
-				print(datetime.strptime(vnow,"%y-%m-%d-%H-%M-%S"))
-				print((cdt.to_date - datetime.strptime(vnow,"%y-%m-%d-%H-%M-%S")).days)
-				
-				
-				if (cdt.to_date - datetime.strptime(vnow,"%y-%m-%d-%H-%M-%S")).days > 0 :
-					cdt.amount = float(str((datetime.strptime(vnow,"%y-%m-%d-%H-%M-%S") - cdt.from_date).days))*cdt.rate
+				if (cdt.to_date - datetime.strptime(vtoday,"%y-%m-%d-%H-%M-%S")).days > 0 :
+					cdt.amount = float(str((datetime.strptime(vtoday,"%y-%m-%d-%H-%M-%S") - cdt.from_date).days))*cdt.rate
 					cdt.to_date = vtoday
 				else:
 					cdt.amount = float(str((cdt.to_date - cdt.from_date).days))*cdt.rate
-				
+				last_cycle = cdt.end_date
 				cdt.end_cycle = cdt.start_cycle + cdt.amount - cdt.payment
 				cdt.debit = 0
 				cdt.status = 1
 				cdt.save()
-				
+				total_debit += cdt.end_cycle
+			# insert them ban ghi chi tiet neu thieu
+			vMissing = float(str((datetime.strptime(vtoday,"%y-%m-%d-%H-%M-%S") - last_cycle).days)) 
+			if  vMissing > 0:
+				print('Thieu chu ky cuoc: Insert them' + vMissing)
+			else:
+				print('Du chu ky cuoc') 
 		except Exception as ex:
 			print(ex)
+		return 	total_debit
