@@ -84,10 +84,17 @@ def handle_uploaded_image(user,i,request):
 	size = (128, 128)
 	imageImage.thumbnail(size)
 	
-	folder_path = os.path.abspath(os.path.join(os.path.join(os.path.dirname(__file__),os.pardir),os.pardir))+"/common/upload/";
-	if os.path.isdir(folder_path) == False:
-		os.makedirs(folder_path)
-	with open(os.path.abspath(os.path.join(os.path.join(os.path.dirname(__file__),os.pardir),os.pardir))+"/common/upload/"+user.username+"-avatar.jpg", 'wb+') as destination:
-		imageImage.save(destination)
-	request.session['user_images'] = "/upload/" +user.username+"-avatar.jpg"
+	user=User.objects.get(username=str(request.user))
+	thisuprolist = UserProfile.objects(user_id=user)[:1]
+	userprofile = thisuprolist[0]
+	userprofile.fileImage.put(imageImage, content_type='image/jpeg')
+	userprofile.save()
+	
+	
+	#folder_path = os.path.abspath(os.path.join(os.path.join(os.path.dirname(__file__),os.pardir),os.pardir))+"/common/upload/";
+	#if os.path.isdir(folder_path) == False:
+	#	os.makedirs(folder_path)
+	#with open(os.path.abspath(os.path.join(os.path.join(os.path.dirname(__file__),os.pardir),os.pardir))+"/common/upload/"+user.username+"-avatar.jpg", 'wb+') as destination:
+	#	imageImage.save(destination)
+	#request.session['user_images'] = "/upload/" +user.username+"-avatar.jpg"
 	
