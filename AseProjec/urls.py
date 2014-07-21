@@ -7,7 +7,7 @@ from myapp.views import Home, AccountSetting, PostDetail, SignIn, MentorPost, \
 	Profile, SignUp, SignOut, PeopleDirectory, Chat, PersonalHome , AuthenFail, \
 	MentorView, Documents, StudentHome, MentorCourse, Test, SearchMentor, BecomeMentor, \
 	StudentView, CourseDetail, AsStudentHome , StudyLog, CreateCurriculumn,EditMaterial ,\
-	Community,Slide,EditAction,EditCurriculumn, errorpage
+	Community,Slide,EditAction,EditCurriculumn, errorpage, CreateDms
 
 
 # Uncomment the next two lines to enable the admin:
@@ -58,6 +58,7 @@ urlpatterns = patterns('',
                        url(r'^edit-material$', EditMaterial.index, name='edit-material'),
                        url(r'^edit-action$', EditAction.index, name='edit-action'),
                        url(r'^edit-curriculumn$', EditCurriculumn.index, name='edit-curriculumn'),
+                       url(r'^CreateDms$', CreateDms.index, name='CreateDms'),
                        url(r'^slide$',Slide.index),
                        url(r'^error-page$',errorpage.index,name='error-page'),
                        url(regex  = r'^%s(?P<path>.*)$' % settings.STATIC_URL[1:], 

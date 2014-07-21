@@ -1,6 +1,6 @@
 {% if author_id == userlogged %}
 	<div class="pageheader" style="margin-top: 4%; height: 70px;">
-		<h2 style="margin-left: 1%;margin-top: 1%;"><img src="{{ user_images }}" style="max-height: 30px; max-width: 30px;" alt=""> {{ user.username }}</h2>
+		<h2 style="margin-left: 1%;margin-top: 1%;"><img src="{{ user_images }}" style="max-height: 30px; max-width: 30px;" alt="" onError="this.onerror=null;this.src='/images/avatar/default.png';"> {{ user.username }}</h2>
 		{% if has_curriculum == True %} 
 			<div class="breadcrumb-wrapper">
 				<button class="btn btn-default btn-block" data-toggle="modal" data-target="#add-new-course">新カリキュラム</button>
