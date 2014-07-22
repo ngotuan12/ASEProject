@@ -66,21 +66,21 @@ def createcustomer(user,id_no, address,home_address, fone_number, about):
 			ct.save()
 		except Exception as ex:
 			print(ex)
-def createcusdebit(user,amount, loan_date,amount,rate):
+def createcusdebit(vUser, vLoan_date, vAmount, vRate):
 		try:
 			vtoday = date.today()
 			cd = CusDebit()
-			cd.cus_id  = user
-			cd.month = loan_date
-			cd.debit = amount
-			cd.total_debit = amount
+			cd.cus_id  = vUser
+			cd.month = vLoan_date
+			cd.debit = vAmount
+			cd.total_debit = vAmount
 			cd.payment = 0.00
 			cd.create_date = vtoday
-			cd.loan_date = loan_date
+			cd.loan_date = vLoan_date
 			cd.status = 1
 			cd.note =''
 			cd.save()
-			createcusdebitdetail(user,cd,)
+			createcusdebitdetail(user,cd,vLoan_date,vAmount,vRate)
 		except Exception as ex:
 			print(ex)
 def createcusdebitdetail(vUser,vCus_debit,vLoan_date,vAmount,vRate):
