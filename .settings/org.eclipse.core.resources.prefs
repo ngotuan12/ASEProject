@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//myapp/forms.py=utf-8
 encoding//myapp/templates/myapp/endlecture.html=UTF-8
 encoding//myapp/templates/myapp/index.html=UTF-8
 encoding//myapp/templates/myapp/joincourse.html=UTF-8
@@ -13,6 +14,7 @@ encoding//myapp/templates/myapp/search-mentor.html=UTF-8
 encoding//myapp/templates/myapp/signin.html=UTF-8
 encoding//myapp/templates/myapp/startlecture.html=UTF-8
 encoding//myapp/templates/myapp/student-home.html=UTF-8
+encoding//myapp/views/CreateCurriculumn.py=utf-8
 encoding//myapp/views/EditAction.py=utf-8
 encoding//myapp/views/EditCurriculumn.py=utf-8
 encoding//myapp/views/EditMaterial.py=utf-8

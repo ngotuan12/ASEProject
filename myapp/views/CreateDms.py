@@ -112,16 +112,20 @@ def close_cycle_cus(vcus_id):
 		try:
 			lscd = CusDebit.objects(cus_id = vcus_id,status=1).order_by('loan_date')
 			for cd in lscd:
-				analyze_debit_detail(cd.id)
+				analyze_debit_detail(vCus_id,cd.id,vLoan_date)
 				
 		except Exception as ex:
 			print(ex)
 def analyze_debit_detail(vcus_debit_id):
 		try:
 			vtoday = datetime.now().strftime("%y-%m-%d-%H-%M-%S")
-			print(vnow)
-			lsCdt = CusDebitDetail.objects().get(cus_debit_id = vcus_debit_id).order_by('from_date')
-			#Du thang no
+			lsCdt = CusDebitDetail.objects().get(cus_debit_id = vCus_debit_id).order_by('from_date')
+			
+			vLoan_months = (datetime.strptime(vtoday,"%y-%m-%d-%H-%M-%S") - vLoan_date).months
+			if vLoan_months >=  lsCdt.length:
+				#Thieu ban ghi chi tiet
+				insert_missing_debit_detail(vCus_id,vCus_debit_id,vFrom_date,vEnd_cycle,vRate)
+			lsCdt = CusDebitDetail.objects().get(cus_debit_id = vCus_debit_id).order_by('from_date')
 			total_debit = 0.00
 			last_cycle = datetime.now().strftime("%y-%m-%d-%H-%M-%S")
 			for cdt in lsCdt:
@@ -212,4 +216,37 @@ def analyze_payment(vCus_id,vcus_debit_id,vAmount,vPayment_id):
 			analyze_payment(vCus_id,vcus_debit_id,vRemainAmount,vPayment_id)
 	except Exception as ex:
 		print(ex)
-	return vRemainAmount
+def insert_missing_debit_detail(vCus_id,vCus_debit_id,vFrom_date,vStart_cycle,vRate):
+	try:
+		vToday = datetime.now().strftime("%y-%m-%d-%H-%M-%S")
+		vTodate = vFrom_date + relativedelta(months=+1)
+		
+		while (datetime.strptime(vToday,"%y-%m-%d-%H-%M-%S") - vTodate ).months >= 0:
+			cdt = CusDebitDetail()
+			cdt.cus_id  = vCus_id
+			cdt.cus_debit_id  = vCus_debit_id
+			cdt.from_date= vFrom_date
+			cdt.to_date= vTodate 
+			cdt.rate = vRate
+			cdt.start_cycle = vStart_cycle
+
+			if (cdt.to_date - datetime.strptime(vToday,"%y-%m-%d-%H-%M-%S")).months >= 0 :
+				cdt.amount = float(str((datetime.strptime(vToday,"%y-%m-%d-%H-%M-%S") - cdt.from_date).days))*cdt.rate
+				cdt.to_date = vtoday
+			else:
+				cdt.amount = float(str((cdt.to_date - cdt.from_date).days))*cdt.rate
+			cdt.payment = 0
+			cdt.end_cycle = cdt.start_cycle + cdt.amount - cdt.payment
+			cdt.debit = 0
+			cdt.status = 1
+			#---------------------------------------------------------------------
+			# Assign for next cycle
+			vFrom_date = cdt.to_date
+			vTodate = vFrom_date + relativedelta(months=+1)
+			vStart_cycle = cdt.end_cycle
+			#---------------------------------------------------------------------
+			cdt.save()
+			
+	except Exception as ex:
+		print(ex)
+		
