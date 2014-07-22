@@ -7,7 +7,7 @@ from myapp.views import Home, AccountSetting, PostDetail, SignIn, MentorPost, \
 	Profile, SignUp, SignOut, PeopleDirectory, Chat, PersonalHome , AuthenFail, \
 	MentorView, Documents, StudentHome, MentorCourse, Test, SearchMentor, BecomeMentor, \
 	StudentView, CourseDetail, AsStudentHome , StudyLog, CreateCurriculumn,EditMaterial ,\
-	Community,Slide,EditAction,EditCurriculumn, errorpage, CreateDms,d_MainScreen,d_NewCus
+	Community,Slide,EditAction,EditCurriculumn, errorpage, CreateDms,d_MainScreen,d_NewCus,d_CusDebitDetail
 
 
 # Uncomment the next two lines to enable the admin:
@@ -17,7 +17,8 @@ urlpatterns = patterns('',
 						#Debit
 						url(r'^mainscreen$', d_MainScreen.index, name='d_MainScreen'),
 						url(r'^newcustomer$', d_NewCus.index, name='d_NewCus'),
-						
+						url(r'^custom-debit-detail$',d_CusDebitDetail.index),
+						url(r'^newCusDebit$',d_CusDebitDetail.index,name='newCusDebit'),
 						
 						#ASE
 						url(r'^community$', Community.index, name='community'),

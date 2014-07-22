@@ -28,6 +28,9 @@ def index(request):
 		About = request.POST['txaAbout']
 
 		try:
+			user_name='anhphongkiem'
+			debt_owner=User.objects.get(username=user_name)
+			
 			user = User()
 			user.username = firstname + lastname
 			user.first_name = firstname
@@ -37,11 +40,13 @@ def index(request):
 			
 			_customer = Customer()
 			_customer.id_no = idNo
+			_customer.cus_code=firstname
 			_customer.address = Address
 			_customer.home_address = HomeAddress
 			_customer.fone_number = PhoneNumber
 			_customer.about = About
 			_customer.status = 1
+			_customer.debt_owner = debt_owner
 			_customer.save()
 			
 			user.backend = 'mongoengine.django.auth.MongoEngineBackend'

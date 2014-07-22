@@ -11,10 +11,10 @@ from mongoengine.fields import ReferenceField, DateTimeField,\
 	FloatField
 
 from myapp.models.CusDebit import CusDebit
-
+from myapp.models.Customer import Customer
 
 class CusDebitDetail(Document):
-	cus_id  = ReferenceField(User)
+	cus_id  = ReferenceField(Customer)
 	cus_debit_id  = ReferenceField(CusDebit)
 	from_date= DateTimeField(default=datetime.now)
 	to_date= DateTimeField(default=datetime.now)
