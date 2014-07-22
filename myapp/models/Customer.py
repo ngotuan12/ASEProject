@@ -24,6 +24,7 @@ class Customer(Document):
 	create_date = DateTimeField(default=datetime.now)
 	status = FloatField()
 	about = StringField()
+	debt_owner =ReferenceField(User)
 	meta = {
 			'ordering': ['-create_date']
 			}
