@@ -80,18 +80,18 @@ def createcusdebit(user,amount, loan_date,amount,rate):
 			cd.status = 1
 			cd.note =''
 			cd.save()
-			createcusdebitdetail(user,cd)
+			createcusdebitdetail(user,cd,)
 		except Exception as ex:
 			print(ex)
-def createcusdebitdetail(userid,cusdebitid,loan_date,amount,rate):
+def createcusdebitdetail(vUser,vCus_debit,vLoan_date,vAmount,vRate):
 		try:
 			cdt = CusDebitDetail()
-			cdt.cus_id  = userid
-			cdt.cus_debit_id  = cusdebitid
-			cdt.from_date= loan_date
-			cdt.to_date= vtoday + relativedelta(months=+1) 
-			cdt.rate = rate
-			cdt.start_cycle = amount
+			cdt.cus_id  = vUser_id
+			cdt.cus_debit_id  = vCus_debit
+			cdt.from_date= vLoan_date
+			cdt.to_date= vLoan_date + relativedelta(months=+1) 
+			cdt.rate = vRate
+			cdt.start_cycle = vAmount
 			cdt.amount = float(str((cdt.to_date - cdt.from_date).days))*cdt.rate
 			cdt.payment = 0
 			cdt.end_cycle = cdt.start_cycle + cdt.amount - cdt.payment

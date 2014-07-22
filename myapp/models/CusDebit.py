@@ -10,9 +10,11 @@ from mongoengine.document import Document
 from mongoengine.fields import ReferenceField, StringField, DateTimeField,\
 	FloatField
 
+from myapp.models.Customer import Customer
+
 
 class CusDebit(Document):
-	cus_id  = ReferenceField(User)
+	cus_id  = ReferenceField(Customer)
 	month = DateTimeField(default=datetime.now)
 	debit = FloatField()
 	total_debit = FloatField()
