@@ -27,6 +27,26 @@ def index(request):
 			print(ex)
 		context = {'msg':'done'}
 		return render(request,'myapp/CreateDms.html', context)
+def getCustomerInfo():
+	username=request.user
+	user=User.objects.get(username=str(request.user))
+	customer = Customer.objects(ownner = user.id)
+	return customer
+def getCustomerDebitInfo():
+	username=request.user
+	user=User.objects.get(username=str(request.user))
+	customerdebit = CusDebit.objects(ownner = user.id)
+	return customerdebit
+def getCustomerDebitDetail():
+	username=request.user
+	user=User.objects.get(username=str(request.user))
+	customerdebitdetail = Customer.objects.get(ownner = user.id)
+	return customerdebitdetail
+def getPaymentHistory():
+	username=request.user
+	user=User.objects.get(username=str(request.user))
+	customerdebitdetail = CusDebitDetail.objects(ownner = user.id)
+	return customerdebitdetail
 def createcustomer(user,id_no, address,home_address, fone_number, about):
 		try:
 			vtoday = date.today()
