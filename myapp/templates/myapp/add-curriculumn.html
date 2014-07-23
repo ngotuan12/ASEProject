@@ -120,6 +120,9 @@
 		$('#material_description').removeAttr('required');
 		document.getElementById('addMaterial').style.display="none";
 		$("#firstForm").submit();
+		$('#courseWizard').find('.pager .next').hide();
+		$('#courseWizard').find('.pager .finish').hide();
+		document.getElementById('finish').style.display="none";
 	}
 	
 	function addMaterial()
