@@ -19,6 +19,7 @@ class PaymentDetail(Document):
 	cus_debit_id = ReferenceField(CusDebit)
 	cus_id  = ReferenceField(User)
 	create_date= DateTimeField(default=datetime.now)
+	pay_date= DateTimeField(default=datetime.now)
 	debit = FloatField()
 	payment = FloatField()
 	remain = FloatField()
