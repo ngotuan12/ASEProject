@@ -98,7 +98,6 @@ def createcusdebitdetail(vUser,vCus_debit,vLoan_date,vAmount,vRate):
 				cdt.to_date = vtoday
 				cdt.rate = vRate
 				cdt.start_cycle = vAmount
-				print(str(cdt.to_date - cdt.from_date))
 				if str((cdt.to_date - cdt.from_date).days) == '0':
 					cdt.amount = (cdt.start_cycle*cdt.rate)/1000000
 					
@@ -124,7 +123,7 @@ def close_cycle_cus(vCus,vLoan_date,vAmount,vRate):
 		try:
 			lscd = CusDebit.objects(cus_id = vCus.id,status=1).order_by('loan_date')
 			for cd in lscd:
-				analyze_debit_detail(vCus,cd,vLoan_date,vAmount,vRate)
+				analyze_debit_detail(vCus,cd,cd.loan_date,vAmount,vRate)
 				
 		except Exception as ex:
 			print(ex)
@@ -236,7 +235,6 @@ def analyze_payment(vCus_id,vcus_debit_id,vAmount,vPayment_id):
 def insert_missing_debit_detail(vCus,vCus_debit,vFrom_date,vStart_cycle,vRate):
 	try:
 		vToday = datetime.strptime(str(date.today()),'%Y-%m-%d')
-# 		vFrom_date = vFrom_date + relativedelta(months=+1)
 		vTodate = vFrom_date + relativedelta(months=+1)
 		vStart_cycle_temp=vStart_cycle
 		while (vToday.month - vFrom_date.month) > 0:
