@@ -190,6 +190,9 @@
 		}
 		$('#courseWizard .finish').click(function() {
 		 jQuery('#firstForm').submit();
+		 $('#courseWizard').find('.pager .next').hide();
+		 $('#courseWizard').find('.pager .finish').hide();
+		 document.getElementById('finish').style.display="none";
 		});
 		
     }
