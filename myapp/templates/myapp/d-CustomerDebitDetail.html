@@ -437,6 +437,10 @@
 		$("#divCusAddress").html(cusAdress);
 		
 		$("#hd_cus_id").val(cusId);
+		
+		$("ul li[cus_id='" + cusId + "']").css("display", "block");
+		$("ul li[cus_id!='" + cusId + "']").css("display", "none");
+		$("ul li[cus_id='" + cusId + "']:first").addClass('active');
 	});
 	$('#selCusIdNo').change(function(){
 		var cusId = $(this).find('option:selected').attr('cus_id');
@@ -449,6 +453,10 @@
 		$("#divCusName").html(cusName);
 		$("#divCusAddress").html(cusAdress);
 		$("#hd_cus_id").val(cusId);
+		
+		$("ul li[cus_id='" + cusId + "']").css("display", "block");
+		$("ul li[cus_id!='" + cusId + "']").css("display", "none");
+		$("ul li[cus_id='" + cusId + "']:first").addClass('active');
 	});
 	$('#selCusCode').change(function(){
 		var cusId = $(this).find('option:selected').attr('cus_id');
@@ -461,6 +469,10 @@
 		$("#divCusName").html(cusName);
 		$("#divCusAddress").html(cusAdress);
 		$("#hd_cus_id").val(cusId);
+		
+		$("ul li[cus_id='" + cusId + "']").css("display", "block");
+		$("ul li[cus_id!='" + cusId + "']").css("display", "none");
+		$("ul li[cus_id='" + cusId + "']:first").addClass('active');
 	});
 	function SaveLoan()
 	{

@@ -4,22 +4,25 @@ Created on Apr 3, 2014
 '''
 # from dateutil.relativedelta import relativedelta
 from datetime import datetime
+import math
 
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from mongoengine.django.auth import User
 
-from myapp.models.CusDebitDetail import CusDebitDetail
 from myapp.models.CusDebit import CusDebit
+from myapp.models.CusDebitDetail import CusDebitDetail
 from myapp.models.Customer import Customer
 from myapp.views.CreateDms import CusDebit,CusDebitDetail,Customer ,\
 	createcusdebit
+
 
 # @login_required(login_url='/signin')
 def index(request):
 	if request.method == 'GET':
 		try:
+			print(pow(2, 5));
 			type=''
 			user_name='anhphongkiem'
 			debt_owner=User.objects.get(username=user_name)
