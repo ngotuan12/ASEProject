@@ -14,6 +14,7 @@ class LoanType(Document):
 	name = StringField()
 	status = FloatField()
 	description = StringField()
+	unit = StringField()
 	meta = {
 			'ordering': ['-create_date']
 			}

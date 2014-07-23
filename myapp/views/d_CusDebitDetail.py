@@ -14,6 +14,7 @@ from mongoengine.django.auth import User
 from myapp.models.CusDebit import CusDebit
 from myapp.models.CusDebitDetail import CusDebitDetail
 from myapp.models.Customer import Customer
+from myapp.models.LoanType import LoanType
 from myapp.views.CreateDms import CusDebit,CusDebitDetail,Customer ,\
 	createcusdebit
 
@@ -22,7 +23,6 @@ from myapp.views.CreateDms import CusDebit,CusDebitDetail,Customer ,\
 def index(request):
 	if request.method == 'GET':
 		try:
-			print(pow(2, 5));
 			type=''
 			user_name='anhphongkiem'
 			debt_owner=User.objects.get(username=user_name)
@@ -48,18 +48,21 @@ def index(request):
 				cusDebit_debit =float(request.POST['hd_cus_amount'])
 				cusDebit_loan_date=datetime.strptime(request.POST['cus_loan_date'],'%m/%d/%Y')
 				cusDebit_rate = float(request.POST['hd_cus_rate'])
+				cusDebit_cycle = float(request.POST['cus_cycle'])
 				cus=Customer.objects.get(id=cus_id)
 				
-				createcusdebit(cus,cusDebit_loan_date,cusDebit_debit,cusDebit_rate)
+				loan_type = LoanType.objects.get(code='LN',unit='D')
+				
+				createcusdebit(cus,cusDebit_loan_date,cusDebit_debit,cusDebit_rate,cusDebit_cycle,loan_type)
 				
 				print('add cusdebit ')
 				type = "chovay"
 				user_name='anhphongkiem'
 				debt_owner=User.objects.get(username=user_name)
 				lsCusomer=Customer.objects(debt_owner=debt_owner.id)
-				
+				lsCusDebit = CusDebit.objects(status=1).order_by('loan_date')
 			except Exception as ex:
 				print(ex)
 			finally:
-				context = {'type':type,'lsCusomer':lsCusomer}
+				context = {'type':type,'lsCusomer':lsCusomer,'lsCusDebit':lsCusDebit}
 				return render(request,'myapp/d-CustomerDebitDetail.html', context)

@@ -68,21 +68,25 @@
 					{% csrf_token %}
 					<div class="table-responsive">
 						<div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;padding-left: 6px !important">
-						<h4 class="panel-title">Thông tin ....</h4>
+						<h4 class="panel-title">Nhập thông tin: ngày vay,lãi xuất,chu kỳ,số tiền vay</h4>
 						</div>
 						<table class="table table-hover mb30" style="min-height: 191px !important;">
 							<tbody>
 								<tr>
 									<td style="height: 36px !important;">
 										<div class="form-group" style="margin-bottom: 0px !important;">
-											<div class="input-group col-sm-6" style="float: left;">
+											<div class="input-group col-sm-4" style="float: left;">
 												<input type="text" class="form-control" required=""
-													placeholder="計画開始日" id="startDate" name="cus_loan_date" required=""> <span
+													placeholder="Ngày vay" id="startDate" name="cus_loan_date" required=""> <span
 													class="input-group-addon"><i class="fa fa-calendar"></i></span>
 											</div>
-											<div class="input-group col-sm-6" style="float: left; padding-left: 5px;">
-												<input type="text" name="cus_rate" class="form-control" id="cusRate" maxlength="10" required="" value="1500" placeholder="Nhập tiền lãi ...">
+											<div class="input-group col-sm-4" style="float: left; padding-left: 5px;">
+												<input type="text" name="cus_rate" class="form-control" id="cusRate" maxlength="10" required="" value="" placeholder="Lãi xuất(vd: 2.000)">
 												<span class="input-group-addon"><i class="fa fa-money" ></i></span>
+											</div>
+											<div class="input-group col-sm-4" style="float: left; padding-left: 5px;">
+												<input type="text" name="cus_cycle" class="form-control tooltips" id="cusCycle" maxlength="2" required="" value="" placeholder="Chu kì(vd: 15 ngày)">
+												<span class="input-group-addon">ngày</span>
 											</div>
 										</div>
 									</td>
@@ -111,7 +115,7 @@
 					</div>
 					<input type="hidden" value="cusLoan" name="type">
 					<input type="hidden" value="" id="hd_cus_amount" name="hd_cus_amount">
-					<input type="hidden" value="1500" id="hd_cus_rate" name="hd_cus_rate">
+					<input type="hidden" value="" id="hd_cus_rate" name="hd_cus_rate">
 					<input type="hidden" value="" id="hd_cus_id" name="hd_cus_id">
 				</form>
 			{% elif type == 'trano' %}
@@ -358,6 +362,8 @@
 	<script src="js/jquery.formatCurrency.vi-VN.js"></script>
 	<script src="js/chosen.jquery.min.js"></script>
 	<script src="js/numbertoword.js"></script>
+	<script src="js/toggles.min.js"></script>
+	
 	<script>
 	jQuery(document).ready(function(){
 	// Chosen Select
@@ -506,7 +512,7 @@
 		};
 		
 		jQuery('#startDate').datepicker(StartpickerOptsPlanStart);
-		jQuery("#startDate").datepicker( "setDate" , new Date() );
+		//jQuery("#startDate").datepicker( "setDate" , new Date() );
 		
 		jQuery('#startDatePayment').datepicker(StartpickerOptsPlanStart);
 		jQuery("#startDatePayment").datepicker( "setDate" , new Date() );
