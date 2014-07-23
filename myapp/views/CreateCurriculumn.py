@@ -52,31 +52,35 @@ def index(request):
 		curriculumn.category=category
 		curriculumn.save()
 		#material
-		for n in range(numberMaterial):
-			material_title = request.POST['material_title'+str(n+1)]
-			material_type = request.POST['material_type'+str(n+1)]
-			material_url = request.POST['material_url'+str(n+1)]
-			material_description = request.POST['material_description'+str(n+1)]
-			material_hide = request.POST['material_hide'+str(n+1)]
-			material = Material()
-			material.name = material_title
-			material.type = MaterialType.objects.get(name=material_type)
-			material.url = material_url
-			material.description = str(material_description.encode('utf-8'))
-			if material_hide == '0':
-				material.save()
-				curriculumn.material.append(material)
+		try:
+			for n in range(numberMaterial):
+				material_title = request.POST['material_title'+str(n+1)]
+				material_type = request.POST['material_type'+str(n+1)]
+				material_url = request.POST['material_url'+str(n+1)]
+				material_description = request.POST['material_description'+str(n+1)]
+				material_hide = request.POST['material_hide'+str(n+1)]
+				material = Material()
+				material.name = material_title
+				material.type = MaterialType.objects.get(name=material_type)
+				material.url = material_url
+				material.description = str(material_description.encode('utf-8'))
+				if material_hide == '0':
+					material.save()
+					curriculumn.material.append(material)
+					curriculumn.save()
+			#action
+			action_name = request.POST['action_name']
+			action_description = request.POST['action_description']
+			action = Action()
+			action.name = action_name
+			action.description = str(action_description.encode('utf-8'))
+			if request.POST['action_name'] :
+				action.save()
+				curriculumn.action.append(action)
 				curriculumn.save()
-		#action
-		action_name = request.POST['action_name']
-		action_description = request.POST['action_description']
-		action = Action()
-		action.name = action_name
-		action.description = str(action_description.encode('utf-8'))
-		if request.POST['action_name'] :
-			action.save()
-			curriculumn.action.append(action)
-			curriculumn.save()
+		except Exception as ex:
+			print("CreateCurriculumn.add material: "+ex)
+			curriculumn.delete()
 		return HttpResponseRedirect('/mentorview')
 
 # 		materialId="insert material "
