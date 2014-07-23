@@ -37,4 +37,4 @@ from myapp.models.UserType import UserType
 from myapp.models.WorkField import WorkField
 from myapp.models.StatisticDetail import StatisticDetail
 from myapp.models.StudyLog import StudyLog
-
+from myapp.models.LoanType import LoanType

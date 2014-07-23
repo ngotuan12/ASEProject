@@ -206,7 +206,7 @@
 				<h5 class="subtitle mb5">Tickets</h5>
 				<ul class="nav nav-pills nav-stacked nav-bracket">
 				{% for cus_debit in lsCusDebit %}
-					<li na style="display: none;" cus_id="{{ cus_debit.cus_id }}"><a href="#"><i class="fa fa-suitcase"></i><span>Ticket({{ cus_debit.loan_date}})</span></a></li>
+					<li cus_id="{{ cus_debit.cus_id.id }}"><a href="#"><i class="fa fa-suitcase"></i><span>Ticket({{ cus_debit.loan_date}})</span></a></li>
 				{% endfor %}
 				</ul>
 			</div>
@@ -484,9 +484,10 @@
 		$("#divCusAddress").html(cusAdress);
 		$("#hd_cus_id").val(cusId);
 		
-		alert(cusId);
 		$("ul li[cus_id='" + cusId + "']").css("display", "block");
-		//alert($("li[name='"+myarray[0]+"']").attr("cus_id"));
+		$("ul li[cus_id!='" + cusId + "']").css("display", "none");
+		$("ul li[cus_id='" + cusId + "']:first").addClass('active');
+		
 		StartpickerOptsPlanStart = {
 				//minDate: new Date(),
 				maxDate: "+5Y"
