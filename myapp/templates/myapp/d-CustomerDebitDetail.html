@@ -5,12 +5,12 @@
 		<div class="col-xs-6 col-sm-6 col-md-6"style="margin-top: 2%;" >
 			<div class="table-responsive">
 				<div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;padding-left: 6px !important">
-				<h4 class="panel-title">Thông tin khách hàng</h4>
+				<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">Thông tin khách hàng</h4>
 				</div>
 				<table class="table table-hover mb30" style="min-height: 191px !important;">
 					<tbody>
 						<tr>
-							<td style="width: 12%;">Mã K/H: </td>
+							<td style="width: 20%;height: 36px !important;">Mã K/H: </td>
 							<td>
 								<div class="form-group" style="margin-bottom: 0px !important;">
 									<div class="col-sm-6" style="float: left;">
@@ -27,7 +27,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td style="width: 12%;">CMTND|SĐT: </td>
+							<td style="width: 20%;height: 36px !important;">CMTND|SĐT: </td>
 							<td>
 								<div class="form-group" style="margin-bottom: 0px !important;">
 									<div class="col-sm-6" style="float: left;">
@@ -43,7 +43,7 @@
 										<select class="form-control chosen-select" data-placeholder="Choose a Country..." id="selCusphone">
 											{% if lsCusomer %}
 												{% for cus in lsCusomer %}
-													<option cus_id={{ cus.id}} cus_name="{{ cus.full_name}}" cus_address="{{ cus.address }}" value="United States">{{ cus.fone_number }}</option>
+													<option  cus_id={{ cus.id}} cus_name="{{ cus.full_name}}" cus_address="{{ cus.address }}" value="United States">{{ cus.fone_number }}</option>
 												{% endfor %}
 											{% endif %}
 										</select>
@@ -52,8 +52,12 @@
 							</td>
 						</tr>
 						<tr>
-							<td style="width: 12%;">Địa Chỉ: </td>
+							<td style="width: 20%;height: 36px !important;">Địa chỉ: </td>
 							<td><div class="col-sm-12" id="divCusAddress"></div></td>
+						</tr>
+						<tr>
+							<td style="width: 20%;height: 36px !important;color: red;font-family: monospace;">Thông tin nợ: </td>
+							<td><div class="col-sm-12" id="divCusInfor" style="color: red;font-family: monospace;"></div>
 						</tr>
 					</tbody>
 				</table>
@@ -68,7 +72,7 @@
 					{% csrf_token %}
 					<div class="table-responsive">
 						<div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;padding-left: 6px !important">
-						<h4 class="panel-title">Nhập thông tin: ngày vay,lãi xuất,chu kỳ,số tiền vay</h4>
+						<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">Nhập thông tin: ngày vay,lãi xuất,chu kỳ,số tiền vay</h4>
 						</div>
 						<table class="table table-hover mb30" style="min-height: 191px !important;">
 							<tbody>
@@ -207,10 +211,9 @@
 	<div class="row">
 		<div class="col-xs-2 col-sm-2 col-md-2">
 			<div class="leftpanelinner">
-				<h5 class="subtitle mb5">Tickets</h5>
-				<ul class="nav nav-pills nav-stacked nav-bracket">
+				<ul class="nav nav-pills nav-stacked nav-bracket" id="lsCusDebit">
 				{% for cus_debit in lsCusDebit %}
-					<li cus_id="{{ cus_debit.cus_id.id }}"><a href="#"><i class="fa fa-suitcase"></i><span>Ticket({{ cus_debit.loan_date}})</span></a></li>
+					<li  cus_id="{{ cus_debit.cus_id.id }}" cus_total_debit ="{{ cus_debit.total_debit }}" cus_debit_id="{{ cus_debit.id }}" cus_id="{{ cus_debit.cus_id.id }}" onclick="changeDebitDetail('{{ cus_debit.id }}');"><a href="#"><i class="fa fa-suitcase"></i><span>{{ cus_debit.cus_id.cus_id.username}}|{{ cus_debit.loan_date|date:'d-m-Y' }}</span></a></li>
 				{% endfor %}
 				</ul>
 			</div>
@@ -218,127 +221,47 @@
 		<!-- col-md-6 -->
 	
 		<div class="col-xs-10 col-sm-10 col-md-10">
-			<h5 class="subtitle mb5">Ticket 01</h5>
 			<div class="table-responsive">
-				<table class="table table-hover mb30">
+				<table class="table table-hover table-bordered mb30">
+				{% if lsCusDebit|length > 0 %}
 					<thead>
-						<tr>
-							<th style="width: 1%;text-align: left;">STT</th>
-							<th style="width: 5%;text-align: left;">From Date</th>
-							<th style="width: 5%;text-align: left;">To Date</th>
-							<th style="width: 5%;text-align: left;">Rate</th>
-							<th style="width: 5%;text-align: left;">Start of Cycle</th>
-							<th style="width: 5%;text-align: left;">Days</th>
-							<th style="width: 5%;text-align: left;">Amount</th>
-							<th style="width: 5%;text-align: left;">Payment</th>
-							<th style="width: 5%;text-align: left;">End of Cycle</th>
+						<tr style="font-family: tahoma;">
+							<th style="width: 1%;text-align: left;font-family: Arial,Helvetica,sans-serif;">STT</th>
+							<th style="width: 5%;text-align: left;font-family: Arial,Helvetica,sans-serif;">Từ ngày</th>
+							<th style="width: 5%;text-align: left;font-family: Arial,Helvetica,sans-serif;">Đến ngày</th>
+							<th style="width: 5%;text-align: left;font-family: Arial,Helvetica,sans-serif;">Tiền gốc</th>
+							<th style="width: 5%;text-align: left;font-family: Arial,Helvetica,sans-serif;">Lãi suất</th>
+							<th style="width: 5%;text-align: left;font-family: Arial,Helvetica,sans-serif;">Chu kỳ</th>
+							<th style="width: 5%;text-align: left;font-family: Arial,Helvetica,sans-serif;">Số ngày</th>
+							<th style="width: 5%;text-align: left;font-family: Arial,Helvetica,sans-serif;">Tiền lãi</th>
+							<th style="width: 5%;text-align: left;font-family: Arial,Helvetica,sans-serif;">Tiền Trả</th>
+							<th style="width: 5%;text-align: left;font-family: Arial,Helvetica,sans-serif;">Tổng Tiền</th>
 						</tr>
 					</thead>
-					<tbody style="overflow-y: scroll; overflow-x: hidden; height: 100px;">
-						<tr>
-							<td>1</td>
-							<td>08/01/2014</td>
-							<td><a href="#">08/02/2014</a></td>
-							<td>
-								<a href="#" id="bbbbb" onclick="onChangeRate();" style="color: #428bca !important;">1000</a>
-								<input type="text" id="aaaaa" name="" value="1000" style="display: none;color: #428bca;width: 80px;" onkeydown="if (event.keyCode == 13) onSaveChange();" maxlength="5" required="">
-							</td>
-							<td class="currency">50000000</td>
-							<td>31</td>
-							<td class="currency">155000000</td>
-							<td>-</td>
-							<td class="currency">5155000000</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>08/01/2014</td>
-							<td><a href="#">08/02/2014</a></td>
-							<td class="currency" style="color: #428bca !important;"><a href="#" >1000</a></td>
-							<td class="currency">50000000</td>
-							<td>31</td>
-							<td class="currency">155000000</td>
-							<td>-</td>
-							<td class="currency">5155000000</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>08/01/2014</td>
-							<td><a href="#">08/02/2014</a></td>
-							<td class="currency" style="color: #428bca !important;">
-							<a href="#">1000</a> 
-							</td>
-							<td class="currency">50000000</td>
-							<td>31</td>
-							<td class="currency">155000000</td>
-							<td>-</td>
-							<td class="currency">5155000000</td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>08/01/2014</td>
-							<td><a href="#">08/02/2014</a></td>
-							<td class="currency" style="color: #428bca !important;">
-							<a href="#">1000</a> 
-							</td>
-							<td class="currency">50000000</td>
-							<td>31</td>
-							<td class="currency">155000000</td>
-							<td>-</td>
-							<td class="currency">5155000000</td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>08/01/2014</td>
-							<td><a href="#">08/02/2014</a></td>
-							<td class="currency" style="color: #428bca !important;">
-							<a href="#">1000</a> 
-							</td>
-							<td class="currency">50000000</td>
-							<td>31</td>
-							<td class="currency">155000000</td>
-							<td>-</td>
-							<td class="currency">5155000000</td>
-						</tr>
-						<tr>
-							<td>6</td>
-							<td>08/01/2014</td>
-							<td><a href="#">08/02/2014</a></td>
-							<td class="currency" style="color: #428bca !important;">
-							<a href="#">1000</a> 
-							</td>
-							<td class="currency">50000000</td>
-							<td>31</td>
-							<td class="currency">155000000</td>
-							<td>-</td>
-							<td class="currency">5155000000</td>
-						</tr>
-						<tr>
-							<td>7</td>
-							<td>08/01/2014</td>
-							<td><a href="#">08/02/2014</a></td>
-							<td class="currency" style="color: #428bca !important;">
-							<a href="#">1000</a> 
-							</td>
-							<td class="currency">50000000</td>
-							<td>31</td>
-							<td class="currency">155000000</td>
-							<td>-</td>
-							<td class="currency">5155000000</td>
-						</tr>
-						<tr>
-							<td>8</td>
-							<td>08/01/2014</td>
-							<td><a href="#">08/02/2014</a></td>
-							<td class="currency" style="color: #428bca !important;">
-							<a href="#">1000</a> 
-							</td>
-							<td class="currency">50000000</td>
-							<td>31</td>
-							<td class="currency">155000000</td>
-							<td>-</td>
-							<td class="currency">5155000000</td>
-						</tr>
-					</tbody>
+				{% endif %}
+					{% for cus_debit in lsCusDebit %}
+						<tbody cus_debit_id="{{ cus_debit.id }}" style="overflow-y: scroll; overflow-x: hidden; height: 100px;" >
+							{% for cus_debit_detail in lsCusDebitDetail %}
+								{% if cus_debit.id|truncatechars:100 ==  cus_debit_detail.cus_debit_id.id|truncatechars:100 %}
+									<tr>
+										<td>{{ cus_debit_detail.index }}</td>
+										<td class="date">{{ cus_debit_detail.from_date|date:'d-m-Y' }}</td>
+										<td class="date"><a href="#">{{ cus_debit_detail.to_date|date:'d-m-Y' }}</a></td>
+										<td class="currency">{{ cus_debit_detail.start_cycle }}</td>
+										<td>
+											<a href="#" onclick="onChangeRate();" style="color: #428bca !important;" class="currency">{{ cus_debit_detail.rate }}</a>
+											<input type="text" id="aaaaa" name="" value="1000" style="display: none;color: #428bca;width: 80px;" onkeydown="if (event.keyCode == 13) onSaveChange();" maxlength="5" required="">
+										</td>
+										<td>{{ cus_debit.cycle }}</td>
+										<td>{{ cus_debit_detail.days }}</td>
+										<td class="currency">{{ cus_debit_detail.amount }}</td>
+										<td class="currency">{{ cus_debit_detail.payment }}</td>
+										<td class="currency">{{ cus_debit_detail.end_cycle }}</td>
+									</tr>
+								{% endif %}
+							{% endfor %}
+						</tbody>
+					{% endfor %}
 				</table>
 			</div>
 			<!-- table-responsive -->
@@ -422,7 +345,14 @@
 		$("#lbcusAmountPayment").css('display','none')
 	});
 	
-	});	
+	});
+	function changeDebitDetail(cus_debit_id)
+	{
+		$("table tbody[cus_debit_id][cus_debit_id='" + cus_debit_id + "']").show();
+		$("table tbody[cus_debit_id][cus_debit_id!='" + cus_debit_id + "']").hide();
+		$("ul li[cus_debit_id='" + cus_debit_id + "']").addClass('active');
+		$("ul li[cus_debit_id!='" + cus_debit_id + "']").removeClass('active');
+	}
 	function reloadselect(){
 		$('#selCusphone').chosen('destroy');
 		$('#selCusphone').chosen();
@@ -447,6 +377,19 @@
 		$("ul li[cus_id='" + cusId + "']").css("display", "block");
 		$("ul li[cus_id!='" + cusId + "']").css("display", "none");
 		$("ul li[cus_id='" + cusId + "']:first").addClass('active');
+		
+		var cus_id = $("ul li[cus_id='" + cusId + "']:first").attr('cus_id');
+		var cus_debit_id = $("ul li[cus_id='" + cusId + "']:first").attr('cus_debit_id');
+		var number_records=$("#lsCusDebit li[cus_id='" + cus_id + "']").size();
+		$("table tbody[cus_debit_id][cus_debit_id='" + cus_debit_id + "']").show();
+		$("table tbody[cus_debit_id][cus_debit_id!='" + cus_debit_id + "']").hide();
+		var totalTemp=0;
+		$("#lsCusDebit li[cus_id='" + cus_id + "']").each(function( index )
+		{
+			totalTemp += parseFloat($( this ).attr('cus_total_debit'));
+		});
+		$("#divCusInfor").html('Số khoản vay: <span > '+ number_records +' khoản </span> - Tổng số tiền nợ:');
+		$("#foo").append('<span class="currency" style="color: red !important;">'+ totalTemp +'</span>');
 	});
 	$('#selCusIdNo').change(function(){
 		var cusId = $(this).find('option:selected').attr('cus_id');
@@ -463,6 +406,19 @@
 		$("ul li[cus_id='" + cusId + "']").css("display", "block");
 		$("ul li[cus_id!='" + cusId + "']").css("display", "none");
 		$("ul li[cus_id='" + cusId + "']:first").addClass('active');
+		
+		var cus_id = $("ul li[cus_id='" + cusId + "']:first").attr('cus_id');
+		var cus_debit_id = $("ul li[cus_id='" + cusId + "']:first").attr('cus_debit_id');
+		var number_records=$("#lsCusDebit li[cus_id='" + cus_id + "']").size();
+		
+		$("table tbody[cus_debit_id][cus_debit_id='" + cus_debit_id + "']").show();
+		$("table tbody[cus_debit_id][cus_debit_id!='" + cus_debit_id + "']").hide();
+		var totalTemp=0;
+		$("#lsCusDebit li[cus_id='" + cus_id + "']").each(function( index )
+		{
+			totalTemp += parseFloat($( this ).attr('cus_total_debit'));
+		});
+		$("#divCusInfor").html('Số khoản vay: <span > '+ number_records +' khoản </span> - Tổng số tiền nợ: <span class="currency" style="color: red !important;">'+ totalTemp +'</span>');
 	});
 	$('#selCusCode').change(function(){
 		var cusId = $(this).find('option:selected').attr('cus_id');
@@ -479,6 +435,19 @@
 		$("ul li[cus_id='" + cusId + "']").css("display", "block");
 		$("ul li[cus_id!='" + cusId + "']").css("display", "none");
 		$("ul li[cus_id='" + cusId + "']:first").addClass('active');
+		
+		var cus_id = $("ul li[cus_id='" + cusId + "']:first").attr('cus_id');
+		var cus_debit_id = $("ul li[cus_id='" + cusId + "']:first").attr('cus_debit_id');
+		var number_records=$("#lsCusDebit li[cus_id='" + cus_id + "']").size();
+		$("table tbody[cus_debit_id][cus_debit_id='" + cus_debit_id + "']").show();
+		$("table tbody[cus_debit_id][cus_debit_id!='" + cus_debit_id + "']").hide();
+		var totalTemp=0;
+		$("#lsCusDebit li[cus_id='" + cus_id + "']").each(function( index )
+		{
+			totalTemp += parseFloat($( this ).attr('cus_total_debit'));
+		});
+		$("#divCusInfor").html('Số khoản vay: <span > '+ number_records +' khoản </span> - Tổng số tiền nợ: <span class="currency" style="color: red !important;">'+ totalTemp +'</span>');
+		
 	});
 	function SaveLoan()
 	{
@@ -491,21 +460,33 @@
 		jQuery('#form_cus_loan').submit();
 	}
 	jQuery(window).load(function(){ 
-		//$('#bbbbb').formatCurrency().regions['vi-VN'];
-		$('#bbbbb').formatCurrency({ colorize:true, region: 'vi-VN' });
-		$('td.currency').formatCurrency({ colorize:true, region: 'vi-VN' });
+	//	$('#bbbbb').formatCurrency({ colorize:true, region: 'vi-VN' });
+		$('.currency').formatCurrency({ colorize:true, region: 'vi-VN' });
 		$('#cusRate').formatCurrency({ colorize:true, region: 'vi-VN' });
 		var cusId = $("#selCusCode").find('option:selected').attr('cus_id');
 		var cusName = $("#selCusCode").find('option:selected').attr('cus_name');
 		var cusAdress = $("#selCusCode").find('option:selected').attr('cus_address');
 		$("#divCusName").html(cusName);
 		$("#divCusAddress").html(cusAdress);
+		
 		$("#hd_cus_id").val(cusId);
 		
 		$("ul li[cus_id='" + cusId + "']").css("display", "block");
 		$("ul li[cus_id!='" + cusId + "']").css("display", "none");
 		$("ul li[cus_id='" + cusId + "']:first").addClass('active');
 		
+		var cus_id = $("ul li[cus_id='" + cusId + "']:first").attr('cus_id');
+		var cus_debit_id = $("ul li[cus_id='" + cusId + "']:first").attr('cus_debit_id');
+		var number_records=$("#lsCusDebit li[cus_id='" + cus_id + "']").size();
+		$("table tbody[cus_debit_id][cus_debit_id='" + cus_debit_id + "']").show();
+		$("table tbody[cus_debit_id][cus_debit_id!='" + cus_debit_id + "']").hide();
+		var totalTemp=0;
+		$("#lsCusDebit li[cus_id='" + cus_id + "']").each(function( index )
+		{
+			totalTemp += parseFloat($( this ).attr('cus_total_debit'));
+		});
+		$("#divCusInfor").html('Số khoản vay: <span > '+ number_records +' </span> - Tổng số tiền nợ: <span class="currency" style="color: red !important;">'+ totalTemp +'</span>');
+
 		StartpickerOptsPlanStart = {
 				//minDate: new Date(),
 				maxDate: "+5Y"
@@ -527,14 +508,14 @@
 		{
 			$("#aaaaa").numeric();
 			$('#aaaaa').css('display', 'block');
-			$('#bbbbb').css('display', 'none');
+		//	$('#bbbbb').css('display', 'none');
 		}
 		function onSaveChange()
 		{
-			$('#bbbbb').text($('#aaaaa').val());
-			$('#bbbbb').formatCurrency({ colorize:true, region: 'vi-VN' });
+			//$('#bbbbb').text($('#aaaaa').val());
+		//	$('#bbbbb').formatCurrency({ colorize:true, region: 'vi-VN' });
 			$('#aaaaa').css('display', 'none');
-			$('#bbbbb').css('display', 'block');
+		//	$('#bbbbb').css('display', 'block');
 		}
 	</script>
 {% endblock scripts%}

@@ -24,6 +24,7 @@ class CusDebit(Document):
 	payment = FloatField()
 	create_date = DateTimeField(default=datetime.now)
 	loan_date = DateTimeField(default=datetime.now)
+	last_close_date = DateTimeField(default=datetime.now)
 	status = FloatField()
 	note = StringField()
 	meta = {

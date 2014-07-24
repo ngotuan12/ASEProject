@@ -8,10 +8,11 @@ from datetime import datetime
 from mongoengine.django.auth import User
 from mongoengine.document import Document
 from mongoengine.fields import ReferenceField, DateTimeField,\
-	FloatField
+	FloatField, IntField
 
 from myapp.models.CusDebit import CusDebit
 from myapp.models.Customer import Customer
+
 
 class CusDebitDetail(Document):
 	cus_id  = ReferenceField(Customer)
@@ -25,8 +26,11 @@ class CusDebitDetail(Document):
 	end_cycle = FloatField()
 	debit = FloatField()
 	status = FloatField()
+	days = FloatField()
 	create_date= DateTimeField(default=datetime.now)
 	is_current_month = FloatField()
+	flag = IntField(default=0)
+	index = IntField()
 	meta = {
 			'ordering': ['-create_date']
 			}
