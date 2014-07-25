@@ -9,6 +9,7 @@ from mongoengine.django.auth import User
 from mongoengine.document import Document
 from mongoengine.fields import ReferenceField, DateTimeField,\
 	FloatField
+import myapp.models.Customer as Cus
 
 class Payment(Document):
 	cus_id  = ReferenceField(User)
@@ -19,3 +20,8 @@ class Payment(Document):
 	meta = {
 			'ordering': ['-create_date']
 			}
+
+def getPaymentofadebtowner(debt_owner):
+	listcus = Cus.getlistCustomerbyDebtOwner(debt_owner)
+	paymentafterfilter = Payment.objects.filter(cus_id__in=listcus)
+	return paymentafterfilter

@@ -28,3 +28,7 @@ class Customer(Document):
 	meta = {
 			'ordering': ['-create_date']
 			}
+	
+def getlistCustomerbyDebtOwner(debt_owner):
+	return Customer.objects(debt_owner=debt_owner)
+	

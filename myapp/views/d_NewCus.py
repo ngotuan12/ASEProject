@@ -28,7 +28,7 @@ def index(request):
 		About = request.POST['txaAbout']
 
 		try:
-			user_name='anhphongkiem'
+			user_name='student'
 			debt_owner=User.objects.get(username=user_name)
 			
 			user = User()

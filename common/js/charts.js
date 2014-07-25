@@ -16,7 +16,7 @@ jQuery(document).ready(function() {
 	
 	 var plot = jQuery.plot(jQuery("#basicflot"),
 		[ { data: flash,
-          label: "Flash",
+          label: "aaaa",
           color: "#1CAF9A"
         },
         { data: html5,

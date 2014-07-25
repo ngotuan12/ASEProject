@@ -7,68 +7,160 @@
 </div>
 {% endblock %} 
 {% block content %}
-<div class="mainpanel" style="margin-top: 2%">
+<div class="row" style="margin-top: 2%">
+        <div class="col-sm-8 col-md-9">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-sm-12">
+                  <h5 class="subtitle mb5">Network Performance</h5>
+                  <p class="mb15">Duis autem vel eum iriure dolor in hendrerit in vulputate...</p>
+                  <div id="basicflot" style="width: 100%; height: 300px; margin-bottom: 20px"></div>
+                </div><!-- col-sm-8 -->
+              </div><!-- row -->
+            </div><!-- panel-body -->
+          </div><!-- panel -->
+        </div><!-- col-sm-9 -->
         
-    <div class="contentpanel">
-      
-      <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-4 col-md-3">
           
+          <div class="panel panel-default">
+            <div class="panel-body">
+            <h5 class="subtitle mb5">Most Browser Used</h5>
+            <p class="mb15">Duis autem vel eum iriure dolor in hendrerit in vulputate...</p>
+            <div id="piechart" style="width: 100%; height: 300px"></div>
+            </div><!-- panel-body -->
+          </div><!-- panel -->
           
-          <h5 class="subtitle">About</h5>
-          <p class="mb30">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat... <a href="#">Show More</a></p>
-          
-          <h5 class="subtitle">Connect</h5>
-          <ul class="profile-social-list">
-            <li><i class="fa fa-twitter"></i> <a href="#">twitter.com/eileensideways</a></li>
-            <li><i class="fa fa-facebook"></i> <a href="#">facebook.com/eileen</a></li>
-            <li><i class="fa fa-youtube"></i> <a href="#">youtube.com/eileen22</a></li>
-            <li><i class="fa fa-linkedin"></i> <a href="#">linkedin.com/4ever-eileen</a></li>
-            <li><i class="fa fa-pinterest"></i> <a href="#">pinterest.com/eileen</a></li>
-            <li><i class="fa fa-instagram"></i> <a href="#">instagram.com/eiside</a></li>
-          </ul>
-          
-          <div class="mb30"></div>
-          
-          <h5 class="subtitle">Address</h5>
-          <address>
-            795 Folsom Ave, Suite 600<br>
-            San Francisco, CA 94107<br>
-            <abbr title="Phone">P:</abbr> (123) 456-7890
-          </address>
-          
-          {% if status %}
-          	<h5 class="subtitle">Thêm khách hàng mới thành công</h5>
-          {% endif%}
-          
-        </div>
-        <div class="col-sm-9">
+        </div><!-- col-sm-3 -->
         
-        	<div class="panel panel-default" style="min-height: 500px ;text-align:center" >
-        		<div id="main">
-        		</br></br>
-        		<button class="btn btn-primary btn-lg" style="font-size:3em;padding:1em;" onclick="onloan();">Cho vay</button>
-        		</br></br>
-        		<button class="btn btn-primary btn-lg" style="font-size:3em;padding:1em" onClick="location.href='custom-debit-detail?type=trano'">Trả nợ</button>
-        		</br></br>
-        		<button class="btn btn-primary btn-lg" style="font-size:3em;padding:1em" onClick="">Báo cáo</button>
-        		</div>
-        		<div id="loan">
-        		</br></br>
-        		<button class="btn btn-primary btn-lg" style="font-size:3em;padding:1em;" onClick="location.href='newcustomer'">Khách hàng mới</button>
-        		</br></br>
-        		<button class="btn btn-primary btn-lg" style="font-size:3em;padding:1em" onClick="location.href='custom-debit-detail?type=chovay'">Khách hàng cũ</button>
-        		</br></br>
-        		<button class="btn btn-primary btn-lg" style="font-size:3em;padding:1em" onClick="onback();">Trở lại</button>
-        		</div>
-        	</div>
-        </div>
-      </div><!-- row -->
-      
-    </div><!-- contentpanel -->
-  </div>
+      </div>
 
 
+<div class="row">
+        
+        <div class="col-sm-6 col-md-3">
+          <div class="panel panel-success panel-stat">
+            <div class="panel-heading">
+              
+              <div class="stat">
+                <div class="row">
+                  <div class="col-xs-4">
+                    <img src="images/is-user.png" alt="">
+                  </div>
+                  <div class="col-xs-8">
+                    <small class="stat-label">Visits Today</small>
+                    <h1>900k+</h1>
+                  </div>
+                </div><!-- row -->
+                
+                <div class="mb15"></div>
+                
+                <div class="row">
+                  <div class="col-xs-6">
+                    <small class="stat-label">Pages / Visit</small>
+                    <h4>7.80</h4>
+                  </div>
+                  
+                  <div class="col-xs-6">
+                    <small class="stat-label">% New Visits</small>
+                    <h4>76.43%</h4>
+                  </div>
+                </div><!-- row -->
+              </div><!-- stat -->
+              
+            </div><!-- panel-heading -->
+          </div><!-- panel -->
+        </div><!-- col-sm-6 -->
+        
+        <div class="col-sm-6 col-md-3">
+          <div class="panel panel-danger panel-stat">
+            <div class="panel-heading">
+              
+              <div class="stat">
+                <div class="row">
+                  <div class="col-xs-4">
+                    <img src="images/is-document.png" alt="">
+                  </div>
+                  <div class="col-xs-8">
+                    <small class="stat-label">% Unique Visitors</small>
+                    <h1>54.40%</h1>
+                  </div>
+                </div><!-- row -->
+                
+                <div class="mb15"></div>
+                
+                <small class="stat-label">Avg. Visit Duration</small>
+                <h4>01:80:22</h4>
+                  
+              </div><!-- stat -->
+              
+            </div><!-- panel-heading -->
+          </div><!-- panel -->
+        </div><!-- col-sm-6 -->
+        
+        <div class="col-sm-6 col-md-3">
+          <div class="panel panel-primary panel-stat">
+            <div class="panel-heading">
+              
+              <div class="stat">
+                <div class="row">
+                  <div class="col-xs-4">
+                    <img src="images/is-document.png" alt="">
+                  </div>
+                  <div class="col-xs-8">
+                    <small class="stat-label">Page Views</small>
+                    <h1>300k+</h1>
+                  </div>
+                </div><!-- row -->
+                
+                <div class="mb15"></div>
+                
+                <small class="stat-label">% Bounce Rate</small>
+                <h4>34.23%</h4>
+                  
+              </div><!-- stat -->
+              
+            </div><!-- panel-heading -->
+          </div><!-- panel -->
+        </div><!-- col-sm-6 -->
+        
+        <div class="col-sm-6 col-md-3">
+          <div class="panel panel-dark panel-stat">
+            <div class="panel-heading">
+              
+              <div class="stat">
+                <div class="row">
+                  <div class="col-xs-4">
+                    <img src="images/is-money.png" alt="">
+                  </div>
+                  <div class="col-xs-8">
+                    <small class="stat-label">Today's Earnings</small>
+                    <h1>$655</h1>
+                  </div>
+                </div><!-- row -->
+                
+                <div class="mb15"></div>
+                
+                <div class="row">
+                  <div class="col-xs-6">
+                    <small class="stat-label">Last Week</small>
+                    <h4>$32,322</h4>
+                  </div>
+                  
+                  <div class="col-xs-6">
+                    <small class="stat-label">Last Month</small>
+                    <h4>$503,000</h4>
+                  </div>
+                </div><!-- row -->
+                  
+              </div><!-- stat -->
+              
+            </div><!-- panel-heading -->
+          </div><!-- panel -->
+        </div><!-- col-sm-6 -->
+      </div>
+     
 {% endblock %}
 
 {% block scripts %}
@@ -81,26 +173,23 @@
 <script src="js/jquery.maskedinput.min.js"></script>
 <script src="js/jquery.numeric.js"></script>
 <script src="js/custom.js"></script>
- 
-<script type="text/javascript">
-$(document).ready(function() {
-	$('#loan').css("display", "none");
-	$('#main').css("display", "block");
-});
 
-</script>
-<script type="text/javascript">
-function onloan(){
-	$('#loan').css("display", "block");
-	$('#main').css("display", "none");
-}
 
-function onback(){
-	$('#loan').css("display", "none");
-	$('#main').css("display", "block");
-}
+<script src="js/flot/flot.min.js"></script>
+<script src="js/flot/flot.resize.min.js"></script>
+<script src="js/flot/flot.symbol.min.js"></script>
+<script src="js/flot/flot.crosshair.min.js"></script>
+<script src="js/flot/flot.categories.min.js"></script>
+<script src="js/flot/flot.pie.min.js"></script>
+<script src="js/morris.min.js"></script>
+<script src="js/raphael-2.1.0.min.js"></script>
 
-</script>
+<script src="js/charts.js"></script>
 
 <script defer src="slider/jquery.flexslider.js"></script>
+
+{% endblock %}
+
+{% block styles %} 
+<link href="css/morris.css" rel="stylesheet">
 {% endblock %}

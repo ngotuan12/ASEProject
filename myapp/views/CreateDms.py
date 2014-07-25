@@ -24,24 +24,31 @@ def index(request):
 			user=request.user
 			#createcustomer(user)
 			#createcusdebit(user)
-			close_cycle_all()
+			#close_cycle_all()
+			getCustomerDebitInfo(user)
 		except Exception as ex:
 			print(ex)
 		context = {'msg':'done'}
 		return render(request,'myapp/CreateDms.html', context)
 
-def getCustomerInfo(owner):
-	user=User.objects.get(username=owner)
-	customer = Customer.objects(ownner = user.id)
+def getCustomerInfo(ownner):
+	customer = Customer.objects(debt_owner = ownner)
 	return customer
-def getCustomerDebitInfo():
-	listcus =  getCustomerInfo()
+def getCustomerDebitInfo(owner):
+	listcus =  getCustomerInfo(owner)
 	allcustomerdebit = CusDebit.objects()
 	cusdebitafterfilter  = []
 	for	l in listcus:
 		for cd in allcustomerdebit:
 			if(cd.cus_id ==l.cus_id):
 				cusdebitafterfilter.append(cd)
+	for aaa  in cusdebitafterfilter:
+		print(aaa.cus_id)
+	
+	
+	cusdebitafterfilter = CusDebit.objects.filter(cus_id__in=listcus)
+	for aaa  in cusdebitafterfilter:
+		print(aaa.cus_id)
 	
 	
 	return cusdebitafterfilter
