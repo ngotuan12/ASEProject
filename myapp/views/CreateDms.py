@@ -14,6 +14,8 @@ from mongoengine.fields import ReferenceField
 from myapp.models.CusDebit import CusDebit
 from myapp.models.CusDebitDetail import CusDebitDetail
 from myapp.models.Customer import Customer
+from myapp.models.Payment import Payment
+from myapp.models.PaymentDetail import PaymentDetail
 
 @login_required(login_url='/signin')
 def index(request):
@@ -27,26 +29,53 @@ def index(request):
 			print(ex)
 		context = {'msg':'done'}
 		return render(request,'myapp/CreateDms.html', context)
-def getCustomerInfo():
-	username=request.user
-	user=User.objects.get(username=str(request.user))
+
+def getCustomerInfo(owner):
+	user=User.objects.get(username=owner)
 	customer = Customer.objects(ownner = user.id)
 	return customer
 def getCustomerDebitInfo():
-	username=request.user
-	user=User.objects.get(username=str(request.user))
-	customerdebit = CusDebit.objects(ownner = user.id)
-	return customerdebit
+	listcus =  getCustomerInfo()
+	allcustomerdebit = CusDebit.objects()
+	cusdebitafterfilter  = []
+	for	l in listcus:
+		for cd in allcustomerdebit:
+			if(cd.cus_id ==l.cus_id):
+				cusdebitafterfilter.append(cd)
+	
+	
+	return cusdebitafterfilter
+
 def getCustomerDebitDetail():
-	username=request.user
-	user=User.objects.get(username=str(request.user))
-	customerdebitdetail = Customer.objects.get(ownner = user.id)
-	return customerdebitdetail
+	listcus =  getCustomerInfo()
+	allcustomerdebitdetail = CusDebitDetail.objects()
+	cusdebitdetailafterfilter  = []
+	for	l in listcus:
+		for cdd in allcustomerdebitdetail:
+			if(cdd.cus_id == l.cus_id ):
+				cusdebitdetailafterfilter.append(cdd)
+	return cusdebitdetailafterfilter
+
 def getPaymentHistory():
-	username=request.user
-	user=User.objects.get(username=str(request.user))
-	customerdebitdetail = CusDebitDetail.objects(ownner = user.id)
-	return customerdebitdetail
+	listcus =  getCustomerInfo()
+	allpaymentdetail = Payment.objects()
+	paymentafterfilter  = []
+	for	l in listcus:
+		for pm in allpaymentdetail:
+			if(pm.cus_id == l.cus_id ):
+				paymentafterfilter.append(pm)
+	return paymentafterfilter
+	
+def getPaymentDetail():
+	listcus =  getCustomerInfo()
+	allpaymentdetaildetail = PaymentDetail.objects()
+	paymentdetailafterfilter  = []
+	for	l in listcus:
+		for pmd in allpaymentdetaildetail:
+			if(pmd.cus_id == l.cus_id ):
+				paymentdetailafterfilter.append(pmd)
+	return paymentdetailafterfilter
+	
 def createcustomer(user,id_no, address,home_address, fone_number, about):
 		try:
 			vtoday = date.today()
