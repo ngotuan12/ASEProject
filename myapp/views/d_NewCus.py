@@ -39,6 +39,7 @@ def index(request):
 			user.save()
 			
 			_customer = Customer()
+			_customer.cus_id = user
 			_customer.id_no = idNo
 			_customer.cus_code=firstname
 			_customer.address = Address
