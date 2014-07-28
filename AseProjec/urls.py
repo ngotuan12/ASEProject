@@ -19,7 +19,6 @@ urlpatterns = patterns('',
 						url(r'^newcustomer$', d_NewCus.index, name='d_NewCus'),
 						url(r'^custom-debit-detail$',d_CusDebitDetail.index),
 						url(r'^newCusDebit$',d_CusDebitDetail.index,name='newCusDebit'),
-						
 						#ASE
 						url(r'^community$', Community.index, name='community'),
 						url(r'^i18n/', include('django.conf.urls.i18n')),
