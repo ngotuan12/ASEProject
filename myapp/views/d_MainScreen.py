@@ -27,7 +27,7 @@ def index(request):
 		cusdebitafterfilter = CusDebit.objects.filter(cus_id__in=listcus)
 		
 		for a in cusdebitafterfilter:
-			print(a.cus_id)
+			print(a.cus_id.cus_id)
 	except Exception as e:
 		print(e)
 	context={}
